@@ -1,0 +1,88 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    display: flex;
+    background-color: black;
+    padding-bottom: 0.5%;
+    padding-top: 0.5%;
+    padding-left: 0.5%;
+    box-shadow: 0 5px 10px black;
+    border-radius: 0 0 2px 2px;
+}
+
+.menu {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.menu a {
+    font-size: 24px;
+    color: white;
+    text-decoration: none;
+}
+
+.name {
+    flex-grow: 1;
+}
+
+.login {
+    flex-grow: 1;
+}
+
+.about {
+    flex-grow: 25;
+}
+
+.logo {
+    height: 70px;
+    width: 70px;
+    margin-right: 1%;
+}
+
+.logo > img{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.background-holder {
+    width: 100%;
+    height: 250px;
+}
+
+.background-holder img {
+    height: 100%;
+    width: 100%;
+    object-fit:inherit;
+}
+
+.lending {
+    padding: 1%;
+    height: 100px;
+}
+
+.lending p { 
+    color: #685206; 
+    font-family: ‘Helvetica Neue’, sans-serif; 
+    font-size: 14px; 
+    line-height: 24px; 
+    margin: 0 0 24px; 
+    text-align: justify; 
+    text-justify: inter-word; 
+    
+}
+
+.description {
+    display: flex;
+    column-gap: 5%;
+}
+
+.description div {
+    flex-grow: 1;
+}
