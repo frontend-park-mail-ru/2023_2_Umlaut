@@ -1,6 +1,5 @@
-* {
-    margin: 0;
-    padding: 0;
+:root {
+    --main-text-color: #685206;
 }
 
 header {
@@ -16,7 +15,6 @@ header {
 .menu {
     display: flex;
     width: 100%;
-    justify-content: space-between;
     align-items: center;
 }
 
@@ -27,16 +25,12 @@ header {
     text-decoration: none;
 }
 
-.name {
-    flex-grow: 1;
+.menu div {
+    margin-right: 1%;
 }
 
 .login {
-    flex-grow: 1;
-}
-
-.about {
-    flex-grow: 25;
+    margin-inline-start: auto;
 }
 
 .logo {
@@ -69,7 +63,7 @@ header {
 }
 
 .lending p { 
-    color: #685206;
+    color: var(--main-text-color);
     font-family: "Helvetica Neue", sans-serif;
     font-size: 14px;
     line-height: 24px;
@@ -77,8 +71,10 @@ header {
 }
 
 .lending h1 {
-    color: #685206; 
+    color: var(--main-text-color);
     font-family: "Helvetica Neue", sans-serif; 
+    font-size: 30px;
+    font-weight: bold;
 }
 
 .description {
@@ -94,12 +90,20 @@ header {
     width: 50%;
     display: flex;
     flex-wrap: wrap;
+    flex-direction: column;
+    row-gap: 10%;
 }
 
-.list {
-    display: flex;
-    flex-wrap: wrap;
-    column-gap: 5%;
+.list li {
+    display: table-row;
+}
+
+.list li::before {
+    display: table-cell;
+    content: "+";
+    font-weight: bold;
+    color: var(--main-text-color);
+    padding-right: 12px;
 }
 
 .heart-holder {
@@ -111,8 +115,4 @@ header {
     height: 100%;
     width: 100%;
     object-fit:cover;
-}
-
-.points h1 {
-    width: 100%;
 }
