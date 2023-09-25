@@ -22,6 +22,7 @@ header {
 
 .menu a {
     font-size: 24px;
+    font-family: ‘Helvetica Neue’, sans-serif; 
     color: white;
     text-decoration: none;
 }
@@ -59,7 +60,7 @@ header {
 .background-holder img {
     height: 100%;
     width: 100%;
-    object-fit:inherit;
+    object-fit:cover;
 }
 
 .lending {
@@ -71,11 +72,14 @@ header {
     color: #685206; 
     font-family: ‘Helvetica Neue’, sans-serif; 
     font-size: 14px; 
-    line-height: 24px; 
-    margin: 0 0 24px; 
+    line-height: 24px;  
     text-align: justify; 
-    text-justify: inter-word; 
-    
+    text-justify: inter-word;    
+}
+
+.lending h1 {
+    color: #685206; 
+    font-family: ‘Helvetica Neue’, sans-serif; 
 }
 
 .description {
@@ -83,6 +87,28 @@ header {
     column-gap: 5%;
 }
 
-.description div {
-    flex-grow: 1;
+.introduction {
+    width: 50%;
+}
+
+.points {
+    width: 50%;
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 3%;
+}
+
+.heart-holder {
+    height: 5%;
+    width: 5%;
+}
+
+.heart-holder img {
+    height: 100%;
+    width: 100%;
+    object-fit:cover;
+}
+
+.points h1 {
+    width: 100%;
 }
