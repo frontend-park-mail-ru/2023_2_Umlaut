@@ -2,6 +2,14 @@
     --main-text-color: #685206;
 }
 
+html {
+    height: 100%;
+}
+
+body {
+    min-height:100%;
+}
+
 header {
     display: flex;
     background-color: black;
@@ -59,7 +67,6 @@ header {
 
 .lending {
     padding: 1%;
-    height: 100px;
 }
 
 .lending p { 
@@ -114,5 +121,5 @@ header {
 .heart-holder img {
     height: 100%;
     width: 100%;
-    object-fit:cover;
+    object-fit: cover;
 }
