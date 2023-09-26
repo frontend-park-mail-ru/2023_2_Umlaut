@@ -1,0 +1,130 @@
+#root {
+    height:90vh;
+    display: grid;
+    padding: 3%;
+    padding-top: 0%;
+
+    grid-template-areas:
+        "header header"
+        "menu content";
+
+    grid-template-rows: 15% 85%;
+    grid-template-columns: 15% 85%;
+    font: 1.2rem "Helvetica", sans-serif;
+}
+
+.header{
+    display: flex;
+    grid-area: header;
+    justify-content: space-between;
+    align-content: center;
+}
+
+.profile, .main-page{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+
+.name, .umlaut{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-wrap: wrap;
+}
+
+.form-btn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    grid-row: 5;
+    grid-column: 1;
+    max-height: 70px;
+    z-index: 2;
+}
+
+ .sidebar{
+    grid-area: menu;
+    display: grid;
+    align-content: flex-start;
+    margin: 2%;
+ }
+
+ .sidebar a{
+    margin: 5%;
+ }
+
+.greetings{
+    grid-area: content;
+}
+
+.userForm{
+    margin: 5%;
+    padding: 2%;
+    grid-area: content;
+    display: grid;
+    height: 80%;
+    grid-template-columns: 45% 55%;
+    grid-template-rows: 100%;
+    border: solid;
+    border-radius: 25px;
+}
+
+.i, .umlaut{
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.photo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    grid-column: 1;
+    grid-row: 1/-1;
+    z-index: 0;
+}
+
+.photo img{
+    height:100%;
+}
+
+.photo-part{
+    height:100%;
+    display: grid;
+    grid-template-rows: repeat(5, 1fr);
+}
+
+img{
+    width: auto;
+    max-height: 100%;
+}
+
+.description{
+    height: 100%;
+    z-index: 2;
+}
+
+.about{
+    padding: 4%;
+    display: grid;
+
+    grid-template-columns: 40% 60%;
+}
+
+.me, .goal, .education, .tags, .interests{
+    margin: 3%;
+}
+
+.like-btn{
+    height: 100%;
+    width: auto;
+}
+
+.dislike-btn{
+    height: 100%;
+    width: auto;
+}
+
+.message-btn{
+    height: 100%;
+}
