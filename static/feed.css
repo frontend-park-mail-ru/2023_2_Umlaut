@@ -13,6 +13,13 @@
     font: 1.2rem "Helvetica", sans-serif;
 }
 
+a.link:active, /* активная/посещенная ссылка */
+a.link:hover,  /* при наведении */
+a.link {
+  text-decoration: none;
+  color: black;
+}
+
 .header{
     display: flex;
     grid-area: header;
@@ -26,11 +33,21 @@
     align-content: center;
 }
 
-.name, .umlaut{
+.avatar img{
+    width: auto;
+    max-height: 100%;
+}
+
+.umlaut{
     display: flex;
     justify-content: center;
     align-content: center;
     flex-wrap: wrap;
+}
+
+.logo img{
+    width: auto;
+    max-height: 100%;
 }
 
 .form-btn{
@@ -41,6 +58,12 @@
     grid-column: 1;
     max-height: 70px;
     z-index: 2;
+    gap: 5%;
+}
+
+.form-btn img{
+    width: auto;
+    max-height: 100%;
 }
 
  .sidebar{
@@ -54,14 +77,14 @@
     margin: 5%;
  }
 
-.greetings{
+.main-part{
     grid-area: content;
+    padding: 2%;
 }
 
 .userForm{
     margin: 5%;
     padding: 2%;
-    grid-area: content;
     display: grid;
     height: 80%;
     grid-template-columns: 45% 55%;
@@ -70,13 +93,14 @@
     border-radius: 25px;
 }
 
-.i, .umlaut{
+.user-name, .umlaut{
     font-size: 1.5rem;
     font-weight: bold;
 }
 
 .photo{
     display: flex;
+    height: 100%;
     justify-content: center;
     align-items: center;
     grid-column: 1;
@@ -89,14 +113,10 @@
 }
 
 .photo-part{
-    height:100%;
-    display: grid;
-    grid-template-rows: repeat(5, 1fr);
-}
-
-img{
-    width: auto;
-    max-height: 100%;
+    height: 100%;
+    display: flex;
+    align-content: flex-end;
+    flex-direction: column;
 }
 
 .description{
