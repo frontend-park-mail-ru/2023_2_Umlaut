@@ -1,0 +1,95 @@
+:root {
+  --input-focus-color: #e74c3c;
+  --background-color: gray;
+}
+
+body {
+  background-color: var(--background-color);
+  font-family: Helvetica;
+}
+
+.main-container {
+  margin-top: 5%;
+  display: flex;
+  justify-content: center;
+  background-color: var(--background-color);
+}
+
+.page {
+  display: flex;
+  background-color: white;
+  padding-left: 3%;
+  padding-right: 3%;
+  padding-bottom: 1.5rem;
+  padding-top: 1.5rem;
+  max-width: 45%;
+  border-radius: 1rem;
+  gap: 1.5rem;
+  flex-direction: column;
+  max-height: fit-content;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.page-header {
+  font-size: 3rem;
+}
+
+.form-field {
+}
+
+.form-field .form-field-input {
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.form-field-header {
+  margin-bottom: 0.5rem;
+}
+
+.form-field .form-field-input {
+  padding: 6px 10px;
+  margin: 4px 0;
+}
+
+.form-field .form-field-input {
+  border-color: black;
+  border-radius: 1rem;
+  border-width: 0.08rem;
+}
+
+.form-field .form-field-input:focus {
+  border-color: blue;
+  border-radius: 1rem;
+  border-width: 0.08rem;
+}
+
+.input-checkbox-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
+}
+
+.input-checkbox{
+  vertical-align: middle;
+}
+
+.input-checkbox * {
+  vertical-align: middle;
+}
+
+button {
+  color: #fff;
+  background-color: var(--input-focus-color);
+  max-width: max-content;
+  outline: none;
+  border: 0;
+  padding: 10px 20px;
+  border-radius: 2px;
+  cursor: pointer;
+}
