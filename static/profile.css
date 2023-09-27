@@ -1,9 +1,10 @@
 :root {
-    --input-focus-color: #e74c3c;
+  --input-focus-color: #e74c3c;
+  --background-color: gray;
 }
 
 body {
-  background-color: gray;
+  background-color: var(--background-color);
   font-family: Helvetica;
 }
 
@@ -11,7 +12,7 @@ body {
   margin-top: 5%;
   display: flex;
   justify-content: center;
-  background-color: gray;
+  background-color: var(--background-color);
 }
 
 .page {
@@ -74,6 +75,13 @@ body {
   align-items: center;
 }
 
+.input-checkbox{
+  vertical-align: middle;
+}
+
+.input-checkbox * {
+  vertical-align: middle;
+}
 
 button {
   color: #fff;
