@@ -1,0 +1,16 @@
+{
+  "name": "2023_2_umlaut",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server/index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "debug": "^4.3.4",
+    "handlebars": "^4.7.8"
+  }
+}
