@@ -10,11 +10,18 @@ const server = http.createServer((request, response) => {
   const { url } = request;
   debug.log("url: " + url);
   const normalizedUrl = url === "/" ? "/index.html" : url;
-  const filepath = normalizedUrl.startsWith("/static")
-    ? `.${normalizedUrl}`
-    : `./public${normalizedUrl}`;
+  let filepath;
+  if (fs.existsSync("./public" + url)) filepath = "./public" + url;
+  else if (fs.existsSync("./static" + url)) filepath = "./static" + url;
+  else if (fs.existsSync("./node_modules" + url))
+    filepath = "./node_modules" + url;
+    else {
+        debug.log("error: Not found : " + url);
+        response.write(page404);
+        response.end();
+        return;
+    }
   debug.log("filepath: " + filepath);
-
   fs.readFile(filepath, (err, data) => {
     if (err) {
       debug.log("error: " + JSON.stringify(err));
