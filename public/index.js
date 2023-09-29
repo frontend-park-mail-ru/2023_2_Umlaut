@@ -4,11 +4,11 @@
 import { Router } from "./modules/router.js";
 import { Auth } from "./components/Auth/Auth.js";
 
-let auth = new Auth(document.getElementById("root"))
 
-let router = new Router(new Map([
-    ["/auth", auth.renderAuth.bind(auth) ]
-]));
+let router = new Router();
 
+let auth = new Auth(document.getElementById("root"), () => router.go("/feed"))
 
-router.go(window.location.pathname)
+router.add("/auth", () => auth.render())
+
+router.start()
