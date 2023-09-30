@@ -16,30 +16,21 @@ export class Ajax {
       mode: "cors",
       credentials: "include",
     })
-      .then((response) => {
-        status = response.status;
-        return response.json();
-      })
+      .then(
+        (response) => {
+          status = response.status;
+          return response.json();
+        },
+        (error) => {
+          console.error(error); // ошибка отправки
+        }
+      )
       .then((parsedJson) => {
         return {
           status,
           parsedJson,
         };
       });
-  }
-
-  static async getAsync(params = {}) {
-    const response = await fetch(params.url, {
-      method: "GET",
-      mode: "cors",
-      credentials: "include",
-    });
-    const parsedJson = await response.json();
-
-    return {
-      status: response.status,
-      parsedJson,
-    };
   }
 
   static post(url = "", data = {}) {
@@ -54,20 +45,20 @@ export class Ajax {
       },
       body: JSON.stringify(data),
     })
-      .then((response) => {
-        status = response.status;
-        return response.json();
-      }, (error)=>{
-        console.error(error); // добавить обработку
-      })
+      .then(
+        (response) => {
+          status = response.status;
+          return response.json();
+        },
+        (error) => {
+          console.error(error); // ошибка отправки
+        }
+      )
       .then((parsedJson) => {
         return {
           status,
           parsedJson,
         };
-      },
-      (error)=>{
-        console.error(error); // добавить обработку
       });
   }
 
@@ -82,6 +73,20 @@ export class Ajax {
       body: JSON.stringify(data),
     });
     const parsedJson = await response.json();
+    return {
+      status: response.status,
+      parsedJson,
+    };
+  }
+
+  static async getAsync(params = {}) {
+    const response = await fetch(params.url, {
+      method: "GET",
+      mode: "cors",
+      credentials: "include",
+    });
+    const parsedJson = await response.json();
+
     return {
       status: response.status,
       parsedJson,

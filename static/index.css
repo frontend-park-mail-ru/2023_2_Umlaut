@@ -92,6 +92,11 @@ body {
     cursor: pointer;
     position: relative;
 }
+.error-label{
+    font-size: 0.8rem;
+    color: var(--input-focus-color);
+}
+
 
 /* === FEED === */
 
@@ -317,7 +322,7 @@ header {
 }
 
 .lending p {
-    color: var(--lending-text-color:);
+    color: var(--lending-text-color);
     font-family: "Helvetica Neue", sans-serif;
     font-size: 14px;
     line-height: 24px;
@@ -325,7 +330,7 @@ header {
 }
 
 .lending h1 {
-    color: var(--lending-text-color:);
+    color: var(--lending-text-color);
     font-family: "Helvetica Neue", sans-serif;
     font-size: 30px;
     font-weight: bold;
@@ -356,7 +361,7 @@ header {
     display: table-cell;
     content: "+";
     font-weight: bold;
-    color: var(--lending-text-color:);
+    color: var(--lending-text-color);
     padding-right: 12px;
 }
 
@@ -402,9 +407,6 @@ header {
 
 .page-header {
   font-size: 3rem;
-}
-
-.form-field {
 }
 
 .form-field .form-field-input {
