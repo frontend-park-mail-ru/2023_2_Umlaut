@@ -100,7 +100,7 @@ body {
 
 /* === FEED === */
 
-#root-feed {
+#root {
     height:90vh;
     display: grid;
     padding: 3%;
@@ -262,7 +262,7 @@ html {
     height: 100%;
 }
 
-header {
+header, .anauthorised-header{
     display: flex;
     background-color: black;
     padding-bottom: 6px;
@@ -270,6 +270,10 @@ header {
     padding-left: 6px;
     box-shadow: 0 5px 10px black;
     border-radius: 0 0 2px 2px;
+}
+
+.anauthorised-header{
+    grid-area: header;
 }
 
 .menu {
