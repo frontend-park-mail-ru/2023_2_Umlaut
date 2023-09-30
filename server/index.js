@@ -2,7 +2,7 @@ const http = require("http");
 const fs = require("fs");
 const debug = require("debug");
 
-const SERVER_PORT = 8000;
+const SERVER_PORT = 8001;
 
 const page404 = fs.readFileSync("./public/404.html");
 

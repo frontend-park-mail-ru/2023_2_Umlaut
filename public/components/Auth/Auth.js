@@ -17,13 +17,18 @@ export class Auth {
     event.preventDefault();
     //validation
 
-    const inputs = this.form.querySelectorAll("input")
+    const inputs = this.form.querySelectorAll("input");
     const inputsValue = {};
     inputs.forEach((input) => {
       inputsValue[input.id] = input.value;
     });
 
-    const response = Ajax.post(BACKEND_URL + URLS.login, inputsValue);
-    if (response.status < 300) this.SubmitCallback();
+    const response = Ajax.post(BACKEND_URL + URLS.login, inputsValue).then(
+      (response) => {
+        if (response.status < 300) {
+          this.SubmitCallback();
+        }
+      }
+    );
   }
 }

@@ -5,7 +5,7 @@ export const URLS = {
   feed: "/feed",
 };
 
-export const BACKEND_URL = "localhost:8000";
+export const BACKEND_URL = "http://localhost:8000";
 
 export class Ajax {
   static get(params = {}) {
@@ -57,15 +57,17 @@ export class Ajax {
       .then((response) => {
         status = response.status;
         return response.json();
-      }, (response)=>{
-        console.error(response);
-        throw Error("Все плохо");
+      }, (error)=>{
+        console.error(error); // добавить обработку
       })
       .then((parsedJson) => {
         return {
           status,
           parsedJson,
         };
+      },
+      (error)=>{
+        console.error(error); // добавить обработку
       });
   }
 
