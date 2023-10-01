@@ -29,7 +29,10 @@ export class Header {
   }
 
   renderAuth(img_src = string) {
-    this.parent.innerHTML = Handlebars.templates["Header.hbs"]({img_src});
+    let newDiv = document.createElement('div');
+    newDiv.className="header";
+    newDiv.innerHTML=Handlebars.templates["Header.hbs"]({img_src});
+    this.parent.appendChild(newDiv);
     let mainPagePart = this.parent.getElementsByClassName("main-page")[0];
     let profilePart = this.parent.getElementsByClassName("profile")[0];
     mainPagePart.addEventListener("click", this.MainPageCallback.bind(this));
@@ -37,8 +40,12 @@ export class Header {
   }
 
   renderUnauth() {
-    this.parent.innerHTML = Handlebars.templates["UnauthHeader.hbs"]();
+    let newDiv = document.createElement('div');
+    newDiv.className="anauthorised-header";
+    newDiv.innerHTML=Handlebars.templates["UnauthHeader.hbs"]();
+    this.parent.appendChild(newDiv);
     let auth = this.parent.getElementsByClassName("signin")[0];
+  
     let signup = this.parent.getElementsByClassName("signup")[0];
     auth.addEventListener("click", this.AuthCallback.bind(this));
     signup.addEventListener("click", this.SignupCallback.bind(this));
