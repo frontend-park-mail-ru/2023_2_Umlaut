@@ -8,11 +8,11 @@ templates['Menu.hbs'] = template({"1":function(container,depth0,helpers,partials
         return undefined
     };
 
-  return "    <a class=\"link menu-link\" href=\""
+  return "    <a class=\"link\" href=\""
     + alias2(alias1((depth0 != null ? lookupProperty(depth0,"href") : depth0), depth0))
     + "\" >"
     + alias2(alias1((depth0 != null ? lookupProperty(depth0,"name") : depth0), depth0))
-    + "</a>\r\n";
+    + "</a>\n";
 },"compiler":[8,">= 4.3.0"],"main":function(container,depth0,helpers,partials,data) {
     var stack1, lookupProperty = container.lookupProperty || function(parent, propertyName) {
         if (Object.prototype.hasOwnProperty.call(parent, propertyName)) {

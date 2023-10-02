@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server/index.js",
-    "compile:templates": "handlebars public/components/Menu/Menu.hbs -f public/components/Menu/Menu.precompiled.js"
+    "compile:templates": "./compile_templates.bash"
   },
   "author": "",
   "license": "ISC",
