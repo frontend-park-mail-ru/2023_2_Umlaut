@@ -6,7 +6,7 @@ export class Router {
     this.current = null;
   }
 
-  go(path) {
+  go(path, menu) {
     console.log("go  " + path)
     if (this.current === path) return;
     this.current = path
@@ -26,10 +26,8 @@ export class Router {
   start() {
     document.addEventListener('click', (evt) => {
         const linkElement = evt.target.closest('a');
-
         if (linkElement) {
             evt.preventDefault();
-            this.eventBus.publish(GLOBAL_EVENTS.linkClick);
             this.go(linkElement.pathname);
         }
     });

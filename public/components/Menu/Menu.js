@@ -4,7 +4,12 @@ export class Menu {
   constructor(items = {},renderOther=()=>{}) {
     this.parent = document.getElementById("root")
     this.RenderOther = renderOther;
-    this.items = items
+    this.item = items
+
+    this.state = {
+      activeMenu: null,
+      menuElements: {},
+    }
   }
 
   render() {
@@ -15,15 +20,12 @@ export class Menu {
     //       }
     //     }
     // );
+    this.RenderOther();
     if (true) {
-        this.RenderOther();
         let newDiv = document.createElement('div');
         newDiv.className="sidebar";
-        newDiv.innerHTML = Handlebars.templates["Menu.hbs"](this.items);
+        newDiv.innerHTML = Handlebars.templates["Menu.hbs"]({items:this.item});
         this.parent.appendChild(newDiv);
-        window.addEventListener('popstate', (evn) => {
-          // сменить активный элемент
-        })
     }
   }
 }

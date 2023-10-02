@@ -13,7 +13,28 @@ let router = new Router();
 let auth = new Auth(document.getElementById("root"), () => router.go("/feed"))
 let signup = new Signup(document.getElementById("root"), () => router.go("/feed"))
 let header = new Header(() => router.go("/feed"), () => router.go("/auth"), () => router.go("/signup"), () => router.go("/profile"))
-let menu = new Menu(() => router.go("/profile"), () => router.go("/messages"), () => router.go("/notifications"), () => header.render())
+
+const menuItems = {
+    feed: {
+        href: '/feed',
+        name: 'Лента',
+    },
+    profile: {
+        href: '/profile',
+        name: 'Профиль',
+    },
+    notifications: {
+        href: '/notifications',
+        name: 'Уведомления',
+    },
+    messages: {
+        href: '/messages',
+        name: 'Сообщения',
+    }
+};
+
+let menu = new Menu(menuItems, () => header.render())
+menu.render();
 
 router.add("/feed", () => menu.render())
 router.add("/auth", () => auth.render())
