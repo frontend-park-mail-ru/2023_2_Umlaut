@@ -6,6 +6,8 @@ import { Auth } from "./components/Auth/Auth.js";
 import { Signup } from "./components/Signup/Signup.js";
 import { Header } from "./components/Header/Header.js";
 import { Menu } from "./components/Menu/Menu.js";
+import { Feed } from "./components/Feed/Feed.js";
+import { Description } from "./components/Description/Description.js";
 import { Api } from "./modules/api.js";
 
 
@@ -35,9 +37,11 @@ const menuItems = {
 };
 
 let menu = new Menu(menuItems, () => header.render())
+let desc = new Description()
+let feed = new Feed(desc, () => router.go("/messages"), () => router.go("/messages"))
 menu.render();
 
-router.add("/feed", () => menu.render())
+router.add("/feed", () => feed.render())
 router.add("/auth", () => auth.render())
 router.add("/signup", () => signup.render())
 router.add("/logout", () => {Api.logout(); auth.render()})
