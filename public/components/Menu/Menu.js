@@ -1,12 +1,10 @@
 import { Api } from "../../modules/api.js";
 
 export class Menu {
-  constructor(profileCallback = () => {}, messagesCallback = () => {}, notifycationsCallback = () => {}, renderOther=()=>{}) {
+  constructor(items = {},renderOther=()=>{}) {
     this.parent = document.getElementById("root")
-    this.MessagesCallback = messagesCallback;
-    this.ProfileCallback = profileCallback;
-    this.NotifyCallback = notifycationsCallback;
     this.RenderOther = renderOther;
+    this.items = items
   }
 
   render() {
@@ -20,15 +18,12 @@ export class Menu {
     if (true) {
         this.RenderOther();
         let newDiv = document.createElement('div');
-        newDiv.className="sidebar"
-        newDiv.innerHTML= Handlebars.templates["Menu.hbs"]();
+        newDiv.className="sidebar";
+        newDiv.innerHTML = Handlebars.templates["Menu.hbs"](this.items);
         this.parent.appendChild(newDiv);
-        let messagePagePart = this.parent.getElementsByClassName("messages-page")[0];
-        let profilePart = this.parent.getElementsByClassName("profile-page")[0];
-        let notificationsPart = this.parent.getElementsByClassName("notifications-page")[0];
-        notificationsPart.addEventListener("click", this.NotifyCallback.bind(this));
-        messagePagePart.addEventListener("click", this.MessagesCallback.bind(this));
-        profilePart.addEventListener("click", this.ProfileCallback.bind(this));
+        window.addEventListener('popstate', (evn) => {
+          // сменить активный элемент
+        })
     }
   }
 }

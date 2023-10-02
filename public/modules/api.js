@@ -7,7 +7,7 @@ const URLS = {
     feed: "/api/feed",
   };
   
-const BACKEND_URL = "http://localhost:8000";
+const BACKEND_URL = "http://37.139.32.76:8000";
 
 export class Api{
     static login(data={}){

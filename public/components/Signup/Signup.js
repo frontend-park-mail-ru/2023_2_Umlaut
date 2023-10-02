@@ -1,7 +1,7 @@
-import { Ajax, URLS, BACKEND_URL } from "../../modules/ajax.js";
+import { Api } from "../../modules/api.js";
 
 export class Signup {
-  constructor(parent = document.body, submitCallback = () => {}) {
+  constructor(parent = document.body, submitCallback = () => { }) {
     this.parent = parent;
     this.SubmitCallback = submitCallback;
     this.form = null;
@@ -23,7 +23,8 @@ export class Signup {
       inputsValue[input.id] = input.value;
     });
 
-    const response = Ajax.post(BACKEND_URL + URLS.singup, inputsValue);
-    if (response.status < 300) this.SubmitCallback();
+    Api.Signup(inputsValue).then(response => {
+      if (response.status < 300) this.SubmitCallback();
+    })
   }
 }
