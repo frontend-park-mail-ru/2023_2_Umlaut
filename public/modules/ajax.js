@@ -1,9 +1,9 @@
 
 export class Ajax {
-  static get(params = {}) {
+  static get(url = "") {
     let status;
 
-    return fetch(params.url, {
+    return fetch(url, {
       method: "GET",
       mode: "cors",
       credentials: "include",
@@ -21,6 +21,13 @@ export class Ajax {
         return {
           status,
           body,
+        };
+      },
+      (err) => {
+        body = null;
+        return {
+          status,
+          body
         };
       });
   }
@@ -50,6 +57,13 @@ export class Ajax {
         return {
           status,
           body,
+        };
+      },
+      (err) => {
+        body = null;
+        return {
+          status,
+          body
         };
       });
   }

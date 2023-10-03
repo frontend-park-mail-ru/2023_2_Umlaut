@@ -12,7 +12,7 @@ const BACKEND_URL = "http://37.139.32.76:8000";
 
 export class Api{
     static login(data={}){
-        return Ajax.postNoBody(BACKEND_URL + URLS.login, data);
+        return Ajax.post(BACKEND_URL + URLS.login, data);
     }
 
     static logout(){
