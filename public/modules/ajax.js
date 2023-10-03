@@ -11,7 +11,11 @@ export class Ajax {
       .then(
         (response) => {
           status = response.status;
-          return response.json();
+          const contentType = response.headers.get("content-type")
+          if ( contentType && contentType.indexOf("application/json") !== -1 )
+            return response.json();
+          else
+            return Promise.resolve(null);
         },
         (error) => {
           console.error(error); // ошибка отправки
@@ -21,13 +25,6 @@ export class Ajax {
         return {
           status,
           body,
-        };
-      },
-      (err) => {
-        body = null;
-        return {
-          status,
-          body
         };
       });
   }
@@ -47,7 +44,11 @@ export class Ajax {
       .then(
         (response) => {
           status = response.status;
-          return response.json();
+          const contentType = response.headers.get("content-type")
+          if ( contentType && contentType.indexOf("application/json") !== -1 )
+            return response.json();
+          else
+            return Promise.resolve(null);
         },
         (error) => {
           console.error(error); // ошибка отправки
@@ -57,13 +58,6 @@ export class Ajax {
         return {
           status,
           body,
-        };
-      },
-      (err) => {
-        body = null;
-        return {
-          status,
-          body
         };
       });
   }
