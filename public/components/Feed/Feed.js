@@ -46,8 +46,8 @@ export class Feed {
             let dislikeBtn = document.getElementById("dislike");
             let likeBtn = document.getElementById("like");
             let messagesBtn = document.getElementById("messages");
-            dislikeBtn.addEventListener("click", this.render.bind(this));
-            likeBtn.addEventListener("click", this.render.bind(this));
+            dislikeBtn.addEventListener("click", this.update.bind(this));
+            likeBtn.addEventListener("click", this.update.bind(this));
             messagesBtn.addEventListener("click", this.GoToMessagesCallback.bind(this));
           }
           else{
@@ -55,5 +55,14 @@ export class Feed {
           }
         }
     );
+  }
+
+  update() {
+    let newDiv = getElementsByClassName("main-part")[0]
+    let photo = newDiv.getElementsByClassName("photo")[0]
+    photo.innerHTML="<img src='/pics/avatar.jpg' alt=''/>";
+    let userForm = newDiv.getElementsByClassName("userForm")[0]
+    userForm.appendChild(this.Desc.render(this.getNextPerson()))
+    this.parent.appendChild(newDiv);
   }
 }
