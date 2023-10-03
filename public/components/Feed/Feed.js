@@ -58,10 +58,10 @@ export class Feed {
   }
 
   update() {
-    let newDiv = getElementsByClassName("main-part")[0]
-    let photo = newDiv.getElementsByClassName("photo")[0]
+    let photo = document.getElementsByClassName("photo")[0]
     photo.innerHTML="<img src='/pics/avatar.jpg' alt=''/>";
-    let userForm = newDiv.getElementsByClassName("userForm")[0]
+    let userForm = document.getElementsByClassName("userForm")[0]
+    userForm.removeChild(userForm.getElementsByClassName("description")[0])
     userForm.appendChild(this.Desc.render(this.getNextPerson()))
     this.parent.appendChild(newDiv);
   }
