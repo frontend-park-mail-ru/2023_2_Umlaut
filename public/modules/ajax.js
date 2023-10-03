@@ -33,6 +33,33 @@ export class Ajax {
       });
   }
 
+  static getNoBody(params = {}) {
+    let status;
+
+    return fetch(params.url, {
+      method: "GET",
+      mode: "cors",
+      credentials: "include",
+    })
+      .then(
+        (response) => {
+          status = response.status
+          return {
+            status
+          }
+        },
+        (error) => {
+          console.error(error); // ошибка отправки
+        }
+      )
+      .then((parsedJson) => {
+        return {
+          status,
+          parsedJson,
+        };
+      });
+  }
+
   static post(url = "", data = {}) {
     let status;
 
@@ -54,12 +81,37 @@ export class Ajax {
           console.error(error); // ошибка отправки
         }
       )
-      .then((parsedJson) => {
+      .then((body) => {
         return {
           status,
-          parsedJson,
+          body,
         };
       });
+  }
+
+  static postNoBody(url = "", data = {}) {
+    let status;
+
+    return fetch(url, {
+      method: "POST",
+      mode: "cors",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
+      .then(
+        (response) => {
+          status = response.status;
+          return {
+            status
+          };
+        },
+        (error) => {
+          console.error(error); // ошибка отправки
+        }
+      );
   }
 
   static async postAsync(url = "", data = {}) {

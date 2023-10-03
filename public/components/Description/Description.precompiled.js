@@ -8,20 +8,20 @@ templates['Description.hbs'] = template({"compiler":[8,">= 4.3.0"],"main":functi
         return undefined
     };
 
-  return "<div class=\"user-name\">\r\n    "
+  return "<div class=\"user-name\">\n    "
     + alias2(alias1((depth0 != null ? lookupProperty(depth0,"name") : depth0), depth0))
     + ", "
     + alias2(alias1((depth0 != null ? lookupProperty(depth0,"age") : depth0), depth0))
-    + "\r\n</div>\r\n<div class=\"about-user\">\r\n    <span class=\"me\">\r\n        О себе:\r\n    </span>\r\n    <span class=\"me\">\r\n        "
+    + "\n</div>\n<div class=\"about-user\">\n    <span class=\"me\">\n        О себе:\n    </span>\n    <span class=\"me\">\n        "
     + alias2(alias1((depth0 != null ? lookupProperty(depth0,"description") : depth0), depth0))
-    + "\r\n    </span>\r\n    <span class=\"goal\">\r\n        Цель:\r\n    </span>\r\n    <span class=\"goal\">\r\n        "
+    + "\n    </span>\n    <span class=\"goal\">\n        Цель:\n    </span>\n    <span class=\"goal\">\n        "
     + alias2(alias1((depth0 != null ? lookupProperty(depth0,"looking") : depth0), depth0))
-    + "\r\n    </span>\r\n    <span class=\"education\">\r\n        Образование:\r\n    </span>\r\n    <span class=\"education\">\r\n        "
+    + "\n    </span>\n    <span class=\"education\">\n        Образование:\n    </span>\n    <span class=\"education\">\n        "
     + alias2(alias1((depth0 != null ? lookupProperty(depth0,"education") : depth0), depth0))
-    + "\r\n    </span>\r\n    <span class=\"interests\">\r\n        Увлечения:\r\n    </span>\r\n    <span class=\"interests\">\r\n        "
+    + "\n    </span>\n    <span class=\"interests\">\n        Увлечения:\n    </span>\n    <span class=\"interests\">\n        "
     + alias2(alias1((depth0 != null ? lookupProperty(depth0,"hobbies") : depth0), depth0))
-    + "\r\n    </span>\r\n    <span class=\"tags\">\r\n        Теги:\r\n    </span>\r\n    <span class=\"tags\">\r\n        "
+    + "\n    </span>\n    <span class=\"tags\">\n        Теги:\n    </span>\n    <span class=\"tags\">\n        "
     + alias2(alias1((depth0 != null ? lookupProperty(depth0,"tags") : depth0), depth0))
-    + "\r\n    </span>\r\n</div>";
+    + "\n    </span>\n</div>";
 },"useData":true});
 })();

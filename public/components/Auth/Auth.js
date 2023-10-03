@@ -2,7 +2,7 @@ import { Api } from "../../modules/api.js";
 import { Validate } from "../../modules/validate.js";
 
 export class Auth {
-  
+
   form
   errorLabel
   mailInput
@@ -32,7 +32,7 @@ export class Auth {
       this.hideError()
       return true
     }else{
-      this.showError("incorrect Email")
+      this.showError("Неверный email")
       return false
     }
   }

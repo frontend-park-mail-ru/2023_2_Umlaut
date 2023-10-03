@@ -2,14 +2,13 @@ import { Api } from "../../modules/api.js";
 import { Validate } from "../../modules/validate.js";
 
 export class Signup {
+  errorLabel;
+  mailInput;
+  nameInput;
+  passwordInput;
+  repasswordInput;
 
-  errorLabel
-  mailInput
-  nameInput
-  passwordInput
-  repasswordInput
-
-  constructor(parent = document.body, submitCallback = () => { }) {
+  constructor(parent = document.body, submitCallback = () => {}) {
     this.parent = parent;
     this.SubmitCallback = submitCallback;
     this.form = null;
@@ -21,7 +20,7 @@ export class Signup {
     this.form.addEventListener("submit", this.onSubmit.bind(this));
     this.errorLabel = this.form.getElementsByClassName("error-label")[0];
     this.errorLabel.style.visibility = "hidden";
-    this.form.getElementsByTagName("input").forEach(input =>{
+    this.form.querySelectorAll("input").forEach((input) => {
       switch (input.id) {
         case "mail":
           this.mailInput = input;
@@ -36,87 +35,76 @@ export class Signup {
           this.repasswordInput = input;
           break;
       }
-    })
-    this.mailInputinput.addEventListener("change", (ev) =>
-    {
-      if( !Validate.Email(this.mailInput.value) ){
-        this.showError("Неверный email")
-        this.mailInput.focus()
-      }
-    })
-    this.nameInput.addEventListener("change", (ev) =>
-    {
-      if( this.nameInput.value !== "" ){
-        this.showError("Имя не должно быть пусто")
-        this.nameInput.focus()
-      }
-    })
-    this.passwordInput.addEventListener("change", (ev) =>
-    {
-      if( length(this.passwordInput.value) <= 5 ){
-        this.showError("Пароль должен быть длиннее 5-ти символов")
-        this.passwordInput.focus()
-      }
-    })
+    });
+    this.mailInput.addEventListener("change", (ev) => {
+      if (!Validate.Email(this.mailInput.value))
+        this.showError("Неверный email");
+      else this.hideError();
+    });
+    this.nameInput.addEventListener("change", (ev) => {
+      if (this.nameInput.value === "")
+        this.showError("Имя не должно быть пусто");
+      else this.hideError();
+    });
+    this.passwordInput.addEventListener("change", (ev) => {
+      if (this.passwordInput.value.length <= 5)
+        this.showError("Пароль должен быть длиннее 5-ти символов");
+      else this.hideError();
+    });
 
-    this.passwordInput.addEventListener("change", (ev) =>
-    {
-      if( this.passwordInput.value !== this.repasswordInput.value )
-        this.showError("Пароли отличаются")
-    })
+    this.repasswordInput.addEventListener("change", (ev) => {
+      if (this.passwordInput.value !== this.repasswordInput.value)
+        this.showError("Пароли отличаются");
+      else this.hideError();
+    });
   }
 
-  validateForm()
-  {
-    if( !Validate.Email(this.mailInput.value) ){
-      this.showError("Неверный email")
-      this.mailInput.focus()
-      return false
+  validateForm() {
+    if (!Validate.Email(this.mailInput.value)) {
+      this.showError("Неверный email");
+      this.mailInput.focus();
+      return false;
     }
-    if( this.nameInput.value !== "" ){
-      this.showError("Имя не должно быть пусто")
-      this.nameInput.focus()
-      return false
+    if (this.nameInput.value === "") {
+      this.showError("Имя не должно быть пусто");
+      this.nameInput.focus();
+      return false;
     }
-    if( length(this.passwordInput.value) <= 5 ){
-      this.showError("Пароль должен быть длиннее 5-ти символов")
-      this.passwordInput.focus()
-      return false
+    if ( this.passwordInput.value.length <= 5) {
+      this.showError("Пароль должен быть длиннее 5-ти символов");
+      this.passwordInput.focus();
+      return false;
     }
-    if( this.passwordInput.value !== this.repasswordInput.value ){
-      this.showError("Пароли отличаются")
-      return false
+    if (this.passwordInput.value !== this.repasswordInput.value) {
+      this.showError("Пароли отличаются");
+      return false;
     }
-    return true
+    return true;
   }
 
   onSubmit(event) {
     event.preventDefault();
-    
-    if ( !this.validateForm())
-      return;
 
-    const inputs = this.form.querySelectorAll("input")
+    if (!this.validateForm()) return;
+
+    const inputs = this.form.querySelectorAll("input");
     const inputsValue = {};
     inputs.forEach((input) => {
-      if (input.id != "password-repeat")
-        inputsValue[input.id] = input.value;
+      if (input.id != "password-repeat") inputsValue[input.id] = input.value;
     });
 
-    Api.Signup(inputsValue).then(response => {
-      if (response.status < 300) 
-        this.SubmitCallback();
-      else
-        this.showError(response["message"])
-    })
+    Api.signup(inputsValue).then((response) => {
+      if (response.status < 300) this.SubmitCallback();
+      else this.showError(response.body.message);
+    });
   }
 
-  hideError(){
+  hideError() {
     this.errorLabel.style.visibility = "hidden";
   }
 
-  showError(message){
+  showError(message) {
     this.errorLabel.style.visibility = "visible";
-    this.errorLabel.innerHTML = message; 
+    this.errorLabel.innerHTML = message;
   }
 }
