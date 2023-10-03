@@ -1,12 +1,13 @@
 import { Api } from "../../modules/api.js";
 
 export class Header {
-  constructor(mainPageCallback = () => {}, authCallback = () => {}, signupCallback = () => {}, profileCallback = () => {}) {
+  constructor(mainPageCallback = () => {}, authCallback = () => {}, signupCallback = () => {}, profileCallback = () => {}, logoutCallback = () => {}) {
     this.parent = document.getElementById("root")
     this.MainPageCallback = mainPageCallback;
     this.ProfileCallback = profileCallback;
     this.AuthCallback = authCallback;
     this.SignupCallback = signupCallback;
+    this.LogoutCallback = logoutCallback;
   }
 
   render() {
@@ -29,8 +30,10 @@ export class Header {
     this.parent.appendChild(newDiv);
     let mainPagePart = this.parent.getElementsByClassName("main-page")[0];
     let profilePart = this.parent.getElementsByClassName("profile")[0];
+    let logoutPart = this.parent.getElementsByClassName("logout")[0];
     mainPagePart.addEventListener("click", this.MainPageCallback.bind(this));
     profilePart.addEventListener("click", this.ProfileCallback.bind(this));
+    logoutPart.addEventListener("click", this.LogoutCallback.bind(this));
   }
 
   renderUnauth() {

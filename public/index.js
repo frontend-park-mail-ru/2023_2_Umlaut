@@ -15,7 +15,7 @@ let router = new Router();
 
 let auth = new Auth(document.getElementById("root"), () => router.go("/feed"))
 let signup = new Signup(document.getElementById("root"), () => router.go("/feed"))
-let header = new Header(() => router.go("/feed"), () => router.go("/auth"), () => router.go("/signup"), () => router.go("/profile"))
+let header = new Header(() => router.go("/feed"), () => router.go("/auth"), () => router.go("/signup"), () => router.go("/profile"), () => router.go("/logout"))
 
 const menuItems = {
     feed: {
