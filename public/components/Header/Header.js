@@ -10,22 +10,16 @@ export class Header {
   }
 
   render() {
-    // const response = Api.feed().then(
-    //     (response) => {
-    //       if (response.status === 200) {
-    //         this.renderAuth("../static/pics/avatar.jpg");
-    //       }
-    //       else{
-    //         this.renderUnauth();
-    //       }
-    //     }
-    // );
-    if (true) {
-        this.renderAuth("/pics/avatar.jpg");
-    }
-    else{
-        this.renderUnauth();
-    }
+    const response = Api.user().then(
+        (response) => {
+          if (response.status === 200) {
+            this.renderAuth("/pics/avatar.jpg");
+          }
+          else{
+            this.renderUnauth();
+          }
+        }
+    );
   }
 
   renderAuth(img_src = string) {

@@ -13,19 +13,16 @@ export class Menu {
   }
 
   render() {
-    // const response = Api.feed().then(
-    //     (response) => {
-    //       if (response.status === 200) {
-    //         this.renderAuth("../static/pics/avatar.jpg");
-    //       }
-    //     }
-    // );
-    this.RenderOther();
-    if (true) {
-        let newDiv = document.createElement('div');
-        newDiv.className="sidebar";
-        newDiv.innerHTML = Handlebars.templates["Menu.hbs"]({items:this.item});
-        this.parent.appendChild(newDiv);
-    }
+    const response = Api.user().then(
+        (response) => {
+          this.RenderOther();
+          if (response.status === 200) {
+            let newDiv = document.createElement('div');
+            newDiv.className="sidebar";
+            newDiv.innerHTML = Handlebars.templates["Menu.hbs"]({items:this.item});
+            this.parent.appendChild(newDiv);
+          }
+        }
+    );
   }
 }

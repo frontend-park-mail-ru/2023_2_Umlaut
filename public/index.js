@@ -38,8 +38,8 @@ const menuItems = {
 
 let menu = new Menu(menuItems, () => header.render())
 let desc = new Description()
-let feed = new Feed(desc, () => router.go("/messages"), () => router.go("/messages"))
-menu.render();
+let feed = new Feed(desc, () => router.go("/messages"), () => menu.render())
+//menu.render();
 
 router.add("/feed", () => feed.render())
 router.add("/auth", () => auth.render())
