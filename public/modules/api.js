@@ -28,7 +28,7 @@ export class Api{
     }
 
     static user(){
-        Ajax.get(BACKEND_URL + URLS.user)
+        return Ajax.get(BACKEND_URL + URLS.user)
     }
 
 }
