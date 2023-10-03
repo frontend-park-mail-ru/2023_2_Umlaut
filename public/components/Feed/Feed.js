@@ -21,14 +21,10 @@ export class Feed {
       }
   }
 
-  getNextPerson(){
-    const response = Api.feed().then(
-      (response) => {
-        if (response.status === 200) {
-          return response.parsedJson;
-        }
-      }
-    );
+  async getNextPerson(){
+    const response = await Api.feed();
+    if ( response.status === 200)
+      return response.body;
   }
 
   render() {
@@ -46,8 +42,8 @@ export class Feed {
             let dislikeBtn = document.getElementById("dislike");
             let likeBtn = document.getElementById("like");
             let messagesBtn = document.getElementById("messages");
-            dislikeBtn.addEventListener("click", this.update.bind(this));
-            likeBtn.addEventListener("click", this.update.bind(this));
+            dislikeBtn.addEventListener("click", async () => await this.update());
+            likeBtn.addEventListener("click", async () => await this.update());
             messagesBtn.addEventListener("click", this.GoToMessagesCallback.bind(this));
           }
           else{
@@ -57,12 +53,11 @@ export class Feed {
     );
   }
 
-  update() {
+  async update() {
     let photo = document.getElementsByClassName("photo")[0]
     photo.innerHTML="<img src='/pics/avatar.jpg' alt=''/>";
     let userForm = document.getElementsByClassName("userForm")[0]
     userForm.removeChild(userForm.getElementsByClassName("description")[0])
-    userForm.appendChild(this.Desc.render(this.getNextPerson()))
-    this.parent.appendChild(newDiv);
+    userForm.appendChild(this.Desc.render(await this.getNextPerson()))
   }
 }
