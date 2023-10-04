@@ -7,6 +7,14 @@
 
 [Репозиторий бекэнд-части Ümlaut](https://github.com/go-park-mail-ru/2023_2_Umlaut)
 
+## Ссылка на swagger
+
+[swagger Ümlaut](http://37.139.32.76:8000/swagger/index.html)
+
+## Ссылка на деплой
+
+[Ümlaut](http://37.139.32.76)
+
 ## Команда Ümlaut
 
 ### Авторы
