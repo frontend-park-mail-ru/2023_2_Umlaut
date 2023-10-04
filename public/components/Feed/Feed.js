@@ -1,11 +1,12 @@
 import { Api } from "../../modules/api.js";
 
 export class Feed {
-  constructor(desc, goToMessagesCallback = () => {}, renderMenu = () => {}) {
+  constructor(desc, goToMessagesCallback = () => {}, renderMenu = () => {}, goLogin) {
     this.parent = document.getElementById("root")
     this.GoToMessagesCallback = goToMessagesCallback;
     this.Desc = desc;
     this.RenderMenu = renderMenu;
+    this.GoLogin = goLogin;
 
     this.user = {
         name: "Марина",
@@ -46,8 +47,8 @@ export class Feed {
             likeBtn.addEventListener("click", async () => await this.update());
             messagesBtn.addEventListener("click", this.GoToMessagesCallback.bind(this));
           }
-          else{
-            
+          else if ( response.status === 401){
+            this.GoLogin();
           }
         }
     );
