@@ -43,7 +43,7 @@ export class Feed {
 
     let newDiv = document.createElement('div');
     newDiv.className="main-part";
-    newDiv.innerHTML=Handlebars.templates["Feed.hbs"]({img_src:"/pics/avatar.svg"});
+    newDiv.innerHTML=Handlebars.templates["Feed.hbs"]({img_src:"/pics/avatar.png"});
     let userForm = newDiv.getElementsByClassName("userForm")[0]
 
     let desrDiv = document.createElement('div');
@@ -65,7 +65,7 @@ export class Feed {
 
   async update() {
     let photo = document.getElementsByClassName("photo")[0]
-    photo.innerHTML="<img src='/pics/avatar.svg' alt=''/>";
+    photo.innerHTML="<img src='/pics/avatar.png' alt=''/>";
     this.description.render(await this.getNextPerson())
   }
 }
