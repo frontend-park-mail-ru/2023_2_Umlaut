@@ -1,0 +1,30 @@
+{
+    "env": {
+        "browser": true,
+        "es6": true,
+        "node": true
+    },
+    "extends": [
+        "eslint:recommended",
+        "google"
+    ],
+    "parserOptions": {
+        "sourceType": "module",
+        "ecmaVersion": 2022
+    },
+    "rules": {
+        "semi": ["error", "always"],
+        "quotes": ["error", "single"],
+        "eqeqeq": ["error", "smart"],
+        "indent": ["error", 4],
+        "keyword-spacing": "error",
+        "camelcase": "error",
+        "require-jsdoc": "off",
+        "max-len": [1, 100],
+        "new-cap": 0,
+        "eol-last": ["error", "always"],
+        "no-case-declarations": "off",
+        "no-fallthrough": "off",
+        "no-control-regex": "off"
+    }
+}

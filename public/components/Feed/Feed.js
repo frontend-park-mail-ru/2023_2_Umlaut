@@ -1,13 +1,14 @@
-import { Api } from "../../modules/api.js";
-import { Description } from "../Description/Description.js";
+import {Api} from '../../modules/api.js';
+import {Description} from '../Description/Description.js';
+import Handlebars from 'handlebars';
 
 export class Feed {
-  description
-  constructor(goToMessagesCallback = () => {}, renderMenu = () => {}, goLogin) {
-    this.parent = document.getElementById("root")
-    this.goToMessagesCallback = goToMessagesCallback;
-    this.renderMenu = renderMenu;
-    this.goLogin = goLogin;
+    description;
+    constructor(goToMessagesCallback = () => {}, renderMenu = () => {}, goLogin) {
+        this.parent = document.getElementById('root');
+        this.goToMessagesCallback = goToMessagesCallback;
+        this.renderMenu = renderMenu;
+        this.goLogin = goLogin;
 
     // this.user = {
     //     name: "Марина",
@@ -21,51 +22,51 @@ export class Feed {
     //     hobbies: ["чтение", "кулинария"],
     //     tags: ["рак", "прога", "тусовки"]
     //   }
-  }
-
-  async getNextPerson(){
-    const response = await Api.feed();
-    if ( response.status === 200)
-      return response.body;
-    else if ( response.status === 401 ){
-      this.goLogin();
     }
-  }
 
-  async render() {
-    const resp = await Api.user()
-    if( resp.status === 401 ){
-      this.goLogin();
-      return;
+    async getNextPerson() {
+        const response = await Api.feed();
+        if ( response.status === 200) {
+            return response.body;
+        } else if ( response.status === 401 ) {
+            this.goLogin();
+        }
     }
-    this.parent.innerHTML="";
-    this.renderMenu();
 
-    let newDiv = document.createElement('div');
-    newDiv.className="main-part";
-    newDiv.innerHTML=Handlebars.templates["Feed.hbs"]({img_src:"/pics/avatar.png"});
-    let userForm = newDiv.getElementsByClassName("userForm")[0]
+    async render() {
+        const resp = await Api.user();
+        if ( resp.status === 401 ) {
+            this.goLogin();
+            return;
+        }
+        this.parent.innerHTML='';
+        this.renderMenu();
 
-    let desrDiv = document.createElement('div');
-    desrDiv.className="description";
-    this.description = new Description(desrDiv)
-    userForm.appendChild(desrDiv)
+        const newDiv = document.createElement('div');
+        newDiv.className='main-part';
+        newDiv.innerHTML=Handlebars.templates['Feed.hbs']({img_src: '/pics/avatar.png'});
+        const userForm = newDiv.getElementsByClassName('userForm')[0];
 
-    this.parent.appendChild(newDiv);
+        const desrDiv = document.createElement('div');
+        desrDiv.className='description';
+        this.description = new Description(desrDiv);
+        userForm.appendChild(desrDiv);
 
-    let dislikeBtn = document.getElementById("dislike");
-    let likeBtn = document.getElementById("like");
-    let messagesBtn = document.getElementById("messages");
-    dislikeBtn.addEventListener("click", () => this.update());
-    likeBtn.addEventListener("click", () => this.update());
-    messagesBtn.addEventListener("click", this.goToMessagesCallback.bind(this));
+        this.parent.appendChild(newDiv);
 
-    this.update()
-  }
+        const dislikeBtn = document.getElementById('dislike');
+        const likeBtn = document.getElementById('like');
+        const messagesBtn = document.getElementById('messages');
+        dislikeBtn.addEventListener('click', () => this.update());
+        likeBtn.addEventListener('click', () => this.update());
+        messagesBtn.addEventListener('click', this.goToMessagesCallback.bind(this));
 
-  async update() {
-    let photo = document.getElementsByClassName("photo")[0]
-    photo.innerHTML="<img src='/pics/avatar.png' alt=''/>";
-    this.description.render(await this.getNextPerson())
-  }
+        this.update();
+    }
+
+    async update() {
+        const photo = document.getElementsByClassName('photo')[0];
+        photo.innerHTML='<img src=\'/pics/avatar.png\' alt=\'\'/>';
+        this.description.render(await this.getNextPerson());
+    }
 }

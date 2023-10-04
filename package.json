@@ -6,7 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server/index.js",
-    "compile:templates": "./compile_templates.bash"
+    "compile:templates": "./compile_templates.bash",
+    "lint": "./node_modules/.bin/eslint ./public",
+    "lint-write": "./node_modules/.bin/eslint --fix ./public"
   },
   "author": "",
   "license": "ISC",
@@ -14,5 +16,9 @@
     "debug": "^4.3.4",
     "handlebars": "^4.7.8",
     "hbs": "^4.2.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.50.0",
+    "eslint-config-google": "^0.14.0"
   }
 }
