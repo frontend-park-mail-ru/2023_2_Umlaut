@@ -32,7 +32,12 @@ export class Feed {
     }
   }
 
-  render() {
+  async render() {
+    const resp = await Api.user()
+    if( resp.status === 401 ){
+      this.goLogin();
+      return;
+    }
     this.parent.innerHTML="";
     this.renderMenu();
 
