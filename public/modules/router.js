@@ -12,8 +12,7 @@ export class Router {
     this.current = path
     window.history.pushState(null, null, path);
     if (!this.routes.has(path)) {
-      //go to 404
-      console.log("Not found" + path);
+      this.go("/");
       return;
     }
     this.routes.get(path)();

@@ -1,64 +1,66 @@
 import { Api } from "../../modules/api.js";
+import { Description } from "../Description/Description.js";
 
 export class Feed {
-  constructor(desc, goToMessagesCallback = () => {}, renderMenu = () => {}, goLogin) {
+  description
+  constructor(goToMessagesCallback = () => {}, renderMenu = () => {}, goLogin) {
     this.parent = document.getElementById("root")
-    this.GoToMessagesCallback = goToMessagesCallback;
-    this.Desc = desc;
-    this.RenderMenu = renderMenu;
-    this.GoLogin = goLogin;
+    this.goToMessagesCallback = goToMessagesCallback;
+    this.renderMenu = renderMenu;
+    this.goLogin = goLogin;
 
-    this.user = {
-        name: "Марина",
-        mail: "stri@.ng",
-        user_gender: null,
-        prefer_gender: null,
-        description: "умная красивая",
-        age: 20,
-        looking: "Серьезные отношения",
-        education: "Высшее",
-        hobbies: ["чтение", "кулинария"],
-        tags: ["рак", "прога", "тусовки"]
-      }
+    // this.user = {
+    //     name: "Марина",
+    //     mail: "stri@.ng",
+    //     user_gender: null,
+    //     prefer_gender: null,
+    //     description: "умная красивая",
+    //     age: 20,
+    //     looking: "Серьезные отношения",
+    //     education: "Высшее",
+    //     hobbies: ["чтение", "кулинария"],
+    //     tags: ["рак", "прога", "тусовки"]
+    //   }
   }
 
   async getNextPerson(){
     const response = await Api.feed();
     if ( response.status === 200)
       return response.body;
+    else if ( response.status === 401 ){
+      this.goLogin();
+    }
   }
 
   render() {
-    const response = Api.user().then(
-        (response) => {
-          if (response.status === 200) {
-            this.parent.innerHTML="";
-            this.RenderMenu();
-            let newDiv = document.createElement('div');
-            newDiv.className="main-part";
-            newDiv.innerHTML=Handlebars.templates["Feed.hbs"]({img_src:"/pics/avatar.jpg"});
-            let userForm = newDiv.getElementsByClassName("userForm")[0]
-            userForm.appendChild(this.Desc.render(this.getNextPerson()))
-            this.parent.appendChild(newDiv);
-            let dislikeBtn = document.getElementById("dislike");
-            let likeBtn = document.getElementById("like");
-            let messagesBtn = document.getElementById("messages");
-            dislikeBtn.addEventListener("click", async () => await this.update());
-            likeBtn.addEventListener("click", async () => await this.update());
-            messagesBtn.addEventListener("click", this.GoToMessagesCallback.bind(this));
-          }
-          else if ( response.status === 401){
-            this.GoLogin();
-          }
-        }
-    );
+    this.parent.innerHTML="";
+    this.renderMenu();
+
+    let newDiv = document.createElement('div');
+    newDiv.className="main-part";
+    newDiv.innerHTML=Handlebars.templates["Feed.hbs"]({img_src:"/pics/avatar.svg"});
+    let userForm = newDiv.getElementsByClassName("userForm")[0]
+
+    let desrDiv = document.createElement('div');
+    desrDiv.className="description";
+    this.description = new Description(desrDiv)
+    userForm.appendChild(desrDiv)
+
+    this.parent.appendChild(newDiv);
+
+    let dislikeBtn = document.getElementById("dislike");
+    let likeBtn = document.getElementById("like");
+    let messagesBtn = document.getElementById("messages");
+    dislikeBtn.addEventListener("click", () => this.update());
+    likeBtn.addEventListener("click", () => this.update());
+    messagesBtn.addEventListener("click", this.goToMessagesCallback.bind(this));
+
+    this.update()
   }
 
   async update() {
     let photo = document.getElementsByClassName("photo")[0]
-    photo.innerHTML="<img src='/pics/avatar.jpg' alt=''/>";
-    let userForm = document.getElementsByClassName("userForm")[0]
-    userForm.removeChild(userForm.getElementsByClassName("description")[0])
-    userForm.appendChild(this.Desc.render(await this.getNextPerson()))
+    photo.innerHTML="<img src='/pics/avatar.svg' alt=''/>";
+    this.description.render(await this.getNextPerson())
   }
 }

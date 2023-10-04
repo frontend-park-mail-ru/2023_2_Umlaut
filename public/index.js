@@ -15,7 +15,7 @@ let router = new Router();
 
 let auth = new Auth(document.getElementById("root"), () => router.go("/feed"))
 let signup = new Signup(document.getElementById("root"), () => router.go("/feed"))
-let header = new Header(() => router.go("/feed"), () => router.go("/auth"), () => router.go("/signup"), () => router.go("/profile"), () => router.go("/logout"))
+let header = new Header()
 
 const menuItems = {
     feed: {
@@ -37,13 +37,13 @@ const menuItems = {
 };
 
 let menu = new Menu(menuItems, () => header.render())
-let desc = new Description()
-let feed = new Feed(desc, () => router.go("/messages"), () => menu.render(), () => router.go("/auth"))
+let feed = new Feed(() => router.go("/messages"), () => menu.render(), () => router.go("/auth"))
 //menu.render();
 
+router.add("/", () => router.go("/feed"))
 router.add("/feed", () => feed.render())
 router.add("/auth", () => auth.render())
 router.add("/signup", () => signup.render())
-router.add("/logout", () => {Api.logout(); auth.render()})
+router.add("/logout", () => {Api.logout();router.go("/auth")})
 
 router.start()

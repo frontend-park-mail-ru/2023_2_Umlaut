@@ -1,35 +1,48 @@
 <div class="user-name">
-    {{name}}, {{age}}
+    {{name}}
+    {{#if age}}
+    , {{age}}
+    {{/if}}
 </div>
 <div class="about-user">
+    {{#if description}}
     <span class="me">
         О себе:
     </span>
     <span class="me">
         {{description}}
     </span>
+    {{/if}}
+    {{#if looking}}
     <span class="goal">
         Цель:
     </span>
     <span class="goal">
         {{looking}}
     </span>
+    {{/if}}
+    {{#if education}}
     <span class="education">
         Образование:
     </span>
     <span class="education">
         {{education}}
     </span>
+    {{/if}}
+    {{#if hobbies}}
     <span class="interests">
         Увлечения:
     </span>
     <span class="interests">
-        {{this.hobbies}}
+        {{hobbies}}
     </span>
+    {{/if}}
+    {{#if tags}}
     <span class="tags">
         Теги:
     </span>
     <span class="tags">
         {{tags}}
     </span>
+    {{/if}}
 </div>
