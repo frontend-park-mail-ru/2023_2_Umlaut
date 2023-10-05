@@ -8,7 +8,8 @@
     "start": "node server/index.js",
     "compile:templates": "./compile_templates.bash",
     "lint": "./node_modules/.bin/eslint ./public",
-    "lint-write": "./node_modules/.bin/eslint --fix ./public"
+    "lint-write": "./node_modules/.bin/eslint --fix ./public",
+    "prepare": "husky install"
   },
   "author": "",
   "license": "ISC",
@@ -19,6 +20,7 @@
   },
   "devDependencies": {
     "eslint": "^8.50.0",
-    "eslint-config-google": "^0.14.0"
+    "eslint-config-google": "^0.14.0",
+    "husky": "^8.0.3"
   }
 }

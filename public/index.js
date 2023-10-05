@@ -13,7 +13,9 @@ document.addEventListener('DOMContentLoaded', ()=>{
 
     const auth = new Auth(router);
     const signup = new Signup(router);
-    const header = new Header(() => {Api.logout(); router.go('/auth');});
+    const header = new Header(() => {
+        Api.logout(); router.go('/auth');
+    });
 
     const menuItems = {
         feed: {

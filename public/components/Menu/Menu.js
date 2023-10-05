@@ -20,7 +20,7 @@ export class Menu {
                 if (response.status === 200) {
                     const newDiv = document.createElement('div');
                     newDiv.className = 'sidebar';
-                    newDiv.innerHTML = Handlebars.templates['Menu.hbs']({items: this.item});
+                    newDiv.innerHTML = window.Handlebars.templates['Menu.hbs']({items: this.item});
                     this.parent.appendChild(newDiv);
                 }
             },

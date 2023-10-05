@@ -25,7 +25,7 @@ export class Signup {
             this.router.go('/feed');
             return;
         }
-        this.parent.innerHTML = Handlebars.templates['Signup.hbs']();
+        this.parent.innerHTML = window.Handlebars.templates['Signup.hbs']();
         this.form = this.parent.querySelector('.auth');
         this.form.addEventListener('submit', this.onSubmit.bind(this));
         this.errorLabel = this.form.querySelector('.error-label');
@@ -58,7 +58,7 @@ export class Signup {
 
     /**
      * Проверка правильности введенноых данных
-     * @returns {bool} правильный или нет
+     * @return {bool} правильный или нет
      */
     validateForm() {
         if (!Validate.email(this.mailInput.value)) {
@@ -85,7 +85,7 @@ export class Signup {
 
     /**
      * Отправка запроса на бекенд и переход в ленту/сообщение об ошибке
-     * @param {event} event 
+     * @param {event} event
      */
     onSubmit(event) {
         event.preventDefault();
@@ -99,7 +99,7 @@ export class Signup {
         inputsValue[this.passwordInput.id] = this.passwordInput.value;
 
         Api.signup(inputsValue).then((response) => {
-            if (response.status == 200) this.router.go('/feed');
+            if (response.status === 200) this.router.go('/feed');
             else this.showError(response.body.message);
         });
     }
@@ -113,6 +113,7 @@ export class Signup {
 
     /**
      * Показать сообщение об ошибке
+     * @param {string} message - сообщение
      */
     showError(message) {
         this.errorLabel.style.visibility = 'visible';

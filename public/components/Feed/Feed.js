@@ -14,7 +14,7 @@ export class Feed {
 
     /**
      * Получает с бекенда пользователя для показа в ленте
-     * @returns {object} user
+     * @return {object} user
      */
     async getNextPerson() {
         const response = await Api.feed();
@@ -38,8 +38,8 @@ export class Feed {
         this.renderMenu();
 
         const newDiv = document.createElement('div');
-        newDiv.className='main-part';
-        newDiv.innerHTML=Handlebars.templates['Feed.hbs']();
+        newDiv.className = 'main-part';
+        newDiv.innerHTML = window.Handlebars.templates['Feed.hbs']();
 
         const userForm = newDiv.querySelector('.userForm');
         this.description = new Description(userForm);

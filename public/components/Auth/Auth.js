@@ -21,7 +21,7 @@ export class Auth {
             this.router.go('/feed');
             return;
         }
-        this.parent.innerHTML = Handlebars.templates['Auth.hbs']();
+        this.parent.innerHTML = window.Handlebars.templates['Auth.hbs']();
         this.form = this.parent.querySelector('.auth');
         this.form.addEventListener('submit', this.onSubmit.bind(this));
         this.errorLabel = this.form.querySelector('.error-label');
@@ -34,7 +34,7 @@ export class Auth {
 
     /**
      * Проверка правильности введенного адреса электронной почты
-     * @returns {bool} удовлетворяет ли адрес почты условиям
+     * @return {bool} удовлетворяет ли адрес почты условиям
      */
     validateMail() {
         if (Validate.email(this.mailInput.value)) {
@@ -48,7 +48,7 @@ export class Auth {
 
     /**
      * Проверка правильности введенных данных, отправка запроса на бекенд и переход в ленту/сообщение об ошибке
-     * @param {event} event 
+     * @param {event} event
      */
     onSubmit(event) {
         event.preventDefault();
@@ -65,9 +65,9 @@ export class Auth {
 
         Api.login(inputsValue).then(
             (response) => {
-                if (response.status == 200) {
+                if (response.status === 200) {
                     this.router.go('/feed');
-                } else if(response.status == 400) {
+                } else if (response.status === 400) {
                     this.showError('Неправильный синтаксис запроса');
                 } else if (response.status === 404) {
                     this.showError('Страница не найдена');
@@ -89,6 +89,7 @@ export class Auth {
 
     /**
      * Показать сообщение об ошибке
+     * @param {string} message - сообщение
      */
     showError(message) {
         this.errorLabel.style.visibility = 'visible';

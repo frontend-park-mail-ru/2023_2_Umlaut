@@ -28,7 +28,7 @@ export class Router {
 
     /**
      * Переход по ссылке без заполнения history.api
-     * @param {string} path 
+     * @param {string} path
      */
     change(path) {
         this.routes.get(path)();
@@ -36,8 +36,8 @@ export class Router {
 
     /**
      * Добавление нового url
-     * @param {string} path 
-     * @param {function} callback 
+     * @param {string} path
+     * @param {function} callback
      */
     add(path, callback) {
         this.routes.set(path, callback);
