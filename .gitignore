@@ -1,0 +1,6 @@
+.idea
+.DS_Store
+*.precompiled.js
+.vscode
+node_modules
+docs

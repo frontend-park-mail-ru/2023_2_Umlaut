@@ -1,0 +1,12 @@
+{
+    "source": {
+        "includePattern": ".+\\.js(doc|x)?$",
+        "excludePattern": ".precompiled.js",
+        "include": ["public"]                                 
+    },
+    "recurseDepth": 10,                         
+    "opts": {
+        "destination": "./docs/",               
+        "recurse": true                        
+    }
+}
