@@ -14,7 +14,9 @@ document.addEventListener('DOMContentLoaded', ()=>{
 
     const auth = new Auth(document.getElementById('root'), () => router.go('/feed'));
     const signup = new Signup(document.getElementById('root'), () => router.go('/feed'));
-    const header = new Header(() => {Api.logout(); router.go('/auth');});
+    const header = new Header(() => {
+        Api.logout(); router.go('/auth');
+    });
 
     const menuItems = {
         feed: {
@@ -44,4 +46,4 @@ document.addEventListener('DOMContentLoaded', ()=>{
     router.add('/signup', () => signup.render());
 
     router.start();
-})
+});

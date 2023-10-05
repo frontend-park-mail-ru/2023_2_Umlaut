@@ -30,7 +30,7 @@ export class Router {
             }
         });
 
-        window.addEventListener('popstate', (evn) => {
+        window.addEventListener('popstate', () => {
             this.go(window.location.pathname);
         });
 

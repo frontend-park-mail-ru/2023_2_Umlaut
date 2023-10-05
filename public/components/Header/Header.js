@@ -22,9 +22,9 @@ export class Header {
 
     renderAuth(imgSrc) {
         const newDiv = document.createElement('div');
-        newDiv.className ='header';
-        newDiv.innerHTML = Handlebars.templates['Header.hbs']({img_src:imgSrc});
-        let logout = newDiv.querySelector(".logout-header");
+        newDiv.className = 'header';
+        newDiv.innerHTML = Handlebars.templates['Header.hbs']({img_src: imgSrc});
+        const logout = newDiv.querySelector('.logout-header');
         logout.addEventListener('click', () => this.logoutCallback());
         this.parent.appendChild(newDiv);
     }

@@ -29,16 +29,16 @@ export class Feed {
             this.goLogin();
             return;
         }
-        this.parent.innerHTML='';
+        this.parent.innerHTML = '';
         this.renderMenu();
 
         const newDiv = document.createElement('div');
-        newDiv.className='main-part';
-        newDiv.innerHTML=Handlebars.templates['Feed.hbs']({img_src: '/pics/avatar.png'});
+        newDiv.className = 'main-part';
+        newDiv.innerHTML = Handlebars.templates['Feed.hbs']({img_src: '/pics/avatar.png'});
         const userForm = newDiv.querySelector('.userForm');
 
         const desrDiv = document.createElement('div');
-        desrDiv.className='description';
+        desrDiv.className = 'description';
         this.description = new Description(desrDiv);
         userForm.appendChild(desrDiv);
 
@@ -49,7 +49,7 @@ export class Feed {
         this.update();
     }
 
-    addSwipeBtns(){
+    addSwipeBtns() {
         const dislikeBtn = document.getElementById('dislike');
         const likeBtn = document.getElementById('like');
         const messagesBtn = document.getElementById('messages');
@@ -60,7 +60,7 @@ export class Feed {
 
     async update() {
         const photo = document.querySelector('.photo img');
-        photo.src='/pics/avatar.png';
+        photo.src = '/pics/avatar.png';
         this.description.render(await this.getNextPerson());
     }
 }
