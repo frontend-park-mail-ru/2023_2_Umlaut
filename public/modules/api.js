@@ -1,4 +1,3 @@
-import { promises } from 'dns';
 import {Ajax} from './ajax.js';
 
 const URLS = {
