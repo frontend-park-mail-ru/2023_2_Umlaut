@@ -46,4 +46,5 @@ const server = http.createServer((request, response) => {
 });
 
 debug.log('Starting server...');
+
 server.listen(SERVER_PORT);
