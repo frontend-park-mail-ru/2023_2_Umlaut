@@ -63,7 +63,7 @@ export class Auth {
                 } else if(response.status == 401) {
                     this.showError('Невeрный email или пароль');
                 } else {
-                    this.showError('С этого домена вход запрещен');
+                    this.showError('Неожиданная ошибка');
                 }
             },
         );
