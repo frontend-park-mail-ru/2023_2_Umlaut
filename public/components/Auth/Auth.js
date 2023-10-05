@@ -1,28 +1,29 @@
 import {Api} from '../../modules/api.js';
 import {Validate} from '../../modules/validate.js';
-import Handlebars from 'handlebars';
 
 export class Auth {
     form;
     errorLabel;
     mailInput;
-
+    parent;
+    submitCallback;
     constructor(parent = document.body, submitCallback = () => {}) {
         this.parent = parent;
         this.submitCallback = submitCallback;
     }
 
-    render() {
+    async render() {
+        const resp = await Api.user();
+        if ( resp.status === 200 ) {
+            this.submitCallback();
+            return;
+        }
         this.parent.innerHTML = Handlebars.templates['Auth.hbs']();
-        this.form = this.parent.getElementsByClassName('auth')[0];
+        this.form = this.parent.querySelector('.auth');
         this.form.addEventListener('submit', this.onSubmit.bind(this));
-        this.errorLabel = this.form.getElementsByClassName('error-label')[0];
+        this.errorLabel = this.form.querySelector('.error-label');
         this.errorLabel.style.visibility = 'hidden';
-        this.form.querySelectorAll('input').forEach((input) => {
-            if (input.id === 'mail') {
-                this.mailInput = input;
-            }
-        });
+        this.mailInput = this.form.querySelector('#mail')
         this.mailInput.addEventListener('change', (ev)=>{
             this.validateMail();
         });
@@ -53,10 +54,16 @@ export class Auth {
 
         Api.login(inputsValue).then(
             (response) => {
-                if (response.status < 300) {
+                if (response.status == 200) {
                     this.submitCallback();
-                } else {
+                } else if(response.status == 400) {
+                    this.showError('Неправильный синтаксис запроса');
+                } else if(response.status == 404) {
+                    this.showError('Страница не найдена');
+                } else if(response.status == 401) {
                     this.showError('Невeрный email или пароль');
+                } else {
+                    this.showError('С этого домена вход запрещен');
                 }
             },
         );

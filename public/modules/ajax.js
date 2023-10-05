@@ -53,7 +53,7 @@ export class Ajax {
                     }
                 },
                 (error) => {
-                    console.error(error); // ошибка отправки
+                    return(error); // ошибка отправки
                 },
             )
             .then((body) => {
@@ -84,7 +84,7 @@ export class Ajax {
                     };
                 },
                 (error) => {
-                    console.error(error); // ошибка отправки
+                    return(error); // ошибка отправки
                 },
             );
     }

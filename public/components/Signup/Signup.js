@@ -1,6 +1,5 @@
 import {Api} from '../../modules/api.js';
 import {Validate} from '../../modules/validate.js';
-import Handlebars from 'handlebars';
 
 export class Signup {
     errorLabel;
@@ -8,37 +7,32 @@ export class Signup {
     nameInput;
     passwordInput;
     repasswordInput;
-
+    parent;
+    submitCallback;
+    form;
     constructor(parent = document.body, submitCallback = () => {}) {
         this.parent = parent;
-        this.SubmitCallback = submitCallback;
+        this.submitCallback = submitCallback;
         this.form = null;
     }
 
-    render() {
+    async render() {
+        const resp = await Api.user();
+        if ( resp.status === 200 ) {
+            this.submitCallback();
+            return;
+        }
         this.parent.innerHTML = Handlebars.templates['Signup.hbs']();
-        this.form = this.parent.getElementsByClassName('auth')[0];
+        this.form = this.parent.querySelector('.auth');
         this.form.addEventListener('submit', this.onSubmit.bind(this));
-        this.errorLabel = this.form.getElementsByClassName('error-label')[0];
+        this.errorLabel = this.form.querySelector('.error-label');
         this.errorLabel.style.visibility = 'hidden';
-        this.form.querySelectorAll('input').forEach((input) => {
-            switch (input.id) {
-            case 'mail':
-                this.mailInput = input;
-                break;
-            case 'name':
-                this.nameInput = input;
-                break;
-            case 'password':
-                this.passwordInput = input;
-                break;
-            case 'password-repeat':
-                this.repasswordInput = input;
-                break;
-            }
-        });
+        this.mailInput = this.form.querySelector('#mail');
+        this.nameInput = this.form.querySelector('#name');
+        this.passwordInput = this.form.querySelector('#password');
+        this.repasswordInput = this.form.querySelector('#password-repeat');
         this.mailInput.addEventListener('change', (ev) => {
-            if (!Validate.Email(this.mailInput.value)) {
+            if (!Validate.email(this.mailInput.value)) {
                 this.showError('Неверный email');
             } else this.hideError();
         });
@@ -52,7 +46,6 @@ export class Signup {
                 this.showError('Пароль должен быть длиннее 5-ти символов');
             } else this.hideError();
         });
-
         this.repasswordInput.addEventListener('change', (ev) => {
             if (this.passwordInput.value !== this.repasswordInput.value) {
                 this.showError('Пароли отличаются');
@@ -61,7 +54,7 @@ export class Signup {
     }
 
     validateForm() {
-        if (!Validate.Email(this.mailInput.value)) {
+        if (!Validate.email(this.mailInput.value)) {
             this.showError('Неверный email');
             this.mailInput.focus();
             return false;
@@ -95,7 +88,7 @@ export class Signup {
         });
 
         Api.signup(inputsValue).then((response) => {
-            if (response.status < 300) this.SubmitCallback();
+            if (response.status == 200) this.submitCallback();
             else this.showError(response.body.message);
         });
     }

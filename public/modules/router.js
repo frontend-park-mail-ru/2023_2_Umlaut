@@ -6,8 +6,7 @@ export class Router {
         this.current = null;
     }
 
-    go(path, menu) {
-        console.log('go  ' + path);
+    go(path) {
         if (this.current === path) return;
         this.current = path;
         window.history.pushState(null, null, path);

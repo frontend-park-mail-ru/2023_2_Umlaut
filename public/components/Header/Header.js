@@ -1,9 +1,11 @@
 import {Api} from '../../modules/api.js';
-import Handlebars from 'handlebars';
 
 export class Header {
-    constructor() {
+    parent;
+    logoutCallback;
+    constructor(logoutCallback = () => {}) {
         this.parent = document.getElementById('root');
+        this.logoutCallback = logoutCallback;
     }
 
     render() {
@@ -20,15 +22,17 @@ export class Header {
 
     renderAuth(imgSrc) {
         const newDiv = document.createElement('div');
-        newDiv.className='header';
-        newDiv.innerHTML=Handlebars.templates['Header.hbs']({imgSrc});
+        newDiv.className ='header';
+        newDiv.innerHTML = Handlebars.templates['Header.hbs']({imgSrc});
+        let logout = newDiv.querySelector(".logout-header");
+        logout.addEventListener('click', () => this.logoutCallback());
         this.parent.appendChild(newDiv);
     }
 
     renderUnauth() {
         const newDiv = document.createElement('div');
-        newDiv.className='anauthorised-header';
-        newDiv.innerHTML=Handlebars.templates['UnauthHeader.hbs']();
+        newDiv.className = 'anauthorised-header';
+        newDiv.innerHTML = Handlebars.templates['UnauthHeader.hbs']();
         this.parent.appendChild(newDiv);
     }
 }

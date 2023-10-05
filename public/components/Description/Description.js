@@ -1,5 +1,5 @@
-import Handlebars from 'handlebars';
 export class Description {
+    parent;
     constructor(parent) {
         this.parent = parent;
     }

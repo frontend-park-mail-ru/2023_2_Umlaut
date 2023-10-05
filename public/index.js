@@ -9,42 +9,39 @@ import {Menu} from './components/Menu/Menu.js';
 import {Feed} from './components/Feed/Feed.js';
 import {Api} from './modules/api.js';
 
+document.addEventListener('DOMContentLoaded', ()=>{
+    const router = new Router();
 
-const router = new Router();
+    const auth = new Auth(document.getElementById('root'), () => router.go('/feed'));
+    const signup = new Signup(document.getElementById('root'), () => router.go('/feed'));
+    const header = new Header(() => {Api.logout(); router.go('/auth');});
 
-const auth = new Auth(document.getElementById('root'), () => router.go('/feed'));
-const signup = new Signup(document.getElementById('root'), () => router.go('/feed'));
-const header = new Header();
+    const menuItems = {
+        feed: {
+            href: '/feed',
+            name: 'Лента',
+        },
+        profile: {
+            href: '/profile',
+            name: 'Профиль',
+        },
+        notifications: {
+            href: '/notifications',
+            name: 'Уведомления',
+        },
+        messages: {
+            href: '/messages',
+            name: 'Сообщения',
+        },
+    };
 
-const menuItems = {
-    feed: {
-        href: '/feed',
-        name: 'Лента',
-    },
-    profile: {
-        href: '/profile',
-        name: 'Профиль',
-    },
-    notifications: {
-        href: '/notifications',
-        name: 'Уведомления',
-    },
-    messages: {
-        href: '/messages',
-        name: 'Сообщения',
-    },
-};
+    const menu = new Menu(menuItems, () => header.render());
+    const feed = new Feed(() => router.go('/messages'), () => menu.render(), () => router.go('/auth'));
 
-const menu = new Menu(menuItems, () => header.render());
-const feed = new Feed(() => router.go('/messages'), () => menu.render(), () => router.go('/auth'));
-// menu.render();
+    router.add('/', () => router.go('/feed'));
+    router.add('/feed', () => feed.render());
+    router.add('/auth', () => auth.render());
+    router.add('/signup', () => signup.render());
 
-router.add('/', () => router.go('/feed'));
-router.add('/feed', () => feed.render());
-router.add('/auth', () => auth.render());
-router.add('/signup', () => signup.render());
-router.add('/logout', () => {
-    Api.logout(); router.go('/auth');
-});
-
-router.start();
+    router.start();
+})
