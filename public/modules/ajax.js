@@ -1,5 +1,10 @@
 
 export class Ajax {
+    /**
+     * Get-запрос на бекенд
+     * @param {string} url - путь запроса
+     * @returns {Object{status, body}} - статус и тело ответа
+     */
     static get(url = '') {
         let status;
 
@@ -30,6 +35,12 @@ export class Ajax {
             });
     }
 
+    /**
+     * Post-запрос на бекенд
+     * @param {string} url - путь запроса
+     * @param {object} data - тело запроса
+     * @returns {Object{status, body}} - статус и тело ответа
+     */
     static post(url = '', data = {}) {
         let status;
 
@@ -64,6 +75,13 @@ export class Ajax {
             });
     }
 
+
+    /**
+     * Post-запрос на бекенд без тела запроса
+     * @param {string} url - путь запроса
+     * @param {object} data - тело запроса
+     * @returns {Object{status, body}} - статус и тело ответа
+     */
     static postNoBody(url = '', data = {}) {
         let status;
 

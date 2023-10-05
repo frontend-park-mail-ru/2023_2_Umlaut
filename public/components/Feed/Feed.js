@@ -12,6 +12,10 @@ export class Feed {
         this.router = router;
     }
 
+    /**
+     * Получает с бекенда пользователя для показа в ленте
+     * @returns {object} user
+     */
     async getNextPerson() {
         const response = await Api.feed();
         if ( response.status === 200) {
@@ -21,6 +25,9 @@ export class Feed {
         }
     }
 
+    /**
+     * Рендерит страницу ленты, вставляет шаблоны описания пользователя и кнопок анкеты
+     */
     async render() {
         const resp = await Api.user();
         if ( resp.status === 401 ) {
@@ -44,6 +51,9 @@ export class Feed {
         this.update();
     }
 
+    /**
+     * Добавляет действия по нажатию на кнопки анкеты
+     */
     addSwipeBtns() {
         const dislikeBtn = document.getElementById('dislike');
         const likeBtn = document.getElementById('like');
@@ -53,6 +63,9 @@ export class Feed {
         messagesBtn.addEventListener('click', () => this.router.go('/messages'));
     }
 
+    /**
+     * Меняет описание и фото одного пользователя в анкете на другого без перерендера других элементов анкеты
+     */
     async update() {
         this.description.render(await this.getNextPerson());
     }

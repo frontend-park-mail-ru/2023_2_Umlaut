@@ -8,13 +8,11 @@ export class Menu {
         this.parent = document.getElementById('root');
         this.renderOther = renderOther;
         this.item = items;
-
-        this.state = {
-            activeMenu: null,
-            menuElements: {},
-        };
     }
 
+    /**
+     * Отрисовка меню по шаблону
+     */
     render() {
         Api.user().then(
             (response) => {

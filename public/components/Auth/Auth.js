@@ -12,6 +12,9 @@ export class Auth {
         this.router = router;
     }
 
+    /**
+     * Рендер страницы авторизации
+     */
     async render() {
         const resp = await Api.user();
         if ( resp.status === 200 ) {
@@ -29,6 +32,10 @@ export class Auth {
         });
     }
 
+    /**
+     * Проверка правильности введенного адреса электронной почты
+     * @returns {bool} удовлетворяет ли адрес почты условиям
+     */
     validateMail() {
         if (Validate.email(this.mailInput.value)) {
             this.hideError();
@@ -39,6 +46,10 @@ export class Auth {
         }
     }
 
+    /**
+     * Проверка правильности введенных данных, отправка запроса на бекенд и переход в ленту/сообщение об ошибке
+     * @param {event} event 
+     */
     onSubmit(event) {
         event.preventDefault();
 
@@ -69,10 +80,16 @@ export class Auth {
         );
     }
 
+    /**
+     * Скрыть сообщение об ошибке
+     */
     hideError() {
         this.errorLabel.style.visibility = 'hidden';
     }
 
+    /**
+     * Показать сообщение об ошибке
+     */
     showError(message) {
         this.errorLabel.style.visibility = 'visible';
         this.errorLabel.innerHTML = message;

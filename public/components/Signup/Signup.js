@@ -16,6 +16,9 @@ export class Signup {
         this.form = null;
     }
 
+    /**
+     * Отрисовка страницы регистрации из шаблона
+     */
     async render() {
         const resp = await Api.user();
         if ( resp.status === 200 ) {
@@ -53,6 +56,10 @@ export class Signup {
         });
     }
 
+    /**
+     * Проверка правильности введенноых данных
+     * @returns {bool} правильный или нет
+     */
     validateForm() {
         if (!Validate.email(this.mailInput.value)) {
             this.showError('Неверный email');
@@ -76,6 +83,10 @@ export class Signup {
         return true;
     }
 
+    /**
+     * Отправка запроса на бекенд и переход в ленту/сообщение об ошибке
+     * @param {event} event 
+     */
     onSubmit(event) {
         event.preventDefault();
 
@@ -93,10 +104,16 @@ export class Signup {
         });
     }
 
+    /**
+     * Скрыть сообщение об ошибке
+     */
     hideError() {
         this.errorLabel.style.visibility = 'hidden';
     }
 
+    /**
+     * Показать сообщение об ошибке
+     */
     showError(message) {
         this.errorLabel.style.visibility = 'visible';
         this.errorLabel.innerHTML = message;

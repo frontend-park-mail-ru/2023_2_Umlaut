@@ -8,6 +8,9 @@ export class Header {
         this.logoutCallback = logoutCallback;
     }
 
+    /**
+     * Отрисовка хедера по шаблону. Разные варианты для авторизованных и неавторизованных пользователей
+     */
     render() {
         Api.user().then(
             (response) => {
@@ -20,6 +23,10 @@ export class Header {
         );
     }
 
+    /**
+     * Отрисовка хедера для авторизованных пользователей
+     * @param {string} imgSrc - аватарка пользователя
+     */
     renderAuth(imgSrc) {
         const newDiv = document.createElement('div');
         newDiv.className = 'header';
@@ -29,6 +36,9 @@ export class Header {
         this.parent.appendChild(newDiv);
     }
 
+    /**
+     * Отрисовка хедера для неавторизованных пользователей
+     */
     renderUnauth() {
         const newDiv = document.createElement('div');
         newDiv.className = 'anauthorised-header';
