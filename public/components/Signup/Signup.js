@@ -31,22 +31,22 @@ export class Signup {
         this.nameInput = this.form.querySelector('#name');
         this.passwordInput = this.form.querySelector('#password');
         this.repasswordInput = this.form.querySelector('#password-repeat');
-        this.mailInput.addEventListener('change', (ev) => {
+        this.mailInput.addEventListener('change', () => {
             if (!Validate.email(this.mailInput.value)) {
                 this.showError('Неверный email');
             } else this.hideError();
         });
-        this.nameInput.addEventListener('change', (ev) => {
+        this.nameInput.addEventListener('change', () => {
             if (this.nameInput.value === '') {
                 this.showError('Имя не должно быть пусто');
             } else this.hideError();
         });
-        this.passwordInput.addEventListener('change', (ev) => {
+        this.passwordInput.addEventListener('change', () => {
             if (this.passwordInput.value.length <= 5) {
                 this.showError('Пароль должен быть длиннее 5-ти символов');
             } else this.hideError();
         });
-        this.repasswordInput.addEventListener('change', (ev) => {
+        this.repasswordInput.addEventListener('change', () => {
             if (this.passwordInput.value !== this.repasswordInput.value) {
                 this.showError('Пароли отличаются');
             } else this.hideError();

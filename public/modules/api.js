@@ -11,7 +11,7 @@ const URLS = {
 const BACKEND_URL = 'http://37.139.32.76:8000';
 
 export class Api {
-    static login(data={}) {
+    static login(data = {}) {
         return Ajax.post(BACKEND_URL + URLS.login, data);
     }
 
@@ -19,11 +19,11 @@ export class Api {
         return Ajax.get(BACKEND_URL + URLS.logout);
     }
 
-    static signup(data={}) {
+    static signup(data = {}) {
         return Ajax.post(BACKEND_URL + URLS.singup, data);
     }
 
-    static feed(data={}) {
+    static feed() {
         return Ajax.get(BACKEND_URL + URLS.feed);
     }
 

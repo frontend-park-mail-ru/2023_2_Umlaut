@@ -43,4 +43,4 @@ document.addEventListener('DOMContentLoaded', ()=>{
     router.add('/signup', () => signup.render());
 
     router.start();
-})
+});

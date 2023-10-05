@@ -27,7 +27,7 @@ export class Feed {
             this.router.go('/auth');
             return;
         }
-        this.parent.innerHTML='';
+        this.parent.innerHTML = '';
         this.renderMenu();
 
         const newDiv = document.createElement('div');
@@ -44,7 +44,7 @@ export class Feed {
         this.update();
     }
 
-    addSwipeBtns(){
+    addSwipeBtns() {
         const dislikeBtn = document.getElementById('dislike');
         const likeBtn = document.getElementById('like');
         const messagesBtn = document.getElementById('messages');

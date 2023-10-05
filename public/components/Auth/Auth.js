@@ -23,8 +23,8 @@ export class Auth {
         this.form.addEventListener('submit', this.onSubmit.bind(this));
         this.errorLabel = this.form.querySelector('.error-label');
         this.errorLabel.style.visibility = 'hidden';
-        this.mailInput = this.form.querySelector('#mail')
-        this.mailInput.addEventListener('change', (ev)=>{
+        this.mailInput = this.form.querySelector('#mail');
+        this.mailInput.addEventListener('change', ()=>{
             this.validateMail();
         });
     }
@@ -58,9 +58,9 @@ export class Auth {
                     this.router.go('/feed');
                 } else if(response.status == 400) {
                     this.showError('Неправильный синтаксис запроса');
-                } else if(response.status == 404) {
+                } else if (response.status === 404) {
                     this.showError('Страница не найдена');
-                } else if(response.status == 401) {
+                } else if (response.status === 401) {
                     this.showError('Невeрный email или пароль');
                 } else {
                     this.showError('Неожиданная ошибка');
