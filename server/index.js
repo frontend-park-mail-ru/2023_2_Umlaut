@@ -13,11 +13,13 @@ const server = http.createServer((request, response) => {
   if ( !url.includes(".") || url.includes(".html")) {
     filepath = "public/index.html";
   } else {
-    if (fs.existsSync("./public" + url)) filepath = "./public" + url;
-    else if (fs.existsSync("./static" + url)) filepath = "./static" + url;
-    else if (fs.existsSync("./node_modules" + url))
+    if (fs.existsSync("./public" + url)) {
+      filepath = "./public" + url;
+    }else if (fs.existsSync("./static" + url)) {
+      filepath = "./static" + url;
+    }else if (fs.existsSync("./node_modules" + url)){
       filepath = "./node_modules" + url;
-    else {
+    }else {
       debug.log("error: Not found : " + url);
       response.write(page404);
       response.end();

@@ -8,18 +8,18 @@ export class Signup {
     passwordInput;
     repasswordInput;
     parent;
-    submitCallback;
+    router;
     form;
-    constructor(parent = document.body, submitCallback = () => {}) {
-        this.parent = parent;
-        this.submitCallback = submitCallback;
+    constructor(router) {
+        this.parent = document.getElementById('root');
+        this.router = router;
         this.form = null;
     }
 
     async render() {
         const resp = await Api.user();
         if ( resp.status === 200 ) {
-            this.submitCallback();
+            this.router.go('/feed');
             return;
         }
         this.parent.innerHTML = Handlebars.templates['Signup.hbs']();
@@ -81,14 +81,14 @@ export class Signup {
 
         if (!this.validateForm()) return;
 
-        const inputs = this.form.querySelectorAll('input');
         const inputsValue = {};
-        inputs.forEach((input) => {
-            if (input.id !== 'password-repeat') inputsValue[input.id] = input.value;
-        });
+
+        inputsValue[this.mailInput.id] = this.mailInput.value;
+        inputsValue[this.nameInput.id] = this.nameInput.value;
+        inputsValue[this.passwordInput.id] = this.passwordInput.value;
 
         Api.signup(inputsValue).then((response) => {
-            if (response.status == 200) this.submitCallback();
+            if (response.status == 200) this.router.go('/feed');
             else this.showError(response.body.message);
         });
     }

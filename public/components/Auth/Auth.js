@@ -6,16 +6,16 @@ export class Auth {
     errorLabel;
     mailInput;
     parent;
-    submitCallback;
-    constructor(parent = document.body, submitCallback = () => {}) {
-        this.parent = parent;
-        this.submitCallback = submitCallback;
+    router;
+    constructor(router) {
+        this.parent = document.getElementById('root');
+        this.router = router;
     }
 
     async render() {
         const resp = await Api.user();
         if ( resp.status === 200 ) {
-            this.submitCallback();
+            this.router.go('/feed');
             return;
         }
         this.parent.innerHTML = Handlebars.templates['Auth.hbs']();
@@ -55,7 +55,7 @@ export class Auth {
         Api.login(inputsValue).then(
             (response) => {
                 if (response.status == 200) {
-                    this.submitCallback();
+                    this.router.go('/feed');
                 } else if(response.status == 400) {
                     this.showError('Неправильный синтаксис запроса');
                 } else if(response.status == 404) {

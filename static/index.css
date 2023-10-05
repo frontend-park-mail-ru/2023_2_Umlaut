@@ -145,18 +145,16 @@ a.link {
 
 .form-btn{
     display: flex;
-    justify-content: center;
     align-items: center;
-    grid-row: 5;
-    grid-column: 1;
     max-height: 70px;
-    z-index: 2;
-    gap: 5%;
+    gap: 3%;
+    justify-content: left;
+    padding-left: 8.5%;
 }
 
 .form-btn img{
     width: auto;
-    max-height: 100%;
+    max-height: 70px;
 }
 
  .sidebar{
@@ -175,14 +173,17 @@ a.link {
     padding: 50px;
 }
 
-.userForm{
+.form-feed{
+    border: solid;
+    border-radius: 25px;
+    padding: 20px;
     margin: 50px;
-    padding: 25px;
+}
+
+.userForm{
     display: grid;
     grid-template-columns: 45% 55%;
     grid-template-rows: 100%;
-    border: solid;
-    border-radius: 25px;
 }
 
 .logout-header, .umlaut, .user-name{
@@ -216,7 +217,7 @@ a.link {
 }
 
 .about-user{
-    padding: 4%;
+    padding: 1%;
     display: grid;
 
     grid-template-columns: 40% 60%;
