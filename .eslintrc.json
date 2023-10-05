@@ -20,7 +20,7 @@
         "keyword-spacing": "error",
         "camelcase": "error",
         "require-jsdoc": "off",
-        "max-len": [1, 100],
+        "max-len": ["error", 120],
         "new-cap": 0,
         "space-infix-ops": "error",
         "no-unused-vars": ["error", { "vars": "all", "args": "after-used", "ignoreRestSiblings": false }],
