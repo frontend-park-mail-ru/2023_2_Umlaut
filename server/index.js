@@ -2,7 +2,9 @@ const http = require('http');
 const fs = require('fs');
 const debug = require('debug');
 
-const SERVER_PORT = 8000;
+const SERVER_PORT_PROD = 80;
+const SERVER_PORT_DEV = 8000;
+
 
 const page404 = fs.readFileSync('./public/404.html');
 
@@ -47,4 +49,9 @@ const server = http.createServer((request, response) => {
 
 debug.log('Starting server...');
 
-server.listen(SERVER_PORT);
+
+if (process.env.NODE_ENV === "prod") {
+    server.listen(SERVER_PORT_PROD);
+} else{
+    server.listen(SERVER_PORT_DEV);
+}

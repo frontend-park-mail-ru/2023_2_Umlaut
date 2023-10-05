@@ -1,5 +1,9 @@
 import {Ajax} from './ajax.js';
 
+
+/**
+ * Пути запросов к бекэнду
+ */
 const URLS = {
     login: '/auth/login',
     logout: '/auth/logout',
@@ -8,8 +12,14 @@ const URLS = {
     feed: '/api/feed',
 };
 
+/**
+ * Сслыка на бекэнд
+ */
 const BACKEND_URL = 'http://37.139.32.76:8000';
 
+/**
+ * Класс методов API
+ */
 export class Api {
     /**
      * Post-запрос на вход в аккаунт

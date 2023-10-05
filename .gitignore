@@ -3,3 +3,4 @@
 *.precompiled.js
 .vscode
 node_modules
+docs
