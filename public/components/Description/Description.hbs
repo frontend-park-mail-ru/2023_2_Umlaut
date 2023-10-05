@@ -1,0 +1,55 @@
+<div class="photo-part">
+    <div class="photo">
+        <img src="/pics/avatar.png" alt=""/>
+    </div>
+</div>
+<div class="description">
+    <div class="user-name">
+        {{name}}
+        {{#if age}}
+        , {{age}}
+        {{/if}}
+    </div>
+    <div class="about-user">
+        {{#if description}}
+        <span class="me">
+            О себе:
+        </span>
+        <span class="me">
+            {{description}}
+        </span>
+        {{/if}}
+        {{#if looking}}
+        <span class="goal">
+            Цель:
+        </span>
+        <span class="goal">
+            {{looking}}
+        </span>
+        {{/if}}
+        {{#if education}}
+        <span class="education">
+            Образование:
+        </span>
+        <span class="education">
+            {{education}}
+        </span>
+        {{/if}}
+        {{#if hobbies}}
+        <span class="interests">
+            Увлечения:
+        </span>
+        <span class="interests">
+            {{hobbies}}
+        </span>
+        {{/if}}
+        {{#if tags}}
+        <span class="tags">
+            Теги:
+        </span>
+        <span class="tags">
+            {{tags}}
+        </span>
+        {{/if}}
+    </div>
+</div>
