@@ -1,6 +1,9 @@
 import {Api} from '../../modules/api.js';
 import {Validate} from '../../modules/validate.js';
 
+/**
+ * Компонент страницы регистрации
+ */
 export class Signup {
     errorLabel;
     mailInput;
@@ -58,7 +61,7 @@ export class Signup {
 
     /**
      * Проверка правильности введенноых данных
-     * @return {bool} правильный или нет
+     * @return {boolean} правильный или нет
      */
     validateForm() {
         if (!Validate.email(this.mailInput.value)) {
@@ -85,7 +88,7 @@ export class Signup {
 
     /**
      * Отправка запроса на бекенд и переход в ленту/сообщение об ошибке
-     * @param {event} event
+     * @param {SubmitEvent} event
      */
     onSubmit(event) {
         event.preventDefault();

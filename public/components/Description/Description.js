@@ -1,3 +1,6 @@
+/**
+ * Компонент ленты, отвечающий за описание и фото пользователя в анкете
+ */
 export class Description {
     parent;
     constructor(parent) {

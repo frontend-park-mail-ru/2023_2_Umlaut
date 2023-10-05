@@ -1,5 +1,8 @@
 import {Api} from '../../modules/api.js';
 
+/**
+ * Компонент бокового меню
+ */
 export class Menu {
     parent;
     renderOther;

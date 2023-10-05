@@ -1,6 +1,9 @@
 import {Api} from '../../modules/api.js';
 import {Description} from '../Description/Description.js';
 
+/**
+ * Компонент ленты с кнопками в анкете
+ */
 export class Feed {
     description;
     parent;

@@ -1,6 +1,9 @@
 import {Api} from '../../modules/api.js';
 import {Validate} from '../../modules/validate.js';
 
+/**
+ * Компонент страницы авторизации (входа)
+ */
 export class Auth {
     form;
     errorLabel;
@@ -48,7 +51,7 @@ export class Auth {
 
     /**
      * Проверка правильности введенных данных, отправка запроса на бекенд и переход в ленту/сообщение об ошибке
-     * @param {event} event
+     * @param {SubmitEvent} event
      */
     onSubmit(event) {
         event.preventDefault();

@@ -1,5 +1,8 @@
 import {Api} from '../../modules/api.js';
 
+/**
+ * Компонент хедер для всех страниц
+ */
 export class Header {
     parent;
     logoutCallback;
