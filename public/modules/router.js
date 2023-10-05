@@ -9,11 +9,15 @@ export class Router {
     go(path) {
         if (this.current === path) return;
         this.current = path;
-        window.history.pushState(null, null, path);
         if (!this.routes.has(path)) {
-            this.go('/');
+            this.change('/');
             return;
         }
+        window.history.pushState(null, null, path);
+        this.change(path);
+    }
+
+    change(path) {
         this.routes.get(path)();
     }
 
@@ -31,7 +35,7 @@ export class Router {
         });
 
         window.addEventListener('popstate', () => {
-            this.go(window.location.pathname);
+            this.change(window.location.pathname);
         });
 
         this.go(window.location.pathname);
