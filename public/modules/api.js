@@ -15,7 +15,7 @@ const URLS = {
 /**
  * Сслыка на бекэнд
  */
-const BACKEND_URL = 'http://37.139.32.76:8000';
+const BACKEND_URL = 'http://umlaut-bmstu.me:8000';
 
 /**
  * Класс методов API
