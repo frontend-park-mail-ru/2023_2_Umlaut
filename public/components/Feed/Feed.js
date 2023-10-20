@@ -1,4 +1,4 @@
-import {Api} from '../../modules/api.js';
+import {Api} from '../../lib/api.js';
 import {Description} from '../Description/Description.js';
 
 /**

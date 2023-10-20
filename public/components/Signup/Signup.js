@@ -1,5 +1,5 @@
-import {Api} from '../../modules/api.js';
-import {Validate} from '../../modules/validate.js';
+import {Api} from '../../lib/api.js';
+import {Validate} from '../../lib/validate.js';
 
 /**
  * Компонент страницы регистрации

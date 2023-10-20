@@ -1,17 +1,23 @@
 'use strict';
 
-import {Router} from './modules/router.js';
-import {Auth} from './components/Auth/Auth.js';
+import {Router} from './lib/router.js';
 import {Signup} from './components/Signup/Signup.js';
 import {Header} from './components/Header/Header.js';
 import {Menu} from './components/Menu/Menu.js';
 import {Feed} from './components/Feed/Feed.js';
-import {Api} from './modules/api.js';
+import {Api} from './lib/api.js';
+import {AuthController} from './components/Auth/AuthController.js';
+import {EventBus} from './lib/eventbus.js';
+import {GLOBAL_EVENTS} from './lib/constansts.js';
 
 document.addEventListener('DOMContentLoaded', ()=>{
+    const root = document.getElementById('root');
     const router = new Router();
+    const globalEventBus = new EventBus();
+    globalEventBus.on(GLOBAL_EVENTS.REDIRECT, (data) => router.go(data));
 
-    const auth = new Auth(router);
+
+    const auth = new AuthController(root, globalEventBus);
     const signup = new Signup(router);
     const header = new Header(() => {
         Api.logout(); router.go('/auth');
