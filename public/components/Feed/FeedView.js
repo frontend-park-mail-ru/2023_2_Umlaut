@@ -19,7 +19,7 @@ export class FeedView extends BaseView {
      * Рендерит страницу ленты, вставляет шаблоны описания пользователя и кнопок анкеты
      */
     render() {
-        // this.parent.innerHTML = '';
+        this.parent.innerHTML = '';
         // this.renderMenu();
 
         const newDiv = document.createElement('div');
@@ -34,6 +34,14 @@ export class FeedView extends BaseView {
         this.addSwipeBtns();
 
         this.update();
+    }
+
+    close() {
+        super.close();
+        const dislikeBtn = document.getElementById('dislike');
+        const likeBtn = document.getElementById('like');
+        dislikeBtn.removeEventListener('click', () => this.update());
+        likeBtn.removeEventListener('click', () => this.update());
     }
 
     /**

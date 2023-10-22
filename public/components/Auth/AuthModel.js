@@ -26,13 +26,12 @@ export class AuthModel {
         );
     }
 
-    isAuthorised() {
-        Api.user().then(
-            (response) => {
-                if ( response.status === 200 ) {
-                    this.eventBus.emit(AUTH_EVENTS.AUTH);
-                }
-            },
-        );
+    async isAuthorised() {
+        const resp = await Api.user();
+        if ( resp.status === 200 ) {
+            this.eventBus.emit(AUTH_EVENTS.AUTH);
+            return true
+        }
+        else return false
     }
 }

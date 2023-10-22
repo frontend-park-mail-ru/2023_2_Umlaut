@@ -12,4 +12,10 @@ export class FeedController extends BaseController {
         this.model = new FeedModel(this.eventBus);
         this.eventBus.on(FEED_EVENTS.UNAUTH, () => this.globalEventBus.emit(GLOBAL_EVENTS.REDIRECT, '/auth'));
     }
+
+    render(){
+        if (this.model.isAuthorised()) {
+            super.render()
+        }
+    }
 }

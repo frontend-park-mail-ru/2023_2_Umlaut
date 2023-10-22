@@ -5,6 +5,7 @@ export class FeedModel{
     constructor(eventBus) {
         this.eventBus = eventBus;
         this.eventBus.on(FEED_EVENTS.GET_NEXT, this.getNextPerson.bind(this));
+        this.eventBus.on(FEED_EVENTS.CHECK_AUTHORISED, this.isAuthorised.bind(this));
     }
 
     /**
@@ -20,10 +21,12 @@ export class FeedModel{
         }
     }
 
-    async isAuthorised(){
+    async isAuthorised() {
         const resp = await Api.user();
         if ( resp.status === 401 ) {
-            this.eventBus.emit(FEED_EVENTS.UNAUTH);
+            this.eventBus.emit(AUTH_EVENTS.AUTH);
+            return false
         }
+        else return true
     }
 }

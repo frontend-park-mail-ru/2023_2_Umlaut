@@ -12,4 +12,10 @@ export class AuthController extends BaseController {
         this.model = new AuthModel(this.eventBus);
         this.eventBus.on(AUTH_EVENTS.AUTH, () => this.globalEventBus.emit(GLOBAL_EVENTS.REDIRECT, '/feed'));
     }
+
+    render(){
+        if (!this.model.isAuthorised()) {
+            super.render()
+        }
+    }
 }

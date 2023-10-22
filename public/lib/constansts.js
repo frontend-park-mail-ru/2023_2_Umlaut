@@ -12,4 +12,5 @@ export const AUTH_EVENTS = {
 export const FEED_EVENTS = {
     GET_NEXT: 'GetNextPersonInfo',
     UNAUTH: 'Unauthorised',
+    CHECK_AUTHORISED: 'CheckIsAuthorised',
 };
