@@ -34,6 +34,7 @@ export class Router {
      */
     change(path) {
         this.routes.get(path)();
+        this.current = path;
     }
 
     /**

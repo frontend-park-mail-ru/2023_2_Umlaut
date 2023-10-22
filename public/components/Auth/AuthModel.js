@@ -1,9 +1,11 @@
 import {AUTH_EVENTS} from '../../lib/constansts.js';
 import {Api} from '../../lib/api.js';
+
 export class AuthModel {
     constructor(eventBus) {
         this.eventBus = eventBus;
         this.eventBus.on(AUTH_EVENTS.SIGN_IN, this.signIn.bind(this));
+        this.eventBus.on(AUTH_EVENTS.CHECK_AUTHORISED, this.isAuthorised.bind(this));
     }
 
     signIn(data) {
@@ -19,6 +21,16 @@ export class AuthModel {
                     this.eventBus.emit(AUTH_EVENTS.INVALID_AUTH, {message: 'Невeрный email или пароль'});
                 } else {
                     this.eventBus.emit(AUTH_EVENTS.INVALID_AUTH, {message: 'Неожиданная ошибка'});
+                }
+            },
+        );
+    }
+
+    isAuthorised() {
+        Api.user().then(
+            (response) => {
+                if ( response.status === 200 ) {
+                    this.eventBus.emit(AUTH_EVENTS.AUTH);
                 }
             },
         );

@@ -6,8 +6,11 @@ export class BaseView {
         this.tmpl = tmpl;
     }
 
-    render() {
-        this.root.innerHTML = this.tmpl(this.data);
+    render(root={}) {
+        if(root=={}){
+            this.root.innerHTML = this.tmpl(this.data);
+        }
+        root.innerHTML = this.tmpl(this.data);
     }
 
     close() {

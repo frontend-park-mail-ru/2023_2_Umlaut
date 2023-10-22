@@ -1,7 +1,7 @@
 import {EventBus} from '../lib/eventbus.js';
 
 export class BaseController {
-    constructor(root, globalEventBus) {
+    constructor(globalEventBus) {
         this.globalEventBus = globalEventBus;
         this.eventBus = new EventBus();
     }

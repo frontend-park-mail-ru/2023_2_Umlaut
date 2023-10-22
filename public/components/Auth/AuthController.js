@@ -6,7 +6,7 @@ import {AUTH_EVENTS, GLOBAL_EVENTS} from '../../lib/constansts.js';
 
 export class AuthController extends BaseController {
     constructor(root, globalEventBus) {
-        super(root, globalEventBus);
+        super(globalEventBus);
         const tmp = window.Handlebars.templates['Auth.hbs'];
         this.view = new AuthView(root, this.eventBus, tmp);
         this.model = new AuthModel(this.eventBus);

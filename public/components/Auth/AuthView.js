@@ -21,6 +21,7 @@ export class AuthView extends BaseView {
      */
     render() {
         super.render();
+        this.eventBus.emit(AUTH_EVENTS.CHECK_AUTHORISED);
         this.form = this.root.querySelector('.auth');
         this.form.addEventListener('submit', this.onSubmit.bind(this));
         this.errorLabel = this.form.querySelector('.error-label');
