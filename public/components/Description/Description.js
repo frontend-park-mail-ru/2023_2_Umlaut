@@ -12,6 +12,7 @@ export class Description {
      * @param {object} user
      */
     render(user) {
+        this.id = user['id'];
         this.parent.innerHTML = window.Handlebars.templates['Description.hbs'](user);
     }
 }

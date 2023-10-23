@@ -10,12 +10,8 @@ export class FeedController extends BaseController {
         const tmp = window.Handlebars.templates['Feed.hbs'];
         this.view = new FeedView(root, this.eventBus, tmp);
         this.model = new FeedModel(this.eventBus);
-        this.eventBus.on(FEED_EVENTS.UNAUTH, () => this.globalEventBus.emit(GLOBAL_EVENTS.REDIRECT, '/auth'));
-    }
-
-    render(){
-        if (this.model.isAuthorised()) {
-            super.render()
-        }
+        this.eventBus.on(FEED_EVENTS.UNAUTH, () => this.globalEventBus.emit(GLOBAL_EVENTS.UNAUTH));
+        // пока так лучше чтоб такие ивенты апи кидало
+        // оно будет и всякие уведомления кидать
     }
 }

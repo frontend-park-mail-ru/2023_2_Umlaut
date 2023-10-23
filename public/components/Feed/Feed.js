@@ -60,10 +60,10 @@ export class Feed {
     addSwipeBtns() {
         const dislikeBtn = document.getElementById('dislike');
         const likeBtn = document.getElementById('like');
-        //const messagesBtn = document.getElementById('messages');
+        // const messagesBtn = document.getElementById('messages');
         dislikeBtn.addEventListener('click', () => this.update());
         likeBtn.addEventListener('click', () => this.update());
-        //messagesBtn.addEventListener('click', () => this.router.go('/messages'));
+        // messagesBtn.addEventListener('click', () => this.router.go('/messages'));
     }
 
     /**

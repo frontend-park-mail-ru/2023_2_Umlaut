@@ -13,7 +13,8 @@ export class AuthView extends BaseView {
     router;
     constructor(root, eventBus, tmpl) {
         super(root, eventBus, tmpl);
-        this.eventBus.on( AUTH_EVENTS.INVALID_AUTH, this.showError.bind(this));
+        this.eventBus.on( AUTH_EVENTS.INVALID_AUTH, (data) => this.showError(data.message));
+        this.eventBus.on( AUTH_EVENTS.UNAUTH, this.render.bind(this));
     }
 
     /**

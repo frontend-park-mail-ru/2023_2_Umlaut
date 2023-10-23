@@ -14,7 +14,7 @@ export class AuthModel {
                 if (response.status === 200) {
                     this.eventBus.emit(AUTH_EVENTS.AUTH);
                 } else if (response.status === 400) {
-                    this.eventBus.emit(AUTH_EVENTS.INVALID_AUTH, {message: 'Неправильный синтаксис запроса'});
+                    this.eventBus.emit(AUTH_EVENTS.INVALID_AUTH, {message: 'Неправильный запрос'});
                 } else if (response.status === 404) {
                     this.eventBus.emit(AUTH_EVENTS.INVALID_AUTH, {message: 'Страница не найдена'});
                 } else if (response.status === 401) {
@@ -26,12 +26,33 @@ export class AuthModel {
         );
     }
 
-    async isAuthorised() {
-        const resp = await Api.user();
-        if ( resp.status === 200 ) {
-            this.eventBus.emit(AUTH_EVENTS.AUTH);
-            return true
-        }
-        else return false
+    signUp(data) {
+        Api.signup(data).then(
+            (response) => {
+                if (response.status === 200) {
+                    this.eventBus.emit(AUTH_EVENTS.AUTH);
+                } else if (response.status === 400) {
+                    this.eventBus.emit(AUTH_EVENTS.INVALID_AUTH, {message: 'Неправильный запрос'});
+                } else if (response.status === 404) {
+                    this.eventBus.emit(AUTH_EVENTS.INVALID_AUTH, {message: 'Страница не найдена'});
+                } else if (response.status === 401) {
+                    this.eventBus.emit(AUTH_EVENTS.INVALID_AUTH, {message: 'Невeрный email или пароль'});
+                } else {
+                    this.eventBus.emit(AUTH_EVENTS.INVALID_AUTH, {message: 'Неожиданная ошибка'});
+                }
+            },
+        );
+    }
+
+    isAuthorised() {
+        Api.user().then(
+            (response) => {
+                if ( response.status === 200 ) {
+                    this.eventBus.emit(AUTH_EVENTS.AUTH);
+                } else {
+                    this.eventBus.emit(AUTH_EVENTS.UNAUTH);
+                }
+            },
+        );
     }
 }
