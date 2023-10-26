@@ -4,7 +4,7 @@ import {BaseController} from '../BaseController.js';
 import {AUTH_EVENTS, GLOBAL_EVENTS} from '../../lib/constansts.js';
 
 
-export class SingupController extends BaseController {
+export class SignupController extends BaseController {
     constructor(root, globalEventBus) {
         super(globalEventBus);
         const tmp = window.Handlebars.templates['Signup.hbs'];

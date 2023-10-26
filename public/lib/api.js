@@ -7,7 +7,7 @@ import {Ajax} from './ajax.js';
 const URLS = {
     login: '/auth/login',
     logout: '/auth/logout',
-    singup: '/auth/sign-up',
+    Signup: '/auth/sign-up',
     user: '/api/user',
     feed: '/api/feed',
 };
@@ -44,7 +44,7 @@ export class Api {
      * @return {Promise} - статус и тело ответа
      */
     static signup(data = {}) {
-        return Ajax.post(BACKEND_URL + URLS.singup, data);
+        return Ajax.post(BACKEND_URL + URLS.Signup, data);
     }
 
     /**

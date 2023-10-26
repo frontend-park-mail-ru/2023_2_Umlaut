@@ -103,7 +103,7 @@ export class SignupView extends BaseView {
         inputsValue[this.nameInput.id] = this.nameInput.value;
         inputsValue[this.passwordInput.id] = this.passwordInput.value;
 
-        this.eventBus.emit(AUTH_EVENTS.SING_UP, inputsValue);
+        this.eventBus.emit(AUTH_EVENTS.SIGN_UP, inputsValue);
     }
 
     /**

@@ -1,4 +1,3 @@
-
 <div class="main-page">
     <a class="logo" href="/feed">
         <img src="/pics/Umlaut.jpg">
@@ -8,12 +7,14 @@
     </div>
 </div>
 <div class="profile">
-    <div class="logout-header">
-        <a href="" class="link">Выйти</a>
-    </div>
+    <a class="avatar" href="/messages">
+        {{#if message_photo}}
+            <img src="{{{message_photo}}}" alt=""/>
+        {{/if}}
+    </a>
     <a class="avatar" href="/profile">
-        {{#if img_src}}
-            <img src="{{{img_src}}}" alt=""/>
+        {{#if user_photo}}
+            <img src="{{{user_photo}}}" alt=""/>
         {{/if}}
     </a>
 </div>

@@ -19,7 +19,6 @@ export class FeedView extends BaseView {
      */
     render() {
         this.root.innerHTML = '';
-        // this.renderMenu();
 
         const newDiv = document.createElement('div');
         newDiv.className = 'main-part';
@@ -50,10 +49,8 @@ export class FeedView extends BaseView {
     addSwipeBtns() {
         const dislikeBtn = document.getElementById('dislike');
         const likeBtn = document.getElementById('like');
-        // const messagesBtn = document.getElementById('messages');
         dislikeBtn.addEventListener('click', () => this.eventBus.emit(FEED_EVENTS.RATE_PERSON));
         likeBtn.addEventListener('click', () => this.eventBus.emit(FEED_EVENTS.RATE_PERSON));
-        // messagesBtn.addEventListener('click', () => this.router.go('/messages'));
     }
 
     /**
