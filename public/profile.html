@@ -6,52 +6,64 @@
     <link rel="stylesheet" href="../static/reset.css" />
     <link rel="stylesheet" href="../static/index.css" />
   </head>
-  <body class="profile-page">
-    <div class="main-container">
-      <div class="page">
-        <div class="page-header">Профиль</div>
-        <div class="form">
-          <div class="form-field">
-            <div class="form-field-header">Имя</div>
-            <input class="form-field-input input text" type="text" id="name" />
-          </div>
-          <div class="form-field">
-            <div class="form-field-header">Образование</div>
-            <select class="form-field-input input-select" id="education">
-              <option value="none">Нету</option>
-              <option value="middle">Среднее</option>
-              <option value="high">Высшее</option>
-              <option value="extra-high">Курсы скилбокс</option>
-            </select>
-          </div>
-          <div class="form-field">
-            <div class="form-field-header">Увлечения</div>
-            <div class="form-field-input input-checkbox-group">
-              <div class="input-checkbox">
-                <input type="checkbox" />
-                <label>Машины</label>
-              </div>
-              <div class="input-checkbox">
-                <input type="checkbox" />
-                <label>Спорт</label>
-              </div>
-              <div class="input-checkbox">
-                <input type="checkbox" />
-                <label>Музыка</label>
-              </div>
-              <div class="input-checkbox">
-                <input type="checkbox" />
-                <label>Страйкбол</label>
-              </div>
-              <div class="input-checkbox">
-                <input type="checkbox" />
-                <input type="text" />
-              </div>
-            </div>
-          </div>
-          <button type="button">Сохранить</button>
-        </div>
+  <body>
+    <div class="main-part">
+      <div class="settingsForm">
+        <div class="photo-part">
+      <div class="user-name">
+          Максим, 20
       </div>
+      <div class="photo">
+          <img src="/static/pics/avatar.png" alt="">
+      </div>
+      <div class="buttons-settings">
+        <button type="submit" class="btn delete-btn">удалить</button>
+        <button type="submit" class="btn add-btn">добавить фото</button>
+      </div>
+  </div>
+  <div class="description-settings">
+      <div class="about-user">
+        <div class="input">
+          <span class="name-input">Цель</span>
+          <select class="form-control Selector"  name="url">
+              <option value="">Серьезные отношения</option>
+              <option value="">Новые знакомства</option>
+              <option value="">Несерьезные отношения</option>
+          </select>
+      </div>
+      <div class="input">
+        <span class="name-input">Образование</span>
+        <select class="form-control Selector"  name="url">
+            <option value="">Высшее</option>
+            <option value="">Среднее</option>
+        </select>
     </div>
+    <div class="input">
+      <span class="name-input">Интересы</span>
+      <select class="form-control Selector"  name="url">
+          <option value="">Керлинг</option>
+          <option value="">Баскетбол</option>
+          <option value="">Программирование</option>
+          <option value="">Кулинария</option>
+          <option value="">Танцы</option>
+      </select>
+  </div>
+  <div class="input">
+          <span class="name-input">Теги</span>
+          <select class="form-control Selector"  name="url">
+              <option value="">Кринж</option>
+              <option value="">Некринж</option>
+          </select>
+      </div>
+      <div class="input">
+        <span class="name-input">О себе</span>
+        <textarea class="form-control Selector"></textarea>
+        </select>
+    </div>
+    <button type="submit" class="btn save-btn">сохранить</button>
+  </div>
+</div>
+      
+  </div>
   </body>
 </html>

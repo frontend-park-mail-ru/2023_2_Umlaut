@@ -11,11 +11,8 @@ import { HeaderController } from './components/Header/HeaderController.js';
 
 document.addEventListener('DOMContentLoaded', ()=>{
     const root = document.getElementById('root');
-    const head = document.createElement('div');
-    head.className = 'header';
-    const page = document.createElement('div');
-    root.appendChild(head);
-    root.appendChild(page);
+    const head = root.querySelector(".header");
+    const page = root.querySelector("#page");
 
     const router = new Router();
     
@@ -24,8 +21,10 @@ document.addEventListener('DOMContentLoaded', ()=>{
     const globalEventBus = new EventBus();
     globalEventBus.on(GLOBAL_EVENTS.REDIRECT, (data) => router.go(data));
     globalEventBus.on(GLOBAL_EVENTS.AUTH, () => header.render());
-    globalEventBus.on(GLOBAL_EVENTS.UNAUTH, () => router.go('/auth'));
-    globalEventBus.on(GLOBAL_EVENTS.UNAUTH, () => header.renderUnauth());
+    globalEventBus.on(GLOBAL_EVENTS.UNAUTH, () => {
+        header.renderUnauth();
+        router.go('/auth');
+    });
 
     globalEventBus.emit(GLOBAL_EVENTS.AUTH)
 
@@ -38,9 +37,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
     router.add('/feed', () => feed.render());
     router.add('/auth', () => auth.render());
     router.add('/signup', () => signup.render());
-    router.add('/logout', async () => {
-        await Api.logout(); globalEventBus.emit(GLOBAL_EVENTS.UNAUTH); router.go('/auth'); 
-    });
+    router.add('/logout', async () => {await Api.logout(); globalEventBus.emit(GLOBAL_EVENTS.UNAUTH); router.go('/auth'); });
 
     router.start();
 });
