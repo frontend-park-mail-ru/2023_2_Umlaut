@@ -1,17 +1,16 @@
 export class BaseView {
-    constructor(root, eventBus, tmpl, data = {}) {
+    constructor(root, eventBus, tmpl) {
         this.eventBus = eventBus;
         this.root = root;
-        this.data = data;
         this.tmpl = tmpl;
     }
 
-    render(root = undefined) {
+    render(data={}, root = undefined) {
         if (root === undefined) {
-            this.root.innerHTML = this.tmpl(this.data);
+            this.root.innerHTML = this.tmpl(data);
             return;
         }
-        root.innerHTML = this.tmpl(this.data);
+        root.innerHTML = this.tmpl(data);
     }
 
     close() {

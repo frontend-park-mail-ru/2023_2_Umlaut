@@ -20,14 +20,14 @@ export class FeedView extends BaseView {
     render() {
         this.root.innerHTML = '';
 
-        const newDiv = document.createElement('div');
-        newDiv.className = 'main-part';
-        super.render(newDiv);
+        // const newDiv = document.createElement('div');
+        // newDiv.className = 'main-part';
+        super.render();
 
-        const userForm = newDiv.querySelector('.userForm');
+        const userForm = this.root.querySelector('.userForm');
         this.description = new Description(userForm);
 
-        this.root.appendChild(newDiv);
+        //this.root.appendChild(newDiv);
 
         this.addSwipeBtns();
 

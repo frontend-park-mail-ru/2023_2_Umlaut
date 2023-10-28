@@ -30,6 +30,10 @@ export class Api {
         return Ajax.post(BACKEND_URL + URLS.login, data);
     }
 
+    static update(data = {}) {
+        return Ajax.post(BACKEND_URL + URLS.user, data);
+    }
+
     /**
      * Get-запрос на выход из аккаунта пользователя
      * @return {Promise} - статус и тело ответа

@@ -1,0 +1,68 @@
+<form class="settingsForm">
+    <div class="photo-part">
+        <div class="user-name">
+            Максим, 20
+        </div>
+        <div class="photo">
+            <img src="/pics/avatar.png" alt="">
+        </div>
+        <div class="buttons-settings">
+            <button type="submit" class="btn delete-btn">удалить</button>
+            <button type="submit" class="btn add-btn">добавить фото</button>
+        </div>
+    </div>
+    <div class="description-settings">
+        <div class="about-user">
+            <div class="input">
+                <span class="name-input">Цель</span>
+                <select class="form-control Selector"  id="looking">
+                    {{#if this.user.goal}}
+                        <option value="" selected="selected">{{this.user.goal}}</option>
+                    {{/if}} 
+                    {{#each this.goals}}
+                        <option value="">{{this}}</option>
+                    {{/each}} 
+                </select>
+            </div>
+            <div class="input">
+                <span class="name-input">Образование</span>
+                <select class="form-control Selector"  id="education">
+                    {{#if this.user.education}}
+                        <option value="" selected="selected">{{this.user.education}}</option>
+                    {{/if}} 
+                    {{#each this.educations}}
+                        <option value="">{{this}}</option>
+                    {{/each}} 
+                </select>
+            </div>
+            <div class="input">
+                <span class="name-input">Интересы</span>
+                <select class="form-control Selector"  id="hobbies">
+                    {{#if this.user.hobbies}}
+                        <option value="" selected="selected">{{this.user.hobbies}}</option>
+                    {{/if}} 
+                    {{#each this.interests}}
+                        <option value="">{{this}}</option>
+                    {{/each}} 
+                </select>
+            </div>
+            <div class="input">
+                <span class="name-input">Теги</span>
+                <select class="form-control Selector" id="tags">
+                    {{#if this.user.tags}}
+                        <option value="" selected="selected">{{this.user.tags}}</option>
+                    {{/if}} 
+                    {{#each this.tags}}
+                        <option value="">{{this}}</option>
+                    {{/each}} 
+                </select>
+            </div>
+            <div class="input">
+                <span class="name-input">О себе</span>
+                    <textarea class="form-control Selector" id="description">{{this.user.description}}</textarea>
+                </select>
+            </div>
+            <button type="" class="btn save-btn">сохранить</button>
+        </div>
+    </div>
+</form>

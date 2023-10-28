@@ -29,3 +29,11 @@ export const HEADER_EVENTS = {
     AUTH: 'g',
     UNAUTH: 'k',
 };
+
+export const SETTINGS_EVENTS = {
+    CHECK_AUTHORISED: 'CheckIsAuthorised',
+    GOT_USER: 'RenderingHeader',
+    SEND_DATA: 'g',
+    UNAUTH: 'k',
+    SUCCESS: 'JJ',
+};
