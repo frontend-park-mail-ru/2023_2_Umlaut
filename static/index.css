@@ -15,6 +15,7 @@ body {
     --lending-text-color: #685206;
     --background-color: #F7D8DD;
     --dark-blue-color: #303656;
+    --dialog-grey: #76798B;
 }
 
 .btn {
@@ -446,4 +447,54 @@ header, .anauthorised-header{
 .buttons-settings{
     display: flex;
     justify-content: space-around;
+}
+
+/* === MESSENGER === */
+
+#messenger {
+    display: grid;
+    height: 100%;
+    grid-template-areas:
+        "dialog-list dialog-window";
+
+    grid-template-columns: 350px 1fr;
+}
+
+#dialog-list{
+    grid-area: "dialog-list";
+    overflow: scroll;
+    background-color: var(--dialog-grey);
+}
+
+#dialog-window{
+    grid-area: "dialog-window";
+    border: 1px solid var(--dark-blue-color);
+}
+
+.dialog-preview{
+    height: 100px;
+    border: 1px solid var(--dark-blue-color);
+}
+
+.dialog-preview-photo{
+    height: 85px;
+    width: 85px;
+    float: left;
+    border-radius: 50%;
+    overflow: hidden;
+    padding: 8px;
+}
+
+.dialog-preview-photo > img{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+.dialog-name{
+    color: white;
+}
+
+.preview-message{
+    font-size: 12px;
 }

@@ -37,3 +37,11 @@ export const SETTINGS_EVENTS = {
     UNAUTH: 'k',
     SUCCESS: 'JJ',
 };
+
+export const MESSENGER_EVENTS = {
+    GET_DIALOGS: "GetDialogs",
+    DIALOGS_READY: "DialogsReady",
+    GET_MESSAGES: "GetMessages",
+    MESSAGES_READY: "MessagesReady",
+    SEND_MESSAGE: "SendMessage"
+};

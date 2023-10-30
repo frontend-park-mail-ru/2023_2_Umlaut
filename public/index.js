@@ -9,6 +9,8 @@ import {GLOBAL_EVENTS} from './lib/constansts.js';
 import {SignupController} from './components/Signup/SignupController.js';
 import { HeaderController } from './components/Header/HeaderController.js';
 import { SettingsController } from './components/Settings/SettingsController.js';
+import { MessengerController } from './components/Messenger/MessengerController.js';
+window.Handlebars.partials = window.Handlebars.templates;
 
 document.addEventListener('DOMContentLoaded', ()=>{
     const root = document.getElementById('root');
@@ -35,12 +37,14 @@ document.addEventListener('DOMContentLoaded', ()=>{
     const feed = new FeedController(page, globalEventBus);
 
     const settings = new SettingsController(page, globalEventBus);
+    const messenger = new MessengerController(page, globalEventBus);
 
     router.add('/', () => router.go('/feed'));
     router.add('/feed', () => feed.render());
     router.add('/auth', () => auth.render());
     router.add('/signup', () => signup.render());
     router.add('/settings', () => settings.render());
+    router.add('/messages', () => messenger.render());
     router.add('/logout', async () => {await Api.logout(); globalEventBus.emit(GLOBAL_EVENTS.UNAUTH); router.go('/auth'); });
 
     router.start();
