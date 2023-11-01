@@ -17,7 +17,6 @@ export class Ajax {
         })
             .then(
                 (response) => {
-                    status = response.status;
                     const contentType = response.headers.get('content-type');
                     if ( contentType && contentType.indexOf('application/json') !== -1 ) {
                         return response.json();
@@ -30,11 +29,9 @@ export class Ajax {
                 },
             )
             .then((body) => {
-                return {
-                    status,
-                    body,
-                };
-            });
+                return body  
+            }
+        );
     }
 
     /**
@@ -70,10 +67,8 @@ export class Ajax {
                 },
             )
             .then((body) => {
-                return {
-                    status,
-                    body,
-                };
-            });
+                return body  
+            }
+        );
     }
 }

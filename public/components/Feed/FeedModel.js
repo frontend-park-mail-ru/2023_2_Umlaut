@@ -14,7 +14,7 @@ export class FeedModel {
     async getNextPerson() {
         Api.feed().then((response) => {
             if ( response.status === 200) {
-                this.eventBus.emit(FEED_EVENTS.NEXT_PERSON_READY, response.body);
+                this.eventBus.emit(FEED_EVENTS.NEXT_PERSON_READY, response.payload);
             } else if ( response.status === 401 ) {
                 this.eventBus.emit(FEED_EVENTS.UNAUTH);
             }

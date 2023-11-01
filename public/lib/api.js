@@ -8,8 +8,8 @@ const URLS = {
     login: '/auth/login',
     logout: '/auth/logout',
     Signup: '/auth/sign-up',
-    user: '/api/user',
-    feed: '/api/feed',
+    user: '/api/v1/user',
+    feed: '/api/v1/feed',
 };
 
 /**

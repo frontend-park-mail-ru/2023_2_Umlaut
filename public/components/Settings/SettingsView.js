@@ -16,6 +16,10 @@ export class SettingsView extends BaseView {
         super.render(data);
         this.form = this.root.querySelector('.settingsForm');
         this.form.addEventListener('submit', this.onSubmit.bind(this));
+        let deletePhotoBtn = this.root.querySelector('.delete-btn');
+        let addPhotoBtn = this.root.querySelector('.add-btn');
+        deletePhotoBtn.addEventListener('click', this.eventBus.emit(SETTINGS_EVENTS.DELETE_PHOTO));
+        addPhotoBtn.addEventListener('click', this.eventBus.emit(SETTINGS_EVENTS.ADD_PHOTO, ))
     }
 
     close() {
@@ -38,9 +42,10 @@ export class SettingsView extends BaseView {
             inputsValue[selector.id] = selector[selector.selectedIndex].text;
         });
         inputs.forEach((input) => {
-            inputsValue[input.id] = input.textContent;
+            inputsValue[input.id] = input.value;
         });
-
+        inputsValue.prefer_gender=="Мужчин"?inputsValue.prefer_gender=1:inputsValue.prefer_gender=0;
+        inputsValue.user_gender=="Мужской"?inputsValue.user_gender=1:inputsValue.user_gender=0;
         this.eventBus.emit(SETTINGS_EVENTS.SEND_DATA, inputsValue);
     }
 

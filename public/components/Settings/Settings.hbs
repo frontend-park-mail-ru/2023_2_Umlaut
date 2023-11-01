@@ -1,18 +1,44 @@
 <form class="settingsForm">
     <div class="photo-part">
         <div class="user-name">
-            Максим, 20
+            <textarea id="name">{{this.user.name}}</textarea>
+            <textarea id="age">{{this.user.age}}</textarea>
         </div>
         <div class="photo">
             <img src="/pics/avatar.png" alt="">
         </div>
         <div class="buttons-settings">
-            <button type="submit" class="btn delete-btn">удалить</button>
-            <button type="submit" class="btn add-btn">добавить фото</button>
+            <button type="button" class="btn delete-btn">удалить</button>
+            <input type="file" id="file" style="display:none"/>
+            <button type="button" class="btn add-btn" onclick="document.getElementById('file').click()">добавить фото</button>
         </div>
     </div>
     <div class="description-settings">
         <div class="about-user">
+            <div class="input">
+                <span class="name-input">Ваш пол</span>
+                <select class="form-control Selector"  id="user_gender">
+                    {{#if this.user.user_gender}}
+                        <option value="" selected="selected">Мужской</option>
+                        <option value="">Женский</option>
+                    {{else}}
+                        <option value="" selected="selected">Женский</option>
+                        <option value="">Мужской</option>
+                    {{/if}} 
+                </select>
+            </div>
+            <div class="input">
+                <span class="name-input">Кого ищете</span>
+                <select class="form-control Selector"  id="prefer_gender">
+                    {{#if this.user.prefer_gender}}
+                        <option value="" selected="selected">Мужчин</option>
+                        <option value="">Женщин</option>
+                    {{else}}
+                        <option value="" selected="selected">Женщин</option>
+                        <option value="">Мужчин</option>
+                    {{/if}} 
+                </select>
+            </div>
             <div class="input">
                 <span class="name-input">Цель</span>
                 <select class="form-control Selector"  id="looking">
@@ -63,6 +89,26 @@
                 </select>
             </div>
             <button type="submit" class="btn save-btn">сохранить</button>
+        </div>
+    </div>
+    <div class="description-settings">
+        <h2>Смена данных для входа</h2>
+        <div class="about-user">
+            <div class="input">
+                <span class="name-input">Почта</span>
+                    <textarea class="form-control Selector" id="mail">{{this.user.mail}}</textarea>
+                </select>
+            </div>
+            <div class="input">
+                <span class="name-input">Пароль</span>
+                    <textarea class="form-control Selector" id="password"></textarea>
+                </select>
+            </div>
+            <div class="input">
+                <span class="name-input">Повторите пароль</span>
+                    <textarea class="form-control Selector" id="repeat-password"></textarea>
+                </select>
+            </div>
         </div>
     </div>
 </form>

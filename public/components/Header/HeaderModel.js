@@ -11,7 +11,7 @@ export class HeaderModel {
         Api.user().then(
             (response) => {
                 if ( response.status === 200 ) {
-                    let user = response.body;
+                    let user = response.payload;
                     user.message_photo = "/pics/messages.png";
                     user.user_photo = "/pics/avatar.png";
                     this.eventBus.emit(HEADER_EVENTS.AUTH, user);
