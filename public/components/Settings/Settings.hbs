@@ -5,11 +5,11 @@
             <textarea id="age">{{this.user.age}}</textarea>
         </div>
         <div class="photo">
-            <img src="/pics/avatar.png" alt="">
+            <img src="/pics/avatar.png" id="user-photo" alt="">
         </div>
         <div class="buttons-settings">
             <button type="button" class="btn delete-btn">удалить</button>
-            <input type="file" id="file" style="display:none"/>
+            <input type="file" id="file"  accept="image/*" />
             <button type="button" class="btn add-btn" onclick="document.getElementById('file').click()">добавить фото</button>
         </div>
     </div>
@@ -88,6 +88,7 @@
                     <textarea class="form-control Selector" id="description">{{this.user.description}}</textarea>
                 </select>
             </div>
+            <div class="error-label"></div>
             <button type="submit" class="btn save-btn">сохранить</button>
         </div>
     </div>

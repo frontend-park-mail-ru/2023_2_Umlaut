@@ -6,6 +6,8 @@ export class SettingsModel {
         this.eventBus = eventBus;
         this.eventBus.on(SETTINGS_EVENTS.SEND_DATA, this.sendForm.bind(this));
         this.eventBus.on(SETTINGS_EVENTS.CHECK_AUTHORISED, this.isAuthorised.bind(this));
+        this.eventBus.on(SETTINGS_EVENTS.ADD_PHOTO, this.addPhoto.bind(this));
+        this.eventBus.on(SETTINGS_EVENTS.DELETE_PHOTO, this.deletePhoto.bind(this));
         this.settings = {
             goals:[
                 "Серьезные отношения",
@@ -74,5 +76,25 @@ export class SettingsModel {
                 }
             },
         );
+    }
+
+    addPhoto(file){
+        Api.addPhoto(file).then(
+            (response) => {
+                if ( response.status === 200 ) {
+                    this.eventBus.emit(SETTINGS_EVENTS.PHOTO_UPLOADED, file);
+                }
+            }
+        )
+    }
+
+    deletePhoto(file){
+        Api.addPhoto(file).then(
+            (response) => {
+                if ( response.status === 200 ) {
+                    this.eventBus.emit(SETTINGS_EVENTS.PHOTO_UPLOADED);
+                }
+            }
+        )
     }
 }

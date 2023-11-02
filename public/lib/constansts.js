@@ -36,7 +36,9 @@ export const SETTINGS_EVENTS = {
     SEND_DATA: 'g',
     UNAUTH: 'k',
     SUCCESS: 'JJ',
-    DELETE_PHOTO: "DeletePhoto"
+    DELETE_PHOTO: "DeletePhoto",
+    ADD_PHOTO: "AddPhoto",
+    PHOTO_UPLOADED: "photo"
 };
 
 export const MESSENGER_EVENTS = {

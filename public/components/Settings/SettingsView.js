@@ -9,6 +9,7 @@ export class SettingsView extends BaseView {
     constructor(root, eventBus, tmpl) {
         super(root, eventBus, tmpl);
         this.eventBus.on(SETTINGS_EVENTS.GOT_USER, this.render.bind(this));
+        this.eventBus.on(SETTINGS_EVENTS.PHOTO_UPLOADED, this.updatePhoto.bind(this));
         this.root = root;
     }
 
@@ -16,10 +17,16 @@ export class SettingsView extends BaseView {
         super.render(data);
         this.form = this.root.querySelector('.settingsForm');
         this.form.addEventListener('submit', this.onSubmit.bind(this));
+
         let deletePhotoBtn = this.root.querySelector('.delete-btn');
-        let addPhotoBtn = this.root.querySelector('.add-btn');
+        let selectedFile = document.querySelector("#file");
+        this.photoPlace = document.querySelector('#user-photo');
+        this.errorLabel = this.form.querySelector('.error-label');
+        this.errorLabel.style.visibility = 'hidden';
+
         deletePhotoBtn.addEventListener('click', this.eventBus.emit(SETTINGS_EVENTS.DELETE_PHOTO));
-        addPhotoBtn.addEventListener('click', this.eventBus.emit(SETTINGS_EVENTS.ADD_PHOTO, ))
+        //selectedFile.addEventListener('loadend', this.eventBus.emit(SETTINGS_EVENTS.ADD_PHOTO, selectedFile.files[0]));
+        selectedFile.addEventListener('change', console.log(selectedFile.files[0]));
     }
 
     close() {
@@ -35,6 +42,8 @@ export class SettingsView extends BaseView {
     onSubmit(event) {
         event.preventDefault();
 
+        if(!this.validateForm()){return}
+
         const selectors = this.form.querySelectorAll('select');
         const inputs = this.form.querySelectorAll('textarea');
         const inputsValue = {};
@@ -49,4 +58,55 @@ export class SettingsView extends BaseView {
         this.eventBus.emit(SETTINGS_EVENTS.SEND_DATA, inputsValue);
     }
 
+    updatePhoto(photo){
+        this.photoPlace.src = photo;
+    }
+
+    validateForm() {
+        if (!Validate.email(document.querySelector('#mail').value)) {
+            this.showError('Неверный email');
+            return false;
+        }
+        if (document.querySelector('#name').value === '') {
+            this.showError('Имя не должно быть пусто');
+            return false;
+        }
+        if (document.querySelector('#description').value === '') {
+            this.showError('Заполните поле о себе');
+            return false;
+        }
+        if (document.querySelector('#age').value === '') {
+            this.showError('Поле возраста не должно быть пусто');
+            return false;
+        }
+        if (isNaN(Number(document.querySelector('#age').value))) {
+            this.showError('В поле возраста должно быть число');
+            return false;
+        }
+        if ( document.querySelector('#password').value.length <= 5 && document.querySelector('#password').value.length > 0) {
+            this.showError('Пароль должен быть длиннее 5-ти символов');
+            return false;
+        }
+        if (document.querySelector('#repeat-password').value !== document.querySelector('#password').value) {
+            this.showError('Пароли отличаются');
+            return false;
+        }
+        return true;
+    }
+    
+    /**
+     * Скрыть сообщение об ошибке
+     */
+    hideError() {
+        this.errorLabel.style.visibility = 'hidden';
+    }
+
+    /**
+     * Показать сообщение об ошибке
+     * @param {string} message - сообщение
+     */
+    showError(message) {
+        this.errorLabel.style.visibility = 'visible';
+        this.errorLabel.innerHTML = message;
+    }
 }

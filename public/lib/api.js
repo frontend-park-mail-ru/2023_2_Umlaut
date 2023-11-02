@@ -10,6 +10,7 @@ const URLS = {
     Signup: '/auth/sign-up',
     user: '/api/v1/user',
     feed: '/api/v1/feed',
+    photo: '/api/v1/user/photo',
 };
 
 /**
@@ -30,6 +31,11 @@ export class Api {
         return Ajax.post(BACKEND_URL + URLS.login, data);
     }
 
+    /**
+     * Post-запрос на обновление полей юзера
+     * @param {object} data - тело запроса
+     * @return {Promise} - статус и тело ответа
+     */
     static update(data = {}) {
         return Ajax.post(BACKEND_URL + URLS.user, data);
     }
@@ -65,5 +71,29 @@ export class Api {
      */
     static user() {
         return Ajax.get(BACKEND_URL + URLS.user);
+    }
+
+    /**
+     * Get-запрос на получение фото 
+     * @return {Promise} - статус и тело ответа
+     */
+    static getPhoto() {
+        return Ajax.get(BACKEND_URL + URLS.photo);
+    }
+
+    /**
+     * Get-запрос на добавление фото 
+     * @return {Promise} - статус и тело ответа
+     */
+    static addPhoto() {
+        return Ajax.post(BACKEND_URL + URLS.photo);
+    }
+
+    /**
+     * Get-запрос на удаление фото 
+     * @return {Promise} - статус и тело ответа
+     */
+    static deletePhoto() {
+        return Ajax.delete(BACKEND_URL + URLS.photo);
     }
 }

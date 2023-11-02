@@ -8,10 +8,33 @@ export class Ajax {
      * @return {Promise} - статус и тело ответа
      */
     static get(url = '') {
-        let status;
-
         return fetch(url, {
             method: 'GET',
+            mode: 'cors',
+            credentials: 'include',
+        })
+            .then(
+                (response) => {
+                    const contentType = response.headers.get('content-type');
+                    if ( contentType && contentType.indexOf('application/json') !== -1 ) {
+                        return response.json();
+                    } else {
+                        return Promise.resolve(null);
+                    }
+                },
+                (error) => {
+                    console.error(error); // ошибка отправки
+                },
+            )
+            .then((body) => {
+                return body  
+            }
+        );
+    }
+
+    static delete(url = '') {
+        return fetch(url, {
+            method: 'DELETE',
             mode: 'cors',
             credentials: 'include',
         })
@@ -41,8 +64,6 @@ export class Ajax {
      * @return {Promise} - статус и тело ответа
      */
     static post(url = '', data = {}) {
-        let status;
-
         return fetch(url, {
             method: 'POST',
             mode: 'cors',
