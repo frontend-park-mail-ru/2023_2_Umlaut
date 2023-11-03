@@ -85,8 +85,8 @@ export class Api {
      * Get-запрос на добавление фото 
      * @return {Promise} - статус и тело ответа
      */
-    static addPhoto() {
-        return Ajax.post(BACKEND_URL + URLS.photo);
+    static addPhoto(data) {
+        return Ajax.postFile(BACKEND_URL + URLS.photo, data);
     }
 
     /**

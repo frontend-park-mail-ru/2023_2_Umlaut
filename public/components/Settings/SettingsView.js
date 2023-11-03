@@ -25,8 +25,20 @@ export class SettingsView extends BaseView {
         this.errorLabel.style.visibility = 'hidden';
 
         deletePhotoBtn.addEventListener('click', this.eventBus.emit(SETTINGS_EVENTS.DELETE_PHOTO));
-        //selectedFile.addEventListener('loadend', this.eventBus.emit(SETTINGS_EVENTS.ADD_PHOTO, selectedFile.files[0]));
-        selectedFile.addEventListener('change', console.log(selectedFile.files[0]));
+        //selectedFile.addEventListener('change', this.eventBus.emit(SETTINGS_EVENTS.ADD_PHOTO, selectedFile.files[0]));
+        // selectedFile.addEventListener('change', console.log(selectedFile.files[0]));
+
+        function add_photo(eventBus){
+            return function(){
+                eventBus.emit(SETTINGS_EVENTS.ADD_PHOTO, selectedFile.files[0]);
+            }
+        }
+
+        const add = add_photo(this.eventBus);
+        
+        selectedFile.onchange = function(){
+            add();
+        }
     }
 
     close() {

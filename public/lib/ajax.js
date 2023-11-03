@@ -92,4 +92,41 @@ export class Ajax {
             }
         );
     }
+
+    /**
+     * Post-запрос на бекенд
+     * @param {string} url - путь запроса
+     * @param {object} data - тело запроса
+     * @return {Promise} - статус и тело ответа
+     */
+    static postFile(url = '', data = {}) {
+        let formdata = new FormData();
+        formdata.append("file", data);
+        return fetch(url, {
+            method: 'POST',
+            mode: 'cors',
+            credentials: 'include',
+            headers: {
+                'Content-Type': 'multipart/form-data',
+            },
+            body: formdata,
+        })
+            .then(
+                (response) => {
+                    const contentType = response.headers.get('content-type');
+                    if ( contentType && contentType.indexOf('application/json') !== -1 ) {
+                        return response.json();
+                    } else {
+                        return Promise.resolve(null);
+                    }
+                },
+                (error) => {
+                    return (error); // ошибка отправки
+                },
+            )
+            .then((body) => {
+                return body  
+            }
+        );
+    }
 }
