@@ -15,7 +15,6 @@ export class SettingsView extends BaseView {
 
     render(data) {
         super.render(data);
-        this.userPhotoUrl = data.user.photo;
         this.form = this.root.querySelector('.settingsForm');
         this.form.addEventListener('submit', this.onSubmit.bind(this));
 
@@ -71,8 +70,8 @@ export class SettingsView extends BaseView {
         this.eventBus.emit(SETTINGS_EVENTS.SEND_DATA, inputsValue);
     }
 
-    updatePhoto() {
-        this.photoPlace.src = this.userPhotoUrl;
+    updatePhoto(image) {
+        this.photoPlace.src = image;
     }
 
     validateForm() {
