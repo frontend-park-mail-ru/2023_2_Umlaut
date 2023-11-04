@@ -70,6 +70,11 @@ export class SettingsModel {
             (response) => {
                 if ( response.status === 200 ) {
                     this.settings.user = response.payload;
+                    Api.getUserPhotoUrl(this.settings.user.id).then(
+                        (image)=>{
+                            this.settings.user.photo = image;
+                        }
+                    );
                     this.eventBus.emit(SETTINGS_EVENTS.GOT_USER, this.settings);
                 } else {
                     this.eventBus.emit(SETTINGS_EVENTS.UNAUTH);
@@ -82,17 +87,22 @@ export class SettingsModel {
         Api.addPhoto(file).then(
             (response) => {
                 if ( response.status === 200 ) {
-                    this.eventBus.emit(SETTINGS_EVENTS.PHOTO_UPLOADED, file);
+                    Api.getUserPhotoUrl(this.settings.user.id).then(
+                        image =>{
+                            this.settings.user.photo = image;
+                            this.eventBus.emit(SETTINGS_EVENTS.PHOTO_UPLOADED, image);
+                        }
+                    );
                 }
             },
         );
     }
 
-    deletePhoto(file) {
-        Api.addPhoto(file).then(
+    deletePhoto() {
+        Api.deletePhoto().then(
             (response) => {
                 if ( response.status === 200 ) {
-                    this.eventBus.emit(SETTINGS_EVENTS.PHOTO_UPLOADED);
+                    this.eventBus.emit(SETTINGS_EVENTS.PHOTO_UPLOADED, "/pics/avatar.png");
                 }
             },
         );

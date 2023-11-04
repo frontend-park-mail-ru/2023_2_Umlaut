@@ -6,7 +6,11 @@
         {{/if}}
     </div>
     <div class="photo">
-        <img src="/pics/avatar.png" alt=""/>
+        {{#if image_path}}
+            <img src="{{photo}}" alt=""/>
+        {{else}}
+            <img src="/pics/avatar.png" alt=""/>
+        {{/if}}
     </div>
 </div>
 <div class="description">

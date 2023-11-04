@@ -14,7 +14,13 @@ export class FeedModel {
     async getNextPerson() {
         Api.feed().then((response) => {
             if ( response.status === 200) {
-                this.eventBus.emit(FEED_EVENTS.NEXT_PERSON_READY, response.payload);
+                const user = response.payload;
+                Api.getUserPhotoUrl(user.id).then(
+                    image =>{
+                        user.photo = image;
+                        this.eventBus.emit(FEED_EVENTS.NEXT_PERSON_READY, user);
+                    }
+                );
             } else if ( response.status === 401 ) {
                 this.eventBus.emit(FEED_EVENTS.UNAUTH);
             }

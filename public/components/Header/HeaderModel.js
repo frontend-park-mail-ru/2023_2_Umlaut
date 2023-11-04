@@ -13,8 +13,12 @@ export class HeaderModel {
                 if ( response.status === 200 ) {
                     const user = response.payload;
                     user.message_photo = '/pics/messages.png';
-                    user.user_photo = '/pics/avatar.png';
-                    this.eventBus.emit(HEADER_EVENTS.AUTH, user);
+                    Api.getUserPhotoUrl(user.id).then(
+                        (image)=>{
+                            user.photo = image;
+                            this.eventBus.emit(HEADER_EVENTS.AUTH, user);
+                        }
+                    );
                 } else if ( response.status === 401 ) {
                     this.eventBus.emit(HEADER_EVENTS.UNAUTH);
                 }

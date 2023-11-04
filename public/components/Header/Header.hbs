@@ -13,8 +13,10 @@
         {{/if}}
     </a>
     <a class="avatar" href="/settings">
-        {{#if user_photo}}
-            <img src="{{{user_photo}}}" alt=""/>
+        {{#if image_path}}
+            <img src="{{{photo}}}" alt=""/>
+        {{else}}
+            <img src="pics/avatar.png" alt=""/>
         {{/if}}
     </a>
 </div>

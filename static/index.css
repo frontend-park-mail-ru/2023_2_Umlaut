@@ -217,8 +217,14 @@ a.link {
 }
 
 .photo img{
-    height:350px;
+    max-height:350px;
+    max-width: 430px;
     object-fit: cover;
+}
+
+.photo{
+    width: 430px;
+    height: 350px;
 }
 
 .photo-part{
