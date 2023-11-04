@@ -5,7 +5,11 @@
             <textarea id="age">{{this.user.age}}</textarea>
         </div>
         <div class="photo">
-            <img src="/pics/avatar.png" id="user-photo" alt="">
+            {{#if this.user.image_path}}
+                <img src="http://umlaut-bmstu.me:8000/api/v1/user/{{this.user.id}}/photo" id="user-photo" alt="">
+            {{else}}
+                <img src="/pics/avatar.png" id="user-photo" alt="">
+            {{/if}}
         </div>
         <div class="buttons-settings">
             <button type="button" class="btn delete-btn">удалить</button>

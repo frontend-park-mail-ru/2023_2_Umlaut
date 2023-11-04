@@ -1,22 +1,6 @@
 import {Ajax} from './ajax.js';
-
-
-/**
- * Пути запросов к бекэнду
- */
-const URLS = {
-    login: '/auth/login',
-    logout: '/auth/logout',
-    Signup: '/auth/sign-up',
-    user: '/api/v1/user',
-    feed: '/api/v1/feed',
-    photo: '/api/v1/user/photo',
-};
-
-/**
- * Сслыка на бекэнд
- */
-const BACKEND_URL = 'http://umlaut-bmstu.me:8000';
+import { URLS } from './constansts.js';
+import { BACKEND_URL } from './constansts.js';
 
 /**
  * Класс методов API
@@ -77,8 +61,8 @@ export class Api {
      * Get-запрос на получение фото
      * @return {Promise} - статус и тело ответа
      */
-    static getPhoto() {
-        return Ajax.get(BACKEND_URL + URLS.photo);
+    static getUserPhotoUrl(id) {
+        return Promise.resolve(BACKEND_URL + URLS.user + "/" + id + "/photo");
     }
 
     static addPhoto(data) {
