@@ -36,15 +36,15 @@ export const SETTINGS_EVENTS = {
     SEND_DATA: 'g',
     UNAUTH: 'k',
     SUCCESS: 'JJ',
-    DELETE_PHOTO: "DeletePhoto",
-    ADD_PHOTO: "AddPhoto",
-    PHOTO_UPLOADED: "photo"
+    DELETE_PHOTO: 'DeletePhoto',
+    ADD_PHOTO: 'AddPhoto',
+    PHOTO_UPLOADED: 'photo',
 };
 
 export const MESSENGER_EVENTS = {
-    GET_DIALOGS: "GetDialogs",
-    DIALOGS_READY: "DialogsReady",
-    GET_MESSAGES: "GetMessages",
-    MESSAGES_READY: "MessagesReady",
-    SEND_MESSAGE: "SendMessage"
+    GET_DIALOGS: 'GetDialogs',
+    DIALOGS_READY: 'DialogsReady',
+    GET_MESSAGES: 'GetMessages',
+    MESSAGES_READY: 'MessagesReady',
+    SEND_MESSAGE: 'SendMessage',
 };

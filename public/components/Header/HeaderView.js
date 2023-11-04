@@ -1,4 +1,4 @@
-import { HEADER_EVENTS } from '../../lib/constansts.js';
+import {HEADER_EVENTS} from '../../lib/constansts.js';
 
 /**
  * Компонент хедер для всех страниц
@@ -11,9 +11,6 @@ export class HeaderView {
         this.parent = root;
     }
 
-    /**
-     * Отрисовка хедера
-     */
     render(user) {
         this.parent.innerHTML = window.Handlebars.templates['Header.hbs'](user);
     }

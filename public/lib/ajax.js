@@ -27,9 +27,9 @@ export class Ajax {
                 },
             )
             .then((body) => {
-                return body  
-            }
-        );
+                return body;
+            },
+            );
     }
 
     static delete(url = '') {
@@ -52,9 +52,9 @@ export class Ajax {
                 },
             )
             .then((body) => {
-                return body  
-            }
-        );
+                return body;
+            },
+            );
     }
 
     /**
@@ -88,9 +88,9 @@ export class Ajax {
                 },
             )
             .then((body) => {
-                return body  
-            }
-        );
+                return body;
+            },
+            );
     }
 
     /**
@@ -100,15 +100,12 @@ export class Ajax {
      * @return {Promise} - статус и тело ответа
      */
     static postFile(url = '', data = {}) {
-        let formdata = new FormData();
-        formdata.append("file", data);
+        const formdata = new FormData();
+        formdata.append('file', data);
         return fetch(url, {
             method: 'POST',
             mode: 'cors',
             credentials: 'include',
-            headers: {
-                'Content-Type': 'multipart/form-data',
-            },
             body: formdata,
         })
             .then(
@@ -125,8 +122,8 @@ export class Ajax {
                 },
             )
             .then((body) => {
-                return body  
-            }
-        );
+                return body;
+            },
+            );
     }
 }

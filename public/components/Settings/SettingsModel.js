@@ -9,31 +9,31 @@ export class SettingsModel {
         this.eventBus.on(SETTINGS_EVENTS.ADD_PHOTO, this.addPhoto.bind(this));
         this.eventBus.on(SETTINGS_EVENTS.DELETE_PHOTO, this.deletePhoto.bind(this));
         this.settings = {
-            goals:[
-                "Серьезные отношения",
-                "Несерьезные отношения",
-                "Новые знакомства",
+            goals: [
+                'Серьезные отношения',
+                'Несерьезные отношения',
+                'Новые знакомства',
             ],
-            educations:[
-                "Высшее",
-                "Среднее",
-                "Неоконченное высшее",
-                "Среднее специальное",
+            educations: [
+                'Высшее',
+                'Среднее',
+                'Неоконченное высшее',
+                'Среднее специальное',
             ],
-            interests:[
-                "Баскетбол",
-                "Боулинг",
-                "Бильярд",
-                "Банджо",
-                "Большой теннис",
+            interests: [
+                'Баскетбол',
+                'Боулинг',
+                'Бильярд',
+                'Банджо',
+                'Большой теннис',
             ],
-            tags:[
-                "Кошки",
-                "Собаки",
-                "Тусовки",
-                "Музыка"
-            ]
-        }
+            tags: [
+                'Кошки',
+                'Собаки',
+                'Тусовки',
+                'Музыка',
+            ],
+        };
     }
 
     sendForm(data) {
@@ -53,13 +53,13 @@ export class SettingsModel {
                 if (response.status === 200) {
                     this.eventBus.emit(SETTINGS_EVENTS.SUCCESS);
                 } else if (response.status === 400) {
-                    this.eventBus.emit(AUTH_EVENTS.INVALID_AUTH, {message: 'Неправильный запрос'});
+                    this.eventBus.emit(SETTINGS_EVENTS.INVALID_AUTH, {message: 'Неправильный запрос'});
                 } else if (response.status === 404) {
-                    this.eventBus.emit(AUTH_EVENTS.INVALID_AUTH, {message: 'Страница не найдена'});
+                    this.eventBus.emit(SETTINGS_EVENTS.INVALID_AUTH, {message: 'Страница не найдена'});
                 } else if (response.status === 401) {
-                    this.eventBus.emit(AUTH_EVENTS.INVALID_AUTH, {message: 'Невeрный email или пароль'});
+                    this.eventBus.emit(SETTINGS_EVENTS.INVALID_AUTH, {message: 'Невeрный email или пароль'});
                 } else {
-                    this.eventBus.emit(AUTH_EVENTS.INVALID_AUTH, {message: 'Неожиданная ошибка'});
+                    this.eventBus.emit(SETTINGS_EVENTS.INVALID_AUTH, {message: 'Неожиданная ошибка'});
                 }
             },
         );
@@ -69,7 +69,7 @@ export class SettingsModel {
         Api.user().then(
             (response) => {
                 if ( response.status === 200 ) {
-                    this.settings.user=response.payload;
+                    this.settings.user = response.payload;
                     this.eventBus.emit(SETTINGS_EVENTS.GOT_USER, this.settings);
                 } else {
                     this.eventBus.emit(SETTINGS_EVENTS.UNAUTH);
@@ -78,23 +78,23 @@ export class SettingsModel {
         );
     }
 
-    addPhoto(file){
+    addPhoto(file) {
         Api.addPhoto(file).then(
             (response) => {
                 if ( response.status === 200 ) {
                     this.eventBus.emit(SETTINGS_EVENTS.PHOTO_UPLOADED, file);
                 }
-            }
-        )
+            },
+        );
     }
 
-    deletePhoto(file){
+    deletePhoto(file) {
         Api.addPhoto(file).then(
             (response) => {
                 if ( response.status === 200 ) {
                     this.eventBus.emit(SETTINGS_EVENTS.PHOTO_UPLOADED);
                 }
-            }
-        )
+            },
+        );
     }
 }

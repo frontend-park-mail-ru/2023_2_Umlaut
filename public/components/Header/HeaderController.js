@@ -1,10 +1,10 @@
 import {HeaderView} from './HeaderView.js';
 import {HeaderModel} from './HeaderModel.js';
-import { EventBus } from '../../lib/eventbus.js';
+import {EventBus} from '../../lib/eventbus.js';
 import {HEADER_EVENTS} from '../../lib/constansts.js';
 
 
-export class HeaderController  {
+export class HeaderController {
     constructor(root) {
         this.eventBus = new EventBus();
         this.view = new HeaderView(root, this.eventBus);

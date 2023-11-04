@@ -1,7 +1,6 @@
-import { MessengerModel } from './MessengerModel.js';
-import { MessengerView } from './MessengerView.js';
+import {MessengerModel} from './MessengerModel.js';
+import {MessengerView} from './MessengerView.js';
 import {BaseController} from '../BaseController.js';
-import {GLOBAL_EVENTS} from '../../lib/constansts.js';
 
 
 export class MessengerController extends BaseController {

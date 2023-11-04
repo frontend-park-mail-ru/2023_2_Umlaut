@@ -5,7 +5,7 @@ export class BaseView {
         this.tmpl = tmpl;
     }
 
-    render(data={}, root = undefined) {
+    render(data = {}, root = undefined) {
         if (root === undefined) {
             this.root.innerHTML = this.tmpl(data);
             return;

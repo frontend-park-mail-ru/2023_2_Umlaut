@@ -27,7 +27,7 @@ export class FeedView extends BaseView {
         const userForm = this.root.querySelector('.userForm');
         this.description = new Description(userForm);
 
-        //this.root.appendChild(newDiv);
+        // this.root.appendChild(newDiv);
 
         this.addSwipeBtns();
 

@@ -18,33 +18,32 @@ export class SettingsView extends BaseView {
         this.form = this.root.querySelector('.settingsForm');
         this.form.addEventListener('submit', this.onSubmit.bind(this));
 
-        let deletePhotoBtn = this.root.querySelector('.delete-btn');
-        let selectedFile = document.querySelector("#file");
+        const deletePhotoBtn = this.root.querySelector('.delete-btn');
+        const selectedFile = document.querySelector('#file');
         this.photoPlace = document.querySelector('#user-photo');
         this.errorLabel = this.form.querySelector('.error-label');
         this.errorLabel.style.visibility = 'hidden';
 
         deletePhotoBtn.addEventListener('click', this.eventBus.emit(SETTINGS_EVENTS.DELETE_PHOTO));
-        //selectedFile.addEventListener('change', this.eventBus.emit(SETTINGS_EVENTS.ADD_PHOTO, selectedFile.files[0]));
         // selectedFile.addEventListener('change', console.log(selectedFile.files[0]));
 
-        function add_photo(eventBus){
-            return function(){
+        function addPhoto(eventBus) {
+            return function() {
                 eventBus.emit(SETTINGS_EVENTS.ADD_PHOTO, selectedFile.files[0]);
-            }
+            };
         }
 
-        const add = add_photo(this.eventBus);
-        
-        selectedFile.onchange = function(){
+        const add = addPhoto(this.eventBus);
+
+        selectedFile.onchange = function() {
             add();
-        }
+        };
     }
 
     close() {
         super.close();
         this.form.removeEventListener(this.onSubmit.bind(this));
-        //this.mailInput.removeEventListener(this.validateMail.bind(this));
+        // this.mailInput.removeEventListener(this.validateMail.bind(this));
     }
 
     /**
@@ -54,7 +53,9 @@ export class SettingsView extends BaseView {
     onSubmit(event) {
         event.preventDefault();
 
-        if(!this.validateForm()){return}
+        if (!this.validateForm()) {
+            return;
+        }
 
         const selectors = this.form.querySelectorAll('select');
         const inputs = this.form.querySelectorAll('textarea');
@@ -65,12 +66,12 @@ export class SettingsView extends BaseView {
         inputs.forEach((input) => {
             inputsValue[input.id] = input.value;
         });
-        inputsValue.prefer_gender=="Мужчин"?inputsValue.prefer_gender=1:inputsValue.prefer_gender=0;
-        inputsValue.user_gender=="Мужской"?inputsValue.user_gender=1:inputsValue.user_gender=0;
+        inputsValue.prefer_gender === 'Мужчин' ? inputsValue.prefer_gender = 1 : inputsValue.prefer_gender = 0;
+        inputsValue.user_gender === 'Мужской' ? inputsValue.user_gender = 1 : inputsValue.user_gender = 0;
         this.eventBus.emit(SETTINGS_EVENTS.SEND_DATA, inputsValue);
     }
 
-    updatePhoto(photo){
+    updatePhoto(photo) {
         this.photoPlace.src = photo;
     }
 
@@ -95,7 +96,8 @@ export class SettingsView extends BaseView {
             this.showError('В поле возраста должно быть число');
             return false;
         }
-        if ( document.querySelector('#password').value.length <= 5 && document.querySelector('#password').value.length > 0) {
+        if ( document.querySelector('#password').value.length <= 5 &&
+             document.querySelector('#password').value.length > 0) {
             this.showError('Пароль должен быть длиннее 5-ти символов');
             return false;
         }
@@ -105,7 +107,7 @@ export class SettingsView extends BaseView {
         }
         return true;
     }
-    
+
     /**
      * Скрыть сообщение об ошибке
      */

@@ -74,23 +74,19 @@ export class Api {
     }
 
     /**
-     * Get-запрос на получение фото 
+     * Get-запрос на получение фото
      * @return {Promise} - статус и тело ответа
      */
     static getPhoto() {
         return Ajax.get(BACKEND_URL + URLS.photo);
     }
 
-    /**
-     * Get-запрос на добавление фото 
-     * @return {Promise} - статус и тело ответа
-     */
     static addPhoto(data) {
         return Ajax.postFile(BACKEND_URL + URLS.photo, data);
     }
 
     /**
-     * Get-запрос на удаление фото 
+     * Get-запрос на удаление фото
      * @return {Promise} - статус и тело ответа
      */
     static deletePhoto() {
