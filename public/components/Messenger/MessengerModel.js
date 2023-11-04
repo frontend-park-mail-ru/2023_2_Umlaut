@@ -1,5 +1,4 @@
 import {MESSENGER_EVENTS} from '../../lib/constansts.js';
-import {Api} from '../../lib/api.js';
 
 export class MessengerModel {
     constructor(eventBus) {

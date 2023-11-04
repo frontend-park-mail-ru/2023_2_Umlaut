@@ -4,3 +4,5 @@
 .vscode
 node_modules
 docs
+dist/main.js
+dist/main.js.LICENSE.txt

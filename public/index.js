@@ -1,5 +1,7 @@
 'use strict';
 
+import _ from 'lodash';
+import runtime from 'serviceworker-webpack5-plugin/lib/runtime';
 import {Router} from './lib/router.js';
 import {Api} from './lib/api.js';
 import {AuthController} from './components/Auth/AuthController.js';
@@ -13,6 +15,21 @@ import {MessengerController} from './components/Messenger/MessengerController.js
 window.Handlebars.partials = window.Handlebars.templates;
 
 document.addEventListener('DOMContentLoaded', ()=>{
+
+    if ('serviceWorker' in navigator) {
+        runtime.register().then((reg) => {
+            if (reg.installing) {
+                console.log('Service worker installing');
+            } else if (reg.waiting) {
+                console.log('Service worker installed');
+            } else if (reg.active) {
+                console.log('Service worker active');
+            }
+        }).catch((error) => {
+            console.log('Registration failed with ' + error);
+        });
+    }
+
     const root = document.getElementById('root');
     const head = root.querySelector('.header');
     const page = root.querySelector('.main-part');
