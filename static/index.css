@@ -476,15 +476,22 @@ header, .anauthorised-header{
     grid-template-columns: 350px 1fr;
 }
 
-#dialog-list{
+.dialogs{
     grid-area: "dialog-list";
-    overflow: scroll;
     background-color: var(--dialog-grey);
+}
+
+#dialog-list{
+    overflow: scroll;
 }
 
 #dialog-window{
     grid-area: "dialog-window";
     border: 1px solid var(--dark-blue-color);
+}
+
+.btn-dialog{
+    background-color: var(--dialog-grey);
 }
 
 .dialog-preview{

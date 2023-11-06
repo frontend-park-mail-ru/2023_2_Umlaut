@@ -31,7 +31,7 @@ export class FeedView extends BaseView {
 
         this.addSwipeBtns();
 
-        this.eventBus.emit(FEED_EVENTS.RATE_PERSON);
+        this.eventBus.emit(FEED_EVENTS.GET_PERSON);
     }
 
     close() {
@@ -49,8 +49,11 @@ export class FeedView extends BaseView {
     addSwipeBtns() {
         const dislikeBtn = document.getElementById('dislike');
         const likeBtn = document.getElementById('like');
-        dislikeBtn.addEventListener('click', () => this.eventBus.emit(FEED_EVENTS.RATE_PERSON));
-        likeBtn.addEventListener('click', () => this.eventBus.emit(FEED_EVENTS.RATE_PERSON));
+        dislikeBtn.addEventListener('click', () => this.eventBus.emit(FEED_EVENTS.GET_PERSON));
+        likeBtn.addEventListener('click', () => {
+            this.eventBus.emit(FEED_EVENTS.RATE_PERSON, this.user.id); 
+            this.eventBus.emit(FEED_EVENTS.GET_PERSON);
+        });
     }
 
     /**
@@ -58,6 +61,7 @@ export class FeedView extends BaseView {
      * @param {Object} user - модель пользователя
      */
     update(user) {
+        this.user = user;
         this.description.render(user);
     }
 }

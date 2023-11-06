@@ -1,8 +1,14 @@
 <div id="messenger">
-    <div id="dialog-list">
-        {{#each dialogs}}
-            {{> DialogPreview.hbs}}
-        {{/each}}
+    <div class="dialogs">
+        <div class="switch">
+            <button class="btn btn-dialog" id="show_dialogs">Диалоги</button>
+            <button class="btn btn-dialog" id="show_pairs">Пары</button>
+        </div>
+        <div id="dialog-list">
+            {{#each dialogs}}
+                {{DialogPreview.hbs}}
+            {{/each}}
+        </div>
     </div>
     <div id="dialog-window">
 

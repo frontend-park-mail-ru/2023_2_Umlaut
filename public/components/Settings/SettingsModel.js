@@ -52,14 +52,6 @@ export class SettingsModel {
             (response) => {
                 if (response.status === 200) {
                     this.eventBus.emit(SETTINGS_EVENTS.SUCCESS);
-                } else if (response.status === 400) {
-                    this.eventBus.emit(SETTINGS_EVENTS.INVALID_AUTH, {message: 'Неправильный запрос'});
-                } else if (response.status === 404) {
-                    this.eventBus.emit(SETTINGS_EVENTS.INVALID_AUTH, {message: 'Страница не найдена'});
-                } else if (response.status === 401) {
-                    this.eventBus.emit(SETTINGS_EVENTS.INVALID_AUTH, {message: 'Невeрный email или пароль'});
-                } else {
-                    this.eventBus.emit(SETTINGS_EVENTS.INVALID_AUTH, {message: 'Неожиданная ошибка'});
                 }
             },
         );
