@@ -8,7 +8,7 @@ import {Api} from './lib/api.js';
 import {AuthController} from './components/Auth/AuthController.js';
 import {FeedController} from './components/Feed/FeedController.js';
 import {EventBus} from './lib/eventbus.js';
-import {GLOBAL_EVENTS} from './lib/constansts.js';
+import {GLOBAL_EVENTS, SETTINGS_EVENTS} from './lib/constansts.js';
 import {SignupController} from './components/Signup/SignupController.js';
 import {HeaderController} from './components/Header/HeaderController.js';
 import {SettingsController} from './components/Settings/SettingsController.js';
@@ -41,6 +41,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
     const globalEventBus = new EventBus();
     globalEventBus.on(GLOBAL_EVENTS.REDIRECT, (data) => router.go(data));
     globalEventBus.on(GLOBAL_EVENTS.AUTH, () => header.render());
+    globalEventBus.on(GLOBAL_EVENTS.RERENDER_HEADER, () => header.render());
     globalEventBus.on(GLOBAL_EVENTS.UNAUTH, () => {
         header.renderUnauth();
         router.go('/auth');

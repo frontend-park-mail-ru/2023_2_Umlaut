@@ -70,8 +70,9 @@ export class SettingsView extends BaseView {
         this.eventBus.emit(SETTINGS_EVENTS.SEND_DATA, inputsValue);
     }
 
+
     updatePhoto(image) {
-        this.photoPlace.src = image;
+        this.photoPlace.src = image + `?random=${Date.now()}`;
     }
 
     validateForm() {

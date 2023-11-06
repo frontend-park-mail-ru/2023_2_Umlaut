@@ -4,14 +4,15 @@ import {FEED_EVENTS} from '../../lib/constansts.js';
 export class FeedModel {
     constructor(eventBus) {
         this.eventBus = eventBus;
-        this.eventBus.on(FEED_EVENTS.RATE_PERSON, this.getNextPerson.bind(this));
+        this.eventBus.on(FEED_EVENTS.RATE_PERSON, this.ratePerson.bind(this));
+        this.eventBus.on(FEED_EVENTS.GET_PERSON, this.getNextPerson.bind(this));
     }
 
     /**
      * Получает с бекенда пользователя для показа в ленте
      * @return {object} user
      */
-    async getNextPerson() {
+    getNextPerson() {
         Api.feed().then((response) => {
             if ( response.status === 200) {
                 const user = response.payload;
@@ -23,6 +24,16 @@ export class FeedModel {
                 );
             } else if ( response.status === 401 ) {
                 this.eventBus.emit(FEED_EVENTS.UNAUTH);
+            }
+        });
+    }
+
+    ratePerson(id) {
+        Api.addLike(id).then((response) => {
+            if ( response.status === 401 ) {
+                this.eventBus.emit(FEED_EVENTS.UNAUTH);
+            } else if ( response.status === 200 ) {
+                console.log('success like');
             }
         });
     }

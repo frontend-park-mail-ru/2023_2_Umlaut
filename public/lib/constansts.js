@@ -8,6 +8,8 @@ export const URLS = {
     user: '/api/v1/user',
     feed: '/api/v1/feed',
     photo: '/api/v1/user/photo',
+    dialogs: '/api/v1/dialogs',
+    like: '/api/v1/like',
 };
 
 /**
@@ -20,6 +22,7 @@ export const GLOBAL_EVENTS = {
     UNAUTH: 'Unauthorised',
     NETWORK_ERROR: 'NetworkError',
     AUTH: 'Authorised',
+    RERENDER_HEADER: 'Rerender',
 };
 
 export const AUTH_EVENTS = {
@@ -35,8 +38,7 @@ export const AUTH_EVENTS = {
 export const FEED_EVENTS = {
     RATE_PERSON: 'RatePerson',
     NEXT_PERSON_READY: 'NextPerson',
-    // надо подумать и сделать rate и get_next отдельными, либо отлавливать это в модели
-    // например мы рейт персон и у нас метч надо отправить это в фид
+    GET_PERSON: 'GetPerson',
     UNAUTH: 'Unauthorised',
 };
 
@@ -60,8 +62,11 @@ export const SETTINGS_EVENTS = {
 
 export const MESSENGER_EVENTS = {
     GET_DIALOGS: 'GetDialogs',
+    GET_PAIRS: 'GetPairs',
     DIALOGS_READY: 'DialogsReady',
+    PAIRS_READY: 'PairsReady',
     GET_MESSAGES: 'GetMessages',
     MESSAGES_READY: 'MessagesReady',
     SEND_MESSAGE: 'SendMessage',
+    UNAUTH: 'Unauth',
 };

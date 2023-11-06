@@ -66,6 +66,14 @@ export class Api {
         return Promise.resolve(BACKEND_URL + URLS.user + '/' + id + '/photo');
     }
 
+    /**
+     * Get-запрос на получение диалогов
+     * @return {Promise} - статус и тело ответа
+     */
+    static getPairs(id) {
+        return Ajax.get(BACKEND_URL + URLS.dialogs);
+    }
+
     static addPhoto(data) {
         return Ajax.postFile(BACKEND_URL + URLS.photo, data);
     }
@@ -76,5 +84,9 @@ export class Api {
      */
     static deletePhoto() {
         return Ajax.delete(BACKEND_URL + URLS.photo);
+    }
+
+    static addLike(id) {
+        return Ajax.post(BACKEND_URL + URLS.like, id);
     }
 }

@@ -6,3 +6,4 @@ node_modules
 docs
 dist/main.js
 dist/main.js.LICENSE.txt
+dist/sw.js
