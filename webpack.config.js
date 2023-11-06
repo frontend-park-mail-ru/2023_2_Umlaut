@@ -7,6 +7,13 @@ module.exports = {
     filename: 'main.js',
     path: path.resolve(__dirname, 'dist'),
   },
+  
+  module: {
+    rules: [
+        { test: /\.hbs$/, loader: "handlebars-loader" }
+    ]
+  },
+
   plugins: [
     new ServiceWorkerWebpackPlugin({
         entry: path.join(__dirname, 'public/sw.js'),

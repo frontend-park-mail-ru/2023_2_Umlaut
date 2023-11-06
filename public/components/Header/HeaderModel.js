@@ -17,7 +17,7 @@ export class HeaderModel {
                         (image)=>{
                             user.photo = image;
                             this.eventBus.emit(HEADER_EVENTS.AUTH, user);
-                        }
+                        },
                     );
                 } else if ( response.status === 401 ) {
                     this.eventBus.emit(HEADER_EVENTS.UNAUTH);

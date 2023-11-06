@@ -9,8 +9,8 @@ export class FeedView extends BaseView {
     description;
     parent;
     renderMenu;
-    constructor(root, eventBus, tmpl) {
-        super(root, eventBus, tmpl);
+    constructor(root, eventBus) {
+        super(root, eventBus, require('./Feed.hbs'));
         this.eventBus.on(FEED_EVENTS.NEXT_PERSON_READY, this.update.bind(this));
     }
 

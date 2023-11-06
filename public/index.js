@@ -1,5 +1,6 @@
 'use strict';
 
+// eslint-disable-next-line
 import _ from 'lodash';
 import runtime from 'serviceworker-webpack5-plugin/lib/runtime';
 import {Router} from './lib/router.js';
@@ -15,7 +16,6 @@ import {MessengerController} from './components/Messenger/MessengerController.js
 window.Handlebars.partials = window.Handlebars.templates;
 
 document.addEventListener('DOMContentLoaded', ()=>{
-
     if ('serviceWorker' in navigator) {
         runtime.register().then((reg) => {
             if (reg.installing) {

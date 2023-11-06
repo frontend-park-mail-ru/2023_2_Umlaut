@@ -1,6 +1,6 @@
 import {Ajax} from './ajax.js';
-import { URLS } from './constansts.js';
-import { BACKEND_URL } from './constansts.js';
+import {URLS} from './constansts.js';
+import {BACKEND_URL} from './constansts.js';
 
 /**
  * Класс методов API
@@ -59,10 +59,11 @@ export class Api {
 
     /**
      * Get-запрос на получение фото
+     * @param {int} id - id пользователя
      * @return {Promise} - статус и тело ответа
      */
     static getUserPhotoUrl(id) {
-        return Promise.resolve(BACKEND_URL + URLS.user + "/" + id + "/photo");
+        return Promise.resolve(BACKEND_URL + URLS.user + '/' + id + '/photo');
     }
 
     static addPhoto(data) {
