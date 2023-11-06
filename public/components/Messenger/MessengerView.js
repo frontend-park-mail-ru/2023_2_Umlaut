@@ -28,6 +28,7 @@ export class MessengerView extends BaseView {
 
     addDialogs(data) {
         this.dialogList = [];
+        this.dialogListView.innerHTML = '';
         data.forEach((dialog) => {
             const dialogPreview = document.createElement('div');
             dialogPreview.innerHTML = window.Handlebars.templates['DialogPreview.hbs'](dialog);

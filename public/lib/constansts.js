@@ -9,7 +9,7 @@ export const URLS = {
     feed: '/api/v1/feed',
     photo: '/api/v1/user/photo',
     dialogs: '/api/v1/dialogs',
-    like: 'api/v1/like'
+    like: '/api/v1/like'
 };
 
 /**
