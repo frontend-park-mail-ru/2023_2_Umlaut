@@ -7,10 +7,22 @@ module.exports = {
     filename: 'main.js',
     path: path.resolve(__dirname, 'dist'),
   },
-  
+
   module: {
     rules: [
-        { test: /\.hbs$/, loader: "handlebars-loader" }
+      { test: /\.hbs$/, loader: "handlebars-loader" },
+      {
+        test: /\.js$/,
+        include: /public/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: [
+              ['@babel/preset-env', { targets: "defaults" }]
+            ]
+          }
+        }
+      },
     ]
   },
 

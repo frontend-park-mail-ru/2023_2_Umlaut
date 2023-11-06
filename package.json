@@ -24,6 +24,9 @@
     "serviceworker-webpack5-plugin": "^2.0.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.23.2",
+    "@babel/preset-env": "^7.23.2",
+    "babel-loader": "^9.1.3",
     "eslint": "^8.50.0",
     "eslint-config-google": "^0.14.0",
     "husky": "^8.0.3",
