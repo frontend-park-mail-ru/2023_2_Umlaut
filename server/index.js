@@ -14,17 +14,11 @@ const server = http.createServer((request, response) => {
     let filepath;
     if ( !url.includes('.') || url.includes('.html')) {
         filepath = 'dist/index.html';
-    } else if (url.endsWith('/dist/main.js')) {
-        filepath = 'dist/main.js';
-    } else if ( url == '/sw.js' ) {
-        filepath = 'dist/sw.js';
     } else {
-        if (fs.existsSync('./public' + url)) {
-            filepath = './public' + url;
+        if (fs.existsSync('./dist' + url)) {
+            filepath = './dist' + url;
         } else if (fs.existsSync('./static' + url)) {
             filepath = './static' + url;
-        } else if (fs.existsSync('./node_modules' + url)) {
-            filepath = './node_modules' + url;
         } else {
             debug.log('error: Not found : ' + url);
             response.write(page404);
