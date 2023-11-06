@@ -1,12 +1,12 @@
 import {BaseView} from '../BaseView.js';
 import {MESSENGER_EVENTS} from '../../lib/constansts.js';
-import {MessengerModel} from './MessengerModel.js';
 
 export class MessengerView extends BaseView {
     constructor(root, eventBus) {
-        super(root, eventBus, window.Handlebars.templates['Messenger.hbs']);
+        super(root, eventBus, require('./Messenger.hbs'));
         this.eventBus.on(MESSENGER_EVENTS.DIALOGS_READY, this.addDialogs.bind(this));
         this.eventBus.on(MESSENGER_EVENTS.PAIRS_READY, this.addDialogs.bind(this));
+        this.dialogPreviewTemplate = require('./DialogPreview.hbs');
         this.dialogWindow = null;
         this.dialogListView = null;
         this.dialogList = null;
@@ -31,7 +31,7 @@ export class MessengerView extends BaseView {
         this.dialogListView.innerHTML = '';
         data.forEach((dialog) => {
             const dialogPreview = document.createElement('div');
-            dialogPreview.innerHTML = window.Handlebars.templates['DialogPreview.hbs'](dialog);
+            dialogPreview.innerHTML = this.dialogPreviewTemplate(dialog);
             this.dialogListView.appendChild(dialogPreview);
             this.dialogList.push(dialogPreview);
         });

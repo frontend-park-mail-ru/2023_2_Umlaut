@@ -12,8 +12,8 @@ export class SignupView extends BaseView {
     passwordInput;
     repasswordInput;
     form;
-    constructor(root, eventBus, tmpl) {
-        super(root, eventBus, tmpl);
+    constructor(root, eventBus) {
+        super(root, eventBus, require('./Signup.hbs'));
         this.eventBus.on( AUTH_EVENTS.INVALID_AUTH, (data) => this.showError(data.message));
         this.eventBus.on( AUTH_EVENTS.UNAUTH, this.render.bind(this));
     }

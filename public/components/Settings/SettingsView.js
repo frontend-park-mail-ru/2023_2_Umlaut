@@ -6,8 +6,8 @@ import {SETTINGS_EVENTS} from '../../lib/constansts.js';
  * Компонент страницы авторизации (входа)
  */
 export class SettingsView extends BaseView {
-    constructor(root, eventBus, tmpl) {
-        super(root, eventBus, tmpl);
+    constructor(root, eventBus) {
+        super(root, eventBus, require('./Settings.hbs'));
         this.eventBus.on(SETTINGS_EVENTS.GOT_USER, this.render.bind(this));
         this.eventBus.on(SETTINGS_EVENTS.PHOTO_UPLOADED, this.updatePhoto.bind(this));
         this.root = root;

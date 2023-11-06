@@ -70,7 +70,7 @@ export class Api {
      * Get-запрос на получение диалогов
      * @return {Promise} - статус и тело ответа
      */
-    static getPairs(id) {
+    static getPairs() {
         return Ajax.get(BACKEND_URL + URLS.dialogs);
     }
 

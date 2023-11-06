@@ -8,10 +8,7 @@ export class FeedModel {
         this.eventBus.on(FEED_EVENTS.GET_PERSON, this.getNextPerson.bind(this));
     }
 
-    /**
-     * Получает с бекенда пользователя для показа в ленте
-     * @return {object} user
-     */
+
     getNextPerson() {
         Api.feed().then((response) => {
             if ( response.status === 200) {

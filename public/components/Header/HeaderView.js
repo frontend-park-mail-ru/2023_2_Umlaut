@@ -9,13 +9,14 @@ export class HeaderView {
         this.eventBus.on(HEADER_EVENTS.AUTH, this.render.bind(this));
         this.eventBus.on(HEADER_EVENTS.UNAUTH, this.renderU.bind(this));
         this.parent = root;
+        this.template = require('./Header.hbs');
     }
 
     render(user) {
-        this.parent.innerHTML = window.Handlebars.templates['Header.hbs'](user);
+        this.parent.innerHTML = this.template(user);
     }
 
     renderU() {
-        this.parent.innerHTML = window.Handlebars.templates['Header.hbs']();
+        this.parent.innerHTML = this.template();
     }
 }
