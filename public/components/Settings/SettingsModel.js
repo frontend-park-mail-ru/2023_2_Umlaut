@@ -43,15 +43,17 @@ export class SettingsModel {
         //this.settings.user.tags = data.tags;
         this.settings.user.description = data.description;
         this.settings.user.name = data.name;
-        this.settings.user.age = Number(data.age);
+        this.settings.user.birthday = data.birthday;
         this.settings.user.user_gender = data.user_gender;
         this.settings.user.prefer_gender = data.prefer_gender;
-        this.settings.user.mail = data.mail;
-        this.settings.user.password = data.password;
+        // this.settings.user.mail = data.mail;
+        // this.settings.user.password = data.password;
         Api.update(this.settings.user).then(
             (response) => {
                 if (response.status === 200) {
                     this.eventBus.emit(SETTINGS_EVENTS.SUCCESS);
+                }else{
+                    this.eventBus.emit(SETTINGS_EVENTS.ERROR, response.message);
                 }
             },
         );
@@ -62,6 +64,10 @@ export class SettingsModel {
             (response) => {
                 if ( response.status === 200 ) {
                     this.settings.user = response.payload;
+                    this.settings.user.prefer_gender === null ? this.settings.user.hasPreferGender = false : this.settings.user.hasPreferGender = true;
+                    this.settings.user.user_gender === null ? this.settings.user.hasGender = false : this.settings.user.hasGender = true;
+                    if (this.settings.user.birthday!==null){
+                    this.settings.user.birthday = this.settings.user.birthday.slice(0, 10);}
                     Api.getUserPhotoUrl(this.settings.user.id).then(
                         (image)=>{
                             this.settings.user.photo = image;

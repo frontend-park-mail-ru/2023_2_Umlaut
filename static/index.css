@@ -395,6 +395,12 @@ header, .anauthorised-header{
 
 /* === PROFILE === */
 
+#birthday{
+    background-color: #f7d8dd;
+  border: none;
+  height: 20px;
+}
+
 .settingsForm{
     display: grid;
     grid-template-columns: 40% 30% 30%;

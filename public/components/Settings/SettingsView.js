@@ -10,6 +10,7 @@ export class SettingsView extends BaseView {
         super(root, eventBus, require('./Settings.hbs'));
         this.eventBus.on(SETTINGS_EVENTS.GOT_USER, this.render.bind(this));
         this.eventBus.on(SETTINGS_EVENTS.PHOTO_UPLOADED, this.updatePhoto.bind(this));
+        this.eventBus.on(SETTINGS_EVENTS.ERROR, this.showError.bind(this));
         this.root = root;
     }
 
@@ -58,6 +59,7 @@ export class SettingsView extends BaseView {
 
         const selectors = this.form.querySelectorAll('select');
         const inputs = this.form.querySelectorAll('textarea');
+        const birthdayInput = this.form.querySelector('#birthday');
         const inputsValue = {};
         selectors.forEach((selector) => {
             inputsValue[selector.id] = selector[selector.selectedIndex].text;
@@ -65,8 +67,9 @@ export class SettingsView extends BaseView {
         inputs.forEach((input) => {
             inputsValue[input.id] = input.value;
         });
-        inputsValue.prefer_gender === 'Мужчин' ? inputsValue.prefer_gender = 1 : inputsValue.prefer_gender = 0;
-        inputsValue.user_gender === 'Мужской' ? inputsValue.user_gender = 1 : inputsValue.user_gender = 0;
+        inputsValue.birthday = new Date(birthdayInput.value);
+        inputsValue.prefer_gender === 'Мужчин' && inputsValue.prefer_gender!==null ? inputsValue.prefer_gender = 1 : inputsValue.prefer_gender = 0;
+        inputsValue.user_gender === 'Мужской' && inputsValue.user_gender!==null ? inputsValue.user_gender = 1 : inputsValue.user_gender = 0;
         this.eventBus.emit(SETTINGS_EVENTS.SEND_DATA, inputsValue);
     }
 
@@ -76,10 +79,10 @@ export class SettingsView extends BaseView {
     }
 
     validateForm() {
-        if (!Validate.email(document.querySelector('#mail').value)) {
-            this.showError('Неверный email');
-            return false;
-        }
+        // if (!Validate.email(document.querySelector('#mail').value)) {
+        //     this.showError('Неверный email');
+        //     return false;
+        // }
         if (document.querySelector('#name').value === '') {
             this.showError('Имя не должно быть пусто');
             return false;
@@ -88,23 +91,33 @@ export class SettingsView extends BaseView {
             this.showError('Заполните поле о себе');
             return false;
         }
-        if (document.querySelector('#age').value === '') {
-            this.showError('Поле возраста не должно быть пусто');
+        if (document.querySelector('#birthday').value === '') {
+            this.showError('Введите свою дату рождения');
             return false;
         }
-        if (isNaN(Number(document.querySelector('#age').value))) {
-            this.showError('В поле возраста должно быть число');
+        let uGender = document.querySelector('#user_gender');
+        if (uGender[uGender.selectedIndex].text === '') {
+            this.showError('Введите свой пол');
             return false;
         }
-        if ( document.querySelector('#password').value.length <= 5 &&
-             document.querySelector('#password').value.length > 0) {
-            this.showError('Пароль должен быть длиннее 5-ти символов');
+        let prGender = document.querySelector('#prefer_gender');
+        if (prGender[prGender.selectedIndex].text === '') {
+            this.showError('Выберите предпочитаемый пол');
             return false;
         }
-        if (document.querySelector('#repeat-password').value !== document.querySelector('#password').value) {
-            this.showError('Пароли отличаются');
+        if (isNaN(Date.parse(document.querySelector('#birthday').value))) {
+            this.showError('Проверьте правильность введенной даты рождения');
             return false;
         }
+        // if ( document.querySelector('#password').value.length <= 5 &&
+        //      document.querySelector('#password').value.length > 0) {
+        //     this.showError('Пароль должен быть длиннее 5-ти символов');
+        //     return false;
+        // }
+        // if (document.querySelector('#repeat-password').value !== document.querySelector('#password').value) {
+        //     this.showError('Пароли отличаются');
+        //     return false;
+        // }
         return true;
     }
 
