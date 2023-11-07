@@ -40,7 +40,7 @@ export class SettingsModel {
         this.settings.user.looking = data.looking;
         this.settings.user.hobbies = data.hobbies;
         this.settings.user.education = data.education;
-        this.settings.user.tags = data.tags;
+        //this.settings.user.tags = data.tags;
         this.settings.user.description = data.description;
         this.settings.user.name = data.name;
         this.settings.user.age = Number(data.age);
