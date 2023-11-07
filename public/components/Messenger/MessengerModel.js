@@ -13,25 +13,25 @@ export class MessengerModel {
             [
                 {
                     id: 1,
-                    user2_id: 'Маша',
+                    companion: 'Маша',
                     photo: '/pics/avatar.png',
                     lastMessage: 'Что делаешь вечером?',
                     unreadCount: 5,
                 },
                 {
                     id: 2,
-                    user2_id: 'Маша',
+                    companion: 'Маша',
                     photo: '/pics/avatar.png',
                     lastMessage: 'Что делаешь вечером?',
                 },
                 {
                     id: 3,
-                    user2_id: 'Маша',
+                    companion: 'Маша',
                     photo: '/pics/avatar.png',
                 },
                 {
                     id: 4,
-                    user2_id: 'Маша',
+                    companion: 'Маша',
                     photo: '/pics/avatar.png',
                     lastMessage: 'Что делаешь вечером? Cходим может куда-нибудь? раз-два-три',
                 },

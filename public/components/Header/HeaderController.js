@@ -9,6 +9,7 @@ export class HeaderController {
         this.eventBus = new EventBus();
         this.view = new HeaderView(root, this.eventBus);
         this.model = new HeaderModel(this.eventBus);
+        
     }
 
     renderUnauth() {

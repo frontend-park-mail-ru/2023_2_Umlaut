@@ -453,6 +453,7 @@ header, .anauthorised-header{
 .buttons-settings{
     display: flex;
     justify-content: space-around;
+    margin: 10px;
 }
 
 .description-settings #age, .description-settings #name{
@@ -512,6 +513,7 @@ header, .anauthorised-header{
     height: 100%;
     width: 100%;
     object-fit: cover;
+    border-radius: 50%;
 }
 
 .dialog-name{

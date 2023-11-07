@@ -48,6 +48,8 @@
                 <select class="form-control Selector"  id="looking">
                     {{#if this.user.goal}}
                         <option value="" selected="selected">{{this.user.goal}}</option>
+                    {{else}}
+                        <option value="" selected="selected"></option>
                     {{/if}} 
                     {{#each this.goals}}
                         <option value="">{{this}}</option>
@@ -59,6 +61,8 @@
                 <select class="form-control Selector"  id="education">
                     {{#if this.user.education}}
                         <option value="" selected="selected">{{this.user.education}}</option>
+                    {{else}}
+                        <option value="" selected="selected"></option>
                     {{/if}} 
                     {{#each this.educations}}
                         <option value="">{{this}}</option>
@@ -70,6 +74,8 @@
                 <select class="form-control Selector"  id="hobbies">
                     {{#if this.user.hobbies}}
                         <option value="" selected="selected">{{this.user.hobbies}}</option>
+                        {{else}}
+                        <option value="" selected="selected"></option>
                     {{/if}} 
                     {{#each this.interests}}
                         <option value="">{{this}}</option>
@@ -106,12 +112,12 @@
             </div>
             <div class="input">
                 <span class="name-input">Пароль</span>
-                    <textarea class="form-control Selector" id="password"></textarea>
+                    <input type="password" class="form-control Selector" id="password" autocomplete="new-password">
                 </select>
             </div>
             <div class="input">
                 <span class="name-input">Повторите пароль</span>
-                    <textarea class="form-control Selector" id="repeat-password"></textarea>
+                    <input type="password" class="form-control Selector" id="repeat-password">
                 </select>
             </div>
         </div>
