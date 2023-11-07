@@ -46,8 +46,8 @@ export class SettingsModel {
         this.settings.user.birthday = data.birthday;
         this.settings.user.user_gender = data.user_gender;
         this.settings.user.prefer_gender = data.prefer_gender;
-        // this.settings.user.mail = data.mail;
-        // this.settings.user.password = data.password;
+        this.settings.user.mail = data.mail;
+        this.settings.user.password = data.password;
         Api.update(this.settings.user).then(
             (response) => {
                 if (response.status === 200) {

@@ -79,10 +79,10 @@ export class SettingsView extends BaseView {
     }
 
     validateForm() {
-        // if (!Validate.email(document.querySelector('#mail').value)) {
-        //     this.showError('Неверный email');
-        //     return false;
-        // }
+        if (!Validate.email(document.querySelector('#mail').value)) {
+            this.showError('Неверный email');
+            return false;
+        }
         if (document.querySelector('#name').value === '') {
             this.showError('Имя не должно быть пусто');
             return false;
@@ -109,15 +109,15 @@ export class SettingsView extends BaseView {
             this.showError('Проверьте правильность введенной даты рождения');
             return false;
         }
-        // if ( document.querySelector('#password').value.length <= 5 &&
-        //      document.querySelector('#password').value.length > 0) {
-        //     this.showError('Пароль должен быть длиннее 5-ти символов');
-        //     return false;
-        // }
-        // if (document.querySelector('#repeat-password').value !== document.querySelector('#password').value) {
-        //     this.showError('Пароли отличаются');
-        //     return false;
-        // }
+        if ( document.querySelector('#password').value.length <= 5 &&
+             document.querySelector('#password').value.length > 0) {
+            this.showError('Пароль должен быть длиннее 5-ти символов');
+            return false;
+        }
+        if (document.querySelector('#repeat-password').value !== document.querySelector('#password').value) {
+            this.showError('Пароли отличаются');
+            return false;
+        }
         return true;
     }
 
