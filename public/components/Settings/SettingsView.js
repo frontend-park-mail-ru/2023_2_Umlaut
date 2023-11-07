@@ -21,11 +21,13 @@ export class SettingsView extends BaseView {
 
         const deletePhotoBtn = this.root.querySelector('.delete-btn');
         const selectedFile = document.querySelector('#file');
+        const logoutBtn = document.querySelector('#logout');
         this.photoPlace = document.querySelector('#user-photo');
         this.errorLabel = this.form.querySelector('.error-label');
         this.errorLabel.style.visibility = 'hidden';
 
         deletePhotoBtn.addEventListener('click', () => this.eventBus.emit(SETTINGS_EVENTS.DELETE_PHOTO));
+        logoutBtn.addEventListener('click', () => this.eventBus.emit(SETTINGS_EVENTS.LOGOUT));
 
         function addPhoto(eventBus) {
             return function() {

@@ -58,6 +58,7 @@ export const SETTINGS_EVENTS = {
     DELETE_PHOTO: 'DeletePhoto',
     ADD_PHOTO: 'AddPhoto',
     PHOTO_UPLOADED: 'photo',
+    LOGOUT: 'Logout',
 };
 
 export const MESSENGER_EVENTS = {

@@ -188,12 +188,12 @@ a.link {
 
 .main-part{
     grid-area: content;
-    padding: 50px;
+    padding: 2%;
 }
 
 .form-feed{
     padding: 20px;
-    margin: 50px;
+    margin: 3%;
     display: flex;
 }
 
@@ -401,6 +401,25 @@ header, .anauthorised-header{
   height: 20px;
 }
 
+.logout img{
+    max-width: 50px;
+    max-height: 50px;
+ }
+
+ .logout{
+    display: flex;
+    justify-content: flex-end;
+ }
+
+textarea{
+    resize: vertical;
+    background-color: #f7d8dd;
+    border: none;
+    height: 50px;
+    margin: 2%;
+    width: 95%;
+}
+
 .settingsForm{
     display: grid;
     grid-template-columns: 40% 30% 30%;
@@ -418,7 +437,7 @@ header, .anauthorised-header{
 }
 
 .Selector {
-    width: 98%;
+    width: 96%;
     box-shadow: none;
     margin: 5px;
     border: none;

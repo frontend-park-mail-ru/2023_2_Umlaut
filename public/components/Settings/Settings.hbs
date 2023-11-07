@@ -23,31 +23,31 @@
                 <span class="name-input">Ваш пол</span>
                 <select class="form-control Selector"  id="user_gender">
                     {{#if this.user.hasGender}}
-                    {{#if this.user.user_gender}}
-                        <option value="" selected="selected">Мужской</option>
+                        {{#if this.user.user_gender}}
+                            <option value="" selected="selected">Мужской</option>
+                            <option value="">Женский</option>
+                        {{else}}
+                            <option value="" selected="selected">Женский</option>
+                            <option value="">Мужской</option>
+                        {{/if}} 
+                    {{else}}
+                        <option value="" selected="selected"></option>
                         <option value="">Женский</option>
-                    {{else}}
-                        <option value="" selected="selected">Женский</option>
                         <option value="">Мужской</option>
-                    {{/if}} 
-                    {{else}}
-                    <option value="" selected="selected"></option>
-                    <option value="">Женский</option>
-                    <option value="">Мужской</option>
                     {{/if}}
                 </select>
             </div>
             <div class="input">
                 <span class="name-input">Кого ищете</span>
                 <select class="form-control Selector"  id="prefer_gender">
-                    {{#if hasPreferGender}}
-                    {{#if this.user.prefer_gender}}
-                        <option value="" selected="selected">Мужчин</option>
-                        <option value="">Женщин</option>
-                    {{else}}
-                        <option value="" selected="selected">Женщин</option>
-                        <option value="">Мужчин</option>
-                    {{/if}} 
+                    {{#if this.user.hasPreferGender}}
+                        {{#if this.user.prefer_gender}}
+                            <option value="" selected="selected">Мужчин</option>
+                            <option value="">Женщин</option>
+                        {{else}}
+                            <option value="" selected="selected">Женщин</option>
+                            <option value="">Мужчин</option>
+                        {{/if}} 
                     {{else}}
                         <option value="" selected="selected"></option>
                         <option value="">Мужчин</option>
@@ -107,10 +107,7 @@
             </div> --}}
             <div class="input">
                 <span class="name-input">Дата рождения</span>
-                    <input id="birthday"
-                    type="date"
-                    name="partydate"
-                    value='{{this.user.birthday}}' />
+                    <input id="birthday" type="date" class="Selector" name="partydate" value='{{this.user.birthday}}'/>
                 </select>
             </div>
             <div class="input">
@@ -143,3 +140,6 @@
         </div>
     </div>
 </form>
+<div class="logout">
+    <img src="../pics/logout.png" id="logout">
+</div>
