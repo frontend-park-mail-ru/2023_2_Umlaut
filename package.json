@@ -11,7 +11,8 @@
     "lint": "./node_modules/.bin/eslint ./public",
     "docs": "./node_modules/jsdoc/jsdoc.js -c ./.jsdoc.conf.json",
     "lint-write": "./node_modules/.bin/eslint --fix ./public",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "build": "npx webpack --config webpack.config.js --mode development"
   },
   "author": "",
   "license": "ISC",

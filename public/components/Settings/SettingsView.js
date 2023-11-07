@@ -62,6 +62,7 @@ export class SettingsView extends BaseView {
         const selectors = this.form.querySelectorAll('select');
         const inputs = this.form.querySelectorAll('textarea');
         const birthdayInput = this.form.querySelector('#birthday');
+        const password = this.form.querySelector('#password');
         const inputsValue = {};
         selectors.forEach((selector) => {
             inputsValue[selector.id] = selector[selector.selectedIndex].text;
@@ -70,6 +71,7 @@ export class SettingsView extends BaseView {
             inputsValue[input.id] = input.value;
         });
         inputsValue.birthday = new Date(birthdayInput.value);
+        inputsValue.password = password.value;
         inputsValue.prefer_gender === 'Мужчин' && inputsValue.prefer_gender!==null ? inputsValue.prefer_gender = 1 : inputsValue.prefer_gender = 0;
         inputsValue.user_gender === 'Мужской' && inputsValue.user_gender!==null ? inputsValue.user_gender = 1 : inputsValue.user_gender = 0;
         this.eventBus.emit(SETTINGS_EVENTS.SEND_DATA, inputsValue);
@@ -77,7 +79,11 @@ export class SettingsView extends BaseView {
 
 
     updatePhoto(image) {
-        this.photoPlace.src = image + `?random=${Date.now()}`;
+        if(image!=='/pics/avatar.png'){
+            this.photoPlace.src = image + `?random=${Date.now()}`;
+        }else{
+            this.photoPlace.src = image;
+        }
     }
 
     validateForm() {

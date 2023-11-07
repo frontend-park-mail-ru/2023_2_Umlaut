@@ -48,6 +48,9 @@ export class MessengerModel {
                         Api.getUserPhotoUrl(element.user2_id).then(
                             (image) =>{
                                 element.photo = image;
+                                if(image===undefined){
+                                    element.photo = "/pics/avatar.png";
+                                }
                                 this.eventBus.emit(MESSENGER_EVENTS.PAIRS_READY, dialogs);
                             },
                         );
