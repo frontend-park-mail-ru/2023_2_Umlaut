@@ -106,12 +106,13 @@ export class Ajax {
             credentials: 'include',
             headers: {
                 'Content-Type': 'application/json',
+                'X-Csrf-Token' : this._csrfToken,
             },
             body: JSON.stringify(data),
         }
-        if(this._csrfToken!==null && this._csrfToken!==undefined && this._csrfToken!==''){
-            request.headers['X-Csrf-Token'] = this._csrfToken;
-        }
+        // if(this._csrfToken!==null && this._csrfToken!==undefined && this._csrfToken!==''){
+        //     request.headers['X-Csrf-Token'] = this._csrfToken;
+        // }
         return fetch(url, request)
             .then(
                 (response) => {

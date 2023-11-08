@@ -63,7 +63,7 @@ export class Api {
      * @return {Promise} - статус и тело ответа
      */
     static getUserPhotoUrl(id) {
-        return Promise.resolve(BACKEND_URL + URLS.user + '/' + id + '/photo');
+        return Promise.resolve(BACKEND_URL + URLS.user + '/' + id + '/photo' + `?random=${Date.now()}`);
     }
 
     /**
