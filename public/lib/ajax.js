@@ -122,7 +122,7 @@ export class Ajax {
             body: formdata,
         }
         if(this._csrfToken!==null && this._csrfToken!==undefined && this._csrfToken!==''){
-            request.headers['X-Csrf-Token'] = this._csrfToken
+            request.headers = {'X-Csrf-Token':this._csrfToken}
         }
         return fetch(url, request)
             .then(
