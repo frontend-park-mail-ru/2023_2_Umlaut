@@ -9,6 +9,36 @@ export class Ajax {
      * @param {string} url - путь запроса
      * @return {Promise} - статус и тело ответа
      */
+    static getCsrf(url = '') {
+        return fetch(url, {
+            method: 'GET',
+            mode: 'cors',
+            credentials: 'include'
+        })
+            .then(
+                (response) => {
+                    let csrfToken = response.headers.get('X-Csrf-Token');
+                    console.log("response.headers =", response.headers);
+                    if (csrfToken) {
+                        this._csrfToken = csrfToken;
+                    }
+                    const contentType = response.headers.get('content-type');
+                    if ( contentType && contentType.indexOf('application/json') !== -1 ) {
+                        return response.json();
+                    } else {
+                        return Promise.resolve(null);
+                    }
+                },
+                (error) => {
+                    console.error(error); // ошибка отправки
+                },
+            )
+            .then((body) => {
+                return body;
+            },
+            );
+    }
+
     static get(url = '') {
         return fetch(url, {
             method: 'GET',
@@ -17,10 +47,6 @@ export class Ajax {
         })
             .then(
                 (response) => {
-                    const csrfToken = response.headers.get('X-Csrf-Token');
-                    if (csrfToken) {
-                        this._csrfToken = csrfToken;
-                    }
                     const contentType = response.headers.get('content-type');
                     if ( contentType && contentType.indexOf('application/json') !== -1 ) {
                         return response.json();
@@ -45,7 +71,7 @@ export class Ajax {
             credentials: 'include',
         }
         if(this._csrfToken!==null && this._csrfToken!==undefined && this._csrfToken!==''){
-            request.headers['X-Csrf-Token'] = this._csrfToken
+            request.headers = {'X-Csrf-Token':this._csrfToken}
         }
         return fetch(url, request)
             .then(
@@ -84,7 +110,7 @@ export class Ajax {
             body: JSON.stringify(data),
         }
         if(this._csrfToken!==null && this._csrfToken!==undefined && this._csrfToken!==''){
-            request.headers['X-Csrf-Token'] = this._csrfToken
+            request.headers['X-Csrf-Token'] = this._csrfToken;
         }
         return fetch(url, request)
             .then(

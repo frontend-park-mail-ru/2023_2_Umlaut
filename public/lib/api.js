@@ -54,7 +54,7 @@ export class Api {
      * @return {Promise} - статус и тело ответа
      */
     static user() {
-        return Ajax.get(BACKEND_URL + URLS.user);
+        return Ajax.getCsrf(BACKEND_URL + URLS.user);
     }
 
     /**
