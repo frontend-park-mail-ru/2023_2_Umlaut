@@ -15,7 +15,7 @@ export class HeaderModel {
                     user.message_photo = '/pics/messages.png';
                     Api.getUserPhotoUrl(user.id).then(
                         (image)=>{
-                            user.photo = image + `?random=${Date.now()}`;
+                            user.photo = image;
                             this.eventBus.emit(HEADER_EVENTS.AUTH, user);
                         },
                     );
