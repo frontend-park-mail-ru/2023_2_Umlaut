@@ -39,14 +39,15 @@ export class Ajax {
     }
 
     static delete(url = '') {
-        return fetch(url, {
+        let request = {
             method: 'DELETE',
             mode: 'cors',
             credentials: 'include',
-            headers: {
-                'X-Csrf-Token': this._csrfToken
-            }
-        })
+        }
+        if(this._csrfToken!==null && this._csrfToken!==undefined && this._csrfToken!==''){
+            request.headers['X-Csrf-Token'] = this._csrfToken
+        }
+        return fetch(url, request)
             .then(
                 (response) => {
                     const contentType = response.headers.get('content-type');
@@ -73,16 +74,19 @@ export class Ajax {
      * @return {Promise} - статус и тело ответа
      */
     static post(url = '', data = {}) {
-        return fetch(url, {
+        let request = {
             method: 'POST',
             mode: 'cors',
             credentials: 'include',
             headers: {
                 'Content-Type': 'application/json',
-                'X-Csrf-Token': this._csrfToken
             },
             body: JSON.stringify(data),
-        })
+        }
+        if(this._csrfToken!==null && this._csrfToken!==undefined && this._csrfToken!==''){
+            request.headers['X-Csrf-Token'] = this._csrfToken
+        }
+        return fetch(url, request)
             .then(
                 (response) => {
                     const contentType = response.headers.get('content-type');
@@ -111,15 +115,16 @@ export class Ajax {
     static postFile(url = '', data = {}) {
         const formdata = new FormData();
         formdata.append('file', data);
-        return fetch(url, {
+        let request = {
             method: 'POST',
             mode: 'cors',
             credentials: 'include',
-            headers: {
-                'X-Csrf-Token': this._csrfToken
-            },
             body: formdata,
-        })
+        }
+        if(this._csrfToken!==null && this._csrfToken!==undefined && this._csrfToken!==''){
+            request.headers['X-Csrf-Token'] = this._csrfToken
+        }
+        return fetch(url, request)
             .then(
                 (response) => {
                     const contentType = response.headers.get('content-type');
