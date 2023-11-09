@@ -13,6 +13,7 @@ import {SignupController} from './components/Signup/SignupController.js';
 import {HeaderController} from './components/Header/HeaderController.js';
 import {SettingsController} from './components/Settings/SettingsController.js';
 import {MessengerController} from './components/Messenger/MessengerController.js';
+import { PopupView } from './components/PopUp/PopupView.js';
 
 document.addEventListener('DOMContentLoaded', ()=>{
     if ('serviceWorker' in navigator) {
@@ -36,10 +37,12 @@ document.addEventListener('DOMContentLoaded', ()=>{
     const router = new Router();
 
     const header = new HeaderController(head);
+    const popup = new PopupView(root);
 
     const globalEventBus = new EventBus();
     globalEventBus.on(GLOBAL_EVENTS.REDIRECT, (data) => router.go(data));
     globalEventBus.on(GLOBAL_EVENTS.AUTH, () => header.render());
+    globalEventBus.on(GLOBAL_EVENTS.POPUP, () => popup.render());
     globalEventBus.on(GLOBAL_EVENTS.RERENDER_HEADER, () => header.render());
     globalEventBus.on(GLOBAL_EVENTS.UNAUTH, () => {
         header.renderUnauth();

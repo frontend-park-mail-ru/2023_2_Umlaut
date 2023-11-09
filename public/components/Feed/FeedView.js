@@ -31,7 +31,7 @@ export class FeedView extends BaseView {
 
         this.addSwipeBtns();
 
-        this.eventBus.emit(FEED_EVENTS.GET_PERSON);
+        this.eventBus.emit(FEED_EVENTS.GET_NEXT_PEOPLE);
     }
 
     close() {

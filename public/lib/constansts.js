@@ -6,7 +6,7 @@ export const URLS = {
     logout: '/auth/logout',
     Signup: '/auth/sign-up',
     user: '/api/v1/user',
-    feed: '/api/v1/feed',
+    feed: '/api/v1/feed/users',
     photo: '/api/v1/user/photo',
     dialogs: '/api/v1/dialogs',
     like: '/api/v1/like',
@@ -40,6 +40,7 @@ export const FEED_EVENTS = {
     NEXT_PERSON_READY: 'NextPerson',
     GET_PERSON: 'GetPerson',
     UNAUTH: 'Unauthorised',
+    MUTUAL: 'MutualLikes',
 };
 
 export const HEADER_EVENTS = {
@@ -71,3 +72,7 @@ export const MESSENGER_EVENTS = {
     SEND_MESSAGE: 'SendMessage',
     UNAUTH: 'Unauth',
 };
+
+export const POPUP_EVENTS = {
+    CLOSE: "close",
+}

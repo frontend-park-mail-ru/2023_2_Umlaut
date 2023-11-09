@@ -18,7 +18,6 @@ export class Ajax {
             .then(
                 (response) => {
                     let csrfToken = response.headers.get('X-Csrf-Token');
-                    console.log("response.headers =", response.headers);
                     if (csrfToken) {
                         this._csrfToken = csrfToken;
                     }
@@ -110,9 +109,6 @@ export class Ajax {
             },
             body: JSON.stringify(data),
         }
-        // if(this._csrfToken!==null && this._csrfToken!==undefined && this._csrfToken!==''){
-        //     request.headers['X-Csrf-Token'] = this._csrfToken;
-        // }
         return fetch(url, request)
             .then(
                 (response) => {
