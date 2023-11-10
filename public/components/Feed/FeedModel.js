@@ -11,6 +11,23 @@ export class FeedModel {
         this.started = false;
     }
 
+    getNextPerson() {
+        if (this.queue.length === 0) {
+            this.eventBus.emit(FEED_EVENTS.GET_NEXT_PEOPLE, false);
+        } else {
+            const user = this.queue.shift();
+            Api.getUserPhotoUrl(user.id).then(
+                (image) =>{
+                    user.photo = image;
+                    this.eventBus.emit(FEED_EVENTS.NEXT_PERSON_READY, user);
+                },
+            );
+        }
+        if (this.queue.length === 2) {
+            this.eventBus.emit(FEED_EVENTS.GET_NEXT_PEOPLE);
+        }
+    }
+
     getNextPeople(isStarted = true) {
         this.started = isStarted;
         Api.feed().then((response) => {
