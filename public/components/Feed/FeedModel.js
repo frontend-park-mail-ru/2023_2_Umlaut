@@ -13,7 +13,7 @@ export class FeedModel {
 
     getNextPerson() {
         if(this.queue.length===0){
-            this.eventBus.emit(FEED_EVENTS.GET_NEXT_PEOPLE);
+            this.eventBus.emit(FEED_EVENTS.GET_NEXT_PEOPLE, false);
         }else{
             const user = this.queue.shift();
             Api.getUserPhotoUrl(user.id).then(
@@ -28,7 +28,8 @@ export class FeedModel {
         }
     } 
 
-    getNextPeople() {
+    getNextPeople(isStarted = true) {
+        this.started = isStarted;
         Api.feed().then((response) => {
             if ( response.status === 200) {
                 this.users = response.payload;

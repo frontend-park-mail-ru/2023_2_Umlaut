@@ -137,7 +137,13 @@ a.link {
 }
 
 .avatar img {
-    max-height: 50px;
+    width: 50px;
+    object-fit: cover;
+    height: 50px;
+}
+
+.photo-avatar{
+    border-radius: 50%;
 }
 
 .avatar {
