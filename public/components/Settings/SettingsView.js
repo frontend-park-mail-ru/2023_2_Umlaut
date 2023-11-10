@@ -54,6 +54,7 @@ export class SettingsView extends BaseView {
      * @param {SubmitEvent} event
      */
     onSubmit(event) {
+        this.hideError();
         event.preventDefault();
 
         if (!this.validateForm()) {
