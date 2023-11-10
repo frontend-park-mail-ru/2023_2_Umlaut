@@ -7,9 +7,10 @@
     </div>
     <div class="photo">
         {{#if image_path}}
-            <img src="{{photo}}" alt=""/>
+            <img class="background-photo" src="{{photo}}" alt=""/>
+            <img class="main-photo" src="{{photo}}" alt=""/>
         {{else}}
-            <img src="/pics/avatar.png" alt=""/>
+            <img class="main-photo" src="/pics/avatar.png" alt=""/>
         {{/if}}
     </div>
 </div>

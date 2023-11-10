@@ -227,18 +227,31 @@ a.link {
     font-weight: bold;
 }
 
-.photo img{
-    max-height:400px;
-    max-width: 500px;
+.photo .main-photo{
+    height:100%;
+    width: 100%;
+    object-fit: contain;
+    grid-row: 1;
+    grid-column: 1;
+    z-index: 1;
+    position: relative;
+}
+
+.photo .background-photo{
+    height:100%;
+    width: 100%;
     object-fit: cover;
+    scale: 1.1;
+    filter: blur(8px);
+    position: absolute;
 }
 
 .photo{
-    width: 500px;
+    width: 100%;
     height: 400px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    align-self: center;
+    overflow: hidden;
+    position: relative;
 }
 
 .photo-part{
