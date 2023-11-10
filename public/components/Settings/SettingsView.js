@@ -16,6 +16,7 @@ export class SettingsView extends BaseView {
 
     render(data) {
         super.render(data);
+
         this.form = this.root.querySelector('.settingsForm');
         this.form.addEventListener('submit', this.onSubmit.bind(this));
 
