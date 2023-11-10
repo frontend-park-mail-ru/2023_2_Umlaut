@@ -47,7 +47,7 @@ self.addEventListener('activate', (event) => {
             keys.map((key) => {
                 if (key !== CACHE_NAME) {
                     caches.delete(key)
-                        .then(() => console.log(`Deleted cache: ${key}`));
+                        .then(() => {});
                 }
             }),
         )),
