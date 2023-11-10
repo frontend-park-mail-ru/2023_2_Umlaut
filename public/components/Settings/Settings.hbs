@@ -4,7 +4,7 @@
             <textarea id="name">{{this.user.name}}</textarea>
             <span id="age">{{this.user.age}}</span>
         </div>
-        <div class="photo">
+        <div class="user-photo-setting">
             {{#if this.user.image_path}}
                 <img src="http://umlaut-bmstu.me:8000/api/v1/user/{{this.user.id}}/photo" id="user-photo" alt="">
             {{else}}

@@ -237,6 +237,20 @@ a.link {
     position: relative;
 }
 
+.user-photo-setting{
+    width: 500px;
+    height: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+#user-photo{
+    max-width: 500px;
+    max-height: 400px;
+}
+
 .photo .background-photo{
     height:100%;
     width: 100%;
