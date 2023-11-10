@@ -1,5 +1,5 @@
-import { EventBus } from '../../lib/eventbus';
-import { POPUP_EVENTS } from '../../lib/constansts.js';
+import {EventBus} from '../../lib/eventbus';
+import {POPUP_EVENTS} from '../../lib/constansts.js';
 
 /**
  * Компонент ленты с кнопками в анкете

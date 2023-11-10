@@ -74,5 +74,5 @@ export const MESSENGER_EVENTS = {
 };
 
 export const POPUP_EVENTS = {
-    CLOSE: "close",
-}
+    CLOSE: 'close',
+};

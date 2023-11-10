@@ -13,7 +13,7 @@ import {SignupController} from './components/Signup/SignupController.js';
 import {HeaderController} from './components/Header/HeaderController.js';
 import {SettingsController} from './components/Settings/SettingsController.js';
 import {MessengerController} from './components/Messenger/MessengerController.js';
-import { PopupView } from './components/PopUp/PopupView.js';
+import {PopupView} from './components/PopUp/PopupView.js';
 
 document.addEventListener('DOMContentLoaded', ()=>{
     if ('serviceWorker' in navigator) {

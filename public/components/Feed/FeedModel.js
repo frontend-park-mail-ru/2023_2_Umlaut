@@ -12,9 +12,9 @@ export class FeedModel {
     }
 
     getNextPerson() {
-        if(this.queue.length===0){
+        if (this.queue.length === 0) {
             this.eventBus.emit(FEED_EVENTS.GET_NEXT_PEOPLE, false);
-        }else{
+        } else {
             const user = this.queue.shift();
             Api.getUserPhotoUrl(user.id).then(
                 (image) =>{
@@ -23,22 +23,22 @@ export class FeedModel {
                 },
             );
         }
-        if(this.queue.length===2){
+        if (this.queue.length === 2) {
             this.eventBus.emit(FEED_EVENTS.GET_NEXT_PEOPLE);
         }
-    } 
+    }
 
     getNextPeople(isStarted = true) {
         this.started = isStarted;
         Api.feed().then((response) => {
             if ( response.status === 200) {
                 this.users = response.payload;
-                this.users.forEach(user => {
+                this.users.forEach((user) => {
                     this.queue.push(user);
                 });
-                if(!this.started){
+                if (!this.started) {
                     this.eventBus.emit(FEED_EVENTS.GET_PERSON);
-                    this.started=true;
+                    this.started = true;
                 }
             } else if ( response.status === 401 ) {
                 this.eventBus.emit(FEED_EVENTS.UNAUTH);
@@ -51,7 +51,7 @@ export class FeedModel {
             if ( response.status === 401 ) {
                 this.eventBus.emit(FEED_EVENTS.UNAUTH);
             } else if ( response.status === 200 ) {
-                if(response.message===""){
+                if (response.message === '') {
                     this.eventBus.emit(FEED_EVENTS.MUTUAL);
                 }
 

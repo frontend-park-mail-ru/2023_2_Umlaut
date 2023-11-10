@@ -3,7 +3,7 @@
  */
 
 export class Ajax {
-    static _csrfToken = ""
+    static _csrfToken = '';
     /**
      * Get-запрос на бекенд
      * @param {string} url - путь запроса
@@ -13,11 +13,11 @@ export class Ajax {
         return fetch(url, {
             method: 'GET',
             mode: 'cors',
-            credentials: 'include'
+            credentials: 'include',
         })
             .then(
                 (response) => {
-                    let csrfToken = response.headers.get('X-Csrf-Token');
+                    const csrfToken = response.headers.get('X-Csrf-Token');
                     if (csrfToken) {
                         this._csrfToken = csrfToken;
                     }
@@ -42,7 +42,7 @@ export class Ajax {
         return fetch(url, {
             method: 'GET',
             mode: 'cors',
-            credentials: 'include'
+            credentials: 'include',
         })
             .then(
                 (response) => {
@@ -64,13 +64,13 @@ export class Ajax {
     }
 
     static delete(url = '') {
-        let request = {
+        const request = {
             method: 'DELETE',
             mode: 'cors',
             credentials: 'include',
-        }
-        if(this._csrfToken!==null && this._csrfToken!==undefined && this._csrfToken!==''){
-            request.headers = {'X-Csrf-Token':this._csrfToken}
+        };
+        if (this._csrfToken !== null && this._csrfToken !== undefined && this._csrfToken !== '') {
+            request.headers = {'X-Csrf-Token': this._csrfToken};
         }
         return fetch(url, request)
             .then(
@@ -99,16 +99,16 @@ export class Ajax {
      * @return {Promise} - статус и тело ответа
      */
     static post(url = '', data = {}) {
-        let request = {
+        const request = {
             method: 'POST',
             mode: 'cors',
             credentials: 'include',
             headers: {
                 'Content-Type': 'application/json',
-                'X-Csrf-Token' : this._csrfToken,
+                'X-Csrf-Token': this._csrfToken,
             },
             body: JSON.stringify(data),
-        }
+        };
         return fetch(url, request)
             .then(
                 (response) => {
@@ -138,14 +138,14 @@ export class Ajax {
     static postFile(url = '', data = {}) {
         const formdata = new FormData();
         formdata.append('file', data);
-        let request = {
+        const request = {
             method: 'POST',
             mode: 'cors',
             credentials: 'include',
             body: formdata,
-        }
-        if(this._csrfToken!==null && this._csrfToken!==undefined && this._csrfToken!==''){
-            request.headers = {'X-Csrf-Token':this._csrfToken}
+        };
+        if (this._csrfToken !== null && this._csrfToken !== undefined && this._csrfToken !== '') {
+            request.headers = {'X-Csrf-Token': this._csrfToken};
         }
         return fetch(url, request)
             .then(

@@ -41,7 +41,7 @@ export class SettingsModel {
         this.settings.user.looking = data.looking;
         this.settings.user.hobbies = data.hobbies;
         this.settings.user.education = data.education;
-        //this.settings.user.tags = data.tags;
+        // this.settings.user.tags = data.tags;
         this.settings.user.description = data.description;
         this.settings.user.name = data.name;
         this.settings.user.birthday = data.birthday;
@@ -53,7 +53,7 @@ export class SettingsModel {
             (response) => {
                 if (response.status === 200) {
                     this.eventBus.emit(SETTINGS_EVENTS.SUCCESS);
-                }else{
+                } else {
                     this.eventBus.emit(SETTINGS_EVENTS.ERROR, response.message);
                 }
             },
@@ -65,10 +65,11 @@ export class SettingsModel {
             (response) => {
                 if ( response.status === 200 ) {
                     this.settings.user = response.payload;
-                    this.settings.user.prefer_gender === null ? this.settings.user.hasPreferGender = false : this.settings.user.hasPreferGender = true;
-                    this.settings.user.user_gender === null ? this.settings.user.hasGender = false : this.settings.user.hasGender = true;
-                    if (this.settings.user.birthday!==null){
-                    this.settings.user.birthday = this.settings.user.birthday.slice(0, 10);}
+                    this.settings.user.hasPreferGender = this.settings.user.prefer_gender !== null;
+                    this.settings.user.hasGender = this.settings.user.user_gender !== null;
+                    if (this.settings.user.birthday !== null) {
+                        this.settings.user.birthday = this.settings.user.birthday.slice(0, 10);
+                    }
                     Api.getUserPhotoUrl(this.settings.user.id).then(
                         (image)=>{
                             this.settings.user.photo = image;
@@ -107,7 +108,7 @@ export class SettingsModel {
         );
     }
 
-    logout(){
+    logout() {
         Api.logout().then(
             (response) => {
                 if ( response.status === 200 ) {

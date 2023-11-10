@@ -73,16 +73,25 @@ export class SettingsView extends BaseView {
         });
         inputsValue.birthday = new Date(birthdayInput.value);
         inputsValue.password = password.value;
-        inputsValue.prefer_gender === 'Мужчин' && inputsValue.prefer_gender!==null ? inputsValue.prefer_gender = 1 : inputsValue.prefer_gender = 0;
-        inputsValue.user_gender === 'Мужской' && inputsValue.user_gender!==null ? inputsValue.user_gender = 1 : inputsValue.user_gender = 0;
+        if (inputsValue.prefer_gender === 'Мужчин' && inputsValue.prefer_gender !== null) {
+            inputsValue.prefer_gender = 1;
+        } else {
+            inputsValue.prefer_gender = 0;
+        }
+
+        if (inputsValue.user_gender = inputsValue.user_gender === 'Мужской' && inputsValue.user_gender !== null) {
+            inputsValue.user_gender = 1;
+        } else {
+            inputsValue.user_gender = 0;
+        }
         this.eventBus.emit(SETTINGS_EVENTS.SEND_DATA, inputsValue);
     }
 
 
     updatePhoto(image) {
-        if(image!=='/pics/avatar.png'){
+        if (image !== '/pics/avatar.png') {
             this.photoPlace.src = image + `?random=${Date.now()}`;
-        }else{
+        } else {
             this.photoPlace.src = image;
         }
     }
@@ -104,12 +113,12 @@ export class SettingsView extends BaseView {
             this.showError('Введите свою дату рождения');
             return false;
         }
-        let uGender = document.querySelector('#user_gender');
+        const uGender = document.querySelector('#user_gender');
         if (uGender[uGender.selectedIndex].text === '') {
             this.showError('Введите свой пол');
             return false;
         }
-        let prGender = document.querySelector('#prefer_gender');
+        const prGender = document.querySelector('#prefer_gender');
         if (prGender[prGender.selectedIndex].text === '') {
             this.showError('Выберите предпочитаемый пол');
             return false;
