@@ -95,7 +95,7 @@ body {
     font-size: 12px;
 
 }
-.auth__sign-btn{
+.btn_sign{
     color: var(--auth-text-color);
     background-color: var(--input-focus-color);
     margin-top: 50px;
@@ -465,16 +465,16 @@ header, .anauthorised-header{
     border-radius: 10px;
 }
 
-.settings-form__save-btn{
+.btn_save{
     background-color: #ffffff;
 }
 
-.settings-form__delete-btn{
+.btn_delete{
     background-color:var(--input-focus-color);
     width: 40%;
 }
 
-.settings-form__add-btn{
+.btn_add{
     background-color:#ffffff;
     width: 45%;
 }
@@ -520,7 +520,7 @@ header, .anauthorised-header{
     border: 1px solid var(--dark-blue-color);
 }
 
-.messenger__btn-dialog{
+.btn_dialog{
     background-color: var(--dialog-grey);
 }
 
