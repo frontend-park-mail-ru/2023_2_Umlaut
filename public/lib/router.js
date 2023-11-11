@@ -5,7 +5,7 @@ export class Router {
     /**
      * Конструктор класса Router
      * @constructor
-     * @param {Map<string, function>} routes - путь и функция рендера страницы
+     * @param {Map<string, object>} components - компонент страницы
      */
     constructor(components = new Map) {
         this.components = components;
@@ -42,7 +42,7 @@ export class Router {
     /**
      * Добавление нового url
      * @param {string} path
-     * @param {function} callback
+     * @param {function} component
      */
     add(path, component) {
         this.components.set(path, component);

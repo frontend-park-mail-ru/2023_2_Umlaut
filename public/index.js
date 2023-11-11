@@ -4,7 +4,6 @@
 import _ from 'lodash';
 import runtime from 'serviceworker-webpack5-plugin/lib/runtime';
 import {Router} from './lib/router.js';
-import {Api} from './lib/api.js';
 import {AuthController} from './components/Auth/AuthController.js';
 import {FeedController} from './components/Feed/FeedController.js';
 import {EventBus} from './lib/eventbus.js';
