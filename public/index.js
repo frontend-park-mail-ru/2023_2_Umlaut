@@ -17,9 +17,7 @@ import {PopupView} from './components/PopUp/PopupView.js';
 
 document.addEventListener('DOMContentLoaded', ()=>{
     if ('serviceWorker' in navigator) {
-        runtime.register().then((reg) => {
-            
-        }).catch((error) => {
+        runtime.register().catch((error) => {
             console.log('Registration failed with ' + error);
         });
     }
