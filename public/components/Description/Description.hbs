@@ -1,55 +1,55 @@
-<div class="photo-part">
-    <div class="user-name">
+<div class="form-feed__photo-part">
+    <div class="form-feed__user-name">
         {{name}}
         {{#if age}}
         , {{age}}
         {{/if}}
     </div>
-    <div class="photo">
+    <div class="feed-photo">
         {{#if image_path}}
-            <img class="background-photo" src="{{photo}}" alt=""/>
-            <img class="main-photo" src="{{photo}}" alt=""/>
+            <img class="feed-photo__background-photo" src="{{photo}}" alt=""/>
+            <img class="feed-photo__main-photo" src="{{photo}}" alt=""/>
         {{else}}
-            <img class="main-photo" src="/pics/avatar.png" alt=""/>
+            <img class="feed-photo__main-photo" src="/pics/avatar.png" alt=""/>
         {{/if}}
     </div>
 </div>
 <div class="description">
-    <div class="about-user">
+    <div class="description__about-user">
         {{#if looking}}
-        <span class="goal bold">
+        <span class="description__goal bold">
             Цель:
         </span>
-        <span class="goal">
+        <span class="description__goal">
             {{looking}}
         </span>
         {{/if}}
         {{#if education}}
-        <span class="education bold">
+        <span class="description__education bold">
             Образование:
         </span>
-        <span class="education">
+        <span class="description__education">
             {{education}}
         </span>
         {{/if}}
         {{#if hobbies}}
-        <span class="interests bold">
+        <span class="description__interests bold">
             Увлечения:
         </span>
-        <span class="interests">
+        <span class="description__interests">
             {{hobbies}}
         </span>
         {{/if}}
         {{#if tags}}
-        <span class="tags bold">
+        <span class="description__tags bold">
             Теги:
         </span>
-        <span class="tags">
+        <span class="description__tags">
             {{tags}}
         </span>
         {{/if}}
         {{#if description}}
-        <span class="me">
+        <span class="description__me">
             {{description}}
         </span>
         {{/if}}

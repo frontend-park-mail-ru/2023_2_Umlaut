@@ -24,7 +24,7 @@ export class FeedView extends BaseView {
         // newDiv.className = 'main-part';
         super.render();
 
-        const userForm = this.root.querySelector('.userForm');
+        const userForm = this.root.querySelector('.form-feed');
         this.description = new Description(userForm);
 
         // this.root.appendChild(newDiv);
