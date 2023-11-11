@@ -51,15 +51,12 @@ document.addEventListener('DOMContentLoaded', ()=>{
     const settings = new SettingsController(page, globalEventBus);
     const messenger = new MessengerController(page, globalEventBus);
 
-    router.add('/', () => router.go('/feed'));
-    router.add('/feed', () => feed.render());
-    router.add('/auth', () => auth.render());
-    router.add('/signup', () => signup.render());
-    router.add('/settings', () => settings.render());
-    router.add('/messages', () => messenger.render());
-    router.add('/logout', async () => {
-        await Api.logout(); globalEventBus.emit(GLOBAL_EVENTS.UNAUTH); router.go('/auth');
-    });
+    router.add('/', feed);
+    router.add('/feed', feed);
+    router.add('/auth', auth);
+    router.add('/signup', signup);
+    router.add('/settings', settings);
+    router.add('/messages', messenger);
 
     router.start();
 });

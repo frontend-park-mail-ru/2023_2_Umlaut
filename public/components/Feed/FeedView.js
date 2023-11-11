@@ -35,12 +35,12 @@ export class FeedView extends BaseView {
     }
 
     close() {
-        super.close();
         const dislikeBtn = document.getElementById('dislike');
         const likeBtn = document.getElementById('like');
         // надо узнать можно ли чистить просто присваивая нулю
         dislikeBtn.removeEventListener('click', this.update.bind(this));
         likeBtn.removeEventListener('click', this.update.bind(this));
+        super.close();
     }
 
     /**

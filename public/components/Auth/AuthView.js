@@ -31,9 +31,9 @@ export class AuthView extends BaseView {
     }
 
     close() {
-        super.close();
         this.form.removeEventListener(this.onSubmit.bind(this));
         this.mailInput.removeEventListener(this.validateMail.bind(this));
+        super.close();
     }
 
     /**
