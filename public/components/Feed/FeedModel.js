@@ -32,7 +32,7 @@ export class FeedModel {
             if ( response.status === 401 ) {
                 this.eventBus.emit(FEED_EVENTS.UNAUTH);
             } else if ( response.status === 200 ) {
-                console.log('success like');
+                this.getNextPerson();
             }
         });
     }
