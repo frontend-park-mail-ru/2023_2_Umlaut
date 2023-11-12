@@ -37,6 +37,7 @@ export const AUTH_EVENTS = {
 
 export const FEED_EVENTS = {
     RATE_PERSON: 'RatePerson',
+    NO_PEOPLE: 'NoPeople',
     NEXT_PERSON_READY: 'NextPerson',
     GET_PERSON: 'GetPerson',
     UNAUTH: 'Unauthorised',

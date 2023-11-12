@@ -1,5 +1,6 @@
 <div class="form-feed">
     <div class="form-feed__user-part">
+        {{#if id}}
         <div class="form-feed__photo-part">
             <div class="form-feed__user-name">
                 {{name}}
@@ -57,6 +58,13 @@
                 {{/if}}
             </div>
         </div>
+        {{else}}
+        <div class="loading">
+            <svg class="loading__spinner" viewBox="0 0 50 50">
+                <circle class="loading__path" cx="25" cy="25" r="20" fill="none" stroke-width="5"></circle>
+            </svg>
+        </div>
+        {{/if}}
     </div>
     <div class="form-feed__buttons">
         <img class="form-feed__buttons-img" src="/pics/dislike.png" id="dislike">

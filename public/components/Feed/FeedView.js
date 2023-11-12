@@ -1,4 +1,3 @@
-import {Description} from '../Description/Description.js';
 import {BaseView} from '../BaseView.js';
 import {FEED_EVENTS} from '../../lib/constansts.js';
 
@@ -12,44 +11,48 @@ export class FeedView extends BaseView {
     constructor(root, eventBus) {
         super(root, eventBus, require('./Feed.hbs'));
         this.eventBus.on(FEED_EVENTS.NEXT_PERSON_READY, this.update.bind(this));
+        this.eventBus.on(FEED_EVENTS.NO_PEOPLE, this.showStub.bind(this));
     }
 
-    /**
-     * Рендерит страницу ленты, вставляет шаблоны описания пользователя и кнопок анкеты
-     */
     render(data) {
         this.root.innerHTML = '';
 
         super.render(data);
 
-        const userForm = this.root.querySelector('.form-feed');
-        this.description = new Description(userForm);
-
-        this.addSwipeBtns();
-
-        this.eventBus.emit(FEED_EVENTS.GET_NEXT_PEOPLE, false);
+        if( data === undefined )
+            this.eventBus.emit(FEED_EVENTS.GET_PERSON);
+        else
+            this.activateBtns();
     }
 
     close() {
-        const dislikeBtn = document.getElementById('dislike');
-        const likeBtn = document.getElementById('like');
-        // надо узнать можно ли чистить просто присваивая нулю
-        dislikeBtn.removeEventListener('click', this.update.bind(this));
-        likeBtn.removeEventListener('click', this.update.bind(this));
         super.close();
+        this.blockButtons();
     }
 
     /**
      * Добавляет действия по нажатию на кнопки анкеты
      */
-    addSwipeBtns() {
-        const dislikeBtn = document.getElementById('dislike');
-        const likeBtn = document.getElementById('like');
-        dislikeBtn.addEventListener('click', () => this.eventBus.emit(FEED_EVENTS.GET_PERSON));
-        likeBtn.addEventListener('click', () => {
+    activateBtns() {
+        this.dislikeBtn = document.getElementById('dislike');
+        this.likeBtn = document.getElementById('like');
+        this.dislikeBtn.addEventListener('click', () => this.eventBus.emit(FEED_EVENTS.GET_PERSON));
+        this.likeBtn.addEventListener('click', () => {
             this.eventBus.emit(FEED_EVENTS.RATE_PERSON, {'liked_to_user_id': this.user.id});
+            this.blockButtons();
             this.eventBus.emit(FEED_EVENTS.GET_PERSON);
         });
+    }
+
+    blockButtons() {
+        if (this.dislikeBtn) {
+            this.dislikeBtn.removeEventListener('click', this.update.bind(this));
+            this.likeBtn.removeEventListener('click', this.update.bind(this));
+        }
+    }
+
+    showStub(){
+        console.log("пользователи кончились");
     }
 
     /**
