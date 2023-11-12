@@ -17,10 +17,10 @@ export class SettingsView extends BaseView {
     render(data) {
         super.render(data);
 
-        this.form = this.root.querySelector('.settingsForm');
+        this.form = this.root.querySelector('.settings-form');
         this.form.addEventListener('submit', this.onSubmit.bind(this));
 
-        const deletePhotoBtn = this.root.querySelector('.delete-btn');
+        const deletePhotoBtn = this.root.querySelector('.settings-form__delete-btn');
         const selectedFile = document.querySelector('#file');
         const logoutBtn = document.querySelector('#logout');
         this.photoPlace = document.querySelector('#user-photo');
@@ -44,9 +44,9 @@ export class SettingsView extends BaseView {
     }
 
     close() {
-        super.close();
-        this.form.removeEventListener(this.onSubmit.bind(this));
+        this.form.removeEventListener('click', this.onSubmit.bind(this));
         // this.mailInput.removeEventListener(this.validateMail.bind(this));
+        super.close();
     }
 
     /**

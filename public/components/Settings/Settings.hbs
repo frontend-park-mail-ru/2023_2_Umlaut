@@ -1,27 +1,27 @@
-<form class="settingsForm">
-    <div class="photo-part">
-        <div class="user-name set-name">
-            <textarea id="name">{{this.user.name}}</textarea>
+<form class="settings-form">
+    <div class="settings-form__photo-part">
+        <div class="settings-form__user-name">
+            <textarea id="name" class="input-border__data-input input-border__data-input_text">{{this.user.name}}</textarea>
             <span id="age">{{this.user.age}}</span>
         </div>
-        <div class="user-photo-setting">
+        <div class="settings-form__photo">
             {{#if this.user.image_path}}
                 <img src="https://umlaut-bmstu.me/api/v1/user/{{this.user.id}}/photo" id="user-photo" alt="">
             {{else}}
                 <img src="/pics/avatar.png" id="user-photo" alt="">
             {{/if}}
         </div>
-        <div class="buttons-settings">
-            <button type="button" class="btn delete-btn">удалить</button>
+        <div class="settings-form__buttons-photo-setting">
+            <button type="button" class="btn btn_delete">удалить</button>
             <input type="file" id="file" style="display: none;" accept="image/*" />
-            <button type="button" class="btn add-btn" onclick="document.getElementById('file').click()">добавить фото</button>
+            <button type="button" class="btn btn_add" onclick="document.getElementById('file').click()">добавить фото</button>
         </div>
     </div>
-    <div class="description-settings">
-        <div class="about-user">
-            <div class="input">
-                <span class="name-input">Ваш пол</span>
-                <select class="form-control Selector"  id="user_gender">
+    <div class="description-settings description">
+        <div class="description-settings__about-user">
+            <div class="input-border">
+                <span class="input-border__header">Ваш пол</span>
+                <select class="input-border__data-input"  id="user_gender">
                     {{#if this.user.hasGender}}
                         {{#if this.user.user_gender}}
                             <option value="" selected="selected">Мужской</option>
@@ -37,9 +37,9 @@
                     {{/if}}
                 </select>
             </div>
-            <div class="input">
-                <span class="name-input">Кого ищете</span>
-                <select class="form-control Selector"  id="prefer_gender">
+            <div class="input-border">
+                <span class="input-border__header">Кого ищете</span>
+                <select class="input-border__data-input"  id="prefer_gender">
                     {{#if this.user.hasPreferGender}}
                         {{#if this.user.prefer_gender}}
                             <option value="" selected="selected">Мужчин</option>
@@ -55,9 +55,9 @@
                     {{/if}}
                 </select>
             </div>
-            <div class="input">
-                <span class="name-input">Цель</span>
-                <select class="form-control Selector"  id="looking">
+            <div class="input-border">
+                <span class="input-border__header">Цель</span>
+                <select class="input-border__data-input"  id="looking">
                     {{#if this.user.looking}}
                         <option value="" selected="selected">{{this.user.looking}}</option>
                     {{else}}
@@ -68,9 +68,9 @@
                     {{/each}} 
                 </select>
             </div>
-            <div class="input">
-                <span class="name-input">Образование</span>
-                <select class="form-control Selector"  id="education">
+            <div class="input-border">
+                <span class="input-border__header">Образование</span>
+                <select class="input-border__data-input"  id="education">
                     {{#if this.user.education}}
                         <option value="" selected="selected">{{this.user.education}}</option>
                     {{else}}
@@ -81,9 +81,9 @@
                     {{/each}} 
                 </select>
             </div>
-            <div class="input">
-                <span class="name-input">Интересы</span>
-                <select class="form-control Selector"  id="hobbies">
+            <div class="input-border">
+                <span class="input-border__header">Интересы</span>
+                <select class="input-border__data-input"  id="hobbies">
                     {{#if this.user.hobbies}}
                         <option value="" selected="selected">{{this.user.hobbies}}</option>
                         {{else}}
@@ -94,9 +94,9 @@
                     {{/each}} 
                 </select>
             </div>
-            {{!-- <div class="input">
-                <span class="name-input">Теги</span>
-                <select class="form-control Selector" id="tags">
+            {{!-- <div class="input-border">
+                <span class="input-border__header">Теги</span>
+                <select class="input-border__data-input" id="tags">
                     {{#if this.user.tags}}
                         <option value="" selected="selected">{{this.user.tags}}</option>
                     {{/if}} 
@@ -105,36 +105,36 @@
                     {{/each}} 
                 </select>
             </div> --}}
-            <div class="input">
-                <span class="name-input">Дата рождения</span>
-                    <input id="birthday" type="date" class="Selector" name="partydate" value='{{this.user.birthday}}'/>
+            <div class="input-border">
+                <span class="input-border__header">Дата рождения</span>
+                    <input id="birthday" type="date" class="input-border__data-input input__data-input_date" name="partydate" value='{{this.user.birthday}}'/>
                 </select>
             </div>
-            <div class="input">
-                <span class="name-input">О себе</span>
-                    <textarea class="form-control Selector" id="description">{{this.user.description}}</textarea>
+            <div class="input-border">
+                <span class="input-border__header">О себе</span>
+                    <textarea class="input-border__data-input input__data-input_text" id="description">{{this.user.description}}</textarea>
                 </select>
             </div>
             <div class="error-label"></div>
-            <button type="submit" class="btn save-btn">сохранить</button>
+            <button type="submit" class="btn btn_save">сохранить</button>
         </div>
     </div>
-    <div class="description-settings">
+    <div class="description-settings description">
         <h2>Смена данных для входа</h2>
-        <div class="about-user">
-            <div class="input">
-                <span class="name-input">Почта</span>
-                    <textarea class="form-control Selector" id="mail">{{this.user.mail}}</textarea>
+        <div class="description-settings__about-user">
+            <div class="input-border">
+                <span class="input-border__header">Почта</span>
+                    <textarea class="input-border__data-input input__data-input_text" id="mail">{{this.user.mail}}</textarea>
                 </select>
             </div>
-            <div class="input">
-                <span class="name-input">Пароль</span>
-                    <input type="password" class="form-control Selector" id="password" autocomplete="new-password">
+            <div class="input-border">
+                <span class="input-border__header">Пароль</span>
+                    <input type="password" class="input-border__data-input input__data-input_password" id="password" autocomplete="new-password">
                 </select>
             </div>
-            <div class="input">
-                <span class="name-input">Повторите пароль</span>
-                    <input type="password" class="form-control Selector" id="repeat-password">
+            <div class="input-border">
+                <span class="input-border__header">Повторите пароль</span>
+                    <input type="password" class="input-border__data-input input__data-input_password" id="repeat-password">
                 </select>
             </div>
         </div>

@@ -1,17 +1,17 @@
 <form class="auth">
-  <span class="text-center">вход</span>
-  <div class="input-container">
-    <input id="mail" type="text" required="" />
-    <label>E-mail</label>
+  <span class="auth__header">вход</span>
+  <div class="input">
+    <input id="mail" class="input__input" type="text" required="" />
+    <label class="input__label">E-mail</label>
   </div>
-  <div class="input-container">
-    <input id="password" type="password" required="" />
-    <label>Пароль</label>
+  <div class="input">
+    <input id="password" class="input__input" type="password" required="" />
+    <label class="input__label">Пароль</label>
   </div>
   <div class="error-label">1</div>
-  <div class="auth-subtitle">
+  <div class="auth__subtitle">
     Нет аккаунта?
     <a href="/signup">Зарегестрируйтесь</a>
   </div>
-  <button type="submit" class="sign-btn btn">войти</button>
+  <button type="submit" class="btn btn_sign">войти</button>
 </form>

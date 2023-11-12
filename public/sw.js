@@ -15,7 +15,7 @@ self.addEventListener('install', (event) => {
 
 self.addEventListener('fetch', (event) => {
     event.respondWith((() => {
-        if (navigator.onLine === true) {
+        if (navigator.onLine) {
             return fetch(event.request)
                 .then((response) => {
                     if (event.request.method !== 'GET') {

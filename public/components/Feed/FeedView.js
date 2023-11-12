@@ -18,11 +18,12 @@ export class FeedView extends BaseView {
     /**
      * Рендерит страницу ленты, вставляет шаблоны описания пользователя и кнопок анкеты
      */
-    render() {
+    render(data) {
         this.root.innerHTML = '';
-        super.render();
 
-        const userForm = this.root.querySelector('.user-form');
+        super.render(data);
+
+        const userForm = this.root.querySelector('.form-feed');
         this.description = new Description(userForm);
 
         this.addSwipeBtns();
@@ -56,7 +57,14 @@ export class FeedView extends BaseView {
      */
     update(user) {
         this.user = user;
-        this.description.render(user);
+        this.close();
+        this.render(user);
+    }
+
+    blockButtons(){
+        this.dislikeBtn.removeEventListener('click', this.update.bind(this));
+        this.likeBtn.removeEventListener('click', this.update.bind(this));
+
     }
 
     blockButtons(){
