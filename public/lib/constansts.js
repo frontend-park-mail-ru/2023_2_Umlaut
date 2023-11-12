@@ -6,7 +6,7 @@ export const URLS = {
     logout: '/auth/logout',
     Signup: '/auth/sign-up',
     user: '/api/v1/user',
-    feed: '/api/v1/feed/users',
+    feed: '/api/v1/feed',
     photo: '/api/v1/user/photo',
     dialogs: '/api/v1/dialogs',
     like: '/api/v1/like',

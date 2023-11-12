@@ -10,7 +10,7 @@ export class PopupView {
         this.root = root;
         this.eventBus = new EventBus();
         this.popup = document.createElement('div');
-        this.popup.className = 'popup popup_dark';
+        this.popup.className = 'popup';
         this.popup.innerHTML = this.tmpl();
         this.closePopup = () => this.eventBus.emit(POPUP_EVENTS.CLOSE);
         this.eventBus.on(POPUP_EVENTS.CLOSE, this.close.bind(this));

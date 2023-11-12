@@ -5,7 +5,7 @@ export class Description {
     parent;
     constructor(parent) {
         this.parent = parent;
-        this.template = require('./Description.hbs');
+        //this.template = require('./Description.hbs');
     }
 
     /**

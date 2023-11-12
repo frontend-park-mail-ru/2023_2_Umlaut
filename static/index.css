@@ -11,7 +11,7 @@ body {
 /* Определение глобальных переменных для цветов */
 :root {
     --auth-text-color: #ffffff;
-    --link-text-color: #006adc;
+    --link-text-color: #233dd2;
     --input-focus-color: #EB2344;
     --lending-text-color: #685206;
     --background-color: #E9CDCC;
@@ -27,6 +27,22 @@ body {
     border-radius: 2px;
     cursor: pointer;
     position: relative;
+    background-color: white;
+}
+
+.btn_important{
+    color: var(--auth-text-color);
+    background-color: var(--input-focus-color);
+}
+
+.error-label{
+    font-size: 0.8rem;
+    color: var(--input-focus-color);
+}
+
+.link{
+    text-decoration: none;
+    color: #ffffff;
 }
 
 
@@ -41,6 +57,7 @@ body {
     border-radius: 4px;
     padding: 70px 100px;
 }
+
 .auth__subtitle {
     font-style: normal;
     font-weight: 400;
@@ -48,11 +65,14 @@ body {
     line-height: 150%;
     color: var(--auth-text-color);
     margin-top: 12px;
+    margin-bottom: 50px;
 }
-.auth__subtitle a {
+
+.auth__link{
     text-decoration: none;
     color: var(--link-text-color);
 }
+
 .auth__header {
     color: var(--auth-text-color);
     text-transform: uppercase;
@@ -66,6 +86,7 @@ body {
     position: relative;
     margin-bottom: 25px;
 }
+
 .input__label {
     position: absolute;
     top: 0;
@@ -75,6 +96,7 @@ body {
     pointer-events: none;
     transition: all 0.2s ease-in-out;
 }
+
 .input__input {
     border: 0;
     border-bottom: 1px solid #555;
@@ -84,31 +106,22 @@ body {
     font-size: 16px;
     color: var(--auth-text-color);
 }
+
 .input__input:focus {
     border: none;
     outline: none;
     border-bottom: 1px solid var(--input-focus-color);
 }
+
 .input__input:focus ~ .input__label,
 .input__input:valid ~ .input__label {
     top: -12px;
     font-size: 12px;
-
 }
-.btn_sign{
-    color: var(--auth-text-color);
-    background-color: var(--input-focus-color);
-    margin-top: 50px;
-}
-.error-label{
-    font-size: 0.8rem;
-    color: var(--input-focus-color);
-}
-
 
 /* === FEED === */
 
-#root {
+.root {
     height: 95vh;
     display: grid;
     grid-template-areas:
@@ -116,13 +129,6 @@ body {
         "content";
     grid-template-rows: 60px 85%;
     font: 1.2rem "Helvetica", sans-serif;
-}
-
-a.link:active,
-a.link:hover,
-a.link {
-  text-decoration: none;
-  color: white;
 }
 
 .header{
@@ -133,13 +139,19 @@ a.link {
     background-color: var(--dark-blue-color);
 }
 
-.header__profile, .header__link-to-main-page{
+.header__profile{
     display: flex;
     justify-content: center;
     gap: 12px;
 }
 
-.header__photo img {
+.header__link-to-main-page{
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+}
+
+.header__photo-img {
     width: 50px;
     object-fit: cover;
     height: 50px;
@@ -147,6 +159,9 @@ a.link {
 
 .header__photo-avatar{
     border-radius: 50%;
+    width: 50px;
+    object-fit: cover;
+    height: 50px;
 }
 
 .header__photo {
@@ -154,7 +169,7 @@ a.link {
     align-items: center;
 }
 
-.header__logo img{
+.header__logo-img{
     max-height: 50px;
     border-radius: 100%;
 }
@@ -172,7 +187,7 @@ a.link {
     justify-content: center;
 }
 
-.form-feed__buttons img{
+.form-feed__buttons-img{
     width: auto;
     max-height: 170px;
 }
@@ -197,7 +212,13 @@ a.link {
     width: 1000px;
 }
 
-.logout-header, .header__name, .form-feed__user-name, .settings-form__user-name{
+.logout-header{
+    font-size: 40px;
+    display: flex;
+    justify-content: right;
+}
+
+.header__name{
     font-size: 40px;
     display: flex;
     justify-content: right;
@@ -219,6 +240,12 @@ a.link {
     grid-column: 1;
     z-index: 1;
     position: relative;
+}
+
+.form-feed__user-name{
+    font-size: 40px;
+    display: flex;
+    justify-content: right;
 }
 
 .settings-form__photo{
@@ -274,38 +301,11 @@ a.link {
     margin: 7px;
 }
 
-.like-btn{
-    height: 100%;
-    width: auto;
-}
-
-.dislike-btn{
-    height: 100%;
-    width: auto;
-}
-
-.message-btn{
-    height: 100%;
-}
 
 /* === LENDING === */
 
 .profile-page{
     background-color: var(--background-color);
-}
-
-html {
-    height: 100%;
-}
-
-header, .anauthorised-header{
-    display: flex;
-    background-color: black;
-    padding-bottom: 6px;
-    padding-top: 6px;
-    padding-left: 6px;
-    box-shadow: 0 5px 10px black;
-    border-radius: 0 0 2px 2px;
 }
 
 .anauthorised-header{
@@ -387,10 +387,6 @@ header, .anauthorised-header{
 
 /* === PROFILE === */
 
-.input-border__data-input_date{
-    height: 20px;
-}
-
 .logout img{
     max-width: 50px;
     max-height: 50px;
@@ -407,6 +403,12 @@ header, .anauthorised-header{
     grid-template-rows: 100%;
     padding: 15px;
     width: 1400px;
+}
+
+.settings-form__user-name{
+    font-size: 40px;
+    display: flex;
+    justify-content: right;
 }
 
 .settings-form__photo-part{
@@ -448,6 +450,10 @@ header, .anauthorised-header{
     resize: none;
 }
 
+.input-border__data-input_date{
+    height: 20px;
+}
+
 .input-border {
     border: 2px solid black;
     border-radius: 10px;
@@ -455,7 +461,7 @@ header, .anauthorised-header{
     margin: 10px;
 }
 
-.input__header {
+.input-border__header {
     position: relative;
     bottom: 7px;
     background: var(--background-color);
@@ -465,17 +471,11 @@ header, .anauthorised-header{
     border-radius: 10px;
 }
 
-.btn_save{
-    background-color: #ffffff;
-}
-
-.btn_delete{
-    background-color:var(--input-focus-color);
+.settings-form__button-delete{
     width: 40%;
 }
 
-.btn_add{
-    background-color:#ffffff;
+.settings-form__button-add{
     width: 45%;
 }
 
@@ -520,7 +520,7 @@ header, .anauthorised-header{
     border: 1px solid var(--dark-blue-color);
 }
 
-.btn_dialog{
+.messenger__button{
     background-color: var(--dialog-grey);
 }
 
