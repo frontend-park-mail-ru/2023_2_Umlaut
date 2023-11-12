@@ -28,11 +28,11 @@ body {
   cursor: pointer;
   position: relative;
   background-color: white;
-}
 
-.btn_important {
-  color: var(--auth-text-color);
-  background-color: var(--input-focus-color);
+  &_important {
+    color: var(--auth-text-color);
+    background-color: var(--input-focus-color);
+  }
 }
 
 .error-label {
@@ -43,47 +43,48 @@ body {
 .link {
   text-decoration: none;
   color: #ffffff;
-}
+  cursor: pointer;
 
-.link_blue {
-  color: var(--link-text-color);
+  &_blue {
+    color: var(--link-text-color);
+  }
 }
 
 .input {
   position: relative;
   margin-bottom: 25px;
-}
 
-.input__label {
-  position: absolute;
-  top: 0;
-  left: 0;
-  font-size: 16px;
-  color: var(--auth-text-color);
-  pointer-events: none;
-  transition: all 0.2s ease-in-out;
-}
+  &__label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    font-size: 16px;
+    color: var(--auth-text-color);
+    pointer-events: none;
+    transition: all 0.2s ease-in-out;
+  }
 
-.input__input {
-  border: 0;
-  border-bottom: 1px solid #555;
-  background: transparent;
-  width: 100%;
-  padding: 8px 0 5px 0;
-  font-size: 16px;
-  color: var(--auth-text-color);
-}
+  &__input {
+    border: 0;
+    border-bottom: 1px solid #555;
+    background: transparent;
+    width: 100%;
+    padding: 8px 0 5px 0;
+    font-size: 16px;
+    color: var(--auth-text-color);
 
-.input__input:focus {
-  border: none;
-  outline: none;
-  border-bottom: 1px solid var(--input-focus-color);
-}
+    &:focus {
+      border: none;
+      outline: none;
+      border-bottom: 1px solid var(--input-focus-color);
+    }
 
-.input__input:focus ~ .input__label,
-.input__input:valid ~ .input__label {
-  top: -12px;
-  font-size: 12px;
+    &:focus ~ .input__label,
+    &:valid ~ .input__label {
+      top: -12px;
+      font-size: 12px;
+    }
+  }
 }
 
 .root {

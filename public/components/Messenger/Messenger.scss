@@ -11,7 +11,7 @@
   }
 
   &__dialog-list {
-    overflow: scroll;
+    overflow: auto;
   }
 
   &__dialog-window {
@@ -21,6 +21,12 @@
 
   &__button {
     background-color: var(--dialog-grey);
+  }
+
+  &__empty-dialog {
+    font-size: 16px;
+    color: white;
+    padding: 2%;
   }
 }
 
