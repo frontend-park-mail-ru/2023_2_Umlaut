@@ -1,4 +1,5 @@
 import {HEADER_EVENTS} from '../../lib/constansts.js';
+import './Header.scss';
 
 /**
  * Компонент хедер для всех страниц

@@ -1,5 +1,6 @@
 import {BaseView} from '../BaseView.js';
 import {FEED_EVENTS} from '../../lib/constansts.js';
+import './Feed.scss';
 
 /**
  * Компонент ленты с кнопками в анкете

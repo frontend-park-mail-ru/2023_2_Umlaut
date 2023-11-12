@@ -1,6 +1,7 @@
 import {Validate} from '../../lib/validate.js';
 import {BaseView} from '../BaseView.js';
 import {SETTINGS_EVENTS} from '../../lib/constansts.js';
+import './Settings.scss';
 
 /**
  * Компонент страницы авторизации (входа)

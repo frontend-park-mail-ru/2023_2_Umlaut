@@ -1,0 +1,60 @@
+.messenger {
+  display: grid;
+  height: 100%;
+  grid-template-areas: "dialog-list dialog-window";
+
+  grid-template-columns: 350px 1fr;
+
+  &__dialogs {
+    grid-area: "dialog-list";
+    background-color: var(--dialog-grey);
+  }
+
+  &__dialog-list {
+    overflow: auto;
+  }
+
+  &__dialog-window {
+    grid-area: "dialog-window";
+    border: 1px solid var(--dark-blue-color);
+  }
+
+  &__button {
+    background-color: var(--dialog-grey);
+  }
+
+  &__empty-dialog {
+    font-size: 16px;
+    color: white;
+    padding: 2%;
+  }
+}
+
+.dialog-preview {
+  height: 100px;
+  border: 1px solid var(--dark-blue-color);
+
+  &__photo {
+    height: 85px;
+    width: 85px;
+    float: left;
+    border-radius: 50%;
+    overflow: hidden;
+    padding: 8px;
+  }
+
+  &__photo-img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+
+  &__dialog-name {
+    color: white;
+  }
+
+  &__preview-message {
+    font-size: 12px;
+  }
+}
