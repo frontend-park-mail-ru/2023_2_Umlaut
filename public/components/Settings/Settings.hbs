@@ -2,23 +2,23 @@
     <div class="settings-form__photo-part">
         <div class="settings-form__user-name">
             <textarea id="name" class="input-border__data-input input-border__data-input_text">{{this.user.name}}</textarea>
-            <span id="age">{{this.user.age}}</span>
+            <span id="age" class="settings-form__age">{{this.user.age}}</span>
         </div>
         <div class="settings-form__photo">
             {{#if this.user.image_path}}
-                <img src="https://umlaut-bmstu.me/api/v1/user/{{this.user.id}}/photo" id="user-photo" alt="">
+                <img src="https://umlaut-bmstu.me/api/v1/user/{{this.user.id}}/photo" class="settings-form__photo-img" id="user-photo" alt="">
             {{else}}
-                <img src="/pics/avatar.png" id="user-photo" alt="">
+                <img src="/pics/avatar.png" class="settings-form__photo-img" id="user-photo" alt="">
             {{/if}}
         </div>
         <div class="settings-form__buttons-photo-setting">
-            <button type="button" class="btn btn_delete">удалить</button>
+            <button type="button" class="btn btn_important settings-form__button-delete">удалить</button>
             <input type="file" id="file" style="display: none;" accept="image/*" />
-            <button type="button" class="btn btn_add" onclick="document.getElementById('file').click()">добавить фото</button>
+            <button type="button" class="btn settings-form__button-add" onclick="document.getElementById('file').click()">добавить фото</button>
         </div>
     </div>
-    <div class="description-settings description">
-        <div class="description-settings__about-user">
+    <div class="settings-form__description-settings">
+        <div class="settings-form__about-user">
             <div class="input-border">
                 <span class="input-border__header">Ваш пол</span>
                 <select class="input-border__data-input"  id="user_gender">
@@ -116,12 +116,12 @@
                 </select>
             </div>
             <div class="error-label"></div>
-            <button type="submit" class="btn btn_save">сохранить</button>
+            <button type="submit" class="btn">сохранить</button>
         </div>
     </div>
-    <div class="description-settings description">
+    <div class="settings-form__description-settings">
         <h2>Смена данных для входа</h2>
-        <div class="description-settings__about-user">
+        <div class="settings-form__about-user">
             <div class="input-border">
                 <span class="input-border__header">Почта</span>
                     <textarea class="input-border__data-input input__data-input_text" id="mail">{{this.user.mail}}</textarea>
@@ -141,5 +141,5 @@
     </div>
 </form>
 <div class="logout">
-    <img src="../pics/logout.png" id="logout">
+    <img src="../pics/logout.png" id="logout" class="logout__img">
 </div>

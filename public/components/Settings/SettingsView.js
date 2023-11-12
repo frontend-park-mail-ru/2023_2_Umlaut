@@ -20,7 +20,7 @@ export class SettingsView extends BaseView {
         this.form = this.root.querySelector('.settings-form');
         this.form.addEventListener('submit', this.onSubmit.bind(this));
 
-        const deletePhotoBtn = this.root.querySelector('.settings-form__delete-btn');
+        const deletePhotoBtn = this.root.querySelector('.settings-form__button-delete');
         const selectedFile = document.querySelector('#file');
         const logoutBtn = document.querySelector('#logout');
         this.photoPlace = document.querySelector('#user-photo');

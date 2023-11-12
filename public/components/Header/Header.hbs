@@ -1,15 +1,13 @@
 <div class="header__link-to-main-page">
     <a class="header__logo" href="/feed">
-        <img src="/pics/Umlaut.jpg">
+        <img class="header__logo-img" src="/pics/Umlaut.jpg">
     </a>
-    <div class="header__name">
-        <a href="/feed" class="link">Umlaut</a>
-    </div>
+    <a href="/feed" class="header__name link">Umlaut</a>
 </div>
 <div class="header__profile">
     <a class="header__photo" href="/messages">
         {{#if message_photo}}
-            <img src="{{{message_photo}}}" alt=""/>
+            <img src="{{{message_photo}}}" class="header__photo-img" alt=""/>
         {{/if}}
     </a>
     <a class="header__photo" href="/settings">

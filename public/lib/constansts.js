@@ -4,9 +4,9 @@
 export const URLS = {
     login: '/api/v1/auth/login',
     logout: '/api/v1/auth/logout',
-    Signup: '/auth/sign-up',
+    Signup: '/api/v1/auth/sign-up',
     user: '/api/v1/user',
-    feed: '/api/v1/feed/users',
+    feed: '/api/v1/feed',
     photo: '/api/v1/user/photo',
     dialogs: '/api/v1/dialogs',
     like: '/api/v1/like',
@@ -37,6 +37,7 @@ export const AUTH_EVENTS = {
 
 export const FEED_EVENTS = {
     RATE_PERSON: 'RatePerson',
+    NO_PEOPLE: 'NoPeople',
     NEXT_PERSON_READY: 'NextPerson',
     GET_PERSON: 'GetPerson',
     UNAUTH: 'Unauthorised',
