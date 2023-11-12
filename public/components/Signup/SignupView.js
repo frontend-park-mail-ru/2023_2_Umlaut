@@ -1,35 +1,29 @@
-import {Api} from '../../lib/api.js';
 import {Validate} from '../../lib/validate.js';
+import {BaseView} from '../BaseView.js';
+import {AUTH_EVENTS} from '../../lib/constansts.js';
 
 /**
  * Компонент страницы регистрации
  */
-export class Signup {
+export class SignupView extends BaseView {
     errorLabel;
     mailInput;
     nameInput;
     passwordInput;
     repasswordInput;
-    parent;
-    router;
     form;
-    constructor(router) {
-        this.parent = document.getElementById('root');
-        this.router = router;
-        this.form = null;
+    constructor(root, eventBus) {
+        super(root, eventBus, require('./Signup.hbs'));
+        this.eventBus.on( AUTH_EVENTS.INVALID_AUTH, (data) => this.showError(data.message));
+        this.eventBus.on( AUTH_EVENTS.UNAUTH, this.render.bind(this));
     }
 
     /**
      * Отрисовка страницы регистрации из шаблона
      */
-    async render() {
-        const resp = await Api.user();
-        if ( resp.status === 200 ) {
-            this.router.go('/feed');
-            return;
-        }
-        this.parent.innerHTML = window.Handlebars.templates['Signup.hbs']();
-        this.form = this.parent.querySelector('.auth');
+    render() {
+        super.render();
+        this.form = this.root.querySelector('.auth');
         this.form.addEventListener('submit', this.onSubmit.bind(this));
         this.errorLabel = this.form.querySelector('.error-label');
         this.errorLabel.style.visibility = 'hidden';
@@ -57,6 +51,15 @@ export class Signup {
                 this.showError('Пароли отличаются');
             } else this.hideError();
         });
+    }
+
+    close() {
+        super.close();
+        this.mailInput = null;
+        this.nameInput = null;
+        this.passwordInput = null;
+        this.repasswordInput = null;
+        this.form = null;
     }
 
     /**
@@ -87,7 +90,6 @@ export class Signup {
     }
 
     /**
-     * Отправка запроса на бекенд и переход в ленту/сообщение об ошибке
      * @param {SubmitEvent} event
      */
     onSubmit(event) {
@@ -101,10 +103,7 @@ export class Signup {
         inputsValue[this.nameInput.id] = this.nameInput.value;
         inputsValue[this.passwordInput.id] = this.passwordInput.value;
 
-        Api.signup(inputsValue).then((response) => {
-            if (response.status === 200) this.router.go('/feed');
-            else this.showError(response.body.message);
-        });
+        this.eventBus.emit(AUTH_EVENTS.SIGN_UP, inputsValue);
     }
 
     /**

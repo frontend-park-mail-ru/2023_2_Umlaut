@@ -1,26 +1,23 @@
 <div class="photo-part">
-    <div class="photo">
-        <img src="/pics/avatar.png" alt=""/>
-    </div>
-</div>
-<div class="description">
     <div class="user-name">
         {{name}}
         {{#if age}}
         , {{age}}
         {{/if}}
     </div>
-    <div class="about-user">
-        {{#if description}}
-        <span class="me">
-            О себе:
-        </span>
-        <span class="me">
-            {{description}}
-        </span>
+    <div class="photo">
+        {{#if image_path}}
+            <img class="background-photo" src="{{photo}}" alt=""/>
+            <img class="main-photo" src="{{photo}}" alt=""/>
+        {{else}}
+            <img class="main-photo" src="/pics/avatar.png" alt=""/>
         {{/if}}
+    </div>
+</div>
+<div class="description">
+    <div class="about-user">
         {{#if looking}}
-        <span class="goal">
+        <span class="goal bold">
             Цель:
         </span>
         <span class="goal">
@@ -28,7 +25,7 @@
         </span>
         {{/if}}
         {{#if education}}
-        <span class="education">
+        <span class="education bold">
             Образование:
         </span>
         <span class="education">
@@ -36,7 +33,7 @@
         </span>
         {{/if}}
         {{#if hobbies}}
-        <span class="interests">
+        <span class="interests bold">
             Увлечения:
         </span>
         <span class="interests">
@@ -44,11 +41,16 @@
         </span>
         {{/if}}
         {{#if tags}}
-        <span class="tags">
+        <span class="tags bold">
             Теги:
         </span>
         <span class="tags">
             {{tags}}
+        </span>
+        {{/if}}
+        {{#if description}}
+        <span class="me">
+            {{description}}
         </span>
         {{/if}}
     </div>

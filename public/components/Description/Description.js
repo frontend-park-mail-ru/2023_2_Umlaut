@@ -5,6 +5,7 @@ export class Description {
     parent;
     constructor(parent) {
         this.parent = parent;
+        this.template = require('./Description.hbs');
     }
 
     /**
@@ -12,6 +13,7 @@ export class Description {
      * @param {object} user
      */
     render(user) {
-        this.parent.innerHTML = window.Handlebars.templates['Description.hbs'](user);
+        this.id = user['id'];
+        this.parent.innerHTML = this.template(user);
     }
 }

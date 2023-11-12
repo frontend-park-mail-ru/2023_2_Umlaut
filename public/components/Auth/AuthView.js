@@ -1,38 +1,39 @@
-import {Api} from '../../lib/api.js';
 import {Validate} from '../../lib/validate.js';
+import {BaseView} from '../BaseView.js';
+import {AUTH_EVENTS} from '../../lib/constansts.js';
 
 /**
  * Компонент страницы авторизации (входа)
  */
-export class Auth {
+export class AuthView extends BaseView {
     form;
     errorLabel;
     mailInput;
     parent;
     router;
-    constructor(router) {
-        this.parent = document.getElementById('root');
-        this.router = router;
+    constructor(root, eventBus) {
+        super(root, eventBus, require('./Auth.hbs'));
+        this.eventBus.on( AUTH_EVENTS.INVALID_AUTH, (data) => this.showError(data.message));
+        this.eventBus.on( AUTH_EVENTS.UNAUTH, this.render.bind(this));
     }
 
     /**
      * Рендер страницы авторизации
      */
-    async render() {
-        const resp = await Api.user();
-        if ( resp.status === 200 ) {
-            this.router.go('/feed');
-            return;
-        }
-        this.parent.innerHTML = window.Handlebars.templates['Auth.hbs']();
-        this.form = this.parent.querySelector('.auth');
+    render() {
+        super.render();
+        this.form = this.root.querySelector('.auth');
         this.form.addEventListener('submit', this.onSubmit.bind(this));
         this.errorLabel = this.form.querySelector('.error-label');
         this.errorLabel.style.visibility = 'hidden';
         this.mailInput = this.form.querySelector('#mail');
-        this.mailInput.addEventListener('change', ()=>{
-            this.validateMail();
-        });
+        this.mailInput.addEventListener('change', this.validateMail.bind(this));
+    }
+
+    close() {
+        this.form.removeEventListener(this.onSubmit.bind(this));
+        this.mailInput.removeEventListener(this.validateMail.bind(this));
+        super.close();
     }
 
     /**
@@ -66,21 +67,7 @@ export class Auth {
             inputsValue[input.id] = input.value;
         });
 
-        Api.login(inputsValue).then(
-            (response) => {
-                if (response.status === 200) {
-                    this.router.go('/feed');
-                } else if (response.status === 400) {
-                    this.showError('Неправильный синтаксис запроса');
-                } else if (response.status === 404) {
-                    this.showError('Страница не найдена');
-                } else if (response.status === 401) {
-                    this.showError('Невeрный email или пароль');
-                } else {
-                    this.showError('Неожиданная ошибка');
-                }
-            },
-        );
+        this.eventBus.emit(AUTH_EVENTS.SIGN_IN, inputsValue);
     }
 
     /**

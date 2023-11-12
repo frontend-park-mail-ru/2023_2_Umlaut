@@ -1,0 +1,16 @@
+<li class="dialog-preview" id={{id}}>
+    <div class="dialog-preview-photo">
+        <img src={{photo}}>
+    </div>
+    <div class="dialog-preview-content">
+        <span class="dialog-name">{{companion}}</span>
+        {{#if lastMessage}}
+            <div class="preview-message">{{lastMessage}}</div>
+        {{/if}}
+    </div>
+    {{#if unreadCount }}
+        <div class="unread-count">
+            <span>{{unreadCount}}</span>
+        </div>
+    {{/if}}
+</li>

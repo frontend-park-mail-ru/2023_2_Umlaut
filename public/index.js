@@ -1,48 +1,61 @@
 'use strict';
 
-import {Router} from './modules/router.js';
-import {Auth} from './components/Auth/Auth.js';
-import {Signup} from './components/Signup/Signup.js';
-import {Header} from './components/Header/Header.js';
-import {Menu} from './components/Menu/Menu.js';
-import {Feed} from './components/Feed/Feed.js';
-import {Api} from './modules/api.js';
+// eslint-disable-next-line
+import _ from 'lodash';
+import runtime from 'serviceworker-webpack5-plugin/lib/runtime';
+import {Router} from './lib/router.js';
+import {AuthController} from './components/Auth/AuthController.js';
+import {FeedController} from './components/Feed/FeedController.js';
+import {EventBus} from './lib/eventbus.js';
+import {GLOBAL_EVENTS} from './lib/constansts.js';
+import {SignupController} from './components/Signup/SignupController.js';
+import {HeaderController} from './components/Header/HeaderController.js';
+import {SettingsController} from './components/Settings/SettingsController.js';
+import {MessengerController} from './components/Messenger/MessengerController.js';
+import {PopupView} from './components/PopUp/PopupView.js';
 
 document.addEventListener('DOMContentLoaded', ()=>{
+    if ('serviceWorker' in navigator) {
+        runtime.register().catch((error) => {
+            console.log('Registration failed with ' + error);
+        });
+    }
+
+    const root = document.getElementById('root');
+    const head = root.querySelector('.header');
+    const page = root.querySelector('.main-part');
+
     const router = new Router();
 
-    const auth = new Auth(router);
-    const signup = new Signup(router);
-    const header = new Header(() => {
-        Api.logout(); router.go('/auth');
+    const header = new HeaderController(head);
+    const popup = new PopupView(root);
+
+    const globalEventBus = new EventBus();
+    globalEventBus.on(GLOBAL_EVENTS.REDIRECT, (data) => router.go(data));
+    globalEventBus.on(GLOBAL_EVENTS.AUTH, () => header.render());
+    globalEventBus.on(GLOBAL_EVENTS.POPUP, () => popup.render());
+    globalEventBus.on(GLOBAL_EVENTS.RERENDER_HEADER, () => header.render());
+    globalEventBus.on(GLOBAL_EVENTS.UNAUTH, () => {
+        header.renderUnauth();
+        router.go('/auth');
     });
 
-    const menuItems = {
-        feed: {
-            href: '/feed',
-            name: 'Лента',
-        },
-        profile: {
-            href: '/profile',
-            name: 'Профиль',
-        },
-        notifications: {
-            href: '/notifications',
-            name: 'Уведомления',
-        },
-        messages: {
-            href: '/messages',
-            name: 'Сообщения',
-        },
-    };
+    globalEventBus.emit(GLOBAL_EVENTS.AUTH);
 
-    const menu = new Menu(menuItems, () => header.render());
-    const feed = new Feed(() => menu.render(), router);
+    const auth = new AuthController(page, globalEventBus);
+    const signup = new SignupController(page, globalEventBus);
 
-    router.add('/', () => router.go('/feed'));
-    router.add('/feed', () => feed.render());
-    router.add('/auth', () => auth.render());
-    router.add('/signup', () => signup.render());
+    const feed = new FeedController(page, globalEventBus);
+
+    const settings = new SettingsController(page, globalEventBus);
+    const messenger = new MessengerController(page, globalEventBus);
+
+    router.add('/', feed);
+    router.add('/feed', feed);
+    router.add('/auth', auth);
+    router.add('/signup', signup);
+    router.add('/settings', settings);
+    router.add('/messages', messenger);
 
     router.start();
 });

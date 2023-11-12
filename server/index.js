@@ -13,24 +13,22 @@ const server = http.createServer((request, response) => {
     debug.log('url: ' + url);
     let filepath;
     if ( !url.includes('.') || url.includes('.html')) {
-        filepath = 'public/index.html';
+        filepath = 'dist/index.html';
     } else {
-        if (fs.existsSync('./public' + url)) {
-            filepath = './public' + url;
+        if (fs.existsSync('./dist' + url)) {
+            filepath = './dist' + url;
         } else if (fs.existsSync('./static' + url)) {
             filepath = './static' + url;
-        } else if (fs.existsSync('./node_modules' + url)) {
-            filepath = './node_modules' + url;
         } else {
             debug.log('error: Not found : ' + url);
             response.write(page404);
             response.end();
             return;
         }
+    }
 
-        if (filepath.endsWith('.js')) {
-            response.setHeader('Content-Type', 'application/javascript');
-        }
+    if (filepath.endsWith('.js')) {
+        response.setHeader('Content-Type', 'application/javascript');
     }
     
     debug.log('filepath: ' + filepath);
