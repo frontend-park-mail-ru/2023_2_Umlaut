@@ -1,4 +1,3 @@
-import {Description} from '../Description/Description.js';
 import {BaseView} from '../BaseView.js';
 import {FEED_EVENTS} from '../../lib/constansts.js';
 
@@ -12,7 +11,7 @@ export class FeedView extends BaseView {
     constructor(root, eventBus) {
         super(root, eventBus, require('./Feed.hbs'));
         this.eventBus.on(FEED_EVENTS.NEXT_PERSON_READY, this.update.bind(this));
-        this.eventBus.on(FEED_EVENTS.BLOCK_BUTTONS, this.blockButtons.bind(this));
+        this.eventBus.on(FEED_EVENTS.NO_PEOPLE, this.showStub.bind(this));
     }
 
     render(data) {
@@ -20,32 +19,40 @@ export class FeedView extends BaseView {
 
         super.render(data);
 
-        const userForm = this.root.querySelector('.form-feed');
-        this.description = new Description(userForm);
-
-        this.addSwipeBtns();
-
-        this.eventBus.emit(FEED_EVENTS.GET_PERSON);
+        if( data === undefined )
+            this.eventBus.emit(FEED_EVENTS.GET_PERSON);
+        else
+            this.activateBtns();
     }
 
     close() {
         super.close();
-
-        this.dislikeBtn.removeEventListener('click', this.update.bind(this));
-        this.likeBtn.removeEventListener('click', this.update.bind(this));
+        this.blockButtons();
     }
 
     /**
      * Добавляет действия по нажатию на кнопки анкеты
      */
-    addSwipeBtns() {
+    activateBtns() {
         this.dislikeBtn = document.getElementById('dislike');
         this.likeBtn = document.getElementById('like');
         this.dislikeBtn.addEventListener('click', () => this.eventBus.emit(FEED_EVENTS.GET_PERSON));
         this.likeBtn.addEventListener('click', () => {
             this.eventBus.emit(FEED_EVENTS.RATE_PERSON, {'liked_to_user_id': this.user.id});
+            this.blockButtons();
             this.eventBus.emit(FEED_EVENTS.GET_PERSON);
         });
+    }
+
+    blockButtons() {
+        if (this.dislikeBtn) {
+            this.dislikeBtn.removeEventListener('click', this.update.bind(this));
+            this.likeBtn.removeEventListener('click', this.update.bind(this));
+        }
+    }
+
+    showStub(){
+        console.log("пользователи кончились");
     }
 
     /**
@@ -56,10 +63,5 @@ export class FeedView extends BaseView {
         this.user = user;
         this.close();
         this.render(user);
-    }
-
-    blockButtons() {
-        this.dislikeBtn.removeEventListener('click', this.update.bind(this));
-        this.likeBtn.removeEventListener('click', this.update.bind(this));
     }
 }
