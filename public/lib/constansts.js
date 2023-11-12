@@ -72,6 +72,7 @@ export const MESSENGER_EVENTS = {
     MESSAGES_READY: 'MessagesReady',
     SEND_MESSAGE: 'SendMessage',
     UNAUTH: 'Unauth',
+    PAIRS_EMPTY: 'EmptyPairs',
 };
 
 export const POPUP_EVENTS = {
