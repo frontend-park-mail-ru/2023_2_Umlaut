@@ -47,7 +47,6 @@ export class FeedView extends BaseView {
         this.likeFunc = () => {
             this.eventBus.emit(FEED_EVENTS.RATE_PERSON, {'liked_to_user_id': this.user.id});
             this.blockButtons();
-            this.eventBus.emit(FEED_EVENTS.GET_PERSON);
         };
         this.dislikeBtn.addEventListener('click', this.dislikeFunc);
         this.likeBtn.addEventListener('click', this.likeFunc);
