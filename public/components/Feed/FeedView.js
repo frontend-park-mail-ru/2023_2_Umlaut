@@ -20,10 +20,11 @@ export class FeedView extends BaseView {
 
         super.render(data);
 
-        if( data === undefined )
+        if ( data === undefined ) {
             this.eventBus.emit(FEED_EVENTS.GET_PERSON);
-        else
+        } else {
             this.activateBtns();
+        }
     }
 
     close() {
@@ -42,12 +43,12 @@ export class FeedView extends BaseView {
         this.dislikeFunc = () => {
             this.eventBus.emit(FEED_EVENTS.GET_PERSON);
             this.blockButtons();
-        }
+        };
         this.likeFunc = () => {
             this.eventBus.emit(FEED_EVENTS.RATE_PERSON, {'liked_to_user_id': this.user.id});
             this.blockButtons();
             this.eventBus.emit(FEED_EVENTS.GET_PERSON);
-        }
+        };
         this.dislikeBtn.addEventListener('click', this.dislikeFunc);
         this.likeBtn.addEventListener('click', this.likeFunc);
     }
@@ -61,8 +62,8 @@ export class FeedView extends BaseView {
         }
     }
 
-    showStub(){
-        console.log("пользователи кончились");
+    showStub() {
+        console.log('пользователи кончились');
     }
 
     /**
