@@ -9,59 +9,36 @@ export class MessengerModel {
     }
 
     getDialogs() {
-        // this.eventBus.emit(MESSENGER_EVENTS.DIALOGS_READY,
-        //     [
-        //         {
-        //             id: 1,
-        //             companion: 'Маша',
-        //             photo: '/pics/avatar.png',
-        //             lastMessage: 'Что делаешь вечером?',
-        //             unreadCount: 5,
-        //         },
-        //         {
-        //             id: 2,
-        //             companion: 'Маша',
-        //             photo: '/pics/avatar.png',
-        //             lastMessage: 'Что делаешь вечером?',
-        //         },
-        //         {
-        //             id: 3,
-        //             companion: 'Маша',
-        //             photo: '/pics/avatar.png',
-        //         },
-        //         {
-        //             id: 4,
-        //             companion: 'Маша',
-        //             photo: '/pics/avatar.png',
-        //             lastMessage: 'Что делаешь вечером? Cходим может куда-нибудь? раз-два-три',
-        //         },
-        //     ],
-        // );
-        this.eventBus.emit(MESSENGER_EVENTS.DIALOGS_EMPTY);
+        this.eventBus.emit(MESSENGER_EVENTS.DIALOGS_READY, null);
     }
 
     getPairs() {
         Api.getPairs().then(
             (response) => {
-                if ( response.status === 200 && response.payload) {
+                if ( response.status === 200) {
                     const dialogs = response.payload;
-                    dialogs.forEach((element) => {
-                        Api.getUserPhotoUrl(element.user2_id).then(
-                            (image) =>{
-                                element.photo = image;
-                                if (image === undefined) {
-                                    element.photo = '/pics/avatar.png';
-                                }
-                                this.eventBus.emit(MESSENGER_EVENTS.PAIRS_READY, dialogs);
-                            },
-                        );
-                    });
+                    this.addPhotos(dialogs).then((dialogs)=> this.eventBus.emit(MESSENGER_EVENTS.PAIRS_READY, dialogs));
+                    
                 } else if ( response.status === 401 ) {
                     this.eventBus.emit(MESSENGER_EVENTS.UNAUTH);
-                } else {
-                    this.eventBus.emit(MESSENGER_EVENTS.PAIRS_EMPTY);
                 }
             },
         );
+    }
+
+    addPhotos(dialogs){
+        if(dialogs){
+            dialogs.forEach((element) => {
+                Api.getUserPhotoUrl(element.user2_id).then(
+                    (image) =>{
+                        element.photo = image;
+                        if (image === undefined) {
+                            element.photo = '/pics/avatar.png';
+                        }
+                    },
+                );
+            });
+        }
+        return Promise.resolve(dialogs);
     }
 }

@@ -5,7 +5,6 @@ body {
   min-height: 100%;
   font-family: Helvetica;
   background-color: var(--background-color);
-  background-image: url("/pics/background.jpg");
 }
 
 /* Определение глобальных переменных для цветов */
@@ -40,10 +39,10 @@ body {
   color: var(--input-focus-color);
 }
 
-.link{
-    text-decoration: none;
-    color: #ffffff;
-    cursor: pointer;
+.link {
+  text-decoration: none;
+  color: #ffffff;
+  cursor: pointer;
 }
 
 .link_blue {
@@ -132,9 +131,7 @@ body {
     "header "
     "content";
   grid-template-rows: 60px 85%;
-  font:
-    1.2rem "Helvetica",
-    sans-serif;
+  font: 1.2rem "Helvetica", sans-serif;
 }
 
 .header {
@@ -560,8 +557,8 @@ body {
   background-color: var(--dialog-grey);
 }
 
-.messenger__dialog-list{
-    overflow: auto;
+.messenger__dialog-list {
+  overflow: auto;
 }
 
 .messenger__dialog-window {
@@ -569,14 +566,14 @@ body {
   border: 1px solid var(--dark-blue-color);
 }
 
-.messenger__empty-dialog{
-    font-size: 16px;
-    color: white;
-    padding: 2%;
+.messenger__empty-dialog {
+  font-size: 16px;
+  color: white;
+  padding: 2%;
 }
 
-.messenger__button{
-    background-color: var(--dialog-grey);
+.messenger__button {
+  background-color: var(--dialog-grey);
 }
 
 .dialog-preview {

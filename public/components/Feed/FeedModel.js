@@ -31,9 +31,7 @@ export class FeedModel {
         Api.addLike(id).then((response) => {
             if ( response.status === 401 ) {
                 this.eventBus.emit(FEED_EVENTS.UNAUTH);
-            } else if ( response.status === 200 ) {
-                console.log('success like');
-            }
+            } else if ( response.status === 200 ) {}
         });
     }
 }
