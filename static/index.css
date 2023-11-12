@@ -11,7 +11,7 @@ body {
 /* Определение глобальных переменных для цветов */
 :root {
     --auth-text-color: #ffffff;
-    --link-text-color: #006adc;
+    --link-text-color: #4460ff;
     --input-focus-color: #EB2344;
     --lending-text-color: #685206;
     --background-color: #E9CDCC;
@@ -27,6 +27,26 @@ body {
     border-radius: 2px;
     cursor: pointer;
     position: relative;
+    background-color: white;
+}
+
+.btn_important{
+    color: var(--auth-text-color);
+    background-color: var(--input-focus-color);
+}
+
+.error-label{
+    font-size: 0.8rem;
+    color: var(--input-focus-color);
+}
+
+.link{
+    text-decoration: none;
+    color: #ffffff;
+}
+
+.link_blue{
+    color: var(--link-text-color);
 }
 
 
@@ -41,19 +61,23 @@ body {
     border-radius: 4px;
     padding: 70px 100px;
 }
-.auth-subtitle {
+
+.auth__subtitle {
     font-style: normal;
     font-weight: 400;
     font-size: 13px;
     line-height: 150%;
     color: var(--auth-text-color);
     margin-top: 12px;
+    margin-bottom: 50px;
 }
-.auth-subtitle a {
+
+.auth__link{
     text-decoration: none;
     color: var(--link-text-color);
 }
-.text-center {
+
+.auth__header {
     color: var(--auth-text-color);
     text-transform: uppercase;
     font-size: 23px;
@@ -61,11 +85,13 @@ body {
     display: block;
     text-align: center;
 }
-.input-container {
+
+.input {
     position: relative;
     margin-bottom: 25px;
 }
-.input-container label {
+
+.input__label {
     position: absolute;
     top: 0;
     left: 0;
@@ -74,7 +100,8 @@ body {
     pointer-events: none;
     transition: all 0.2s ease-in-out;
 }
-.input-container input {
+
+.input__input {
     border: 0;
     border-bottom: 1px solid #555;
     background: transparent;
@@ -83,31 +110,22 @@ body {
     font-size: 16px;
     color: var(--auth-text-color);
 }
-.input-container input:focus {
+
+.input__input:focus {
     border: none;
     outline: none;
     border-bottom: 1px solid var(--input-focus-color);
 }
-.input-container input:focus ~ label,
-.input-container input:valid ~ label {
+
+.input__input:focus ~ .input__label,
+.input__input:valid ~ .input__label {
     top: -12px;
     font-size: 12px;
-
 }
-.sign-btn{
-    color: var(--auth-text-color);
-    background-color: var(--input-focus-color);
-    margin-top: 50px;
-}
-.error-label{
-    font-size: 0.8rem;
-    color: var(--input-focus-color);
-}
-
 
 /* === FEED === */
 
-#root {
+.root {
     height: 95vh;
     display: grid;
     grid-template-areas:
@@ -117,59 +135,55 @@ body {
     font: 1.2rem "Helvetica", sans-serif;
 }
 
-a.link:active,
-a.link:hover,
-a.link {
-  text-decoration: none;
-  color: white;
-}
-
 .header{
     grid-area: header;
     display: flex;
+    align-items: center;
     justify-content: space-between;
     background-color: var(--dark-blue-color);
 }
 
-.profile, .main-page{
+.header__profile{
     display: flex;
     justify-content: center;
     gap: 12px;
 }
 
-.avatar img {
+.header__link-to-main-page{
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+}
+
+.header__photo-img {
     width: 50px;
     object-fit: cover;
     height: 50px;
 }
 
-.photo-avatar{
+.header__photo-avatar{
     border-radius: 50%;
+    width: 50px;
+    object-fit: cover;
+    height: 50px;
 }
 
-.avatar {
+.header__photo {
     display: flex;
     align-items: center;
 }
 
-.umlaut, .logout-header{
-    display: flex;
-    align-content: center;
-    flex-wrap: wrap;
-    color: #ffffff;
-}
-
-.logo img{
+.header__logo-img{
     max-height: 50px;
     border-radius: 100%;
 }
 
-.logo {
+.header__logo {
     display: flex;
     align-items: center;
 }
 
-.form-btn{
+.form-feed__buttons{
     display: flex;
     gap: 3%;
     padding-left: 8.5%;
@@ -177,21 +191,31 @@ a.link {
     justify-content: center;
 }
 
-.form-btn img{
-    width: auto;
-    max-height: 170px;
+.form-feed__button{
+    border: none;
+    cursor: pointer;
+    appearance: none;
+    background-color: inherit;
+    transition: transform 0.7s ease-in-out;
 }
 
- .sidebar{
-    grid-area: menu;
-    display: grid;
-    align-content: flex-start;
-    padding: 15px;
- }
+.form-feed__buttons-img{
+    width: auto;
+    max-height: 170px;
+    cursor: pointer;
+}
 
- .sidebar a{
-    margin: 5%;
- }
+.form-feed__buttons-img:active{
+    scale: 1.05;
+}
+
+.form-feed__buttons-img:hover{
+    filter: brightness(1.5);
+}
+
+.form-feed__button:disabled {
+    filter: brightness(0.5);
+  }
 
 .main-part{
     grid-area: content;
@@ -204,30 +228,31 @@ a.link {
     display: flex;
 }
 
-.userForm{
+.form-feed__user-part{
     background-color: #ffffff;
     display: grid;
     grid-template-columns: 45% 55%;
     grid-template-rows: 100%;
     padding: 15px;
-    width: 1000px;
+    width: 70%;
+    height: 40%;
 }
 
-.logout-header, .umlaut, .user-name{
+.header__name{
     font-size: 40px;
     display: flex;
     justify-content: right;
 }
 
-.set-name{
-    border-bottom: solid;
+.header__name{
+    color: #ffffff;
 }
 
-.bold{
+.form-feed__text_bold{
     font-weight: bold;
 }
 
-.photo .main-photo{
+.form-feed__main-photo{
     height:100%;
     width: 100%;
     object-fit: contain;
@@ -237,21 +262,13 @@ a.link {
     position: relative;
 }
 
-.user-photo-setting{
-    width: 500px;
-    height: 400px;
+.form-feed__user-name{
+    font-size: 40px;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    
+    justify-content: right;
 }
 
-#user-photo{
-    max-width: 500px;
-    max-height: 400px;
-}
-
-.photo .background-photo{
+.form-feed__background-photo{
     height:100%;
     width: 100%;
     object-fit: cover;
@@ -260,7 +277,7 @@ a.link {
     position: absolute;
 }
 
-.photo{
+.form-feed__feed-photo{
     width: 100%;
     height: 400px;
     align-self: center;
@@ -268,40 +285,71 @@ a.link {
     position: relative;
 }
 
-.photo-part{
+.form-feed__photo-part{
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     margin-right: 5%;
 }
 
-.description{
+.form-feed__description{
     display: flex;
     flex-direction: column;
     margin-left: 5%;
 }
 
-.about-user{
+.form-feed__about-user{
     display: flex;
     flex-direction: column;
 }
 
-.me, .goal, .education, .tags, .interests{
+.form-feed__text{
     margin: 7px;
 }
 
-.like-btn{
-    height: 100%;
-    width: auto;
+
+.loading{
+    align-self: center;
+    justify-self: center;
+    position: absolute;
 }
 
-.dislike-btn{
-    height: 100%;
-    width: auto;
+.loading__spinner {
+    animation: rotate-loading 2s linear infinite;
+    z-index: 2;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: -25px 0 0 -25px;
+    width: 50px;
+    height: 50px;
 }
 
-.message-btn{
-    height: 100%;
+.loading__path {
+    stroke: black;
+    stroke-linecap: round;
+    animation: dash-loading 1.5s ease-in-out infinite;
+}
+
+@keyframes rotate-loading {
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes dash-loading {
+    0% {
+        stroke-dasharray: 1, 150;
+        stroke-dashoffset: 0;
+    }
+    50% {
+        stroke-dasharray: 90, 150;
+        stroke-dashoffset: -35;
+    }
+    100% {
+        stroke-dasharray: 90, 150;
+        stroke-dashoffset: -124;
+    }
 }
 
 /* === LENDING === */
@@ -310,68 +358,17 @@ a.link {
     background-color: var(--background-color);
 }
 
-html {
-    height: 100%;
-}
-
-header, .anauthorised-header{
-    display: flex;
-    background-color: black;
-    padding-bottom: 6px;
-    padding-top: 6px;
-    padding-left: 6px;
-    box-shadow: 0 5px 10px black;
-    border-radius: 0 0 2px 2px;
-}
-
 .anauthorised-header{
     grid-area: header;
 }
 
-.menu {
-    display: flex;
-    width: 100%;
-    align-items: center;
-}
 
-.menu a {
-    font-size: 24px;
-    font-family: "Helvetica Neue", sans-serif;
-    color: white;
-    text-decoration: none;
-}
-
-.menu div {
-    margin-right: 1%;
-}
-
-.menu .login {
-    margin-inline-start: auto;
-}
-
-.menu .logo {
-    height: 60px;
-    width: 60px;
-    margin-right: 1%;
-}
-
-.menu .logo > img{
-    height: 100%;
-    width: 100%;
-    object-fit: cover;
-    border-radius: 50%;
-}
 
 .background-holder {
     width: 100%;
     height: 250px;
 }
 
-.background-holder img {
-    height: 100%;
-    width: 100%;
-    object-fit: cover;
-}
 
 .lending {
     padding: 1%;
@@ -427,22 +424,12 @@ header, .anauthorised-header{
     width: 5%;
 }
 
-.heart-holder img {
-    height: 100%;
-    width: 100%;
-    object-fit: cover;
-}
-
 /* === PROFILE === */
 
-#birthday{
-  border: none;
-  height: 20px;
-}
-
-.logout img{
+.logout__img{
     max-width: 50px;
     max-height: 50px;
+    cursor: pointer;
  }
 
  .logout{
@@ -450,37 +437,64 @@ header, .anauthorised-header{
     justify-content: flex-end;
  }
 
-textarea{
-    background-color: transparent;
-    border: none;
-    border-bottom-width: medium;
-    border-bottom-style: none;
-    border-bottom-color: currentcolor;
-    height: 50px;
-    margin: -1%;
-    width: 95%;
-    resize: none;
+ .logout:active{
+    filter: brightness(1.5);
 }
 
-.settingsForm{
+.settings-form{
     display: grid;
     grid-template-columns: 40% 30% 30%;
     grid-template-rows: 100%;
     padding: 15px;
-    width: 1400px;
+    width: 90%;
+    gap: 2%;
 }
 
-.description-settings{
-    border: solid;
-    border-radius: 2%;
+.settings-form__photo{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.settings-form__photo-img{
+    max-width: 100%;
+    max-height: 100%;
+}
+
+
+.settings-form__user-name{
+    font-size: 40px;
+    display: flex;
+    justify-content: right;
+}
+
+.settings-form__photo-part{
     display: flex;
     flex-direction: column;
-    margin-left: 5%;
+    justify-content: space-between;
+    margin-right: 5%;
+}
+
+.settings-form__user-name{
+    border-bottom: solid;
+}
+
+.settings-form__description-settings{
+    border: solid;
+    border-radius: 2%;
     backdrop-filter: blur(7px);
     padding: 2%;
 }
 
-.Selector {
+.settings-form__about-user{
+    display: flex;
+    flex-direction: column;
+}
+
+.input-border__data-input {
     width: 96%;
     box-shadow: none;
     margin: 5px;
@@ -489,14 +503,25 @@ textarea{
     background: transparent;
 }
 
-.input {
+.input-border__data-input_text{
+    background-color: transparent;
+    height: 50px;
+    margin: -1%;
+    resize: none;
+}
+
+.input-border__data-input_date{
+    height: 20px;
+}
+
+.input-border {
     border: 2px solid black;
     border-radius: 10px;
     font-size: 12px;
     margin: 10px;
 }
 
-.name-input {
+.input-border__header {
     position: relative;
     bottom: 7px;
     background: var(--background-color);
@@ -506,39 +531,27 @@ textarea{
     border-radius: 10px;
 }
 
-.save-btn{
-    background-color: #ffffff;
-}
-
-.delete-btn{
-    background-color:var(--input-focus-color);
+.settings-form__button-delete{
     width: 40%;
 }
 
-.add-btn{
-    background-color:#ffffff;
+.settings-form__button-add{
     width: 45%;
 }
 
-.buttons-settings{
+.settings-form__buttons-photo-setting{
     display: flex;
     justify-content: space-around;
     margin: 10px;
 }
 
-.description-settings #age, .description-settings #name{
-    border: none;
-    background-color: rgb(247, 216, 221);
-    height: 54px;
-}
-
-#age{
+.settings-form__age{
     width: 150px;
 }
 
 /* === MESSENGER === */
 
-#messenger {
+.messenger {
     display: grid;
     height: 100%;
     grid-template-areas:
@@ -547,21 +560,21 @@ textarea{
     grid-template-columns: 350px 1fr;
 }
 
-.dialogs{
+.messenger__dialogs{
     grid-area: "dialog-list";
     background-color: var(--dialog-grey);
 }
 
-#dialog-list{
+.messenger__dialog-list{
     overflow: scroll;
 }
 
-#dialog-window{
+.messenger__dialog-window{
     grid-area: "dialog-window";
     border: 1px solid var(--dark-blue-color);
 }
 
-.btn-dialog{
+.messenger__button{
     background-color: var(--dialog-grey);
 }
 
@@ -570,7 +583,7 @@ textarea{
     border: 1px solid var(--dark-blue-color);
 }
 
-.dialog-preview-photo{
+.dialog-preview__photo{
     height: 85px;
     width: 85px;
     float: left;
@@ -579,24 +592,25 @@ textarea{
     padding: 8px;
 }
 
-.dialog-preview-photo > img{
+.dialog-preview__photo-img{
     height: 100%;
     width: 100%;
     object-fit: cover;
     border-radius: 50%;
 }
 
-.dialog-name{
+.dialog-preview__dialog-name{
     color: white;
 }
 
-.preview-message{
+.dialog-preview__preview-message{
     font-size: 12px;
 }
 
 
-.dark-background{
-    background-color: #0000003d;
+/* === POPUP === */
+
+.popup{
     position: fixed;
     top: 0;
     left: 0;
@@ -607,14 +621,13 @@ textarea{
     align-items: center;
 }
 
-.popup{
+.popup_dark{
+    background-color: #0000003d;
+}
+
+.popup__text{
     display: flex;
     justify-content: center;
     font-size: 50px;
     color: white;
-}
-
-.popup img{
-    height: 45%;
-    width: 45%;
 }
