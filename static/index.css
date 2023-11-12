@@ -43,6 +43,7 @@ body {
 .link{
     text-decoration: none;
     color: #ffffff;
+    cursor: pointer;
 }
 
 .link_blue{
@@ -566,12 +567,18 @@ body {
 }
 
 .messenger__dialog-list{
-    overflow: scroll;
+    overflow: auto;
 }
 
 .messenger__dialog-window{
     grid-area: "dialog-window";
     border: 1px solid var(--dark-blue-color);
+}
+
+.messenger__empty-dialog{
+    font-size: 16px;
+    color: white;
+    padding: 2%;
 }
 
 .messenger__button{

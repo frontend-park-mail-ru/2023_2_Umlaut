@@ -9,34 +9,35 @@ export class MessengerModel {
     }
 
     getDialogs() {
-        this.eventBus.emit(MESSENGER_EVENTS.DIALOGS_READY,
-            [
-                {
-                    id: 1,
-                    companion: 'Маша',
-                    photo: '/pics/avatar.png',
-                    lastMessage: 'Что делаешь вечером?',
-                    unreadCount: 5,
-                },
-                {
-                    id: 2,
-                    companion: 'Маша',
-                    photo: '/pics/avatar.png',
-                    lastMessage: 'Что делаешь вечером?',
-                },
-                {
-                    id: 3,
-                    companion: 'Маша',
-                    photo: '/pics/avatar.png',
-                },
-                {
-                    id: 4,
-                    companion: 'Маша',
-                    photo: '/pics/avatar.png',
-                    lastMessage: 'Что делаешь вечером? Cходим может куда-нибудь? раз-два-три',
-                },
-            ],
-        );
+        // this.eventBus.emit(MESSENGER_EVENTS.DIALOGS_READY,
+        //     [
+        //         {
+        //             id: 1,
+        //             companion: 'Маша',
+        //             photo: '/pics/avatar.png',
+        //             lastMessage: 'Что делаешь вечером?',
+        //             unreadCount: 5,
+        //         },
+        //         {
+        //             id: 2,
+        //             companion: 'Маша',
+        //             photo: '/pics/avatar.png',
+        //             lastMessage: 'Что делаешь вечером?',
+        //         },
+        //         {
+        //             id: 3,
+        //             companion: 'Маша',
+        //             photo: '/pics/avatar.png',
+        //         },
+        //         {
+        //             id: 4,
+        //             companion: 'Маша',
+        //             photo: '/pics/avatar.png',
+        //             lastMessage: 'Что делаешь вечером? Cходим может куда-нибудь? раз-два-три',
+        //         },
+        //     ],
+        // );
+        this.eventBus.emit(MESSENGER_EVENTS.DIALOGS_EMPTY);
     }
 
     getPairs() {
@@ -58,7 +59,7 @@ export class MessengerModel {
                 } else if ( response.status === 401 ) {
                     this.eventBus.emit(MESSENGER_EVENTS.UNAUTH);
                 }else{
-                    this.eventBus.emit(MESSENGER_EVENTS.PAIRS_READY);
+                    this.eventBus.emit(MESSENGER_EVENTS.PAIRS_EMPTY);
                 }
             },
         );

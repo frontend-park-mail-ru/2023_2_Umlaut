@@ -6,6 +6,8 @@ export class MessengerView extends BaseView {
         super(root, eventBus, require('./Messenger.hbs'));
         this.eventBus.on(MESSENGER_EVENTS.DIALOGS_READY, this.addDialogs.bind(this));
         this.eventBus.on(MESSENGER_EVENTS.PAIRS_READY, this.addDialogs.bind(this));
+        this.eventBus.on(MESSENGER_EVENTS.PAIRS_EMPTY, () => this.addEmptyDialogs(require('./EmptyPairs.hbs')));
+        this.eventBus.on(MESSENGER_EVENTS.DIALOGS_EMPTY, () => this.addEmptyDialogs(require('./EmptyDialogs.hbs')));
         this.dialogPreviewTemplate = require('./DialogPreview.hbs');
         this.dialogWindow = null;
         this.dialogListView = null;
@@ -14,16 +16,20 @@ export class MessengerView extends BaseView {
 
     render(data) {
         super.render(data);
+
+        this.dialogList = [];
         this.dialogListView = document.getElementById('dialog-list');
         this.dialogWindow = document.getElementById('dialog-window');
-        if (data === undefined) {
-            this.eventBus.emit(MESSENGER_EVENTS.GET_DIALOGS);
-        }
+    
         this.showDialogs = document.getElementById('show_dialogs');
         this.showPairs = document.getElementById('show_pairs');
 
         this.showDialogs.addEventListener('click', () => this.eventBus.emit(MESSENGER_EVENTS.GET_DIALOGS));
         this.showPairs.addEventListener('click', () => this.eventBus.emit(MESSENGER_EVENTS.GET_PAIRS));
+
+        if (data === undefined) {
+            this.eventBus.emit(MESSENGER_EVENTS.GET_DIALOGS);
+        }
     }
 
     addDialogs(data) {
@@ -35,6 +41,14 @@ export class MessengerView extends BaseView {
             this.dialogListView.appendChild(dialogPreview);
             this.dialogList.push(dialogPreview);
         });
+    }
+
+    addEmptyDialogs(empty){
+        this.dialogListView.innerHTML = '';
+        const dialogPreview = document.createElement('div');
+        dialogPreview.innerHTML = empty();
+        this.dialogListView.appendChild(dialogPreview);
+        this.dialogList.push(dialogPreview);
     }
 
     close() {
