@@ -15,10 +15,8 @@
 
 .settings-form {
   display: grid;
-  grid-template-columns: 40% 30% 30%;
+  grid-template-columns: 36% 30% 30%;
   grid-template-rows: 100%;
-  padding: 15px;
-  width: 90%;
   gap: 2%;
 
   &__photo {
