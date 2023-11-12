@@ -1,5 +1,63 @@
 <div class="form-feed">
-    <div class="form-feed__user-part"></div>
+    <div class="form-feed__user-part">
+        <div class="form-feed__photo-part">
+            <div class="form-feed__user-name">
+                {{name}}
+                {{#if age}}
+                , {{age}}
+                {{/if}}
+            </div>
+            <div class="form-feed__feed-photo">
+                {{#if image_path}}
+                    <img class="form-feed__background-photo" src="{{photo}}" alt=""/>
+                    <img class="form-feed__main-photo" src="{{photo}}" alt=""/>
+                {{else}}
+                    <img class="form-feed__main-photo" src="/pics/avatar.png" alt=""/>
+                {{/if}}
+            </div>
+        </div>
+        <div class="form-feed__description">
+            <div class="form-feed__about-user">
+                {{#if looking}}
+                <span class="form-feed__text form-feed__text_bold">
+                    Цель:
+                </span>
+                <span class="form-feed__text">
+                    {{looking}}
+                </span>
+                {{/if}}
+                {{#if education}}
+                <span class="form-feed__text form-feed__text_bold">
+                    Образование:
+                </span>
+                <span class="form-feed__text">
+                    {{education}}
+                </span>
+                {{/if}}
+                {{#if hobbies}}
+                <span class="form-feed__text form-feed__text_bold">
+                    Увлечения:
+                </span>
+                <span class="form-feed__text">
+                    {{hobbies}}
+                </span>
+                {{/if}}
+                {{#if tags}}
+                <span class="form-feed__text form-feed__text_bold">
+                    Теги:
+                </span>
+                <span class="form-feed__text">
+                    {{tags}}
+                </span>
+                {{/if}}
+                {{#if description}}
+                <span class="form-feed__text">
+                    {{description}}
+                </span>
+                {{/if}}
+            </div>
+        </div>
+    </div>
     <div class="form-feed__buttons">
         <img src="/pics/dislike.png" id="dislike">
         <img src="/pics/like.png" id="like">

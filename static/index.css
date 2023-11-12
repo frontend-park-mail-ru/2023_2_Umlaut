@@ -62,11 +62,11 @@ body {
     text-align: center;
 }
 
-.input-header-goes-up {
+.input {
     position: relative;
     margin-bottom: 25px;
 }
-.input-header-goes-up__label {
+.input__label {
     position: absolute;
     top: 0;
     left: 0;
@@ -75,7 +75,7 @@ body {
     pointer-events: none;
     transition: all 0.2s ease-in-out;
 }
-.input-header-goes-up__input {
+.input__input {
     border: 0;
     border-bottom: 1px solid #555;
     background: transparent;
@@ -84,13 +84,13 @@ body {
     font-size: 16px;
     color: var(--auth-text-color);
 }
-.input-header-goes-up__input:focus {
+.input__input:focus {
     border: none;
     outline: none;
     border-bottom: 1px solid var(--input-focus-color);
 }
-.input-header-goes-up__input:focus ~ .input-header-goes-up__label,
-.input-header-goes-up__input:valid ~ .input-header-goes-up__label {
+.input__input:focus ~ .input__label,
+.input__input:valid ~ .input__label {
     top: -12px;
     font-size: 12px;
 
@@ -207,11 +207,11 @@ a.link {
     color: #ffffff;
 }
 
-.bold{
+.form-feed__text_bold{
     font-weight: bold;
 }
 
-.feed-photo__main-photo{
+.form-feed__main-photo{
     height:100%;
     width: 100%;
     object-fit: contain;
@@ -235,7 +235,7 @@ a.link {
     max-height: 400px;
 }
 
-.feed-photo__background-photo{
+.form-feed__background-photo{
     height:100%;
     width: 100%;
     object-fit: cover;
@@ -244,7 +244,7 @@ a.link {
     position: absolute;
 }
 
-.feed-photo{
+.form-feed__feed-photo{
     width: 100%;
     height: 400px;
     align-self: center;
@@ -259,18 +259,18 @@ a.link {
     margin-right: 5%;
 }
 
-.description{
+.form-feed__description{
     display: flex;
     flex-direction: column;
     margin-left: 5%;
 }
 
-.description__about-user{
+.form-feed__about-user{
     display: flex;
     flex-direction: column;
 }
 
-.description__me, .description__goal, .description__education, .description__tags, .description__interests{
+.form-feed__text{
     margin: 7px;
 }
 
@@ -387,7 +387,7 @@ header, .anauthorised-header{
 
 /* === PROFILE === */
 
-.input__data-input_date{
+.input-border__data-input_date{
     height: 20px;
 }
 
@@ -432,7 +432,7 @@ header, .anauthorised-header{
     flex-direction: column;
 }
 
-.input__data-input {
+.input-border__data-input {
     width: 96%;
     box-shadow: none;
     margin: 5px;
@@ -441,14 +441,14 @@ header, .anauthorised-header{
     background: transparent;
 }
 
-.input__data-input_text{
+.input-border__data-input_text{
     background-color: transparent;
     height: 50px;
     margin: -1%;
     resize: none;
 }
 
-.input {
+.input-border {
     border: 2px solid black;
     border-radius: 10px;
     font-size: 12px;
