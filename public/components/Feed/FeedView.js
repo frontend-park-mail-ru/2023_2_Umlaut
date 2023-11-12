@@ -15,9 +15,6 @@ export class FeedView extends BaseView {
         this.eventBus.on(FEED_EVENTS.BLOCK_BUTTONS, this.blockButtons.bind(this));
     }
 
-    /**
-     * Рендерит страницу ленты, вставляет шаблоны описания пользователя и кнопок анкеты
-     */
     render(data) {
         this.root.innerHTML = '';
 
@@ -61,15 +58,8 @@ export class FeedView extends BaseView {
         this.render(user);
     }
 
-    blockButtons(){
+    blockButtons() {
         this.dislikeBtn.removeEventListener('click', this.update.bind(this));
         this.likeBtn.removeEventListener('click', this.update.bind(this));
-
-    }
-
-    blockButtons(){
-        this.dislikeBtn.removeEventListener('click', this.update.bind(this));
-        this.likeBtn.removeEventListener('click', this.update.bind(this));
-
     }
 }

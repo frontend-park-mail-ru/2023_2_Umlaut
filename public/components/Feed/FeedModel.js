@@ -23,7 +23,7 @@ export class FeedModel {
                 );
             } else if ( response.status === 401 ) {
                 this.eventBus.emit(FEED_EVENTS.UNAUTH);
-            }else if ( response.status === 404 ) {
+            } else if ( response.status === 404 ) {
                 this.eventBus.emit(FEED_EVENTS.NO_PEOPLE);
                 this.eventBus.emit(FEED_EVENTS.BLOCK_BUTTONS);
             }
