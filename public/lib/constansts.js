@@ -2,9 +2,9 @@
  * Пути запросов к бекэнду
  */
 export const URLS = {
-    login: '/auth/login',
-    logout: '/auth/logout',
-    Signup: '/auth/sign-up',
+    login: '/api/v1/auth/login',
+    logout: '/api/v1/auth/logout',
+    Signup: '/api/v1/auth/sign-up',
     user: '/api/v1/user',
     feed: '/api/v1/feed',
     photo: '/api/v1/user/photo',
@@ -15,7 +15,7 @@ export const URLS = {
 /**
  * Сслыка на бекэнд
  */
-export const BACKEND_URL = 'http://umlaut-bmstu.me:8000';
+export const BACKEND_URL = 'https://umlaut-bmstu.me';
 
 export const GLOBAL_EVENTS = {
     REDIRECT: 'Redirect',

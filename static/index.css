@@ -11,7 +11,7 @@ body {
 /* Определение глобальных переменных для цветов */
 :root {
     --auth-text-color: #ffffff;
-    --link-text-color: #233dd2;
+    --link-text-color: #4460ff;
     --input-focus-color: #EB2344;
     --lending-text-color: #685206;
     --background-color: #E9CDCC;
@@ -43,6 +43,10 @@ body {
 .link{
     text-decoration: none;
     color: #ffffff;
+}
+
+.link_blue{
+    color: var(--link-text-color);
 }
 
 
@@ -187,10 +191,31 @@ body {
     justify-content: center;
 }
 
+.form-feed__button{
+    border: none;
+    cursor: pointer;
+    appearance: none;
+    background-color: inherit;
+    transition: transform 0.7s ease-in-out;
+}
+
 .form-feed__buttons-img{
     width: auto;
     max-height: 170px;
+    cursor: pointer;
 }
+
+.form-feed__buttons-img:active{
+    scale: 1.05;
+}
+
+.form-feed__buttons-img:hover{
+    filter: brightness(1.5);
+}
+
+.form-feed__button:disabled {
+    filter: brightness(0.5);
+  }
 
 .main-part{
     grid-area: content;
@@ -209,13 +234,8 @@ body {
     grid-template-columns: 45% 55%;
     grid-template-rows: 100%;
     padding: 15px;
-    width: 1000px;
-}
-
-.logout-header{
-    font-size: 40px;
-    display: flex;
-    justify-content: right;
+    width: 70%;
+    height: 40%;
 }
 
 .header__name{
@@ -246,20 +266,6 @@ body {
     font-size: 40px;
     display: flex;
     justify-content: right;
-}
-
-.settings-form__photo{
-    width: 500px;
-    height: 400px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    
-}
-
-.settings-form__photo img{
-    max-width: 500px;
-    max-height: 400px;
 }
 
 .form-feed__background-photo{
@@ -309,7 +315,7 @@ body {
 }
 
 .loading__spinner {
-    animation: rotate 2s linear infinite;
+    animation: rotate-loading 2s linear infinite;
     z-index: 2;
     position: absolute;
     top: 50%;
@@ -318,19 +324,20 @@ body {
     width: 50px;
     height: 50px;
 }
-.loading__spinner .loading__path {
+
+.loading__path {
     stroke: black;
     stroke-linecap: round;
-    animation: dash 1.5s ease-in-out infinite;
+    animation: dash-loading 1.5s ease-in-out infinite;
 }
 
-@keyframes rotate {
+@keyframes rotate-loading {
     100% {
         transform: rotate(360deg);
     }
 }
 
-@keyframes dash {
+@keyframes dash-loading {
     0% {
         stroke-dasharray: 1, 150;
         stroke-dashoffset: 0;
@@ -362,11 +369,6 @@ body {
     height: 250px;
 }
 
-.background-holder img {
-    height: 100%;
-    width: 100%;
-    object-fit: cover;
-}
 
 .lending {
     padding: 1%;
@@ -422,17 +424,12 @@ body {
     width: 5%;
 }
 
-.heart-holder img {
-    height: 100%;
-    width: 100%;
-    object-fit: cover;
-}
-
 /* === PROFILE === */
 
-.logout img{
+.logout__img{
     max-width: 50px;
     max-height: 50px;
+    cursor: pointer;
  }
 
  .logout{
@@ -440,13 +437,33 @@ body {
     justify-content: flex-end;
  }
 
+ .logout:active{
+    filter: brightness(1.5);
+}
+
 .settings-form{
     display: grid;
     grid-template-columns: 40% 30% 30%;
     grid-template-rows: 100%;
     padding: 15px;
-    width: 1400px;
+    width: 90%;
+    gap: 2%;
 }
+
+.settings-form__photo{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.settings-form__photo-img{
+    max-width: 100%;
+    max-height: 100%;
+}
+
 
 .settings-form__user-name{
     font-size: 40px;
@@ -465,14 +482,14 @@ body {
     border-bottom: solid;
 }
 
-.description-settings{
+.settings-form__description-settings{
     border: solid;
     border-radius: 2%;
     backdrop-filter: blur(7px);
     padding: 2%;
 }
 
-.description-settings__about-user{
+.settings-form__about-user{
     display: flex;
     flex-direction: column;
 }
@@ -528,13 +545,7 @@ body {
     margin: 10px;
 }
 
-.description-settings #age, .description-settings #name{
-    border: none;
-    background-color: rgb(247, 216, 221);
-    height: 54px;
-}
-
-#age{
+.settings-form__age{
     width: 150px;
 }
 
@@ -581,7 +592,7 @@ body {
     padding: 8px;
 }
 
-.dialog-preview__photo > img{
+.dialog-preview__photo-img{
     height: 100%;
     width: 100%;
     object-fit: cover;
