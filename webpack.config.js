@@ -14,7 +14,7 @@ module.exports = {
     rules: [
       { test: /\.hbs$/, loader: "handlebars-loader" },
       {
-        test: /\.css$/,
+        test: /\.s?css$/,
         use: [
           {
               loader: MiniCssExtractPlugin.loader,
