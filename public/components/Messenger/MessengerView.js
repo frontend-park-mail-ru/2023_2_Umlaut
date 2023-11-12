@@ -1,5 +1,6 @@
 import {BaseView} from '../BaseView.js';
 import {MESSENGER_EVENTS} from '../../lib/constansts.js';
+import './Messenger.scss';
 
 export class MessengerView extends BaseView {
     constructor(root, eventBus) {

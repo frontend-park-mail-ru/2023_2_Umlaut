@@ -2,7 +2,7 @@
 
 // eslint-disable-next-line
 import _ from 'lodash';
-import '../static/index.css';
+import './index.scss';
 import '../static/reset.css';
 import runtime from 'serviceworker-webpack5-plugin/lib/runtime';
 import {Router} from './lib/router.js';

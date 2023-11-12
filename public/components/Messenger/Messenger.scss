@@ -1,0 +1,55 @@
+
+.messenger {
+    display: grid;
+    height: 100%;
+    grid-template-areas: "dialog-list dialog-window";
+  
+    grid-template-columns: 350px 1fr;
+  }
+  
+  .messenger__dialogs {
+    grid-area: "dialog-list";
+    background-color: var(--dialog-grey);
+  }
+  
+  .messenger__dialog-list {
+    overflow: scroll;
+  }
+  
+  .messenger__dialog-window {
+    grid-area: "dialog-window";
+    border: 1px solid var(--dark-blue-color);
+  }
+  
+  .messenger__button {
+    background-color: var(--dialog-grey);
+  }
+  
+  .dialog-preview {
+    height: 100px;
+    border: 1px solid var(--dark-blue-color);
+  }
+  
+  .dialog-preview__photo {
+    height: 85px;
+    width: 85px;
+    float: left;
+    border-radius: 50%;
+    overflow: hidden;
+    padding: 8px;
+  }
+  
+  .dialog-preview__photo-img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+  
+  .dialog-preview__dialog-name {
+    color: white;
+  }
+  
+  .dialog-preview__preview-message {
+    font-size: 12px;
+  }
