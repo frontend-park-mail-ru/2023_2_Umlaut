@@ -58,7 +58,7 @@ export class MessengerModel {
                     });
                 } else if ( response.status === 401 ) {
                     this.eventBus.emit(MESSENGER_EVENTS.UNAUTH);
-                }else{
+                } else {
                     this.eventBus.emit(MESSENGER_EVENTS.PAIRS_EMPTY);
                 }
             },
