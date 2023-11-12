@@ -5,7 +5,7 @@ body {
     min-height:100%;
     font-family: Helvetica;
     background-color: var(--background-color);
-    background-image: url("/pics/background.jpg");
+    background-image: url("pics/background.jpg");
 }
 
 /* Определение глобальных переменных для цветов */
