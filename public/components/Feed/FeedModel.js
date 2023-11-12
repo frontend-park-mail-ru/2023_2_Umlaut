@@ -10,7 +10,6 @@ export class FeedModel {
 
 
     getNextPerson() {
-        this.eventBus.emit(FEED_EVENTS.BLOCK_BUTTONS);
         Api.feed().then((response) => {
             if ( response.status === 200) {
                 const user = response.payload;

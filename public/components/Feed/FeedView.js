@@ -12,6 +12,7 @@ export class FeedView extends BaseView {
         super(root, eventBus, require('./Feed.hbs'));
         this.eventBus.on(FEED_EVENTS.NEXT_PERSON_READY, this.update.bind(this));
         this.eventBus.on(FEED_EVENTS.NO_PEOPLE, this.showStub.bind(this));
+        this.update = this.update.bind(this);
     }
 
     render(data) {
@@ -36,18 +37,27 @@ export class FeedView extends BaseView {
     activateBtns() {
         this.dislikeBtn = document.getElementById('dislike');
         this.likeBtn = document.getElementById('like');
-        this.dislikeBtn.addEventListener('click', () => this.eventBus.emit(FEED_EVENTS.GET_PERSON));
-        this.likeBtn.addEventListener('click', () => {
+        this.dislikeBtn.disabled = false;
+        this.likeBtn.disabled = false;
+        this.dislikeFunc = () => {
+            this.eventBus.emit(FEED_EVENTS.GET_PERSON);
+            this.blockButtons();
+        }
+        this.likeFunc = () => {
             this.eventBus.emit(FEED_EVENTS.RATE_PERSON, {'liked_to_user_id': this.user.id});
             this.blockButtons();
             this.eventBus.emit(FEED_EVENTS.GET_PERSON);
-        });
+        }
+        this.dislikeBtn.addEventListener('click', this.dislikeFunc);
+        this.likeBtn.addEventListener('click', this.likeFunc);
     }
 
     blockButtons() {
         if (this.dislikeBtn) {
-            this.dislikeBtn.removeEventListener('click', this.update.bind(this));
-            this.likeBtn.removeEventListener('click', this.update.bind(this));
+            this.dislikeBtn.disabled = true;
+            this.likeBtn.disabled = true;
+            this.dislikeBtn.removeEventListener('click', this.dislikeFunc);
+            this.likeBtn.removeEventListener('click', this.likeFunc);
         }
     }
 
