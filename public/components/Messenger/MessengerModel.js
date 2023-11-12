@@ -18,7 +18,6 @@ export class MessengerModel {
                 if ( response.status === 200) {
                     const dialogs = response.payload;
                     this.addPhotos(dialogs).then((dialogs)=> this.eventBus.emit(MESSENGER_EVENTS.PAIRS_READY, dialogs));
-                    
                 } else if ( response.status === 401 ) {
                     this.eventBus.emit(MESSENGER_EVENTS.UNAUTH);
                 }
@@ -26,8 +25,8 @@ export class MessengerModel {
         );
     }
 
-    addPhotos(dialogs){
-        if(dialogs){
+    addPhotos(dialogs) {
+        if (dialogs) {
             dialogs.forEach((element) => {
                 Api.getUserPhotoUrl(element.user2_id).then(
                     (image) =>{

@@ -19,7 +19,7 @@ export class MessengerView extends BaseView {
         this.dialogList = [];
         this.dialogListView = document.getElementById('dialog-list');
         this.dialogWindow = document.getElementById('dialog-window');
-    
+
         this.showDialogs = document.getElementById('show_dialogs');
         this.showPairs = document.getElementById('show_pairs');
 
@@ -32,33 +32,33 @@ export class MessengerView extends BaseView {
     }
 
     addDialogs(data) {
-        if(data) {
+        if (data) {
             this.addData(data);
-        }else{
+        } else {
             this.addEmptyDialogs(require('./EmptyDialogs.hbs'));
         }
     }
 
     addPairs(data) {
-        if(data) {
+        if (data) {
             this.addData(data);
-        }else{
+        } else {
             this.addEmptyDialogs(require('./EmptyPairs.hbs'));
         }
     }
 
-    addData(data){
+    addData(data) {
         this.dialogList = [];
-            this.dialogListView.innerHTML = '';
-            data.forEach((dialog) => {
-                const dialogPreview = document.createElement('div');
-                dialogPreview.innerHTML = this.dialogPreviewTemplate(dialog);
-                this.dialogListView.appendChild(dialogPreview);
-                this.dialogList.push(dialogPreview);
-            });
+        this.dialogListView.innerHTML = '';
+        data.forEach((dialog) => {
+            const dialogPreview = document.createElement('div');
+            dialogPreview.innerHTML = this.dialogPreviewTemplate(dialog);
+            this.dialogListView.appendChild(dialogPreview);
+            this.dialogList.push(dialogPreview);
+        });
     }
 
-    addEmptyDialogs(empty){
+    addEmptyDialogs(empty) {
         this.dialogListView.innerHTML = '';
         const dialogPreview = document.createElement('div');
         dialogPreview.innerHTML = empty();
