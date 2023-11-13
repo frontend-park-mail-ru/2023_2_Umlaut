@@ -1,0 +1,16 @@
+<div id="messenger" class="messenger">
+    <div class="messenger__dialogs">
+        <div class="messenger__switch">
+            <button class="btn messenger__button" id="show_dialogs">Диалоги</button>
+            <button class="btn messenger__button" id="show_pairs">Пары</button>
+        </div>
+        <div id="dialog-list" class="messenger__dialog-list">
+            {{#each dialogs}}
+                {{DialogPreview.hbs}}
+            {{/each}}
+        </div>
+    </div>
+    <div class="messenger__dialog-window" id="dialog-window">
+
+    </div>
+</div>

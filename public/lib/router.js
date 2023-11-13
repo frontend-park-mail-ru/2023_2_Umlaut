@@ -1,4 +1,3 @@
-
 /**
  * Контроллер переходов по страницам
  */
@@ -6,10 +5,10 @@ export class Router {
     /**
      * Конструктор класса Router
      * @constructor
-     * @param {Map<string, function>} routes - путь и функция рендера страницы
+     * @param {Map<string, object>} components - компонент страницы
      */
-    constructor(routes = new Map) {
-        this.routes = routes;
+    constructor(components = new Map) {
+        this.components = components;
         this.current = null;
     }
 
@@ -19,8 +18,8 @@ export class Router {
      */
     go(path) {
         if (this.current === path) return;
-        this.current = path;
-        if (!this.routes.has(path)) {
+
+        if (!this.components.has(path)) {
             this.change('/');
             return;
         }
@@ -33,16 +32,20 @@ export class Router {
      * @param {string} path
      */
     change(path) {
-        this.routes.get(path)();
+        if (this.current !== null && this.components.has(this.current)) {
+            this.components.get(this.current).close();
+        }
+        this.components.get(path).render();
+        this.current = path;
     }
 
     /**
      * Добавление нового url
      * @param {string} path
-     * @param {function} callback
+     * @param {function} component
      */
-    add(path, callback) {
-        this.routes.set(path, callback);
+    add(path, component) {
+        this.components.set(path, component);
     }
 
     /**

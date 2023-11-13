@@ -1,21 +1,25 @@
 <form class="auth" autocomplete="off">
-    <span class="text-center">регистрация</span>
-    <div class="input-container">
-        <input type="email" id="mail" required=""/>
-        <label>Почта</label>
+    <span class="auth__header">регистрация</span>
+    <div class="input">
+        <input type="email" class="input__input" id="mail" required=""/>
+        <label class="input__label">Почта</label>
     </div>
-    <div class="input-container">
-        <input type="text" id="name" required=""/>
-        <label>Имя</label>
+    <div class="input">
+        <input type="text" class="input__input" id="name" required=""/>
+        <label class="input__label">Имя</label>
     </div>
-    <div class="input-container">
-        <input type="password" id="password" required=""/>
-        <label>Пароль</label>
+    <div class="input">
+        <input type="password" class="input__input" id="password" required="" autocomplete="new-password"/>
+        <label class="input__label">Пароль</label>
     </div>
-    <div class="input-container">
-        <input type="password" id="password-repeat" required=""/>
-        <label>Повторите пароль</label>
+    <div class="input">
+        <input type="password" class="input__input" id="password-repeat" required=""/>
+        <label class="input__label">Повторите пароль</label>
     </div>
     <div class="error-label">1</div>
-    <button type="submit" class="sign-btn">зарегестрироваться</button>
+    <div class="auth__subtitle">
+        Есть аккаунт?
+        <a href="/auth" class="link link_blue">Войдите</a>
+    </div>
+    <button type="submit" class="btn btn_important">зарегестрироваться</button>
 </form>
