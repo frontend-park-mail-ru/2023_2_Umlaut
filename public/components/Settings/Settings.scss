@@ -81,6 +81,7 @@
 }
 
 .input-border {
+  font-family: "Helvetica", sans-serif;
   border: 2px solid black;
   border-radius: 10px;
   font-size: 12px;
@@ -96,6 +97,7 @@
 
     &_text {
         background-color: transparent;
+        font-family: "Helvetica", sans-serif;
         height: 50px;
         margin: -1%;
         resize: none;
@@ -103,6 +105,7 @@
 
     &_date {
         height: 20px;
+        font-family: "Helvetica", sans-serif;
     }
   }
 

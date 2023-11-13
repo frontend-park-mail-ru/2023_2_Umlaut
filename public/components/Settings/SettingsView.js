@@ -1,6 +1,6 @@
 import {Validate} from '../../lib/validate.js';
 import {BaseView} from '../BaseView.js';
-import {SETTINGS_EVENTS} from '../../lib/constansts.js';
+import {POPUP_EVENTS, SETTINGS_EVENTS} from '../../lib/constansts.js';
 import { DEFAULT_PHOTO } from '../../lib/constansts.js';
 import './Settings.scss';
 
@@ -13,6 +13,7 @@ export class SettingsView extends BaseView {
         this.eventBus.on(SETTINGS_EVENTS.GOT_USER, this.render.bind(this));
         this.eventBus.on(SETTINGS_EVENTS.PHOTO_UPLOADED, this.updatePhoto.bind(this));
         this.eventBus.on(SETTINGS_EVENTS.ERROR, this.showError.bind(this));
+        this.eventBus.on(SETTINGS_EVENTS.HIDE, this.hideError.bind(this));
         this.root = root;
     }
 
@@ -29,8 +30,10 @@ export class SettingsView extends BaseView {
         this.errorLabel = this.form.querySelector('.error-label');
         this.errorLabel.style.visibility = 'hidden';
 
-        deletePhotoBtn.addEventListener('click', () => this.eventBus.emit(SETTINGS_EVENTS.DELETE_PHOTO));
-        logoutBtn.addEventListener('click', () => this.eventBus.emit(SETTINGS_EVENTS.LOGOUT));
+         deletePhotoBtn.addEventListener('click', () => this.eventBus.emit(SETTINGS_EVENTS.DELETE_PHOTO));
+        // logoutBtn.addEventListener('click', () => this.eventBus.emit(SETTINGS_EVENTS.LOGOUT));
+
+        logoutBtn.addEventListener('click', () => this.eventBus.emit(SETTINGS_EVENTS.SHOW_CONFIRM_LOG));
 
         function addPhoto(eventBus) {
             return function() {

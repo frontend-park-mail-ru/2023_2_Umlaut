@@ -55,7 +55,7 @@ export class SettingsModel {
                 if (response.status === 200) {
                     this.eventBus.emit(SETTINGS_EVENTS.SUCCESS);
                 } else {
-                    this.eventBus.emit(SETTINGS_EVENTS.ERROR, response.message);
+                    //this.eventBus.emit(SETTINGS_EVENTS.ERROR, response.message);
                 }
             },
         );

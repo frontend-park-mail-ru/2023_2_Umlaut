@@ -36,6 +36,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
     globalEventBus.on(GLOBAL_EVENTS.REDIRECT, (data) => router.go(data));
     globalEventBus.on(GLOBAL_EVENTS.AUTH, () => header.render());
     globalEventBus.on(GLOBAL_EVENTS.POPUP, () => popup.render());
+    globalEventBus.on(GLOBAL_EVENTS.POPUP_CONFIRM, (data) => popup.renderConfirm(data));
     globalEventBus.on(GLOBAL_EVENTS.RERENDER_HEADER, () => header.render());
     globalEventBus.on(GLOBAL_EVENTS.UNAUTH, () => {
         header.renderUnauth();

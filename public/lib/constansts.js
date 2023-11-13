@@ -79,4 +79,7 @@ export const MESSENGER_EVENTS = {
 
 export const POPUP_EVENTS = {
     CLOSE: 'close',
+    YES: 'yes',
+    NO: 'no',
+    SHOW_CONFIRM: 'uuu',
 };

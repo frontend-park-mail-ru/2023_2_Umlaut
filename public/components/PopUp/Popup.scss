@@ -12,6 +12,31 @@
     background-color: #0000003d;
   }
 
+  &__btn{
+    width: 36%;
+  }
+
+  &__t{
+    margin: 10%;
+  }
+
+  &__confirm{
+    display: flex;
+    background-color: #f1eaea;
+    width: 425px;
+    height: 140px;
+    align-content: center;
+    justify-content: center;
+    padding: 35px;
+    flex-direction: column;
+  }
+
+  &__buttons{
+    display: flex;
+    gap: 17%;
+    justify-content: center;
+  }
+
   &__text {
     display: flex;
     justify-content: center;
