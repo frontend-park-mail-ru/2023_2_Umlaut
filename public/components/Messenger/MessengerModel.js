@@ -1,5 +1,6 @@
 import {MESSENGER_EVENTS} from '../../lib/constansts.js';
 import {Api} from '../../lib/api.js';
+import { DEFAULT_PHOTO } from '../../lib/constansts.js';
 
 export class MessengerModel {
     constructor(eventBus) {
@@ -32,7 +33,7 @@ export class MessengerModel {
                     (image) =>{
                         element.photo = image;
                         if (image === undefined) {
-                            element.photo = '/pics/avatar.png';
+                            element.photo = DEFAULT_PHOTO;
                         }
                     },
                 );
