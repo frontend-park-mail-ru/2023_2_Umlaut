@@ -45,8 +45,7 @@ export class SettingsView extends BaseView {
     }
 
     close() {
-        this.form.removeEventListener('click', this.onSubmit.bind(this));
-        // this.mailInput.removeEventListener(this.validateMail.bind(this));
+        this.form = null;
         super.close();
     }
 
