@@ -1,5 +1,6 @@
 import {SETTINGS_EVENTS} from '../../lib/constansts.js';
 import {Api} from '../../lib/api.js';
+import { DEFAULT_PHOTO } from '../../lib/constansts.js';
 
 export class SettingsModel {
     constructor(eventBus) {
@@ -70,7 +71,7 @@ export class SettingsModel {
                     if (this.settings.user.birthday !== null) {
                         this.settings.user.birthday = this.settings.user.birthday.slice(0, 10);
                     }
-                    this.settings.user.photo = '/pics/avatar.png';
+                    this.settings.user.photo = DEFAULT_PHOTO;
                     if(this.settings.user.image_path){
                         Api.getUserPhotoUrl(this.settings.user.id).then(
                             (image)=>{
@@ -102,12 +103,12 @@ export class SettingsModel {
     }
 
     deletePhoto() {
-        if(this.settings.user.photo !== '/pics/avatar.png'){
+        if(this.settings.user.photo !== DEFAULT_PHOTO){
             Api.deletePhoto().then(
                 (response) => {
                     if ( response.status === 200 ) {
-                        this.settings.user.photo = '/pics/avatar.png';
-                        this.eventBus.emit(SETTINGS_EVENTS.PHOTO_UPLOADED, '/pics/avatar.png');
+                        this.settings.user.photo = DEFAULT_PHOTO;
+                        this.eventBus.emit(SETTINGS_EVENTS.PHOTO_UPLOADED, DEFAULT_PHOTO);
                     }
                 },
             );

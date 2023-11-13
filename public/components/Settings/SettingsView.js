@@ -1,6 +1,7 @@
 import {Validate} from '../../lib/validate.js';
 import {BaseView} from '../BaseView.js';
 import {SETTINGS_EVENTS} from '../../lib/constansts.js';
+import { DEFAULT_PHOTO } from '../../lib/constansts.js';
 import './Settings.scss';
 
 /**
@@ -90,7 +91,7 @@ export class SettingsView extends BaseView {
 
 
     updatePhoto(image) {
-        if (image !== '/pics/avatar.png') {
+        if (image !== DEFAULT_PHOTO) {
             this.photoPlace.src = image + `?random=${Date.now()}`;
         } else {
             this.photoPlace.src = image;

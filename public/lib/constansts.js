@@ -17,6 +17,8 @@ export const URLS = {
  */
 export const BACKEND_URL = 'https://umlaut-bmstu.me';
 
+export const DEFAULT_PHOTO = '/pics/avatar.png';
+
 export const GLOBAL_EVENTS = {
     REDIRECT: 'Redirect',
     UNAUTH: 'Unauthorised',
