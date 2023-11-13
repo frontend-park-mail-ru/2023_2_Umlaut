@@ -29,9 +29,16 @@ body {
   position: relative;
   background-color: white;
 
+  &:active{
+    box-shadow: 2px 2px 8px #fff4f4c9;
+  }
+
   &_important {
     color: var(--auth-text-color);
     background-color: var(--input-focus-color);
+    &:active{
+      box-shadow: 2px 2px 8px #eb2344b9;
+    }
   }
 }
 

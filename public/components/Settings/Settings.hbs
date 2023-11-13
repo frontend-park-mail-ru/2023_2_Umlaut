@@ -20,7 +20,7 @@
     <div class="settings-form__description-settings">
         <div class="settings-form__about-user">
             <div class="input-border">
-                <span class="input-border__header">Ваш пол</span>
+                <span class="input-border__header">Ваш пол *</span>
                 <select class="input-border__data-input"  id="user_gender">
                     {{#if this.user.hasGender}}
                         {{#if this.user.user_gender}}
@@ -38,7 +38,7 @@
                 </select>
             </div>
             <div class="input-border">
-                <span class="input-border__header">Кого ищете</span>
+                <span class="input-border__header">Кого ищете *</span>
                 <select class="input-border__data-input"  id="prefer_gender">
                     {{#if this.user.hasPreferGender}}
                         {{#if this.user.prefer_gender}}
@@ -106,7 +106,7 @@
                 </select>
             </div> --}}
             <div class="input-border">
-                <span class="input-border__header">Дата рождения</span>
+                <span class="input-border__header">Дата рождения *</span>
                     <input id="birthday" type="date" class="input-border__data-input input__data-input_date" name="partydate" value='{{this.user.birthday}}'/>
                 </select>
             </div>
@@ -123,7 +123,7 @@
         <h2>Смена данных для входа</h2>
         <div class="settings-form__about-user">
             <div class="input-border">
-                <span class="input-border__header">Почта</span>
+                <span class="input-border__header">Почта *</span>
                     <textarea class="input-border__data-input input__data-input_text" id="mail">{{this.user.mail}}</textarea>
                 </select>
             </div>

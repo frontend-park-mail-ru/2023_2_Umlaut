@@ -15,10 +15,6 @@
       max-height: 170px;
       cursor: pointer;
 
-      &:active {
-        scale: 1.05;
-      }
-
       &:hover {
         filter: brightness(1.5);
       }
@@ -31,6 +27,10 @@
     appearance: none;
     background-color: inherit;
     transition: transform 0.7s ease-in-out;
+
+    &:active:enabled {
+      scale: 1.05;
+    }
 
     &:disabled {
       filter: brightness(0.5);

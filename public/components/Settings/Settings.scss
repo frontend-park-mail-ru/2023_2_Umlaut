@@ -84,7 +84,7 @@
   font-family: "Helvetica", sans-serif;
   border: 2px solid black;
   border-radius: 10px;
-  font-size: 12px;
+  font-size: 16px;
   margin: 10px;
 
   &__data-input {
@@ -94,6 +94,7 @@
     border: none;
     position: relative;
     background: transparent;
+    font-family: "Helvetica", sans-serif;
 
     &_text {
         background-color: transparent;
