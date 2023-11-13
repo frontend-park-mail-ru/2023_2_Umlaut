@@ -45,7 +45,7 @@ export class SettingsView extends BaseView {
     }
 
     close() {
-        this.form=null;
+        this.form = null;
         super.close();
     }
 

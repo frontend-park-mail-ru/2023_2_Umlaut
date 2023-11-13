@@ -32,8 +32,8 @@ export class AuthView extends BaseView {
     }
 
     close() {
-        this.form=null;
-        this.mailInput=null;
+        this.form = null;
+        this.mailInput = null;
         super.close();
     }
 
