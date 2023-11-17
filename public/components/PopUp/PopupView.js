@@ -24,13 +24,13 @@ export class PopupView {
         this.popup.addEventListener('click', this.closePopup);
     }
 
-    renderConfirm(f) {
-        this.popup.innerHTML = this.popupConfirmTmpl();
+    renderConfirm(data) {
+        this.popup.innerHTML = this.popupConfirmTmpl({text:data.text});
         this.root.appendChild(this.popup);
         const no = this.root.querySelector('#no');
         const yes = this.root.querySelector('#yes');
         no.addEventListener('click', this.closePopup);
-        yes.addEventListener('click', f);
+        yes.addEventListener('click', data.func);
         this.popup.addEventListener('click', this.closePopup);
     }
 

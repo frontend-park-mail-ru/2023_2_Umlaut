@@ -30,10 +30,15 @@ export class SettingsView extends BaseView {
         this.errorLabel = this.form.querySelector('.error-label');
         this.errorLabel.style.visibility = 'hidden';
 
-         deletePhotoBtn.addEventListener('click', () => this.eventBus.emit(SETTINGS_EVENTS.DELETE_PHOTO));
+        // deletePhotoBtn.addEventListener('click', () => this.eventBus.emit(SETTINGS_EVENTS.DELETE_PHOTO));
         // logoutBtn.addEventListener('click', () => this.eventBus.emit(SETTINGS_EVENTS.LOGOUT));
 
-        logoutBtn.addEventListener('click', () => this.eventBus.emit(SETTINGS_EVENTS.SHOW_CONFIRM_LOG));
+        const log = {func:() => {this.eventBus.emit(SETTINGS_EVENTS.LOGOUT);this.eventBus.emit(SETTINGS_EVENTS.HIDE);},
+                    text: "Вы уверены, что хотите выйти?"}
+        const del = {func:() => {this.eventBus.emit(SETTINGS_EVENTS.DELETE_PHOTO);this.eventBus.emit(SETTINGS_EVENTS.HIDE);},
+                    text:"Вы уверены, что хотите удалить фото?"}
+        logoutBtn.addEventListener('click', () => this.eventBus.emit(SETTINGS_EVENTS.SHOW_CONFIRM_LOG, log));
+        deletePhotoBtn.addEventListener('click', () => this.eventBus.emit(SETTINGS_EVENTS.SHOW_CONFIRM_LOG, del));
 
         function addPhoto(eventBus) {
             return function() {
@@ -110,6 +115,10 @@ export class SettingsView extends BaseView {
             this.showError('Имя не должно быть пусто');
             return false;
         }
+        if (!/^[a-zA-Zа-яА-я]/.test(document.querySelector('#name').value)){
+            this.showError('Имя может содержать только буквы');
+            return false;
+        }
         if (document.querySelector('#description').value === '') {
             this.showError('Заполните поле о себе');
             return false;
@@ -130,6 +139,14 @@ export class SettingsView extends BaseView {
         }
         if (isNaN(Date.parse(document.querySelector('#birthday').value))) {
             this.showError('Проверьте правильность введенной даты рождения');
+            return false;
+        }
+        if (Date.parse(document.querySelector('#birthday').value) - new Date(1907, 1, 1)<0) {
+            this.showError('Самому старому человеку в мире 116 лет, вам не может быть больше');
+            return false;
+        }
+        if (Date.now() - Date.parse(document.querySelector('#birthday').value)<0) {
+            this.showError('Извините, кажется вы еще не родились, чтобы знакомиться');
             return false;
         }
         if ( document.querySelector('#password').value.length <= 5 &&

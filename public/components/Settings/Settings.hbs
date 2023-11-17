@@ -1,7 +1,7 @@
 <form class="settings-form">
     <div class="settings-form__photo-part">
         <div class="settings-form__user-name">
-            <textarea id="name" class="input-border__data-input input-border__data-input_text">{{this.user.name}}</textarea>
+            <textarea maxlength="30" id="name" class="input-border__data-input input-border__data-input_text">{{this.user.name}}</textarea>
             <span id="age" class="settings-form__age">{{this.user.age}}</span>
         </div>
         <div class="settings-form__photo">
@@ -111,8 +111,8 @@
                 </select>
             </div>
             <div class="input-border">
-                <span class="input-border__header">О себе</span>
-                    <textarea class="input-border__data-input input__data-input_text" id="description">{{this.user.description}}</textarea>
+                <span class="input-border__header">О себе *</span>
+                    <textarea maxlength="350" class="input-border__data-input input__data-input_text" id="description">{{this.user.description}}</textarea>
                 </select>
             </div>
             <div class="error-label"></div>
@@ -124,17 +124,17 @@
         <div class="settings-form__about-user">
             <div class="input-border">
                 <span class="input-border__header">Почта *</span>
-                    <textarea class="input-border__data-input input__data-input_text" id="mail">{{this.user.mail}}</textarea>
+                    <textarea maxlength="40" class="input-border__data-input input__data-input_text" id="mail">{{this.user.mail}}</textarea>
                 </select>
             </div>
             <div class="input-border">
                 <span class="input-border__header">Пароль</span>
-                    <input type="password" class="input-border__data-input input__data-input_password" id="password" autocomplete="new-password">
+                    <input maxlength="50" type="password" class="input-border__data-input input__data-input_password" id="password" autocomplete="new-password">
                 </select>
             </div>
             <div class="input-border">
                 <span class="input-border__header">Повторите пароль</span>
-                    <input type="password" class="input-border__data-input input__data-input_password" id="repeat-password">
+                    <input maxlength="50" type="password" class="input-border__data-input input__data-input_password" id="repeat-password">
                 </select>
             </div>
         </div>
