@@ -91,14 +91,9 @@ export class SettingsModel {
         Api.addPhoto(file).then(
             (response) => {
                 if ( response.status === 200 ) {
-                    Api.user().then(
-                        (user) => {
-                            this.eventBus.emit(SETTINGS_EVENTS.PHOTO_UPLOADED, user.image_paths);
-                        },
-                    );
+                    this.eventBus.emit(SETTINGS_EVENTS.PHOTO_UPLOADED, response.payload);
                 }
-            },
-        );
+            });
     }
 
     deletePhoto(photo) {

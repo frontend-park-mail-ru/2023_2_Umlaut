@@ -12,13 +12,10 @@ export class HeaderModel {
             (response) => {
                 if ( response.status === 200 ) {
                     const user = response.payload;
-                    Api.getUserPhotoUrl(user.id).then(
-                        (image)=>{
-                            if (user.image_paths )
-                                user.image_paths[0] = user.image_paths[0].replace("http:/", "https:/");
-                            this.eventBus.emit(HEADER_EVENTS.AUTH, user);
-                        },
-                    );
+                    if (user.image_paths ) {
+                        user.image_paths[0] = user.image_paths[0].replace('http:/', 'https:/');
+                    }
+                    this.eventBus.emit(HEADER_EVENTS.AUTH, user);
                 } else if ( response.status === 401 ) {
                     this.eventBus.emit(HEADER_EVENTS.UNAUTH);
                 }

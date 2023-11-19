@@ -71,6 +71,7 @@ export class Api {
 
     /**
      * Get-запрос на удаление фото
+     * @param {string} photo - ссылка на удаляемое фото
      * @return {Promise} - статус и тело ответа
      */
     static deletePhoto(photo) {

@@ -1,5 +1,5 @@
 import {BaseView} from '../BaseView.js';
-import { Carousel } from '../Carousel/Carousel.js';
+import {Carousel} from '../Carousel/Carousel.js';
 import {FEED_EVENTS} from '../../lib/constansts.js';
 import './Feed.scss';
 
@@ -26,7 +26,7 @@ export class FeedView extends BaseView {
         if ( data === undefined ) {
             this.eventBus.emit(FEED_EVENTS.GET_PERSON);
         } else {
-            let carouselRoot = this.root.querySelector('.form-feed__feed-photo');
+            const carouselRoot = this.root.querySelector('.form-feed__feed-photo');
             this.carousel = new Carousel(carouselRoot);
             this.carousel.render(data.image_paths);
             this.activateBtns();

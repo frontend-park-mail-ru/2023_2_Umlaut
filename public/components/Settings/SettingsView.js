@@ -2,7 +2,7 @@ import {Validate} from '../../lib/validate.js';
 import {BaseView} from '../BaseView.js';
 import {SETTINGS_EVENTS} from '../../lib/constansts.js';
 import './Settings.scss';
-import { Carousel } from '../Carousel/Carousel.js';
+import {Carousel} from '../Carousel/Carousel.js';
 
 /**
  * Компонент страницы авторизации (входа)
@@ -11,7 +11,7 @@ export class SettingsView extends BaseView {
     constructor(root, eventBus) {
         super(root, eventBus, require('./Settings.hbs'));
         this.eventBus.on(SETTINGS_EVENTS.GOT_USER, this.render.bind(this));
-        this.eventBus.on(SETTINGS_EVENTS.PHOTO_UPLOADED, this.updatePhotos.bind(this));
+        this.eventBus.on(SETTINGS_EVENTS.PHOTO_UPLOADED, this.addPhoto.bind(this));
         this.eventBus.on(SETTINGS_EVENTS.ERROR, this.showError.bind(this));
         this.eventBus.on(SETTINGS_EVENTS.HIDE, this.hideError.bind(this));
         this.eventBus.on(SETTINGS_EVENTS.PHOTO_DELETED, this.deletePhoto.bind(this));
@@ -29,7 +29,7 @@ export class SettingsView extends BaseView {
         const logoutBtn = document.querySelector('#logout');
         const photoPlace = document.querySelector('.settings-form__photo');
         this.photoCarousel = new Carousel(photoPlace);
-        this.photoCarousel.render(data.image_paths);
+        this.photoCarousel.render(data.user.image_paths);
         this.errorLabel = this.form.querySelector('.error-label');
         this.errorLabel.style.visibility = 'hidden';
 
@@ -41,7 +41,8 @@ export class SettingsView extends BaseView {
         },
         text: 'Вы уверены, что хотите выйти?'};
         const del = {func: () => {
-            this.eventBus.emit(SETTINGS_EVENTS.DELETE_PHOTO, this.photoCarousel.current()); this.eventBus.emit(SETTINGS_EVENTS.HIDE);
+            this.eventBus.emit(SETTINGS_EVENTS.DELETE_PHOTO, this.photoCarousel.current());
+            this.eventBus.emit(SETTINGS_EVENTS.HIDE);
         },
         text: 'Вы уверены, что хотите удалить фото?'};
         logoutBtn.addEventListener('click', () => this.eventBus.emit(SETTINGS_EVENTS.SHOW_CONFIRM_LOG, log));
@@ -104,8 +105,8 @@ export class SettingsView extends BaseView {
         this.eventBus.emit(SETTINGS_EVENTS.SEND_DATA, inputsValue);
     }
 
-    updatePhotos(images) {
-        this.photoCarousel(this.render(images));
+    addPhoto(image) {
+        this.photoCarousel.add(image);
     }
 
     deletePhoto(photo) {
