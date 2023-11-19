@@ -1,7 +1,7 @@
 import {Validate} from '../../lib/validate.js';
 import {BaseView} from '../BaseView.js';
-import {POPUP_EVENTS, SETTINGS_EVENTS} from '../../lib/constansts.js';
-import { DEFAULT_PHOTO } from '../../lib/constansts.js';
+import {SETTINGS_EVENTS} from '../../lib/constansts.js';
+import {DEFAULT_PHOTO} from '../../lib/constansts.js';
 import './Settings.scss';
 
 /**
@@ -33,10 +33,14 @@ export class SettingsView extends BaseView {
         // deletePhotoBtn.addEventListener('click', () => this.eventBus.emit(SETTINGS_EVENTS.DELETE_PHOTO));
         // logoutBtn.addEventListener('click', () => this.eventBus.emit(SETTINGS_EVENTS.LOGOUT));
 
-        const log = {func:() => {this.eventBus.emit(SETTINGS_EVENTS.LOGOUT);this.eventBus.emit(SETTINGS_EVENTS.HIDE);},
-                    text: "Вы уверены, что хотите выйти?"}
-        const del = {func:() => {this.eventBus.emit(SETTINGS_EVENTS.DELETE_PHOTO);this.eventBus.emit(SETTINGS_EVENTS.HIDE);},
-                    text:"Вы уверены, что хотите удалить фото?"}
+        const log = {func: () => {
+            this.eventBus.emit(SETTINGS_EVENTS.LOGOUT); this.eventBus.emit(SETTINGS_EVENTS.HIDE);
+        },
+        text: 'Вы уверены, что хотите выйти?'};
+        const del = {func: () => {
+            this.eventBus.emit(SETTINGS_EVENTS.DELETE_PHOTO); this.eventBus.emit(SETTINGS_EVENTS.HIDE);
+        },
+        text: 'Вы уверены, что хотите удалить фото?'};
         logoutBtn.addEventListener('click', () => this.eventBus.emit(SETTINGS_EVENTS.SHOW_CONFIRM_LOG, log));
         deletePhotoBtn.addEventListener('click', () => this.eventBus.emit(SETTINGS_EVENTS.SHOW_CONFIRM_LOG, del));
 
@@ -115,7 +119,7 @@ export class SettingsView extends BaseView {
             this.showError('Имя не должно быть пусто');
             return false;
         }
-        if (!/^[a-zA-Zа-яА-я]/.test(document.querySelector('#name').value)){
+        if (!/^[a-zA-Zа-яА-я]/.test(document.querySelector('#name').value)) {
             this.showError('Имя может содержать только буквы');
             return false;
         }
@@ -141,11 +145,11 @@ export class SettingsView extends BaseView {
             this.showError('Проверьте правильность введенной даты рождения');
             return false;
         }
-        if (Date.parse(document.querySelector('#birthday').value) - new Date(1907, 1, 1)<0) {
+        if (Date.parse(document.querySelector('#birthday').value) - new Date(1907, 1, 1) < 0) {
             this.showError('Самому старому человеку в мире 116 лет, вам не может быть больше');
             return false;
         }
-        if (Date.now() - Date.parse(document.querySelector('#birthday').value)<0) {
+        if (Date.now() - Date.parse(document.querySelector('#birthday').value) < 0) {
             this.showError('Извините, кажется вы еще не родились, чтобы знакомиться');
             return false;
         }

@@ -25,7 +25,7 @@ export class PopupView {
     }
 
     renderConfirm(data) {
-        this.popup.innerHTML = this.popupConfirmTmpl({text:data.text});
+        this.popup.innerHTML = this.popupConfirmTmpl({text: data.text});
         this.root.appendChild(this.popup);
         const no = this.root.querySelector('#no');
         const yes = this.root.querySelector('#yes');
