@@ -1,0 +1,18 @@
+<div class="carousel">
+    {{#if image_paths}}
+    <div class="carousel__slider">
+        {{#each image_paths}}
+        <div class="carousel__slide">
+            <img class="carousel__background-photo" src="{{this}}" alt=""/>
+            <img class="carousel__main-photo" src="{{this}}" alt=""/>
+        </div>
+        {{/each}}
+    </div>
+    <div class="carousel__prev"></div>
+    <div class="carousel__next"></div>
+    {{else}}
+        <img class="form-feed__main-photo" src="/pics/avatar.png" alt=""/>
+    {{/if}}
+
+
+</div>

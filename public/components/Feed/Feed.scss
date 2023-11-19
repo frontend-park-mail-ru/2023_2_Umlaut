@@ -54,16 +54,6 @@
     }
   }
 
-  &__main-photo {
-    height: 100%;
-    width: 100%;
-    object-fit: contain;
-    grid-row: 1;
-    grid-column: 1;
-    z-index: 1;
-    position: relative;
-  }
-
   &__user-name {
     font-size: 40px;
     display: flex;
@@ -84,6 +74,14 @@
     height: 400px;
     align-self: center;
     overflow: hidden;
+    position: relative;
+  }
+
+  &__main-photo {
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+    z-index: 1;
     position: relative;
   }
 
