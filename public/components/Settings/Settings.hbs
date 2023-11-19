@@ -5,11 +5,7 @@
             <span id="age" class="settings-form__age">{{this.user.age}}</span>
         </div>
         <div class="settings-form__photo">
-            {{#if this.user.image_path}}
-                <img src="https://umlaut-bmstu.me/api/v1/user/{{this.user.id}}/photo" class="settings-form__photo-img" id="user-photo" alt="">
-            {{else}}
-                <img src="/pics/avatar.png" class="settings-form__photo-img" id="user-photo" alt="">
-            {{/if}}
+
         </div>
         <div class="settings-form__buttons-photo-setting">
             <button type="button" class="btn btn_important settings-form__button-delete">удалить</button>

@@ -1,5 +1,6 @@
 <div class="carousel">
     {{#if image_paths}}
+
     <div class="carousel__slider">
         {{#each image_paths}}
         <div class="carousel__slide">
@@ -8,10 +9,14 @@
         </div>
         {{/each}}
     </div>
-    <div class="carousel__prev"></div>
-    <div class="carousel__next"></div>
+    <div class="carousel__prev carousel__btn">
+        <img src="/pics/arrow-left.svg" class="arrow_icon">
+    </div>
+    <div class="carousel__next carousel__btn">
+        <img src="/pics/arrow-right.svg" class="arrow_icon">
+    </div>
     {{else}}
-        <img class="form-feed__main-photo" src="/pics/avatar.png" alt=""/>
+        <img class="carousel__main-photo" src="/pics/avatar.png" alt=""/>
     {{/if}}
 
 
