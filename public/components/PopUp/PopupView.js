@@ -11,15 +11,17 @@ export class PopupView {
         this.popupConfirmTmpl = require('./Confirm.hbs');
         this.root = root;
         this.eventBus = new EventBus();
-        this.popup = document.createElement('div');
-        this.popup.className = 'popup popup_dark';
+        // this.popup = document.createElement('div');
+        // this.popup.className = 'popup popup_dark';
+        this.popup = this.root.querySelector('.popup');
         this.closePopup = () => this.eventBus.emit(POPUP_EVENTS.CLOSE);
         this.eventBus.on(POPUP_EVENTS.CLOSE, this.close.bind(this));
     }
 
     render() {
-        this.popup.innerHTML = this.popupTmpl();
-        this.root.appendChild(this.popup);
+        this.popup.innerHTML = this.popupTmpl("Successful!");
+        // this.root.appendChild(this.popup);
+        this.popup.visibility = "visible";
 
         this.popup.addEventListener('click', this.closePopup);
     }
@@ -36,6 +38,8 @@ export class PopupView {
 
     close() {
         this.popup.removeEventListener('click', this.closePopup);
-        this.root.removeChild(this.popup);
+        //this.root.removeChild(this.popup);
+        this.popup.visibility = "hidden";
+        this.popup.innerHTML = "";
     }
 }

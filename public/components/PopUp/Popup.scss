@@ -7,6 +7,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  visibility: hidden;
+  transition: visibility 0.5s;
 
   &_dark {
     background-color: #0000003d;
