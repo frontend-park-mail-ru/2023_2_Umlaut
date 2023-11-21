@@ -1,25 +1,50 @@
-<form class="auth" autocomplete="off">
-    <span class="auth__header">регистрация</span>
-    <div class="input">
-        <input type="email" class="input__input" id="mail" required=""/>
-        <label class="input__label">Почта</label>
+<div class="background-holder">
+  <form class="auth" autocomplete="off">
+        <span class="auth__header">регистрация</span>
+        <div class="input">
+            <input type="email" class="input__input" id="mail" required=""/>
+            <label class="input__label">Почта</label>
+        </div>
+        <div class="input">
+            <input type="text" class="input__input" id="name" required=""/>
+            <label class="input__label">Имя</label>
+        </div>
+        <div class="input">
+            <input type="password" class="input__input" id="password" required="" autocomplete="new-password"/>
+            <img src="/pics/eye_closed.png" id="eye" class="input__show-password">
+            <label class="input__label">Пароль</label>
+        </div>
+        <div class="input">
+            <input type="password" class="input__input" id="password-repeat" required=""/>
+            <label class="input__label">Повторите пароль</label>
+        </div>
+        <div class="error-label">1</div>
+        <div class="auth__subtitle">
+            Есть аккаунт?
+            <a href="/auth" class="link link_blue">Войдите</a>
+        </div>
+        <button type="submit" class="btn btn_important">зарегестрироваться</button>
+    </form>
+</div>
+<div class="lending">
+    <div class="lending__description">
+        <div class="lending__introduction">
+            <h1 class="lending__about">О нас</h1>
+            <p>Ümlaut - это сервис онлайн-знакомств, где люди могут находить новых друзей, партнеров для отношений и общения. Он помогает людям находить подходящих собеседников и создавать отношения. Ümlaut помогает пользователям находить новые знакомства и устанавливать связи с людьми, которые вам нравятся. Вы можете создавать профили, загружать фотографии, обмениваться сообщениями и просматривать профили других людей. В приложении действует алгоритм подбора, основанный на взаимных предпочтениях, который помогает находить соответствия высокого качества.
+        </p></div>
+        <div class="lending__heart-holder">
+            <img class="lending__heart-img" src="/pics/like.png">
+        </div>
+        <div class="lending__points">
+            <h1>Почему именно мы?</h1>
+            <ul class="lending__list">
+                <li><p>Большой выбор</p></li>
+                <li><p>Удобство и доступность</p></li>
+                <li><p>Фильтры поиска</p></li>
+                <li><p>Удобные функции общения</p></li>
+                <li><p>Безопасность</p></li>
+            </ul>
+        </div>
     </div>
-    <div class="input">
-        <input type="text" class="input__input" id="name" required=""/>
-        <label class="input__label">Имя</label>
-    </div>
-    <div class="input">
-        <input type="password" class="input__input" id="password" required="" autocomplete="new-password"/>
-        <label class="input__label">Пароль</label>
-    </div>
-    <div class="input">
-        <input type="password" class="input__input" id="password-repeat" required=""/>
-        <label class="input__label">Повторите пароль</label>
-    </div>
-    <div class="error-label">1</div>
-    <div class="auth__subtitle">
-        Есть аккаунт?
-        <a href="/auth" class="link link_blue">Войдите</a>
-    </div>
-    <button type="submit" class="btn btn_important">зарегестрироваться</button>
-</form>
+</div>
+

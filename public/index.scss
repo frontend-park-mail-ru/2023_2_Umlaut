@@ -59,8 +59,18 @@ body {
 
 .input {
   position: relative;
-  margin-bottom: 25px;
+  margin-bottom: 40px;
   font-family: "Helvetica", sans-serif;
+
+  &__show-password{
+    cursor: pointer;
+    background-image: url(../static/pics/eye.png);
+    width: 6%;
+    height: 65%;
+    position: absolute;
+    left: 90%;
+    top: 2%;
+  }
 
   &__label {
     position: absolute;

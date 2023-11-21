@@ -24,11 +24,24 @@ export class AuthView extends BaseView {
     render() {
         super.render();
         this.form = this.root.querySelector('.auth');
+        const eye = this.root.querySelector('#eye');
         this.form.addEventListener('submit', this.onSubmit.bind(this));
         this.errorLabel = this.form.querySelector('.error-label');
         this.errorLabel.style.visibility = 'hidden';
         this.mailInput = this.form.querySelector('#mail');
         this.mailInput.addEventListener('change', this.validateMail.bind(this));
+
+        eye.addEventListener('click', () => {
+            var x = document.getElementById("password");
+            if (x.type === "password") {
+                x.type = "text";
+                eye.src = '/pics/eye.png';
+            } else {
+                x.type = "password";
+                eye.src = '/pics/eye_closed.png';
+            }
+            }
+        );
     }
 
     close() {

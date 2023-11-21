@@ -51,6 +51,18 @@ export class SignupView extends BaseView {
                 this.showError('Пароли отличаются');
             } else this.hideError();
         });
+
+        const eye = this.root.querySelector('#eye');
+        eye.addEventListener('click', () => {
+            var x = document.getElementById("password");
+            if (x.type === "password") {
+                x.type = "text";
+                eye.src = '/pics/eye.png';
+            } else {
+                x.type = "password";
+                eye.src = '/pics/eye_closed.png';
+            }
+        });
     }
 
     close() {
