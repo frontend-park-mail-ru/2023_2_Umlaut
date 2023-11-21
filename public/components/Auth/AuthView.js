@@ -32,15 +32,15 @@ export class AuthView extends BaseView {
         this.mailInput.addEventListener('change', this.validateMail.bind(this));
 
         eye.addEventListener('click', () => {
-            var x = document.getElementById("password");
-            if (x.type === "password") {
-                x.type = "text";
+            const x = document.getElementById('password');
+            if (x.type === 'password') {
+                x.type = 'text';
                 eye.src = '/pics/eye.png';
             } else {
-                x.type = "password";
+                x.type = 'password';
                 eye.src = '/pics/eye_closed.png';
             }
-            }
+        },
         );
     }
 

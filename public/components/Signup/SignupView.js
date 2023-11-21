@@ -54,12 +54,12 @@ export class SignupView extends BaseView {
 
         const eye = this.root.querySelector('#eye');
         eye.addEventListener('click', () => {
-            var x = document.getElementById("password");
-            if (x.type === "password") {
-                x.type = "text";
+            const x = document.getElementById('password');
+            if (x.type === 'password') {
+                x.type = 'text';
                 eye.src = '/pics/eye.png';
             } else {
-                x.type = "password";
+                x.type = 'password';
                 eye.src = '/pics/eye_closed.png';
             }
         });
