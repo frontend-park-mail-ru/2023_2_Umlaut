@@ -135,7 +135,7 @@ export class SettingsView extends BaseView {
             this.showError('Имя не должно быть пусто');
             return false;
         }
-        if (!/^[a-zA-Zа-яА-я]/.test(document.querySelector('#name').value)) {
+        if (!Validate.onlyLetters(document.querySelector('#name').value)) {
             this.showError('Имя может содержать только буквы');
             return false;
         }
@@ -176,6 +176,10 @@ export class SettingsView extends BaseView {
         }
         if (document.querySelector('#repeat-password').value !== document.querySelector('#password').value) {
             this.showError('Пароли отличаются');
+            return false;
+        }
+        if (!/^[a-zA-Zа-яА-я0-9@.]/.test(document.querySelector('#mail').value)) {
+            this.showError('Почта не может содержать специальные символы');
             return false;
         }
         return true;

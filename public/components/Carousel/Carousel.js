@@ -27,7 +27,7 @@ export class Carousel {
         this.images = images;
         this.root.innerHTML = this.template({image_paths: images});
 
-        if (!images) {
+        if (!images || images.length<1) {
             return;
         }
 
