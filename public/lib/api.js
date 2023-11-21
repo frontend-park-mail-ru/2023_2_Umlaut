@@ -58,15 +58,6 @@ export class Api {
     }
 
     /**
-     * Get-запрос на получение фото
-     * @param {int} id - id пользователя
-     * @return {Promise} - статус и тело ответа
-     */
-    static getUserPhotoUrl(id) {
-        return Promise.resolve(BACKEND_URL + URLS.user + '/' + id + '/photo' + `?random=${Date.now()}`);
-    }
-
-    /**
      * Get-запрос на получение диалогов
      * @return {Promise} - статус и тело ответа
      */
@@ -80,10 +71,11 @@ export class Api {
 
     /**
      * Get-запрос на удаление фото
+     * @param {string} photo - ссылка на удаляемое фото
      * @return {Promise} - статус и тело ответа
      */
-    static deletePhoto() {
-        return Ajax.delete(BACKEND_URL + URLS.photo);
+    static deletePhoto(photo) {
+        return Ajax.delete(BACKEND_URL + URLS.photo, {link: photo});
     }
 
     static addLike(id) {

@@ -25,8 +25,8 @@ export const GLOBAL_EVENTS = {
     NETWORK_ERROR: 'NetworkError',
     AUTH: 'Authorised',
     RERENDER_HEADER: 'Rerender',
-    POPUP:'popup',
-    POPUP_CONFIRM: 'jsjs'
+    POPUP: 'popup',
+    POPUP_CONFIRM: 'jsjs',
 };
 
 export const AUTH_EVENTS = {
@@ -62,6 +62,7 @@ export const SETTINGS_EVENTS = {
     UNAUTH: 'k',
     SUCCESS: 'JJ',
     DELETE_PHOTO: 'DeletePhoto',
+    PHOTO_DELETED: 'PhotoDeleted',
     ADD_PHOTO: 'AddPhoto',
     PHOTO_UPLOADED: 'photo',
     LOGOUT: 'Logout',

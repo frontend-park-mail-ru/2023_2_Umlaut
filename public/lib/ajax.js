@@ -63,14 +63,16 @@ export class Ajax {
             );
     }
 
-    static delete(url = '') {
+    static delete(url = '', data = {}) {
         const request = {
             method: 'DELETE',
             mode: 'cors',
             credentials: 'include',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(data),
         };
-        if (this._csrfToken !== null && this._csrfToken !== undefined && this._csrfToken !== '') {
-            request.headers = {'X-Csrf-Token': this._csrfToken};
+        if (!this._csrfToken && this._csrfToken !== '') {
+            request.headers['X-Csrf-Token'] = this._csrfToken;
         }
         return fetch(url, request)
             .then(

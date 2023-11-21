@@ -1,8 +1,8 @@
 import {Validate} from '../../lib/validate.js';
 import {BaseView} from '../BaseView.js';
-import {POPUP_EVENTS, SETTINGS_EVENTS} from '../../lib/constansts.js';
-import { DEFAULT_PHOTO } from '../../lib/constansts.js';
+import {SETTINGS_EVENTS} from '../../lib/constansts.js';
 import './Settings.scss';
+import {Carousel} from '../Carousel/Carousel.js';
 
 /**
  * Компонент страницы авторизации (входа)
@@ -11,9 +11,10 @@ export class SettingsView extends BaseView {
     constructor(root, eventBus) {
         super(root, eventBus, require('./Settings.hbs'));
         this.eventBus.on(SETTINGS_EVENTS.GOT_USER, this.render.bind(this));
-        this.eventBus.on(SETTINGS_EVENTS.PHOTO_UPLOADED, this.updatePhoto.bind(this));
+        this.eventBus.on(SETTINGS_EVENTS.PHOTO_UPLOADED, this.addPhoto.bind(this));
         this.eventBus.on(SETTINGS_EVENTS.ERROR, this.showError.bind(this));
         this.eventBus.on(SETTINGS_EVENTS.HIDE, this.hideError.bind(this));
+        this.eventBus.on(SETTINGS_EVENTS.PHOTO_DELETED, this.deletePhoto.bind(this));
         this.root = root;
     }
 
@@ -26,17 +27,24 @@ export class SettingsView extends BaseView {
         const deletePhotoBtn = this.root.querySelector('.settings-form__button-delete');
         const selectedFile = document.querySelector('#file');
         const logoutBtn = document.querySelector('#logout');
-        this.photoPlace = document.querySelector('#user-photo');
+        const photoPlace = document.querySelector('.settings-form__photo');
+        this.photoCarousel = new Carousel(photoPlace);
+        this.photoCarousel.render(data.user.image_paths);
         this.errorLabel = this.form.querySelector('.error-label');
         this.errorLabel.style.visibility = 'hidden';
 
         // deletePhotoBtn.addEventListener('click', () => this.eventBus.emit(SETTINGS_EVENTS.DELETE_PHOTO));
         // logoutBtn.addEventListener('click', () => this.eventBus.emit(SETTINGS_EVENTS.LOGOUT));
 
-        const log = {func:() => {this.eventBus.emit(SETTINGS_EVENTS.LOGOUT);this.eventBus.emit(SETTINGS_EVENTS.HIDE);},
-                    text: "Вы уверены, что хотите выйти?"}
-        const del = {func:() => {this.eventBus.emit(SETTINGS_EVENTS.DELETE_PHOTO);this.eventBus.emit(SETTINGS_EVENTS.HIDE);},
-                    text:"Вы уверены, что хотите удалить фото?"}
+        const log = {func: () => {
+            this.eventBus.emit(SETTINGS_EVENTS.LOGOUT); this.eventBus.emit(SETTINGS_EVENTS.HIDE);
+        },
+        text: 'Вы уверены, что хотите выйти?'};
+        const del = {func: () => {
+            this.eventBus.emit(SETTINGS_EVENTS.DELETE_PHOTO, this.photoCarousel.current());
+            this.eventBus.emit(SETTINGS_EVENTS.HIDE);
+        },
+        text: 'Вы уверены, что хотите удалить фото?'};
         logoutBtn.addEventListener('click', () => this.eventBus.emit(SETTINGS_EVENTS.SHOW_CONFIRM_LOG, log));
         deletePhotoBtn.addEventListener('click', () => this.eventBus.emit(SETTINGS_EVENTS.SHOW_CONFIRM_LOG, del));
 
@@ -110,13 +118,12 @@ export class SettingsView extends BaseView {
         this.eventBus.emit(SETTINGS_EVENTS.SEND_DATA, inputsValue);
     }
 
+    addPhoto(image) {
+        this.photoCarousel.add(image);
+    }
 
-    updatePhoto(image) {
-        if (image !== DEFAULT_PHOTO) {
-            this.photoPlace.src = image + `?random=${Date.now()}`;
-        } else {
-            this.photoPlace.src = image;
-        }
+    deletePhoto(photo) {
+        this.photoCarousel.delete(photo);
     }
 
     validateForm() {
@@ -128,7 +135,7 @@ export class SettingsView extends BaseView {
             this.showError('Имя не должно быть пусто');
             return false;
         }
-        if (!/^[a-zA-Zа-яА-я]/.test(document.querySelector('#name').value)){
+        if (!/^[a-zA-Zа-яА-я]/.test(document.querySelector('#name').value)) {
             this.showError('Имя может содержать только буквы');
             return false;
         }
@@ -154,11 +161,11 @@ export class SettingsView extends BaseView {
             this.showError('Проверьте правильность введенной даты рождения');
             return false;
         }
-        if (Date.parse(document.querySelector('#birthday').value) - new Date(1907, 1, 1)<0) {
+        if (Date.parse(document.querySelector('#birthday').value) - new Date(1907, 1, 1) < 0) {
             this.showError('Самому старому человеку в мире 116 лет, вам не может быть больше');
             return false;
         }
-        if (Date.now() - Date.parse(document.querySelector('#birthday').value)<0) {
+        if (Date.now() - Date.parse(document.querySelector('#birthday').value) < 0) {
             this.showError('Извините, кажется вы еще не родились, чтобы знакомиться');
             return false;
         }
