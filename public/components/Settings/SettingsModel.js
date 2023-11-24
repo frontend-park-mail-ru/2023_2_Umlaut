@@ -53,7 +53,7 @@ export class SettingsModel {
         Api.update(this.settings.user).then(
             (response) => {
                 if (response.status === 200) {
-                    this.eventBus.emit(SETTINGS_EVENTS.SUCCESS);
+                    this.eventBus.emit(SETTINGS_EVENTS.SUCCESS, "Данные успешно сохранены!");
                 } else {
                     //this.eventBus.emit(SETTINGS_EVENTS.ERROR, response.message);
                 }
