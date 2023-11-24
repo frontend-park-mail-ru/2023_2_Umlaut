@@ -20,6 +20,32 @@ export class SettingsView extends BaseView {
     render(data) {
         super.render(data);
 
+        for (let i = 0; i < data.user.tags.length; i++) {
+            const elem = this.root.querySelector(`#${data.interests[data.user.tags[i]]}`)
+            elem.classList.add('multiselection__selection_active');
+        }
+
+        const selected = this.root.querySelector('.multiselection__selected');
+        const list = this.root.querySelectorAll('.variant');
+        for (let i = 0; i < list.length; i++) {
+            list[i].addEventListener('click', function() {
+                this.classList.toggle('multiselection__selection_active');
+                if(this.classList.contains('multiselection__selection_active')){
+                    const modifyTag = document.createElement('span');
+                    modifyTag.className = "multiselection__selection";
+                    modifyTag.innerHTML = this.innerHTML;
+                    selected.appendChild(modifyTag);
+                }else{
+                    const allTags = document.querySelectorAll('.multiselection__selection');
+                    allTags.forEach(element => {
+                        if(element.innerHTML===this.innerHTML){
+                            selected.removeChild(element);
+                        }
+                    });
+                }
+            })
+        }
+
         this.form = this.root.querySelector('.settings-form');
         this.form.addEventListener('submit', this.onSubmit.bind(this));
 
@@ -29,9 +55,6 @@ export class SettingsView extends BaseView {
         this.photoPlace = document.querySelector('#user-photo');
         this.errorLabel = this.form.querySelector('.error-label');
         this.errorLabel.style.visibility = 'hidden';
-
-        // deletePhotoBtn.addEventListener('click', () => this.eventBus.emit(SETTINGS_EVENTS.DELETE_PHOTO));
-        // logoutBtn.addEventListener('click', () => this.eventBus.emit(SETTINGS_EVENTS.LOGOUT));
 
         const log = {func:() => {this.eventBus.emit(SETTINGS_EVENTS.LOGOUT);this.eventBus.emit(SETTINGS_EVENTS.HIDE);},
                     text: "Вы уверены, что хотите выйти?"}
@@ -70,16 +93,21 @@ export class SettingsView extends BaseView {
             return;
         }
 
+        const tags = this.form.querySelectorAll('.multiselection__selection_active');
         const selectors = this.form.querySelectorAll('select');
         const inputs = this.form.querySelectorAll('textarea');
         const birthdayInput = this.form.querySelector('#birthday');
         const password = this.form.querySelector('#password');
         const inputsValue = {};
+        inputsValue.tags = [];
         selectors.forEach((selector) => {
             inputsValue[selector.id] = selector[selector.selectedIndex].text;
         });
         inputs.forEach((input) => {
             inputsValue[input.id] = input.value;
+        });
+        tags.forEach((tag) => {
+            inputsValue.tags.push(tag.innerHTML);
         });
         inputsValue.birthday = new Date(birthdayInput.value);
         inputsValue.password = password.value;
@@ -94,6 +122,7 @@ export class SettingsView extends BaseView {
         } else {
             inputsValue.user_gender = 0;
         }
+
         this.eventBus.emit(SETTINGS_EVENTS.SEND_DATA, inputsValue);
     }
 

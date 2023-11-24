@@ -22,19 +22,16 @@ export class SettingsModel {
                 'Неоконченное высшее',
                 'Среднее специальное',
             ],
-            interests: [
-                'Баскетбол',
-                'Боулинг',
-                'Бильярд',
-                'Банджо',
-                'Большой теннис',
-            ],
-            tags: [
-                'Кошки',
-                'Собаки',
-                'Тусовки',
-                'Музыка',
-            ],
+            interests: {
+                'Баскетбол':"bascketball",
+                'Боулинг':"bouling",
+                'Бильярд':"bilard",
+                'Банджо':"bango",
+                'Большой теннис':"big_tennis",
+                'Музыка': "music",
+                'Еда':"food",
+                'Искусство':"art",
+            },
         };
     }
 
@@ -42,7 +39,7 @@ export class SettingsModel {
         this.settings.user.looking = data.looking;
         this.settings.user.hobbies = data.hobbies;
         this.settings.user.education = data.education;
-        // this.settings.user.tags = data.tags;
+        this.settings.user.tags = data.tags;
         this.settings.user.description = data.description;
         this.settings.user.name = data.name;
         this.settings.user.birthday = data.birthday;
@@ -66,6 +63,10 @@ export class SettingsModel {
             (response) => {
                 if ( response.status === 200 ) {
                     this.settings.user = response.payload;
+                    this.settings.tags = [];
+                    this.settings.user.tags.forEach(element => {
+                        this.settings.tags.push(this.settings.interests[element]);
+                    });
                     this.settings.user.hasPreferGender = this.settings.user.prefer_gender !== null;
                     this.settings.user.hasGender = this.settings.user.user_gender !== null;
                     if (this.settings.user.birthday !== null) {
