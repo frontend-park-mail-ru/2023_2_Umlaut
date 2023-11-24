@@ -43,6 +43,14 @@ document.addEventListener('DOMContentLoaded', ()=>{
         router.go('/auth');
     });
 
+    window.addEventListener("offline", () => {
+        popup.render("Отсутсвует подключение к интернету");
+    });
+
+    window.addEventListener("online", () => {
+        popup.render("Подключение восстановлено");
+    });
+
     globalEventBus.emit(GLOBAL_EVENTS.AUTH);
 
     const auth = new AuthController(page, globalEventBus);
