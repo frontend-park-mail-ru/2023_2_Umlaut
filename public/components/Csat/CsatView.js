@@ -4,7 +4,7 @@ import {CSAT_URL} from '../../lib/constansts';
 /**
  * Компонент страницы авторизации (входа)
  */
-export class AuthView {
+export class CsatView {
     csatDiv;
     iframe;
     constructor(root, eventBus) {
