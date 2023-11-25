@@ -81,4 +81,8 @@ export class Api {
     static addLike(id) {
         return Ajax.post(BACKEND_URL + URLS.like, id);
     }
+
+    static csat() {
+        return Ajax.get(BACKEND_URL + URLS.csat);
+    }
 }

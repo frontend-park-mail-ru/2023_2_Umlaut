@@ -10,6 +10,7 @@ export const URLS = {
     photo: '/api/v1/user/photo',
     dialogs: '/api/v1/dialogs',
     like: '/api/v1/like',
+    csat: '/api/v1/csat',
 };
 
 /**
@@ -87,4 +88,7 @@ export const POPUP_EVENTS = {
     YES: 'yes',
     NO: 'no',
     SHOW_CONFIRM: 'uuu',
+};
+
+export const CSAT_EVENTS = {
 };

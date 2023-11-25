@@ -12,7 +12,7 @@
     "docs": "npx jsdoc -c ./.jsdoc.conf.json",
     "lint-write": "npx eslint --fix ./public",
     "prepare": "husky install",
-    "build": "npx webpack --config webpack.config.js --mode development"
+    "build": "npx webpack --config webpack.config.js --mode development && npx webpack --config webpack_csat.config.js --mode development"
   },
   "author": "",
   "license": "ISC",

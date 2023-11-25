@@ -4,10 +4,10 @@ const CopyPlugin = require('copy-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 module.exports = {
-  entry: ['./public/index.js'],
+  entry: ['./csat/index.js'], 
   output: {
     filename: 'main.js',
-    path: path.resolve( __dirname, 'dist')
+    path: path.resolve( __dirname, 'dist', 'csat')
   },
 
   module: {
@@ -39,21 +39,14 @@ module.exports = {
   },
 
   plugins: [
-    new ServiceWorkerWebpackPlugin({
-        entry: path.join(__dirname, 'public/sw.js'),
-    }),
     new MiniCssExtractPlugin({
       filename: 'index.css',
     }),
     new CopyPlugin({
       patterns: [
         {
-          from: path.resolve(__dirname, 'public/index.html'),
-          to: path.resolve(__dirname, 'dist')
-        },
-        {
-          from: path.resolve(__dirname, 'static'),
-          to: path.resolve(__dirname, 'dist/')
+          from: path.resolve(__dirname, 'csat/index.html'),
+          to: path.resolve(__dirname, 'dist/csat/')
         }
       ]
     })
