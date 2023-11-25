@@ -17,6 +17,8 @@ export class StatisticsView {
     render(data) {
         if (data === undefined) {
             this.eventBus.emit(STAT_EVENTS.GET_STAT);
+            return;
         }
+        this.root.innerHTML = this.template(data);
     }
 }

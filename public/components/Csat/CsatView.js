@@ -35,6 +35,9 @@ export class CsatView {
     }
 
     close() {
+        if ( this.csatDiv === null) {
+            return;
+        }
         window.removeEventListener('message', this.onMessageEvent);
         this.root.removeChild(this.csatDiv);
         this.csatDiv = null;
