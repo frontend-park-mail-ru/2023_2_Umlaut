@@ -1,4 +1,4 @@
-import {CsatView} from './FeedView.js';
+import {CsatView} from './CsatView.js';
 // import {Api} from '../../lib/api.js';
 import {BaseController} from '../BaseController.js';
 import {GLOBAL_EVENTS} from '../../lib/constansts.js';
