@@ -101,4 +101,9 @@ export const POPUP_EVENTS = {
 export const CSAT_EVENTS = {
 };
 
+export const STAT_EVENTS = {
+    GET_STAT: 'jnjnjnjnj',
+    STAT_READY: 'gjfnjtnn',
+};
+
 export const CSAT_URL = '/csat/';

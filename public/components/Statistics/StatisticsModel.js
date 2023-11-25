@@ -1,0 +1,35 @@
+import {STAT_EVENTS, AUTH_EVENTS} from '../../lib/constansts.js';
+import {Api} from '../../lib/api.js';
+
+export class StatisticsModel {
+    constructor(eventBus) {
+        this.eventBus = eventBus;
+        this.eventBus.on(STAT_EVENTS.GET_STAT, this.getStat.bind(this));
+    }
+
+    getStat() {
+        Api.feedback().then(
+            (feedbackResp) => {
+                if (feedbackResp.status === 200) {
+                    Api.feedFeedback().then((feedFeedbackResp) =>{
+                        if (feedFeedbackResp.status === 200) {
+                            Api.recomendation().then((recomendationResp) =>{
+                                if (recomendationResp.status === 200) {
+                                    this.eventBus.emit(STAT_EVENTS.STAT_READY, {...feedbackResp.payload,
+                                        ...feedFeedbackResp.payload,
+                                        ...recomendationResp.payload});
+                                } else if (recomendationResp.status === 401) {
+                                    this.eventBus.emit(AUTH_EVENTS.UNAUTH);
+                                }
+                            });
+                        } else if ( feedFeedbackResp.status === 401) {
+                            this.eventBus.emit(AUTH_EVENTS.UNAUTH);
+                        }
+                    });
+                } else if (feedbackResp.status === 401) {
+                    this.eventBus.emit(AUTH_EVENTS.UNAUTH);
+                }
+            },
+        );
+    }
+}
