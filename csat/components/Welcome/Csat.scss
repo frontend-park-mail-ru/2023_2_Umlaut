@@ -1,0 +1,76 @@
+.csat{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  padding: 5%;
+
+  &__greetings{
+    font-size: 23px;
+    font-weight: bold;
+    margin: 2%;
+    text-align: center;
+  }
+
+  &__help-us{
+    margin: 2%;
+    font-size: 20px;
+  }
+
+  &__buttons{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  &__skip{
+    margin-top: 7%;
+    font-size: 10px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__checkboxes{
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__checkbox-container{
+    margin: 5% 0px;
+  font-size: 18px;
+  }
+
+  &__slider{
+      -webkit-appearance: none;  
+      appearance: none;
+      width: 100%; 
+      height: 25px; 
+      background: #ffffff; 
+      outline: none; 
+      opacity: 0.7; 
+      -webkit-transition: .2s; 
+      transition: opacity .2s;
+
+
+      &:hover {
+          opacity: 1; 
+      }
+
+      &::-webkit-slider-thumb {
+          -webkit-appearance: none; 
+          appearance: none;
+          width: 25px; 
+          height: 25px; 
+          background: #AF4C4C; 
+          cursor: pointer; 
+      }
+      
+      &::-moz-range-thumb {
+          width: 25px; 
+          height: 25px; 
+          background: #AF4C4C; 
+          cursor: pointer; 
+      }
+  }
+}

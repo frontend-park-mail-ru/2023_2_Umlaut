@@ -1,3 +1,7 @@
+import { Csat } from "./components/Welcome/Csat.js";
+
 document.addEventListener('DOMContentLoaded', ()=>{
-    console.log('aboba');
+    const root = document.querySelector('.csat-place'); 
+    const csat = new Csat(root);
+    csat.renderGeneral();
 });
