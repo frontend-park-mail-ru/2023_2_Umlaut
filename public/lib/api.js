@@ -104,4 +104,12 @@ export class Api {
     static recomendation() {
         return Ajax.get(BACKEND_URL + URLS.remomendations);
     }
+
+    static rateFeed() {
+        return Ajax.get(BACKEND_URL + URLS.feedFeedback);
+    }
+
+    static recomendFriend() {
+        return Ajax.get(BACKEND_URL + URLS.remomendations);
+    }
 }
