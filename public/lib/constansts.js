@@ -25,10 +25,10 @@ export const GLOBAL_EVENTS = {
     NETWORK_ERROR: 'NetworkError',
     AUTH: 'Authorised',
     RERENDER_HEADER: 'Rerender',
-    POPUP:'Popup',
+    POPUP: 'Popup',
     POPUP_CONFIRM: 'Confirm',
     OFFLINE: 'Offline',
-    ONLINE: 'Online'
+    ONLINE: 'Online',
 };
 
 export const AUTH_EVENTS = {

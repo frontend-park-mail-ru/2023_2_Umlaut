@@ -22,29 +22,29 @@ export class SettingsView extends BaseView {
         super.render(data);
 
         for (let i = 0; i < data.user.tags.length; i++) {
-            const elem = this.root.querySelector(`#${data.interests[data.user.tags[i]]}`)
+            const elem = this.root.querySelector(`#${data.interests[data.user.tags[i]]}`);
             elem.classList.add('multiselection__selection_active');
         }
 
         const selected = this.root.querySelector('.multiselection__selected');
         const list = this.root.querySelectorAll('.variant');
         for (let i = 0; i < list.length; i++) {
-            list[i].addEventListener('click', function() {
-                this.classList.toggle('multiselection__selection_active');
-                if(this.classList.contains('multiselection__selection_active')){
+            list[i].addEventListener('click', () => {
+                list[i].classList.toggle('multiselection__selection_active');
+                if (list[i].classList.contains('multiselection__selection_active')) {
                     const modifyTag = document.createElement('span');
-                    modifyTag.className = "multiselection__selection";
-                    modifyTag.innerHTML = this.innerHTML;
+                    modifyTag.className = 'multiselection__selection';
+                    modifyTag.innerHTML = list[i].innerHTML;
                     selected.appendChild(modifyTag);
-                }else{
+                } else {
                     const allTags = document.querySelectorAll('.multiselection__selection');
-                    allTags.forEach(element => {
-                        if(element.innerHTML===this.innerHTML){
+                    allTags.forEach((element) => {
+                        if (element.innerHTML === list[i].innerHTML) {
                             selected.removeChild(element);
                         }
                     });
                 }
-            })
+            });
         }
 
         this.form = this.root.querySelector('.settings-form');

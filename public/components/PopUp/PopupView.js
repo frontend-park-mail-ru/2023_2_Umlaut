@@ -20,7 +20,7 @@ export class PopupView {
     render(msg) {
         const notification = this.popup.querySelector('.popup__notify');
         this.popup.querySelector('.popup__text').textContent = msg;
-        notification.style.visibility = "visible";
+        notification.style.visibility = 'visible';
         notification.style.opacity = 0.8;
         setTimeout(() => {
             this.close();
@@ -30,11 +30,13 @@ export class PopupView {
 
     renderConfirm(data) {
         const confirm = document.createElement('div');
-        confirm.className = "popup__confirm";
-        confirm.innerHTML = this.popupConfirmTmpl({text:data.text});
+        confirm.className = 'popup__confirm';
+        confirm.innerHTML = this.popupConfirmTmpl({text: data.text});
         this.popup.appendChild(confirm);
         const yes = this.popup.querySelector('#yes');
-        this.popup.addEventListener('click', ()=>{this.popup.removeChild(confirm)});
+        this.popup.addEventListener('click', ()=>{
+            this.popup.removeChild(confirm);
+        });
         yes.addEventListener('click', data.func);
     }
 
@@ -42,6 +44,6 @@ export class PopupView {
         document.removeEventListener('click', this.closePopup);
         const notification = this.popup.querySelector('.popup__notify');
         notification.style.opacity = 0;
-        notification.style.visibility = "hidden";
+        notification.style.visibility = 'hidden';
     }
 }

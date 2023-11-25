@@ -44,8 +44,8 @@ export class FeedView extends BaseView {
     activateBtns() {
         this.dislikeBtn = document.getElementById('dislike');
         this.likeBtn = document.getElementById('like');
-        //this.dislikeBtn.disabled = false;
-        //this.likeBtn.disabled = false;
+        // this.dislikeBtn.disabled = false;
+        // this.likeBtn.disabled = false;
         this.dislikeFunc = () => {
             this.eventBus.emit(FEED_EVENTS.GET_PERSON);
             this.blockButtons();

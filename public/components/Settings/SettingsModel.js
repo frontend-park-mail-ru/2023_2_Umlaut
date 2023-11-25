@@ -23,14 +23,14 @@ export class SettingsModel {
                 'Среднее специальное',
             ],
             interests: {
-                'Баскетбол':"bascketball",
-                'Боулинг':"bouling",
-                'Бильярд':"bilard",
-                'Банджо':"bango",
-                'Большой теннис':"big_tennis",
-                'Музыка': "music",
-                'Еда':"food",
-                'Искусство':"art",
+                'Баскетбол': 'bascketball',
+                'Боулинг': 'bouling',
+                'Бильярд': 'bilard',
+                'Банджо': 'bango',
+                'Большой теннис': 'big_tennis',
+                'Музыка': 'music',
+                'Еда': 'food',
+                'Искусство': 'art',
             },
         };
     }
@@ -50,7 +50,7 @@ export class SettingsModel {
         Api.update(this.settings.user).then(
             (response) => {
                 if (response.status === 200) {
-                    this.eventBus.emit(SETTINGS_EVENTS.SUCCESS, "Данные успешно сохранены!");
+                    this.eventBus.emit(SETTINGS_EVENTS.SUCCESS, 'Данные успешно сохранены!');
                 } else {
                     // this.eventBus.emit(SETTINGS_EVENTS.ERROR, response.message);
                 }
@@ -64,7 +64,7 @@ export class SettingsModel {
                 if ( response.status === 200 ) {
                     this.settings.user = response.payload;
                     this.settings.tags = [];
-                    this.settings.user.tags.forEach(element => {
+                    this.settings.user.tags.forEach((element) => {
                         this.settings.tags.push(this.settings.interests[element]);
                     });
                     this.settings.user.hasPreferGender = this.settings.user.prefer_gender !== null;
