@@ -22,7 +22,6 @@ export class Csat {
         cross.addEventListener('click', ()=>window.top.postMessage('close', window.location.origin));
         skip.addEventListener('click', ()=>{
             this.root.innerHTML = this.final();
-            Api.rateAll(this.inputValue);
         });
         btnNext.addEventListener('click', ()=>{
             this.inputValue.rating = rating.value;
@@ -44,7 +43,6 @@ export class Csat {
         cross.addEventListener('click', ()=>window.top.postMessage('close', window.location.origin));
         skip.addEventListener('click', ()=>{
             this.root.innerHTML = this.final();
-            Api.rateAll(this.inputValue);
         });
         btnNext.addEventListener('click', ()=>{
             this.inputValue.need_fix='';
@@ -82,7 +80,6 @@ export class Csat {
         cross.addEventListener('click', ()=>window.top.postMessage('close', window.location.origin));
         skip.addEventListener('click', ()=>{
             this.root.innerHTML = this.final();
-            Api.rateAll(this.inputValue);
         });
         btnNext.addEventListener('click', ()=>{
             this.inputValue.comment_fix = recomendations.value;
@@ -93,5 +90,39 @@ export class Csat {
 
     close() {
         super.close();
+    }
+
+    renderAboutFeed() {
+        this.root.innerHTML = this.number({text:"Оцените впечатление от пользования нашей лентой рекомендаций"});
+        const btnNext = this.root.querySelector('#take-survey');
+        const rating = this.root.querySelector('#rating');
+        const skip = this.root.querySelector('#skip');
+        const cross = this.root.querySelector('#cross');
+        cross.addEventListener('click', ()=>window.top.postMessage('close', window.location.origin));
+        skip.addEventListener('click', ()=>{
+            this.root.innerHTML = this.final();
+        });
+        btnNext.addEventListener('click', ()=>{
+            this.inputValue.rating = rating.value;
+            this.root.innerHTML = this.final();
+            Api.rateFeed(this.inputValue);
+        });
+    }
+
+    renderReccomendToFriend() {
+        this.root.innerHTML = this.number({text:"Насколько вероятно, что вы порекомендуете наш сервис друзьям?"});
+        const btnNext = this.root.querySelector('#take-survey');
+        const rating = this.root.querySelector('#rating');
+        const skip = this.root.querySelector('#skip');
+        const cross = this.root.querySelector('#cross');
+        cross.addEventListener('click', ()=>window.top.postMessage('close', window.location.origin));
+        skip.addEventListener('click', ()=>{
+            this.root.innerHTML = this.final();
+        });
+        btnNext.addEventListener('click', ()=>{
+            this.inputValue.rating = rating.value;
+            this.root.innerHTML = this.final();
+            Api.recomendFriend(this.inputValue);
+        });
     }
 }

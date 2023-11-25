@@ -15,7 +15,10 @@ export const URLS = {
     adminAuth: '/api/v1/auth/admin',
     feedback: '/api/v1/admin/feedback',
     feedFeedback: '/api/v1/admin/feed-feedback',
-    remomendations: '/api/v1/admin/recomendation'
+    remomendations: '/api/v1/admin/recomendation',
+    feedbackPost: '/api/v1/feedback',
+    feedFeedbackPost: '/api/v1/feed-feedback',
+    remomendationsPost: '/api/v1/recomendation',
 };
 
 /**
