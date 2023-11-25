@@ -29,7 +29,7 @@ export class CsatController extends BaseController {
         //         this.globalEventBus.emit(GLOBAL_EVENTS.UNAUTH);
         //     }
         // });
-        setTimeout( () => this.view.render(1), 2000);
+        setTimeout( () => this.view.render(3), 2000);
         this.showChecked = true;
     }
 }
