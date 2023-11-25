@@ -9,13 +9,12 @@ export class CsatController extends BaseController {
         super(globalEventBus);
         this.showChecked = false;
         this.view = new CsatView(root, this.eventBus);
-        globalEventBus.on(GLOBAL_EVENTS.AUTH, () => this.onAuth.bind(this));
+        globalEventBus.on(GLOBAL_EVENTS.AUTH, (data) => {
+            this.onAuth(data);
+        });
     }
 
-    onAuth(data) {
-        if (data === undefined) {
-            return;
-        }
+    onAuth() {
         if (this.showChecked) {
             return;
         }

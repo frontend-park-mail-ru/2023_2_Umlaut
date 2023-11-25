@@ -21,10 +21,10 @@ export class SettingsView extends BaseView {
     render(data) {
         super.render(data);
 
-        for (let i = 0; i < data.user.tags.length; i++) {
-            const elem = this.root.querySelector(`#${data.interests[data.user.tags[i]]}`);
-            elem.classList.add('multiselection__selection_active');
-        }
+        // for (let i = 0; i < data.user.tags.length; i++) {
+        //     const elem = this.root.querySelector(`#${data.interests[data.user.tags[i]]}`);
+        //     elem.classList.add('multiselection__selection_active');
+        // }
 
         const selected = this.root.querySelector('.multiselection__selected');
         const list = this.root.querySelectorAll('.variant');

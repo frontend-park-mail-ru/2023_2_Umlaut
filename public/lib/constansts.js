@@ -12,6 +12,10 @@ export const URLS = {
     like: '/api/v1/like',
     csat: '/api/v1/csat',
     rateAll: 'api/v1/feedback',
+    adminAuth: '/api/v1/auth/admin',
+    feedback: '/api/v1/admin/feedback',
+    feedFeedback: '/api/v1/admin/feed-feedback',
+    remomendations: '/api/v1/admin/recomendation'
 };
 
 /**
@@ -94,4 +98,4 @@ export const POPUP_EVENTS = {
 export const CSAT_EVENTS = {
 };
 
-export const CSAT_URL = BACKEND_URL + '/csat/';
+export const CSAT_URL = '/csat/';
