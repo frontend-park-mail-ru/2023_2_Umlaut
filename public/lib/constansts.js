@@ -92,3 +92,5 @@ export const POPUP_EVENTS = {
 
 export const CSAT_EVENTS = {
 };
+
+export const CSAT_URL = BACKEND_URL + '/csat/';

@@ -15,6 +15,7 @@ import {HeaderController} from './components/Header/HeaderController.js';
 import {SettingsController} from './components/Settings/SettingsController.js';
 import {MessengerController} from './components/Messenger/MessengerController.js';
 import {PopupView} from './components/PopUp/PopupView.js';
+import {CsatController} from './components/Csat/CsatController.js';
 
 document.addEventListener('DOMContentLoaded', ()=>{
     if ('serviceWorker' in navigator) {
@@ -60,6 +61,9 @@ document.addEventListener('DOMContentLoaded', ()=>{
 
     const settings = new SettingsController(page, globalEventBus);
     const messenger = new MessengerController(page, globalEventBus);
+
+    const csat = new CsatController(page, globalEventBus);
+    csat;
 
     router.add('/', feed);
     router.add('/feed', feed);
