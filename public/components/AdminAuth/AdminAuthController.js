@@ -11,8 +11,4 @@ export class AdminAuthController extends BaseController {
         this.model = new AdminAuthModel(this.eventBus);
         this.eventBus.on(AUTH_EVENTS.AUTH, () => this.globalEventBus.emit(GLOBAL_EVENTS.REDIRECT, '/admin'));
     }
-
-    render() {
-        this.eventBus.emit(AUTH_EVENTS.CHECK_AUTHORISED);
-    }
 }

@@ -105,11 +105,11 @@ export class Api {
         return Ajax.get(BACKEND_URL + URLS.remomendations);
     }
 
-    static rateFeed() {
-        return Ajax.get(BACKEND_URL + URLS.feedFeedback);
+    static rateFeed(data) {
+        return Ajax.post(BACKEND_URL + URLS.feedFeedbackPost, data);
     }
 
-    static recomendFriend() {
-        return Ajax.get(BACKEND_URL + URLS.remomendations);
+    static recomendFriend(data) {
+        return Ajax.post(BACKEND_URL + URLS.remomendationsPost, data);
     }
 }

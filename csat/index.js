@@ -7,11 +7,11 @@ document.addEventListener('DOMContentLoaded', ()=>{
         if (message.origin !== window.location.origin) {
             return;
         }
-        if(message.data==='1'){
+        if(message.data===1){
             csat.renderAboutAll();
-        }else if(message.data==='2'){
+        }else if(message.data===2){
             csat.renderReccomendToFriend();
-        }else if(message.data==='3'){
+        }else if(message.data===3){
             csat.renderAboutFeed();
         }
     });
