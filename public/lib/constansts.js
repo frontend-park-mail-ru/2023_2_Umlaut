@@ -11,6 +11,7 @@ export const URLS = {
     dialogs: '/api/v1/dialogs',
     like: '/api/v1/like',
     csat: '/api/v1/csat',
+    rateAll: 'api/v1/feedback',
 };
 
 /**

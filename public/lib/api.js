@@ -85,4 +85,8 @@ export class Api {
     static csat() {
         return Ajax.get(BACKEND_URL + URLS.csat);
     }
+
+    static rateAll(data) {
+        return Ajax.post(BACKEND_URL + URLS.rateAll, data);
+    }
 }
