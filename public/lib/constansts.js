@@ -10,12 +10,12 @@ export const URLS = {
     photo: '/api/v1/user/photo',
     dialogs: '/api/v1/dialogs',
     like: '/api/v1/like',
-    csat: '/api/v1/csat',
+    csat: '/api/v1/show-csat',
     rateAll: 'api/v1/feedback',
     adminAuth: '/api/v1/auth/admin',
     feedback: '/api/v1/admin/feedback',
     feedFeedback: '/api/v1/admin/feed-feedback',
-    remomendations: '/api/v1/admin/recomendation'
+    remomendations: '/api/v1/admin/recomendation',
 };
 
 /**
