@@ -10,7 +10,7 @@ export class AdminAuthModel {
     }
 
     signIn(data) {
-        Api.login(data).then(
+        Api.admimAuth(data).then(
             (response) => {
                 if (response.status === 200) {
                     this.eventBus.emit(AUTH_EVENTS.AUTH);
@@ -28,7 +28,7 @@ export class AdminAuthModel {
     }
 
     isAuthorised() {
-        Api.user().then(
+        Api.recomendation().then(
             (response) => {
                 if ( response.status === 200 ) {
                     this.eventBus.emit(AUTH_EVENTS.AUTH);
