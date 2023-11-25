@@ -12,7 +12,7 @@ export class HeaderModel {
             (response) => {
                 if ( response.status === 200 ) {
                     const user = response.payload;
-                    if (user.image_paths[0] ) {
+                    if (user.image_paths && user.image_paths[0] ) {
                         user.image_paths[0] = user.image_paths[0].replace('http:/', 'https:/');
                     }
                     this.eventBus.emit(HEADER_EVENTS.AUTH, user);
