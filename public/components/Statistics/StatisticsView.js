@@ -1,4 +1,4 @@
-import './Csat.scss';
+
 import {STAT_EVENTS} from '../../lib/constansts';
 
 /**

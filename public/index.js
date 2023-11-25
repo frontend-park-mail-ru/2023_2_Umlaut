@@ -16,6 +16,8 @@ import {SettingsController} from './components/Settings/SettingsController.js';
 import {MessengerController} from './components/Messenger/MessengerController.js';
 import {PopupView} from './components/PopUp/PopupView.js';
 import {CsatController} from './components/Csat/CsatController.js';
+import {AdminAuthController} from './components/AdminAuth/AdminAuthController.js';
+import {StatisticsController} from './components/Statistics/StatisticsController.js';
 
 document.addEventListener('DOMContentLoaded', ()=>{
     if ('serviceWorker' in navigator) {
@@ -64,6 +66,8 @@ document.addEventListener('DOMContentLoaded', ()=>{
 
     const settings = new SettingsController(page, globalEventBus);
     const messenger = new MessengerController(page, globalEventBus);
+    const admin = new AdminAuthController(page, globalEventBus);
+    const statisctics = new StatisticsController(page, globalEventBus);
 
     router.add('/', feed);
     router.add('/feed', feed);
@@ -71,6 +75,9 @@ document.addEventListener('DOMContentLoaded', ()=>{
     router.add('/signup', signup);
     router.add('/settings', settings);
     router.add('/messages', messenger);
+    router.add('/admin', statisctics);
+    router.add('/admin/auth', admin);
+
 
     router.start();
 });

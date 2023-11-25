@@ -5,7 +5,6 @@ export class AdminAuthModel {
     constructor(eventBus) {
         this.eventBus = eventBus;
         this.eventBus.on(AUTH_EVENTS.SIGN_IN, this.signIn.bind(this));
-        this.eventBus.on(AUTH_EVENTS.SIGN_UP, this.signUp.bind(this));
         this.eventBus.on(AUTH_EVENTS.CHECK_AUTHORISED, this.isAuthorised.bind(this));
     }
 
