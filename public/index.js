@@ -35,12 +35,20 @@ document.addEventListener('DOMContentLoaded', ()=>{
     const globalEventBus = new EventBus();
     globalEventBus.on(GLOBAL_EVENTS.REDIRECT, (data) => router.go(data));
     globalEventBus.on(GLOBAL_EVENTS.AUTH, () => header.render());
-    globalEventBus.on(GLOBAL_EVENTS.POPUP, () => popup.render());
+    globalEventBus.on(GLOBAL_EVENTS.POPUP, (text) => popup.render(text));
     globalEventBus.on(GLOBAL_EVENTS.POPUP_CONFIRM, (data) => popup.renderConfirm(data));
     globalEventBus.on(GLOBAL_EVENTS.RERENDER_HEADER, () => header.render());
     globalEventBus.on(GLOBAL_EVENTS.UNAUTH, () => {
         header.renderUnauth();
         router.go('/auth');
+    });
+
+    window.addEventListener("offline", () => {
+        popup.render("Отсутсвует подключение к интернету");
+    });
+
+    window.addEventListener("online", () => {
+        popup.render("Подключение восстановлено");
     });
 
     globalEventBus.emit(GLOBAL_EVENTS.AUTH);

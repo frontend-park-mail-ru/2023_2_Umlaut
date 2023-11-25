@@ -77,30 +77,23 @@
                     {{/each}} 
                 </select>
             </div>
-            <div class="input-border">
-                <span class="input-border__header">Интересы</span>
-                <select class="input-border__data-input"  id="hobbies">
-                    {{#if this.user.hobbies}}
-                        <option value="" selected="selected">{{this.user.hobbies}}</option>
-                        {{else}}
-                        <option value="" selected="selected"></option>
-                    {{/if}} 
-                    {{#each this.interests}}
-                        <option value="">{{this}}</option>
-                    {{/each}} 
-                </select>
-            </div>
-            {{!-- <div class="input-border">
+            <div class="input-border multiselection">
                 <span class="input-border__header">Теги</span>
-                <select class="input-border__data-input" id="tags">
-                    {{#if this.user.tags}}
-                        <option value="" selected="selected">{{this.user.tags}}</option>
-                    {{/if}} 
-                    {{#each this.tags}}
-                        <option value="">{{this}}</option>
-                    {{/each}} 
-                </select>
-            </div> --}}
+                <div class="input-border__data-input"  id="tags">
+                    <div class="multiselection__selected">
+                        {{#if this.user.tags}}
+                            {{#each this.user.tags}}
+                                <span class="multiselection__selection">{{this}}</span>
+                            {{/each}} 
+                        {{/if}} 
+                    </div>
+                    <div class="multiselection__select-multiple">
+                        {{#each this.interests}}
+                            <span class="multiselection__selection variant" id="{{this}}">{{@key}}</span>
+                        {{/each}} 
+                    </div>
+                </div>
+            </div>
             <div class="input-border">
                 <span class="input-border__header">Дата рождения *</span>
                     <input id="birthday" type="date" class="input-border__data-input input__data-input_date" name="partydate" value='{{this.user.birthday}}'/>

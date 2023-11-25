@@ -118,6 +118,12 @@
     
   }
 
+  &__show-list{
+    width: 5%;
+    position: absolute;
+    right: 6%;
+  }
+
   &__header {
     position: relative;
     bottom: 7px;
@@ -126,5 +132,39 @@
     padding-right: 4px;
     margin-left: 10px;
     border-radius: 10px;
+  }
+}
+
+.multiselection{
+  &__select-multiple{
+    visibility: hidden;
+    position: absolute;
+    background-color: #e6dddd;
+    height: 150px;
+    z-index: 2;
+    border-radius: 3px;
+    padding: 10px;
+    overflow: auto;
+
+    &:hover{
+      visibility: visible;
+    }
+  }
+
+  &:hover .multiselection__select-multiple{
+      visibility: visible;
+  }
+
+  &__selection{
+    border: 0.43mm solid;
+    border-radius: 9px;
+    padding: 2px;
+    background-color: #fff;
+    margin: 2px 2px;
+    display: inline-block;
+
+    &_active{
+      background-color: red;
+    }
   }
 }
