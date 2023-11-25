@@ -1,6 +1,5 @@
 import {SETTINGS_EVENTS} from '../../lib/constansts.js';
 import {Api} from '../../lib/api.js';
-import {DEFAULT_PHOTO} from '../../lib/constansts.js';
 
 export class SettingsModel {
     constructor(eventBus) {
@@ -65,21 +64,14 @@ export class SettingsModel {
                     this.settings.user = response.payload;
                     this.settings.tags = [];
                     this.settings.user.tags.forEach((element) => {
-                        this.settings.tags.push(this.settings.interests[element]);
+                        this.settings.tags.push(element);
                     });
                     this.settings.user.hasPreferGender = this.settings.user.prefer_gender !== null;
                     this.settings.user.hasGender = this.settings.user.user_gender !== null;
                     if (this.settings.user.birthday !== null) {
                         this.settings.user.birthday = this.settings.user.birthday.slice(0, 10);
                     }
-                    this.settings.user.photo = DEFAULT_PHOTO;
-                    if (this.settings.user.image_path) {
-                        Api.getUserPhotoUrl(this.settings.user.id).then(
-                            (image)=>{
-                                this.settings.user.photo = image;
-                            },
-                        );
-                    }
+
                     this.eventBus.emit(SETTINGS_EVENTS.GOT_USER, this.settings);
                 } else {
                     this.eventBus.emit(SETTINGS_EVENTS.UNAUTH);

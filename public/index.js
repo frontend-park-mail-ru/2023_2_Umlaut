@@ -52,6 +52,9 @@ document.addEventListener('DOMContentLoaded', ()=>{
         popup.render('Подключение восстановлено');
     });
 
+    const csat = new CsatController(document.body, globalEventBus);
+    csat;
+
     globalEventBus.emit(GLOBAL_EVENTS.AUTH);
 
     const auth = new AuthController(page, globalEventBus);
@@ -61,9 +64,6 @@ document.addEventListener('DOMContentLoaded', ()=>{
 
     const settings = new SettingsController(page, globalEventBus);
     const messenger = new MessengerController(page, globalEventBus);
-
-    const csat = new CsatController(page, globalEventBus);
-    csat;
 
     router.add('/', feed);
     router.add('/feed', feed);
