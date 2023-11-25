@@ -1,6 +1,6 @@
 import {MESSENGER_EVENTS} from '../../lib/constansts.js';
 import {Api} from '../../lib/api.js';
-import { DEFAULT_PHOTO } from '../../lib/constansts.js';
+import {DEFAULT_PHOTO} from '../../lib/constansts.js';
 
 export class MessengerModel {
     constructor(eventBus) {

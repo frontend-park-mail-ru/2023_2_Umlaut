@@ -54,39 +54,19 @@
     }
   }
 
-  &__main-photo {
-    height: 100%;
-    width: 100%;
-    object-fit: contain;
-    grid-row: 1;
-    grid-column: 1;
-    z-index: 1;
-    position: relative;
-  }
-
   &__user-name {
     font-size: 40px;
     display: flex;
     justify-content: right;
   }
 
-  &__background-photo {
-    height: 100%;
-    width: 100%;
-    object-fit: cover;
-    scale: 1.1;
-    filter: blur(8px);
-    position: absolute;
-  }
-
   &__feed-photo {
     width: 100%;
     height: 400px;
     align-self: center;
-    overflow: hidden;
     position: relative;
   }
-
+  
   &__photo-part {
     display: flex;
     flex-direction: column;

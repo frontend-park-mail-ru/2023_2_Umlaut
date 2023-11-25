@@ -17,8 +17,6 @@ const server = http.createServer((request, response) => {
     } else {
         if (fs.existsSync('./dist' + url)) {
             filepath = './dist' + url;
-        } else if (fs.existsSync('./static' + url)) {
-            filepath = './static' + url;
         } else {
             debug.log('error: Not found : ' + url);
             response.write(page404);

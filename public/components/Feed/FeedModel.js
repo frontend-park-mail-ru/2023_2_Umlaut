@@ -11,22 +11,13 @@ export class FeedModel {
 
     getNextPerson() {
         Api.feed().then((response) => {
-            if(response){
-                if ( response.status === 200) {
-                    const user = response.payload;
-                    Api.getUserPhotoUrl(user.id).then(
-                        (image) =>{
-                            user.photo = image;
-                            this.eventBus.emit(FEED_EVENTS.NEXT_PERSON_READY, user);
-                        },
-                    );
-                } else if ( response.status === 401 ) {
-                    this.eventBus.emit(FEED_EVENTS.UNAUTH);
-                } else if ( response.status === 404 ) {
-                    this.eventBus.emit(FEED_EVENTS.NO_PEOPLE);
-                }
-            }else{
-                
+            if ( response.status === 200) {
+                const user = response.payload;
+                this.eventBus.emit(FEED_EVENTS.NEXT_PERSON_READY, user);
+            } else if ( response.status === 401 ) {
+                this.eventBus.emit(FEED_EVENTS.UNAUTH);
+            } else if ( response.status === 404 ) {
+                this.eventBus.emit(FEED_EVENTS.NO_PEOPLE);
             }
         });
     }

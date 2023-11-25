@@ -64,6 +64,7 @@ export const SETTINGS_EVENTS = {
     UNAUTH: 'k',
     SUCCESS: 'JJ',
     DELETE_PHOTO: 'DeletePhoto',
+    PHOTO_DELETED: 'PhotoDeleted',
     ADD_PHOTO: 'AddPhoto',
     PHOTO_UPLOADED: 'photo',
     LOGOUT: 'Logout',

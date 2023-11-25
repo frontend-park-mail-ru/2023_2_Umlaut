@@ -1,6 +1,6 @@
 import {SETTINGS_EVENTS} from '../../lib/constansts.js';
 import {Api} from '../../lib/api.js';
-import { DEFAULT_PHOTO } from '../../lib/constansts.js';
+import {DEFAULT_PHOTO} from '../../lib/constansts.js';
 
 export class SettingsModel {
     constructor(eventBus) {
@@ -52,7 +52,7 @@ export class SettingsModel {
                 if (response.status === 200) {
                     this.eventBus.emit(SETTINGS_EVENTS.SUCCESS, "Данные успешно сохранены!");
                 } else {
-                    //this.eventBus.emit(SETTINGS_EVENTS.ERROR, response.message);
+                    // this.eventBus.emit(SETTINGS_EVENTS.ERROR, response.message);
                 }
             },
         );
@@ -73,7 +73,7 @@ export class SettingsModel {
                         this.settings.user.birthday = this.settings.user.birthday.slice(0, 10);
                     }
                     this.settings.user.photo = DEFAULT_PHOTO;
-                    if(this.settings.user.image_path){
+                    if (this.settings.user.image_path) {
                         Api.getUserPhotoUrl(this.settings.user.id).then(
                             (image)=>{
                                 this.settings.user.photo = image;
@@ -92,28 +92,19 @@ export class SettingsModel {
         Api.addPhoto(file).then(
             (response) => {
                 if ( response.status === 200 ) {
-                    Api.getUserPhotoUrl(this.settings.user.id).then(
-                        (image) => {
-                            this.settings.user.photo = image;
-                            this.eventBus.emit(SETTINGS_EVENTS.PHOTO_UPLOADED, image);
-                        },
-                    );
+                    this.eventBus.emit(SETTINGS_EVENTS.PHOTO_UPLOADED, response.payload);
+                }
+            });
+    }
+
+    deletePhoto(photo) {
+        Api.deletePhoto(photo).then(
+            (response) => {
+                if ( response.status === 200 ) {
+                    this.eventBus.emit(SETTINGS_EVENTS.PHOTO_DELETED, photo);
                 }
             },
         );
-    }
-
-    deletePhoto() {
-        if(this.settings.user.photo !== DEFAULT_PHOTO){
-            Api.deletePhoto().then(
-                (response) => {
-                    if ( response.status === 200 ) {
-                        this.settings.user.photo = DEFAULT_PHOTO;
-                        this.eventBus.emit(SETTINGS_EVENTS.PHOTO_UPLOADED, DEFAULT_PHOTO);
-                    }
-                },
-            );
-        }
     }
 
     logout() {
