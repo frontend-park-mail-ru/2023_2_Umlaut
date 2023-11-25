@@ -21,14 +21,14 @@ export class Csat {
         const cross = this.root.querySelector('#cross');
         cross.addEventListener('click', ()=>window.top.postMessage('close', window.location.origin));
         skip.addEventListener('click', ()=>{
-            this.root.innerHTML = this.final();
+            this.renderFinal();
         });
         btnNext.addEventListener('click', ()=>{
             this.inputValue.rating = rating.value;
             if(rating.value<9){
                 this.renderChoose();
             }else{
-                this.root.innerHTML = this.final();
+                this.renderFinal();
                 Api.rateAll(this.inputValue);
             }
         });
@@ -42,7 +42,7 @@ export class Csat {
         const cross = this.root.querySelector('#cross');
         cross.addEventListener('click', ()=>window.top.postMessage('close', window.location.origin));
         skip.addEventListener('click', ()=>{
-            this.root.innerHTML = this.final();
+            this.renderFinal();
         });
         btnNext.addEventListener('click', ()=>{
             this.inputValue.need_fix='';
@@ -65,7 +65,7 @@ export class Csat {
                     this.renderText("удобства пользования");
                     break;
                 default:
-                    this.root.innerHTML = this.final();
+                    this.renderFinal();
                     Api.rateAll(this.inputValue);
               }
         });
@@ -79,17 +79,20 @@ export class Csat {
         const cross = this.root.querySelector('#cross');
         cross.addEventListener('click', ()=>window.top.postMessage('close', window.location.origin));
         skip.addEventListener('click', ()=>{
-            this.root.innerHTML = this.final();
+            this.renderFinal();
         });
         btnNext.addEventListener('click', ()=>{
             this.inputValue.comment_fix = recomendations.value;
-            this.root.innerHTML = this.final();
+            this.renderFinal();
             Api.rateAll(this.inputValue);
         });
     }
 
-    close() {
-        super.close();
+    renderFinal(){
+        this.root.innerHTML = this.final();
+        setTimeout(()=>window.top.postMessage('close', window.location.origin), 3000);
+        const cross = this.root.querySelector('#cross');
+        cross.addEventListener('click', ()=>window.top.postMessage('close', window.location.origin));
     }
 
     renderAboutFeed() {
@@ -100,11 +103,11 @@ export class Csat {
         const cross = this.root.querySelector('#cross');
         cross.addEventListener('click', ()=>window.top.postMessage('close', window.location.origin));
         skip.addEventListener('click', ()=>{
-            this.root.innerHTML = this.final();
+            this.renderFinal();
         });
         btnNext.addEventListener('click', ()=>{
             this.inputValue.rating = rating.value;
-            this.root.innerHTML = this.final();
+            this.renderFinal();
             Api.rateFeed(this.inputValue);
         });
     }
