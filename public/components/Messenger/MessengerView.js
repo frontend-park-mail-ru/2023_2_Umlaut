@@ -11,12 +11,12 @@ export class MessengerView extends BaseView {
         this.eventBus.on(MESSENGER_EVENTS.NEW_MESSAGE_IN_THIS_DIALOG, this.createMessage.bind(this));
         this.eventBus.on(MESSENGER_EVENTS.NEW_MESSAGE_IN_OTHER_DIALOG, this.newMessageOtherDialog.bind(this));
         this.dialogPreviewTemplate = require('./DialogPreview.hbs');
-        this.dialog = require("./MessengerWindow.hbs");
+        this.dialog = require('./MessengerWindow.hbs');
         this.dialogWindow = null;
         this.dialogListView = null;
         this.dialogList = null;
         this.message = require('./Message.hbs');
-        this.eventBus.on()
+        this.eventBus.on();
     }
 
     render(data) {
@@ -28,7 +28,7 @@ export class MessengerView extends BaseView {
         this.messagesPlace = this.root.querySelector('.dialog-window__dialog');
 
         const dialogs = this.root.querySelectorAll('.dialog-preview');
-        dialogs.forEach(dialog => {
+        dialogs.forEach((dialog) => {
             dialog.addEventListener('click', ()=>this.eventBus.emit(MESSENGER_EVENTS.GET_MESSAGES, dialog.id));
         });
 
@@ -80,34 +80,34 @@ export class MessengerView extends BaseView {
         this.dialogList.push(dialogPreview);
     }
 
-    openDialog(data){
+    openDialog(data) {
         this.dialogWindow.innerHTML = this.dialog(data);
-        data.forEach(mes => {
+        data.forEach((mes) => {
             this.createMessage(mes);
         });
-        //todo get names from back
-        const send = this.dialogWindow.querySelector("#send");
-        const msg = this.dialogWindow.querySelector("#message").value;
-        send.addEventListener('click', ()=>{ 
+        // todo get names from back
+        const send = this.dialogWindow.querySelector('#send');
+        const msg = this.dialogWindow.querySelector('#message').value;
+        send.addEventListener('click', ()=>{
             this.eventBus.emit(MESSENGER_EVENTS.SEND_MESSAGE, msg);
-            this.createMessage({text: msg, time: Date.now(), fromMe:true});
+            this.createMessage({text: msg, time: Date.now(), fromMe: true});
         });
     }
 
-    createMessage(mes){
+    createMessage(mes) {
         const mesElem = document.createElement('div');
-        mesElem.innerHTML = this.message({text:mes.text, time:mes.time});
-        if(mes.fromMe){
+        mesElem.innerHTML = this.message({text: mes.text, time: mes.time});
+        if (mes.fromMe) {
             const myMes = mesElem.querySelector('.dialog-window__message');
             myMes.className = 'dialog-window__message dialog-window__message_me';
         }
         this.messagesPlace.appendChild(mesElem);
     }
 
-    newMessageOtherDialog(msg){
+    newMessageOtherDialog(msg) {
         const dialog = this.root.getElementById(msg.id);
         const newMes = document.createElement('div');
-        newMes.className='messenger__new-message';
+        newMes.className = 'messenger__new-message';
         dialog.appendChild(newMes);
     }
 

@@ -14,7 +14,7 @@ export class WebSocketWrapper {
             return;
         }
         this.socket = new WebSocket(this.url);
-        this.socket.onopen = (event) => {
+        this.socket.onopen = () => {
             console.log('Socket connected');
         };
         this.socket.onmessage = (event) => {
@@ -47,17 +47,17 @@ export class WebSocketWrapper {
 
     subscribe(eventType, handler) {
         switch (eventType) {
-            case 'message':
-                this.messageSubscribers.add(handler);
-                break;
-            case 'close':
-                this.closeSubscribers.add(handler);
-                break;
-            case 'error':
-                this.errorSubscribers.add(handler);
-                break;
-            default:
-                break;
+        case 'message':
+            this.messageSubscribers.add(handler);
+            break;
+        case 'close':
+            this.closeSubscribers.add(handler);
+            break;
+        case 'error':
+            this.errorSubscribers.add(handler);
+            break;
+        default:
+            break;
         }
     }
 

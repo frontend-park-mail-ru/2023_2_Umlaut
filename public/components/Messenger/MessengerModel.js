@@ -10,9 +10,9 @@ export class MessengerModel {
         this.eventBus.on(MESSENGER_EVENTS.GET_PAIRS, this.getPairs.bind(this));
         this.eventBus.on(MESSENGER_EVENTS.SEND_MESSAGE, this.sendMessage.bind(this));
         this.eventBus.on(MESSENGER_EVENTS.GET_MESSAGES, this.getMessages.bind(this));
-        this.socket = new WebSocketWrapper("wss://umlaut-bmstu.me/websocket");
+        this.socket = new WebSocketWrapper('wss://umlaut-bmstu.me/websocket');
         this.socket.connect();
-        this.socket.subscribe("message", (msg)=>this.gotNewMessage(msg).bind(this));
+        this.socket.subscribe('message', (msg)=>this.gotNewMessage(msg).bind(this));
         this.id = null;
     }
 
@@ -49,19 +49,19 @@ export class MessengerModel {
         return Promise.resolve(dialogs);
     }
 
-    sendMessage(msg){
+    sendMessage(msg) {
         this.socket.send(msg);
     }
 
-    getMessages(id){
+    getMessages(id) {
         this.id = id;
-        this.eventBus.emit(MESSENGER_EVENTS.MESSAGES_READY, data);
+        this.eventBus.emit(MESSENGER_EVENTS.MESSAGES_READY);
     }
 
-    gotNewMessage(msg){
-        if(msg.id === this.id){
+    gotNewMessage(msg) {
+        if (msg.id === this.id) {
             this.eventBus.emit(MESSENGER_EVENTS.NEW_MESSAGE_IN_THIS_DIALOG, msg);
-        }else{
+        } else {
             this.eventBus.emit(MESSENGER_EVENTS.NEW_MESSAGE_IN_OTHER_DIALOG, msg);
         }
     }
