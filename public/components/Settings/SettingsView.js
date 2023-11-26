@@ -212,7 +212,7 @@ export class SettingsView extends BaseView {
         this.errorLabel.innerHTML = message;
     }
 
-    selectTags(){
+    selectTags() {
         const selected = this.root.querySelector('.multiselection__selected');
         const list = this.root.querySelectorAll('.multiselection__selection_variant');
         for (let i = 0; i < list.length; i++) {

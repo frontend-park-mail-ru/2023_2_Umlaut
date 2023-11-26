@@ -38,7 +38,7 @@ export class Ajax {
             );
     }
 
-    static get(url = '', params={}) {
+    static get(url = '', params = {}) {
         return fetch(url + new URLSearchParams({...params}), {
             method: 'GET',
             mode: 'cors',

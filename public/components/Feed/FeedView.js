@@ -21,7 +21,7 @@ export class FeedView extends BaseView {
 
     render(data) {
         this.root.innerHTML = '';
-        
+
         super.render(data);
 
         const searchBtn = this.root.querySelector('#search-btn');
@@ -42,8 +42,8 @@ export class FeedView extends BaseView {
                 });
                 this.params.min_age = this.root.querySelector('#from-age').value;
                 this.params.max_age = this.root.querySelector('#to-age').value;
-                var container = this.root.querySelector('.search');
-                container.className = "search";
+                const container = this.root.querySelector('.search');
+                container.className = 'search';
             });
             const carouselRoot = this.root.querySelector('.form-feed__feed-photo');
             this.carousel = new Carousel(carouselRoot);
@@ -52,10 +52,10 @@ export class FeedView extends BaseView {
         }
     }
 
-    clickWithinDiv(e){
-        var container = document.querySelector('.search');
-        if (!container.contains(e.target)){
-            container.className = "search";
+    clickWithinDiv(e) {
+        const container = document.querySelector('.search');
+        if (!container.contains(e.target)) {
+            container.className = 'search';
         }
     }
 
@@ -74,11 +74,17 @@ export class FeedView extends BaseView {
         // this.dislikeBtn.disabled = false;
         // this.likeBtn.disabled = false;
         this.dislikeFunc = () => {
-            this.eventBus.emit(FEED_EVENTS.RATE_PERSON, {request:{'liked_to_user_id': this.user.id, 'is_like': false}, params:this.params});
+            this.eventBus.emit(FEED_EVENTS.RATE_PERSON, {
+                request: {'liked_to_user_id': this.user.id, 'is_like': false},
+                params: this.params,
+            });
             this.blockButtons();
         };
         this.likeFunc = () => {
-            this.eventBus.emit(FEED_EVENTS.RATE_PERSON, {request:{'liked_to_user_id': this.user.id, 'is_like': true}, params:this.params});
+            this.eventBus.emit(FEED_EVENTS.RATE_PERSON, {
+                request: {'liked_to_user_id': this.user.id, 'is_like': true},
+                params: this.params,
+            });
             this.blockButtons();
         };
         this.dislikeBtn.addEventListener('click', this.dislikeFunc);
@@ -108,7 +114,7 @@ export class FeedView extends BaseView {
         this.render(user);
     }
 
-    selectTags(){
+    selectTags() {
         const selected = this.root.querySelector('.multiselection__selected');
         const list = this.root.querySelectorAll('.multiselection__selection_variant');
         for (let i = 0; i < list.length; i++) {

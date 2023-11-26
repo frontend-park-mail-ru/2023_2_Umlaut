@@ -43,9 +43,10 @@ export class Api {
 
     /**
      * Get-запрос на получение случайного пользователя для ленты
+     * @param {Object} data
      * @return {Promise} - статус и тело ответа
      */
-    static feed(data={}) {
+    static feed(data = {}) {
         return Ajax.get(BACKEND_URL + URLS.feed, data);
     }
 

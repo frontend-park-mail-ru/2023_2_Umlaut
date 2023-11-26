@@ -9,7 +9,7 @@ export class FeedModel {
     }
 
 
-    getNextPerson(data={}) {
+    getNextPerson(data = {}) {
         Api.feed(data).then( HandleStatuses(
             (response) => {
                 if ( response.status === 200) {
