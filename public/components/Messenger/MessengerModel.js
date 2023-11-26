@@ -1,7 +1,7 @@
 import {MESSENGER_EVENTS} from '../../lib/constansts.js';
-import {Api} from '../../lib/api.js';
 import {DEFAULT_PHOTO} from '../../lib/constansts.js';
 import {WebSocketWrapper} from '../../lib/ws.js';
+import {Api, HandleStatuses} from '../../lib/api.js';
 
 export class MessengerModel {
     constructor(eventBus) {
@@ -21,18 +21,17 @@ export class MessengerModel {
     }
 
     getPairs() {
-        Api.getPairs().then(
+        Api.getPairs().then( HandleStatuses(
             (response) => {
                 if ( response.status === 200) {
                     const dialogs = response.payload;
-                    this.addPhotos(dialogs).then((dialogs)=> this.eventBus.emit(MESSENGER_EVENTS.PAIRS_READY, dialogs));
-                } else if ( response.status === 401 ) {
-                    this.eventBus.emit(MESSENGER_EVENTS.UNAUTH);
+                    this.eventBus.emit(MESSENGER_EVENTS.PAIRS_READY, dialogs);
                 }
             },
+            this.eventBus),
         );
     }
-
+  
     addPhotos(dialogs) {
         if (dialogs) {
             dialogs.forEach((element) => {

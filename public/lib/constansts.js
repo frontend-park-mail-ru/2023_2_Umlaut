@@ -6,7 +6,7 @@ export const URLS = {
     logout: '/api/v1/auth/logout',
     Signup: '/api/v1/auth/sign-up',
     user: '/api/v1/user',
-    feed: '/api/v1/feed',
+    feed: '/api/v1/feed?',
     photo: '/api/v1/user/photo',
     dialogs: '/api/v1/dialogs',
     like: '/api/v1/like',
@@ -19,6 +19,31 @@ export const URLS = {
     feedbackPost: '/api/v1/feedback',
     feedFeedbackPost: '/api/v1/feed-feedback',
     remomendationsPost: '/api/v1/recomendation',
+    getTags: '/api/v1/tag',
+};
+
+export const SETTINGS_LIST = {
+    goals: [
+        'Серьезные отношения',
+        'Несерьезные отношения',
+        'Новые знакомства',
+    ],
+    educations: [
+        'Высшее',
+        'Среднее',
+        'Неоконченное высшее',
+        'Среднее специальное',
+    ],
+    interests: {
+        'Баскетбол': 'bascketball',
+        'Боулинг': 'bouling',
+        'Бильярд': 'bilard',
+        'Банджо': 'bango',
+        'Большой теннис': 'big_tennis',
+        'Музыка': 'music',
+        'Еда': 'food',
+        'Искусство': 'art',
+    },
 };
 
 /**
@@ -33,6 +58,7 @@ export const GLOBAL_EVENTS = {
     UNAUTH: 'Unauthorised',
     NETWORK_ERROR: 'NetworkError',
     AUTH: 'Authorised',
+    CHECK_AUTHORISED: 'CheckIsAuthorised',
     RERENDER_HEADER: 'Rerender',
     POPUP: 'Popup',
     POPUP_CONFIRM: 'Confirm',
@@ -42,8 +68,6 @@ export const GLOBAL_EVENTS = {
 
 export const AUTH_EVENTS = {
     INVALID_AUTH: 'InvalidAuth',
-    AUTH: 'SignedIn',
-    UNAUTH: 'Unauthorised',
     SIGN_IN: 'SignIn',
     SIGN_UP: 'Signup',
     INVALID_SignuP: 'InvalidSignup',
@@ -55,28 +79,20 @@ export const FEED_EVENTS = {
     NO_PEOPLE: 'NoPeople',
     NEXT_PERSON_READY: 'NextPerson',
     GET_PERSON: 'GetPerson',
-    UNAUTH: 'Unauthorised',
     MUTUAL: 'MutualLikes',
-};
-
-export const HEADER_EVENTS = {
-    CHECK_AUTHORISED: 'CheckIsAuthorised',
-    RENDER: 'RenderingHeader',
-    AUTH: 'g',
-    UNAUTH: 'k',
 };
 
 export const SETTINGS_EVENTS = {
     CHECK_AUTHORISED: 'CheckIsAuthorised',
     GOT_USER: 'RenderingHeader',
     SEND_DATA: 'g',
-    UNAUTH: 'k',
     SUCCESS: 'JJ',
     DELETE_PHOTO: 'DeletePhoto',
     PHOTO_DELETED: 'PhotoDeleted',
     ADD_PHOTO: 'AddPhoto',
     PHOTO_UPLOADED: 'photo',
     LOGOUT: 'Logout',
+    SHOW_CONFIRM_LOG: 'ShowConfirm',
 };
 
 export const MESSENGER_EVENTS = {
@@ -87,7 +103,6 @@ export const MESSENGER_EVENTS = {
     GET_MESSAGES: 'GetMessages',
     MESSAGES_READY: 'MessagesReady',
     SEND_MESSAGE: 'SendMessage',
-    UNAUTH: 'Unauth',
     PAIRS_EMPTY: 'EmptyPairs',
 };
 
@@ -104,6 +119,12 @@ export const CSAT_EVENTS = {
 export const STAT_EVENTS = {
     GET_STAT: 'jnjnjnjnj',
     STAT_READY: 'gjfnjtnn',
+};
+
+export const COMMON_EVENTS = {
+    UNAUTH: 'Unauthorised',
+    NETWORK_ERROR: 'NetworkError',
+    AUTH: 'Auth',
 };
 
 export const CSAT_URL = '/csat/';

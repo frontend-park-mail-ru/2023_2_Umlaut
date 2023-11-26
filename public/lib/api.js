@@ -1,5 +1,5 @@
 import {Ajax} from './ajax.js';
-import {URLS} from './constansts.js';
+import {COMMON_EVENTS, URLS} from './constansts.js';
 import {BACKEND_URL} from './constansts.js';
 
 /**
@@ -43,10 +43,11 @@ export class Api {
 
     /**
      * Get-запрос на получение случайного пользователя для ленты
+     * @param {Object} data
      * @return {Promise} - статус и тело ответа
      */
-    static feed() {
-        return Ajax.get(BACKEND_URL + URLS.feed);
+    static feed(data = {}) {
+        return Ajax.get(BACKEND_URL + URLS.feed, data);
     }
 
     /**
@@ -78,8 +79,8 @@ export class Api {
         return Ajax.delete(BACKEND_URL + URLS.photo, {link: photo});
     }
 
-    static addLike(id) {
-        return Ajax.post(BACKEND_URL + URLS.like, id);
+    static addLike(data) {
+        return Ajax.post(BACKEND_URL + URLS.like, data);
     }
 
     static csat() {
@@ -112,4 +113,20 @@ export class Api {
     static recomendFriend(data) {
         return Ajax.post(BACKEND_URL + URLS.remomendationsPost, data);
     }
+
+    static getTags() {
+        return Ajax.get(BACKEND_URL + URLS.getTags);
+    }
+}
+
+export function HandleStatuses(func, eventBus) {
+    return (response) => {
+        if (response.status === 401) {
+            eventBus.emit(COMMON_EVENTS.UNAUTH);
+        } else if (response.status >= 500) {
+            eventBus.emit(COMMON_EVENTS.NETWORK_ERROR);
+        } else {
+            func(response);
+        }
+    };
 }

@@ -32,19 +32,14 @@ document.addEventListener('DOMContentLoaded', ()=>{
 
     const router = new Router();
 
-    const header = new HeaderController(head);
     const popup = new PopupView(root);
 
     const globalEventBus = new EventBus();
     globalEventBus.on(GLOBAL_EVENTS.REDIRECT, (data) => router.go(data));
-    globalEventBus.on(GLOBAL_EVENTS.AUTH, () => header.render());
     globalEventBus.on(GLOBAL_EVENTS.POPUP, (text) => popup.render(text));
     globalEventBus.on(GLOBAL_EVENTS.POPUP_CONFIRM, (data) => popup.renderConfirm(data));
-    globalEventBus.on(GLOBAL_EVENTS.RERENDER_HEADER, () => header.render());
-    globalEventBus.on(GLOBAL_EVENTS.UNAUTH, () => {
-        header.renderUnauth();
-        router.go('/auth');
-    });
+    globalEventBus.on(GLOBAL_EVENTS.RERENDER_HEADER, () => globalEventBus.emit(GLOBAL_EVENTS.CHECK_AUTHORISED));
+    globalEventBus.on(GLOBAL_EVENTS.UNAUTH, () => router.go('/auth') );
 
     window.addEventListener('offline', () => {
         popup.render('Отсутсвует подключение к интернету');
@@ -57,8 +52,8 @@ document.addEventListener('DOMContentLoaded', ()=>{
     const csat = new CsatController(document.body, globalEventBus);
     csat;
 
-    globalEventBus.emit(GLOBAL_EVENTS.AUTH);
-
+    const header = new HeaderController(head, globalEventBus);
+    header;
     const auth = new AuthController(page, globalEventBus);
     const signup = new SignupController(page, globalEventBus);
 
@@ -69,6 +64,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
     const admin = new AdminAuthController(page, globalEventBus);
     const statisctics = new StatisticsController(page, globalEventBus);
 
+
     router.add('/', feed);
     router.add('/feed', feed);
     router.add('/auth', auth);
@@ -78,6 +74,6 @@ document.addEventListener('DOMContentLoaded', ()=>{
     router.add('/admin', statisctics);
     router.add('/admin/auth', admin);
 
-
+    globalEventBus.emit(GLOBAL_EVENTS.CHECK_AUTHORISED);
     router.start();
 });

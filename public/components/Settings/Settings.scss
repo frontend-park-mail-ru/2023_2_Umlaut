@@ -114,8 +114,6 @@
         height: 20px;
         font-family: 'Montserrat';
     }
-
-    
   }
 
   &__show-list{
@@ -132,6 +130,10 @@
     padding-right: 4px;
     margin-left: 10px;
     border-radius: 10px;
+
+    &_white{
+      background: #f4f4f4;
+    }
   }
 }
 
@@ -140,7 +142,7 @@
     visibility: hidden;
     position: absolute;
     background-color: #e6dddd;
-    height: 150px;
+    height: 140px;
     z-index: 2;
     border-radius: 3px;
     padding: 10px;
