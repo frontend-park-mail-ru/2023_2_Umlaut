@@ -1,12 +1,19 @@
 import {MESSENGER_EVENTS} from '../../lib/constansts.js';
 import {Api} from '../../lib/api.js';
 import {DEFAULT_PHOTO} from '../../lib/constansts.js';
+import {WebSocketWrapper} from '../../lib/ws.js';
 
 export class MessengerModel {
     constructor(eventBus) {
         this.eventBus = eventBus;
         this.eventBus.on(MESSENGER_EVENTS.GET_DIALOGS, this.getDialogs.bind(this));
         this.eventBus.on(MESSENGER_EVENTS.GET_PAIRS, this.getPairs.bind(this));
+        this.eventBus.on(MESSENGER_EVENTS.SEND_MESSAGE, this.sendMessage.bind(this));
+        this.eventBus.on(MESSENGER_EVENTS.GET_MESSAGES, this.getMessages.bind(this));
+        this.socket = new WebSocketWrapper("wss://umlaut-bmstu.me/websocket");
+        this.socket.connect();
+        this.socket.subscribe("message", (msg)=>this.gotNewMessage(msg).bind(this));
+        this.id = null;
     }
 
     getDialogs() {
@@ -40,5 +47,22 @@ export class MessengerModel {
             });
         }
         return Promise.resolve(dialogs);
+    }
+
+    sendMessage(msg){
+        this.socket.send(msg);
+    }
+
+    getMessages(id){
+        this.id = id;
+        this.eventBus.emit(MESSENGER_EVENTS.MESSAGES_READY, data);
+    }
+
+    gotNewMessage(msg){
+        if(msg.id === this.id){
+            this.eventBus.emit(MESSENGER_EVENTS.NEW_MESSAGE_IN_THIS_DIALOG, msg);
+        }else{
+            this.eventBus.emit(MESSENGER_EVENTS.NEW_MESSAGE_IN_OTHER_DIALOG, msg);
+        }
     }
 }

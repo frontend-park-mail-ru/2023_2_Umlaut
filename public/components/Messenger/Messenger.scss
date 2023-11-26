@@ -14,11 +14,6 @@
     overflow: auto;
   }
 
-  &__dialog-window {
-    grid-area: "dialog-window";
-    border: 1px solid var(--dark-blue-color);
-  }
-
   &__button {
     background-color: var(--dialog-grey);
   }
@@ -27,6 +22,16 @@
     font-size: 16px;
     color: white;
     padding: 2%;
+  }
+
+  &__new-message{
+    background-color: red;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    position: absolute;
+    top:5px;
+    right: 5px;
   }
 }
 
@@ -56,5 +61,54 @@
 
   &__preview-message {
     font-size: 12px;
+  }
+}
+
+.dialog-window {
+  grid-area: "dialog-window";
+  border: 1px solid var(--dark-blue-color);
+
+  &__dialog{
+    height: 84%;
+    padding: 1%;
+  }
+
+  &__message{
+    background-color: white;
+    width: min-content;
+    border-radius: 8px;
+    max-width: 25%;
+    padding: 3px;
+    margin: 3px 0px;
+
+    &_me{
+      margin-left: auto;
+    }
+  }
+
+  &__text{
+    font-size: 18px;
+    margin: 2px;
+    word-wrap: break-word;
+  }
+
+  &__time{
+    font-size: 12px;
+  }
+
+  &__input-message{
+    display: flex;
+    height: 10%;
+    background-color: white;
+  }
+
+  &__send-img{
+    width: 35px;
+    background-color: white;
+  }
+
+  &__input{
+    width: 100%;
+    border: none;
   }
 }
