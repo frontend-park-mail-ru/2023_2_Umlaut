@@ -43,10 +43,11 @@ export class Api {
 
     /**
      * Get-запрос на получение случайного пользователя для ленты
+     * @param {Object} data
      * @return {Promise} - статус и тело ответа
      */
-    static feed() {
-        return Ajax.get(BACKEND_URL + URLS.feed);
+    static feed(data = {}) {
+        return Ajax.get(BACKEND_URL + URLS.feed, data);
     }
 
     /**
@@ -78,8 +79,8 @@ export class Api {
         return Ajax.delete(BACKEND_URL + URLS.photo, {link: photo});
     }
 
-    static addLike(id) {
-        return Ajax.post(BACKEND_URL + URLS.like, id);
+    static addLike(data) {
+        return Ajax.post(BACKEND_URL + URLS.like, data);
     }
 
     static csat() {
