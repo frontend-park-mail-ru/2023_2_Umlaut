@@ -1,5 +1,5 @@
-import {SETTINGS_EVENTS} from '../../lib/constansts.js';
-import {Api} from '../../lib/api.js';
+import {COMMON_EVENTS, SETTINGS_EVENTS} from '../../lib/constansts.js';
+import {Api, HandleStatuses} from '../../lib/api.js';
 
 export class SettingsModel {
     constructor(eventBus) {
@@ -46,19 +46,17 @@ export class SettingsModel {
         this.settings.user.prefer_gender = data.prefer_gender;
         this.settings.user.mail = data.mail;
         this.settings.user.password = data.password;
-        Api.update(this.settings.user).then(
+        Api.update(this.settings.user).then(HandleStatuses(
             (response) => {
                 if (response.status === 200) {
                     this.eventBus.emit(SETTINGS_EVENTS.SUCCESS, 'Данные успешно сохранены!');
-                } else {
-                    // this.eventBus.emit(SETTINGS_EVENTS.ERROR, response.message);
                 }
             },
-        );
+            this.eventBus));
     }
 
     isAuthorised() {
-        Api.user().then(
+        Api.user().then( HandleStatuses(
             (response) => {
                 if ( response.status === 200 ) {
                     this.settings.user = response.payload;
@@ -73,39 +71,42 @@ export class SettingsModel {
                     }
 
                     this.eventBus.emit(SETTINGS_EVENTS.GOT_USER, this.settings);
-                } else {
-                    this.eventBus.emit(SETTINGS_EVENTS.UNAUTH);
                 }
             },
+            this.eventBus),
         );
     }
 
     addPhoto(file) {
-        Api.addPhoto(file).then(
+        Api.addPhoto(file).then( HandleStatuses(
             (response) => {
                 if ( response.status === 200 ) {
                     this.eventBus.emit(SETTINGS_EVENTS.PHOTO_UPLOADED, response.payload);
                 }
-            });
+            },
+            this.eventBus),
+        );
     }
 
     deletePhoto(photo) {
-        Api.deletePhoto(photo).then(
+        Api.deletePhoto(photo).then( HandleStatuses(
             (response) => {
                 if ( response.status === 200 ) {
                     this.eventBus.emit(SETTINGS_EVENTS.PHOTO_DELETED, photo);
                 }
             },
+            this.eventBus),
         );
     }
 
     logout() {
-        Api.logout().then(
+        Api.logout().then( HandleStatuses(
             (response) => {
                 if ( response.status === 200 ) {
-                    this.eventBus.emit(SETTINGS_EVENTS.UNAUTH);
+                    this.eventBus.emit(COMMON_EVENTS.UNAUTH);
                 }
             },
+            this.eventBus),
         );
     }
 }

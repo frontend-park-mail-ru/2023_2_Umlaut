@@ -1,5 +1,5 @@
 import {Ajax} from './ajax.js';
-import {URLS} from './constansts.js';
+import {COMMON_EVENTS, URLS} from './constansts.js';
 import {BACKEND_URL} from './constansts.js';
 
 /**
@@ -112,4 +112,16 @@ export class Api {
     static recomendFriend(data) {
         return Ajax.post(BACKEND_URL + URLS.remomendationsPost, data);
     }
+}
+
+export function HandleStatuses(func, eventBus) {
+    return (response) => {
+        if (response.status === 401) {
+            eventBus.emit(COMMON_EVENTS.UNAUTH);
+        } else if (response.status >= 500) {
+            eventBus.emit(COMMON_EVENTS.NETWORK_ERROR);
+        } else {
+            func(response);
+        }
+    };
 }

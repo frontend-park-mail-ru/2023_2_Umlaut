@@ -1,4 +1,4 @@
-import {AUTH_EVENTS} from '../../lib/constansts.js';
+import {AUTH_EVENTS, COMMON_EVENTS, GLOBAL_EVENTS} from '../../lib/constansts.js';
 import {Api} from '../../lib/api.js';
 
 export class AdminAuthModel {
@@ -12,7 +12,7 @@ export class AdminAuthModel {
         Api.admimAuth(data).then(
             (response) => {
                 if (response.status === 200) {
-                    this.eventBus.emit(AUTH_EVENTS.AUTH);
+                    this.eventBus.emit(COMMON_EVENTS.AUTH);
                 } else if (response.status === 400) {
                     this.eventBus.emit(AUTH_EVENTS.INVALID_AUTH, {message: 'Неправильный запрос'});
                 } else if (response.status === 404) {
@@ -30,9 +30,9 @@ export class AdminAuthModel {
         Api.recomendation().then(
             (response) => {
                 if ( response.status === 200 ) {
-                    this.eventBus.emit(AUTH_EVENTS.AUTH);
+                    this.eventBus.emit(GLOBAL_EVENTS.REDIRECT, '/admin');
                 } else {
-                    this.eventBus.emit(AUTH_EVENTS.UNAUTH);
+                    this.eventBus.emit(COMMON_EVENTS.UNAUTH);
                 }
             },
         );

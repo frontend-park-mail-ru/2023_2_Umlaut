@@ -1,7 +1,7 @@
 import {SettingsView} from './SettingsView.js';
 import {SettingsModel} from './SettingsModel.js';
 import {BaseController} from '../BaseController.js';
-import {SETTINGS_EVENTS, GLOBAL_EVENTS} from '../../lib/constansts.js';
+import {SETTINGS_EVENTS, GLOBAL_EVENTS, COMMON_EVENTS} from '../../lib/constansts.js';
 
 
 export class SettingsController extends BaseController {
@@ -13,7 +13,7 @@ export class SettingsController extends BaseController {
         this.eventBus.on(SETTINGS_EVENTS.SHOW_CONFIRM_LOG, (data) =>
             this.globalEventBus.emit(GLOBAL_EVENTS.POPUP_CONFIRM, data));
         this.eventBus.on(SETTINGS_EVENTS.PHOTO_UPLOADED, () => this.globalEventBus.emit(GLOBAL_EVENTS.RERENDER_HEADER));
-        this.eventBus.on(SETTINGS_EVENTS.UNAUTH, () => this.globalEventBus.emit(GLOBAL_EVENTS.UNAUTH));
+        this.eventBus.on(COMMON_EVENTS.UNAUTH, () => this.globalEventBus.emit(GLOBAL_EVENTS.UNAUTH));
     }
 
     render() {

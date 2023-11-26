@@ -1,4 +1,4 @@
-import {HEADER_EVENTS} from '../../lib/constansts.js';
+import {COMMON_EVENTS} from '../../lib/constansts.js';
 import './Header.scss';
 
 /**
@@ -7,8 +7,8 @@ import './Header.scss';
 export class HeaderView {
     constructor(root, eventBus) {
         this.eventBus = eventBus;
-        this.eventBus.on(HEADER_EVENTS.AUTH, this.render.bind(this));
-        this.eventBus.on(HEADER_EVENTS.UNAUTH, this.renderU.bind(this));
+        this.eventBus.on(COMMON_EVENTS.AUTH, this.render.bind(this));
+        this.eventBus.on(COMMON_EVENTS.UNAUTH, this.renderU.bind(this));
         this.parent = root;
         this.template = require('./Header.hbs');
     }

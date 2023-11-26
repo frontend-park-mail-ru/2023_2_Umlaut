@@ -1,6 +1,6 @@
 import {Validate} from '../../lib/validate.js';
 import {BaseView} from '../BaseView.js';
-import {AUTH_EVENTS} from '../../lib/constansts.js';
+import {AUTH_EVENTS, COMMON_EVENTS} from '../../lib/constansts.js';
 import '../Auth/Auth.scss';
 
 /**
@@ -15,7 +15,7 @@ export class AdminAuthView extends BaseView {
     constructor(root, eventBus) {
         super(root, eventBus, require('./AdminAuth.hbs'));
         this.eventBus.on( AUTH_EVENTS.INVALID_AUTH, (data) => this.showError(data.message));
-        this.eventBus.on( AUTH_EVENTS.UNAUTH, this.render.bind(this));
+        this.eventBus.on( COMMON_EVENTS.UNAUTH, this.render.bind(this));
     }
 
     /**

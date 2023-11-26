@@ -1,4 +1,4 @@
-import {STAT_EVENTS, AUTH_EVENTS} from '../../lib/constansts.js';
+import {STAT_EVENTS, COMMON_EVENTS} from '../../lib/constansts.js';
 import {Api} from '../../lib/api.js';
 
 export class StatisticsModel {
@@ -19,15 +19,15 @@ export class StatisticsModel {
                                         ...feedFeedbackResp.payload,
                                         ...recomendationResp.payload});
                                 } else if (recomendationResp.status === 401) {
-                                    this.eventBus.emit(AUTH_EVENTS.UNAUTH);
+                                    this.eventBus.emit(COMMON_EVENTS.UNAUTH);
                                 }
                             });
                         } else if ( feedFeedbackResp.status === 401) {
-                            this.eventBus.emit(AUTH_EVENTS.UNAUTH);
+                            this.eventBus.emit(COMMON_EVENTS.UNAUTH);
                         }
                     });
                 } else if (feedbackResp.status === 401) {
-                    this.eventBus.emit(AUTH_EVENTS.UNAUTH);
+                    this.eventBus.emit(COMMON_EVENTS.UNAUTH);
                 }
             },
         );

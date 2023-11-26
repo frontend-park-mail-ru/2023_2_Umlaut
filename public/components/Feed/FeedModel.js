@@ -1,4 +1,4 @@
-import {Api} from '../../lib/api.js';
+import {Api, HandleStatuses} from '../../lib/api.js';
 import {FEED_EVENTS} from '../../lib/constansts.js';
 
 export class FeedModel {
@@ -10,25 +10,27 @@ export class FeedModel {
 
 
     getNextPerson() {
-        Api.feed().then((response) => {
-            if ( response.status === 200) {
-                const user = response.payload;
-                this.eventBus.emit(FEED_EVENTS.NEXT_PERSON_READY, user);
-            } else if ( response.status === 401 ) {
-                this.eventBus.emit(FEED_EVENTS.UNAUTH);
-            } else if ( response.status === 404 ) {
-                this.eventBus.emit(FEED_EVENTS.NO_PEOPLE);
-            }
-        });
+        Api.feed().then( HandleStatuses(
+            (response) => {
+                if ( response.status === 200) {
+                    const user = response.payload;
+                    this.eventBus.emit(FEED_EVENTS.NEXT_PERSON_READY, user);
+                } else if ( response.status === 404 ) {
+                    this.eventBus.emit(FEED_EVENTS.NO_PEOPLE);
+                }
+            },
+            this.eventBus),
+        );
     }
 
     ratePerson(id) {
-        Api.addLike(id).then((response) => {
-            if ( response.status === 401 ) {
-                this.eventBus.emit(FEED_EVENTS.UNAUTH);
-            } else if ( response.status === 200 ) {
-                this.getNextPerson();
-            }
-        });
+        Api.addLike(id).then( HandleStatuses(
+            (response) => {
+                if ( response.status === 200 ) {
+                    this.getNextPerson();
+                }
+            },
+            this.eventBus),
+        );
     }
 }
