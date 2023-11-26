@@ -1,5 +1,5 @@
 import {COMMON_EVENTS, SETTINGS_EVENTS, SETTINGS_LIST} from '../../lib/constansts.js';
-import {Api, HandleStatuses} from '../../lib/api.js';
+import {Api, HandleStatuses, LoadTags} from '../../lib/api.js';
 
 export class SettingsModel {
     constructor(eventBus) {
@@ -43,7 +43,7 @@ export class SettingsModel {
                         this.settings.tags.push(element);
                     });
                     if (!SETTINGS_LIST.interests) {
-                        await this.LoadTags();
+                        await LoadTags(this.eventBus);
                     }
                     this.settings.user.hasPreferGender = this.settings.user.prefer_gender !== null;
                     this.settings.user.hasGender = this.settings.user.user_gender !== null;
