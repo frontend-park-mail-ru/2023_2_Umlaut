@@ -31,7 +31,7 @@ export class MessengerModel {
             this.eventBus),
         );
     }
-  
+
     addPhotos(dialogs) {
         if (dialogs) {
             dialogs.forEach((element) => {

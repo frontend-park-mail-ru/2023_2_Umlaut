@@ -10,7 +10,6 @@ export class SettingsModel {
         this.eventBus.on(SETTINGS_EVENTS.DELETE_PHOTO, this.deletePhoto.bind(this));
         this.eventBus.on(SETTINGS_EVENTS.LOGOUT, this.logout.bind(this));
         this.settings = SETTINGS_LIST;
-
     }
 
     sendForm(data) {
@@ -43,7 +42,7 @@ export class SettingsModel {
                     this.settings.user.tags.forEach((element) => {
                         this.settings.tags.push(element);
                     });
-                    if (!this.settings.interests) {
+                    if (!SETTINGS_LIST.interests) {
                         await this.LoadTags();
                     }
                     this.settings.user.hasPreferGender = this.settings.user.prefer_gender !== null;
@@ -57,16 +56,6 @@ export class SettingsModel {
             },
             this.eventBus),
         );
-    }
-
-    async LoadTags() {
-        const tags = (await Api.getTags()).payload;
-        this.settings.interests = {};
-        let counter = 0;
-        tags.forEach((el) => {
-            this.settings.interests[el] = 'tag_' + counter;
-            counter++;
-        });
     }
 
     addPhoto(file) {

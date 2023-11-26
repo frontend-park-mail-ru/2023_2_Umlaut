@@ -1,4 +1,4 @@
-import {Api, HandleStatuses} from '../../lib/api.js';
+import {Api, HandleStatuses, LoadTags} from '../../lib/api.js';
 import {FEED_EVENTS, SETTINGS_LIST} from '../../lib/constansts.js';
 
 export class FeedModel {
@@ -11,9 +11,13 @@ export class FeedModel {
 
     getNextPerson(data = {}) {
         Api.feed(data).then( HandleStatuses(
-            (response) => {
+            async (response) => {
                 if ( response.status === 200) {
                     const user = response.payload;
+                    if (!SETTINGS_LIST.interests) {
+                        await LoadTags(this.eventBus);
+                    }
+
                     user.interests = SETTINGS_LIST.interests;
                     this.eventBus.emit(FEED_EVENTS.NEXT_PERSON_READY, user);
                 } else if ( response.status === 404 ) {

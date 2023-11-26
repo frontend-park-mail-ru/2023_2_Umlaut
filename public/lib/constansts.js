@@ -34,16 +34,7 @@ export const SETTINGS_LIST = {
         'Неоконченное высшее',
         'Среднее специальное',
     ],
-    interests: {
-        'Баскетбол': 'bascketball',
-        'Боулинг': 'bouling',
-        'Бильярд': 'bilard',
-        'Банджо': 'bango',
-        'Большой теннис': 'big_tennis',
-        'Музыка': 'music',
-        'Еда': 'food',
-        'Искусство': 'art',
-    },
+    interests: undefined,
 };
 
 /**

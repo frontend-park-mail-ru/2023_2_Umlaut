@@ -1,6 +1,6 @@
 import {Ajax} from './ajax.js';
 import {COMMON_EVENTS, URLS} from './constansts.js';
-import {BACKEND_URL} from './constansts.js';
+import {BACKEND_URL, SETTINGS_LIST} from './constansts.js';
 
 /**
  * Класс методов API
@@ -126,7 +126,22 @@ export function HandleStatuses(func, eventBus) {
         } else if (response.status >= 500) {
             eventBus.emit(COMMON_EVENTS.NETWORK_ERROR);
         } else {
-            func(response);
+            return func(response);
         }
     };
+}
+
+export async function LoadTags(eventBus) {
+    await Api.getTags().then(HandleStatuses((response) =>{
+        if (response.status !== 200) {
+            eventBus.emit(COMMON_EVENTS.NETWORK_ERROR);
+            return;
+        }
+        SETTINGS_LIST.interests = {};
+        let counter = 0;
+        response.payload.forEach((el) => {
+            SETTINGS_LIST.interests[el] = 'tag_' + counter;
+            counter++;
+        });
+    }), eventBus);
 }

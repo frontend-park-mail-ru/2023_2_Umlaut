@@ -45,6 +45,7 @@ export class FeedView extends BaseView {
                 const container = this.root.querySelector('.search');
                 container.className = 'search';
             });
+
             const carouselRoot = this.root.querySelector('.form-feed__feed-photo');
             this.carousel = new Carousel(carouselRoot);
             this.carousel.render(data.image_paths);
