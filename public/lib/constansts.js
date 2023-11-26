@@ -19,6 +19,7 @@ export const URLS = {
     feedbackPost: '/api/v1/feedback',
     feedFeedbackPost: '/api/v1/feed-feedback',
     remomendationsPost: '/api/v1/recomendation',
+    getTags: '/api/v1/tag',
 };
 
 export const SETTINGS_LIST = {

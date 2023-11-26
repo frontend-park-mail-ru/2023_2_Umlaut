@@ -22,6 +22,7 @@ export class FeedModel {
             },
             this.eventBus),
         );
+        Api.getTags();
     }
 
     ratePerson(data) {
