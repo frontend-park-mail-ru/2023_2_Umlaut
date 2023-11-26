@@ -10,6 +10,16 @@ export class Csat {
         this.inputValue = {};
     }
 
+    checkAuthorisation(){
+        Api.user().then(
+        (response) => {
+            if ( response.status === 401 ) {
+                window.top.postMessage('close', window.location.origin);
+            }
+        });
+    }
+
+
     renderAboutAll() {
         this.root.innerHTML = this.number({text:"Оцените общее впечатление от пользования нашим сайтом"});
         const btnNext = this.root.querySelector('#take-survey');
