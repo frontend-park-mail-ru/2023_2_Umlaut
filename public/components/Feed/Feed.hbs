@@ -25,5 +25,36 @@
       </div>
     {{/if}}
   </div>
-  {{!-- вот здесь поиск будет --}}
+  <img src="/pics/search.png" class="form-feed__search-btn" id="search-btn">
+  <div class="search">
+        <div class="search__about-user">
+          Выберите параметры для поиска партнера:
+            <div class="input-border multiselection">
+                <span class="input-border__header input-border__header_white">Теги</span>
+                <div class="input-border__data-input"  id="tags">
+                    <div class="multiselection__selected"></div>
+                    <div class="multiselection__select-multiple">
+                        {{#each this.interests}}
+                            <span class="multiselection__selection multiselection__selection_variant" id="{{this}}">{{@key}}</span>
+                        {{/each}} 
+                    </div>
+                </div>
+            </div>
+            Возраст
+            <div class="search__age">
+              <div class="input-border">
+                  <span class="input-border__header input-border__header_white">От</span>
+                      <input maxlength="3" type="text" class="input-border__data-input input__data-input_password" id="from-age">
+                  </select>
+              </div>
+              <div class="input-border">
+                  <span class="input-border__header input-border__header_white">До</span>
+                      <input maxlength="3" type="text" class="input-border__data-input input__data-input_password" id="to-age">
+                  </select>
+              </div>
+            </div>
+            <div class="error-label"></div>
+            <button type="submit" id="readySearch" class="btn btn_important">искать</button>
+        </div>
+    </div>
 </div>

@@ -26,26 +26,7 @@ export class SettingsView extends BaseView {
             elem.classList.add('multiselection__selection_active');
         }
 
-        const selected = this.root.querySelector('.multiselection__selected');
-        const list = this.root.querySelectorAll('.multiselection__selection_variant');
-        for (let i = 0; i < list.length; i++) {
-            list[i].addEventListener('click', () => {
-                list[i].classList.toggle('multiselection__selection_active');
-                if (list[i].classList.contains('multiselection__selection_active')) {
-                    const modifyTag = document.createElement('span');
-                    modifyTag.className = 'multiselection__selection multiselection__selection_selected';
-                    modifyTag.innerHTML = list[i].innerHTML;
-                    selected.appendChild(modifyTag);
-                } else {
-                    const allTags = document.querySelectorAll('.multiselection__selection_selected');
-                    allTags.forEach((element) => {
-                        if (element.innerHTML === list[i].innerHTML) {
-                            selected.removeChild(element);
-                        }
-                    });
-                }
-            });
-        }
+        this.selectTags();
 
         this.form = this.root.querySelector('.settings-form');
         this.form.addEventListener('submit', this.onSubmit.bind(this));
@@ -229,5 +210,28 @@ export class SettingsView extends BaseView {
     showError(message) {
         this.errorLabel.style.visibility = 'visible';
         this.errorLabel.innerHTML = message;
+    }
+
+    selectTags(){
+        const selected = this.root.querySelector('.multiselection__selected');
+        const list = this.root.querySelectorAll('.multiselection__selection_variant');
+        for (let i = 0; i < list.length; i++) {
+            list[i].addEventListener('click', () => {
+                list[i].classList.toggle('multiselection__selection_active');
+                if (list[i].classList.contains('multiselection__selection_active')) {
+                    const modifyTag = document.createElement('span');
+                    modifyTag.className = 'multiselection__selection multiselection__selection_selected';
+                    modifyTag.innerHTML = list[i].innerHTML;
+                    selected.appendChild(modifyTag);
+                } else {
+                    const allTags = document.querySelectorAll('.multiselection__selection_selected');
+                    allTags.forEach((element) => {
+                        if (element.innerHTML === list[i].innerHTML) {
+                            selected.removeChild(element);
+                        }
+                    });
+                }
+            });
+        }
     }
 }

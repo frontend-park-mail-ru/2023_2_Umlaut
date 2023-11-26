@@ -1,6 +1,5 @@
 .form-feed {
   padding: 20px;
-  margin: 3%;
   display: flex;
 
   &__buttons {
@@ -45,6 +44,7 @@
     padding: 15px;
     width: 70%;
     height: 40%;
+    margin: 4%;
   }
 
   &__text {
@@ -83,5 +83,33 @@
   &__about-user {
     display: flex;
     flex-direction: column;
+  }
+
+  &__search-btn{
+    width: 60px;
+    height: 60px;
+    margin-left: auto;
+    cursor: pointer;
+  }
+}
+
+.search{
+  background: #f4f4f4;
+  border: solid;
+  border-radius: 12px;
+  padding: 8px;
+  height: min-content;
+  position: absolute;
+  top: 90px;
+  right: 80px;
+  visibility: hidden;
+
+  &_visible{
+    visibility: visible;
+  }
+  
+  &__age{
+    display: flex;
+    width: 325px;
   }
 }

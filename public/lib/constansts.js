@@ -6,7 +6,7 @@ export const URLS = {
     logout: '/api/v1/auth/logout',
     Signup: '/api/v1/auth/sign-up',
     user: '/api/v1/user',
-    feed: '/api/v1/feed',
+    feed: '/api/v1/feed?',
     photo: '/api/v1/user/photo',
     dialogs: '/api/v1/dialogs',
     like: '/api/v1/like',
@@ -19,6 +19,30 @@ export const URLS = {
     feedbackPost: '/api/v1/feedback',
     feedFeedbackPost: '/api/v1/feed-feedback',
     remomendationsPost: '/api/v1/recomendation',
+};
+
+export const SETTINGS_LIST = {
+    goals: [
+        'Серьезные отношения',
+        'Несерьезные отношения',
+        'Новые знакомства',
+    ],
+    educations: [
+        'Высшее',
+        'Среднее',
+        'Неоконченное высшее',
+        'Среднее специальное',
+    ],
+    interests: {
+        'Баскетбол': 'bascketball',
+        'Боулинг': 'bouling',
+        'Бильярд': 'bilard',
+        'Банджо': 'bango',
+        'Большой теннис': 'big_tennis',
+        'Музыка': 'music',
+        'Еда': 'food',
+        'Искусство': 'art',
+    },
 };
 
 /**

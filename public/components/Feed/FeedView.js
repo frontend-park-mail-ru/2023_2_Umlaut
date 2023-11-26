@@ -16,16 +16,35 @@ export class FeedView extends BaseView {
         this.eventBus.on(FEED_EVENTS.NEXT_PERSON_READY, this.update.bind(this));
         this.eventBus.on(FEED_EVENTS.NO_PEOPLE, this.showStub.bind(this));
         this.update = this.update.bind(this);
+        this.params = {};
     }
 
     render(data) {
         this.root.innerHTML = '';
-
+        
         super.render(data);
+
+        const searchBtn = this.root.querySelector('#search-btn');
+        const searchForm = this.root.querySelector('.search');
+        searchBtn.addEventListener('click', () => searchForm.classList.toggle('search_visible'));
+        document.addEventListener('mouseup', this.clickWithinDiv);
 
         if ( data === undefined ) {
             this.eventBus.emit(FEED_EVENTS.GET_PERSON);
         } else {
+            this.selectTags();
+            const readySearch = this.root.querySelector('#readySearch');
+            readySearch.addEventListener('click', ()=>{
+                const tags = this.root.querySelectorAll('.multiselection__selection_active');
+                this.params.tags = [];
+                tags.forEach((tag) => {
+                    this.params.tags.push(tag.innerHTML);
+                });
+                this.params.min_age = this.root.querySelector('#from-age').value;
+                this.params.max_age = this.root.querySelector('#to-age').value;
+                var container = this.root.querySelector('.search');
+                container.className = "search";
+            });
             const carouselRoot = this.root.querySelector('.form-feed__feed-photo');
             this.carousel = new Carousel(carouselRoot);
             this.carousel.render(data.image_paths);
@@ -33,9 +52,17 @@ export class FeedView extends BaseView {
         }
     }
 
+    clickWithinDiv(e){
+        var container = document.querySelector('.search');
+        if (!container.contains(e.target)){
+            container.className = "search";
+        }
+    }
+
     close() {
         super.close();
         this.blockButtons();
+        document.removeEventListener('mouseup', this.clickWithinDiv);
     }
 
     /**
@@ -47,11 +74,11 @@ export class FeedView extends BaseView {
         // this.dislikeBtn.disabled = false;
         // this.likeBtn.disabled = false;
         this.dislikeFunc = () => {
-            this.eventBus.emit(FEED_EVENTS.GET_PERSON);
+            this.eventBus.emit(FEED_EVENTS.RATE_PERSON, {request:{'liked_to_user_id': this.user.id, 'is_like': false}, params:this.params});
             this.blockButtons();
         };
         this.likeFunc = () => {
-            this.eventBus.emit(FEED_EVENTS.RATE_PERSON, {'liked_to_user_id': this.user.id});
+            this.eventBus.emit(FEED_EVENTS.RATE_PERSON, {request:{'liked_to_user_id': this.user.id, 'is_like': true}, params:this.params});
             this.blockButtons();
         };
         this.dislikeBtn.addEventListener('click', this.dislikeFunc);
@@ -79,5 +106,28 @@ export class FeedView extends BaseView {
         this.user = user;
         this.close();
         this.render(user);
+    }
+
+    selectTags(){
+        const selected = this.root.querySelector('.multiselection__selected');
+        const list = this.root.querySelectorAll('.multiselection__selection_variant');
+        for (let i = 0; i < list.length; i++) {
+            list[i].addEventListener('click', () => {
+                list[i].classList.toggle('multiselection__selection_active');
+                if (list[i].classList.contains('multiselection__selection_active')) {
+                    const modifyTag = document.createElement('span');
+                    modifyTag.className = 'multiselection__selection multiselection__selection_selected';
+                    modifyTag.innerHTML = list[i].innerHTML;
+                    selected.appendChild(modifyTag);
+                } else {
+                    const allTags = document.querySelectorAll('.multiselection__selection_selected');
+                    allTags.forEach((element) => {
+                        if (element.innerHTML === list[i].innerHTML) {
+                            selected.removeChild(element);
+                        }
+                    });
+                }
+            });
+        }
     }
 }

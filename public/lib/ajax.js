@@ -38,8 +38,8 @@ export class Ajax {
             );
     }
 
-    static get(url = '') {
-        return fetch(url, {
+    static get(url = '', params={}) {
+        return fetch(url + new URLSearchParams({...params}), {
             method: 'GET',
             mode: 'cors',
             credentials: 'include',

@@ -1,5 +1,5 @@
 import {Api, HandleStatuses} from '../../lib/api.js';
-import {FEED_EVENTS} from '../../lib/constansts.js';
+import {FEED_EVENTS, SETTINGS_LIST} from '../../lib/constansts.js';
 
 export class FeedModel {
     constructor(eventBus) {
@@ -9,11 +9,12 @@ export class FeedModel {
     }
 
 
-    getNextPerson() {
-        Api.feed().then( HandleStatuses(
+    getNextPerson(data={}) {
+        Api.feed(data).then( HandleStatuses(
             (response) => {
                 if ( response.status === 200) {
                     const user = response.payload;
+                    user.interests = SETTINGS_LIST.interests;
                     this.eventBus.emit(FEED_EVENTS.NEXT_PERSON_READY, user);
                 } else if ( response.status === 404 ) {
                     this.eventBus.emit(FEED_EVENTS.NO_PEOPLE);
@@ -23,11 +24,11 @@ export class FeedModel {
         );
     }
 
-    ratePerson(id) {
-        Api.addLike(id).then( HandleStatuses(
+    ratePerson(data) {
+        Api.addLike(data.request).then( HandleStatuses(
             (response) => {
                 if ( response.status === 200 ) {
-                    this.getNextPerson();
+                    this.getNextPerson(data.params);
                 }
             },
             this.eventBus),

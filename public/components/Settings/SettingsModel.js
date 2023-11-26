@@ -1,4 +1,4 @@
-import {COMMON_EVENTS, SETTINGS_EVENTS} from '../../lib/constansts.js';
+import {COMMON_EVENTS, SETTINGS_EVENTS, SETTINGS_LIST} from '../../lib/constansts.js';
 import {Api, HandleStatuses} from '../../lib/api.js';
 
 export class SettingsModel {
@@ -9,29 +9,7 @@ export class SettingsModel {
         this.eventBus.on(SETTINGS_EVENTS.ADD_PHOTO, this.addPhoto.bind(this));
         this.eventBus.on(SETTINGS_EVENTS.DELETE_PHOTO, this.deletePhoto.bind(this));
         this.eventBus.on(SETTINGS_EVENTS.LOGOUT, this.logout.bind(this));
-        this.settings = {
-            goals: [
-                'Серьезные отношения',
-                'Несерьезные отношения',
-                'Новые знакомства',
-            ],
-            educations: [
-                'Высшее',
-                'Среднее',
-                'Неоконченное высшее',
-                'Среднее специальное',
-            ],
-            interests: {
-                'Баскетбол': 'bascketball',
-                'Боулинг': 'bouling',
-                'Бильярд': 'bilard',
-                'Банджо': 'bango',
-                'Большой теннис': 'big_tennis',
-                'Музыка': 'music',
-                'Еда': 'food',
-                'Искусство': 'art',
-            },
-        };
+        this.settings = SETTINGS_LIST;
     }
 
     sendForm(data) {
