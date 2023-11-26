@@ -1,72 +1,29 @@
 <div class="form-feed">
-    <div class="form-feed__user-part">
-        {{#if id}}
-        <div class="form-feed__photo-part">
-            <div class="form-feed__user-name">
-                {{name}}
-                {{#if age}}
-                , {{age}}
-                {{/if}}
-            </div>
-            <div class="form-feed__feed-photo">
-
-            </div>
-        </div>
-        <div class="form-feed__description">
-            <div class="form-feed__about-user">
-                {{#if looking}}
-                <span class="form-feed__text form-feed__text_bold">
-                    Цель:
-                </span>
-                <span class="form-feed__text">
-                    {{looking}}
-                </span>
-                {{/if}}
-                {{#if education}}
-                <span class="form-feed__text form-feed__text_bold">
-                    Образование:
-                </span>
-                <span class="form-feed__text">
-                    {{education}}
-                </span>
-                {{/if}}
-                {{#if hobbies}}
-                <span class="form-feed__text form-feed__text_bold">
-                    Увлечения:
-                </span>
-                <span class="form-feed__text">
-                    {{hobbies}}
-                </span>
-                {{/if}}
-                {{#if tags}}
-                <span class="form-feed__text form-feed__text_bold">
-                    Теги:
-                </span>
-                <span class="form-feed__text">
-                    {{tags}}
-                </span>
-                {{/if}}
-                {{#if description}}
-                <span class="form-feed__text">
-                    {{description}}
-                </span>
-                {{/if}}
-            </div>
-        </div>
-        {{else}}
-        <div class="loading">
-            <svg class="loading__spinner" viewBox="0 0 50 50">
-                <circle class="loading__path" cx="25" cy="25" r="20" fill="none" stroke-width="5"></circle>
-            </svg>
-        </div>
-        {{/if}}
-    </div>
-    <div class="form-feed__buttons">
+  <div class="form-feed__user-part">
+    {{#if id}}
+      {{> Description}}
+      <div class="form-feed__buttons">
         <button type="button" id="dislike" class="form-feed__button">
-            <img class="form-feed__buttons-img" src="/pics/dislike.png">
+          <img class="form-feed__buttons-img" src="/pics/dislike.png" />
         </button>
         <button type="button" id="like" class="form-feed__button">
-            <img class="form-feed__buttons-img" src="/pics/like.png">
+          <img class="form-feed__buttons-img" src="/pics/like.png" />
         </button>
-    </div>
+      </div>
+    {{else}}
+      <div class="loading">
+        <svg class="loading__spinner" viewBox="0 0 50 50">
+          <circle
+            class="loading__path"
+            cx="25"
+            cy="25"
+            r="20"
+            fill="none"
+            stroke-width="5"
+          ></circle>
+        </svg>
+      </div>
+    {{/if}}
+  </div>
+  {{!-- вот здесь поиск будет --}}
 </div>
