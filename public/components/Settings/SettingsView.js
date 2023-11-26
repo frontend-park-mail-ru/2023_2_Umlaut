@@ -21,23 +21,23 @@ export class SettingsView extends BaseView {
     render(data) {
         super.render(data);
 
-        // for (let i = 0; i < data.user.tags.length; i++) {
-        //     const elem = this.root.querySelector(`#${data.interests[data.user.tags[i]]}`);
-        //     elem.classList.add('multiselection__selection_active');
-        // }
+        for (let i = 0; i < data.user.tags.length; i++) {
+            const elem = this.root.querySelector(`#${data.interests[data.user.tags[i]]}`);
+            elem.classList.add('multiselection__selection_active');
+        }
 
         const selected = this.root.querySelector('.multiselection__selected');
-        const list = this.root.querySelectorAll('.variant');
+        const list = this.root.querySelectorAll('.multiselection__selection_variant');
         for (let i = 0; i < list.length; i++) {
             list[i].addEventListener('click', () => {
                 list[i].classList.toggle('multiselection__selection_active');
                 if (list[i].classList.contains('multiselection__selection_active')) {
                     const modifyTag = document.createElement('span');
-                    modifyTag.className = 'multiselection__selection';
+                    modifyTag.className = 'multiselection__selection multiselection__selection_selected';
                     modifyTag.innerHTML = list[i].innerHTML;
                     selected.appendChild(modifyTag);
                 } else {
-                    const allTags = document.querySelectorAll('.multiselection__selection');
+                    const allTags = document.querySelectorAll('.multiselection__selection_selected');
                     allTags.forEach((element) => {
                         if (element.innerHTML === list[i].innerHTML) {
                             selected.removeChild(element);

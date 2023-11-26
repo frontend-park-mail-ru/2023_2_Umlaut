@@ -83,13 +83,13 @@
                     <div class="multiselection__selected">
                         {{#if this.user.tags}}
                             {{#each this.user.tags}}
-                                <span class="multiselection__selection">{{this}}</span>
+                                <span class="multiselection__selection multiselection__selection_selected">{{this}}</span>
                             {{/each}} 
                         {{/if}} 
                     </div>
                     <div class="multiselection__select-multiple">
                         {{#each this.interests}}
-                            <span class="multiselection__selection variant" id="{{this}}">{{@key}}</span>
+                            <span class="multiselection__selection multiselection__selection_variant" id="{{this}}">{{@key}}</span>
                         {{/each}} 
                     </div>
                 </div>

@@ -14,6 +14,6 @@ export class Validate {
 
     static onlyLetters(str) {
         // eslint-disable-next-line
-        return !/[A-Za-zА-Яа-яЁё]/.test(str) && !/\p{Extended_Pictographic}/u.test(str);
+        return /[A-Za-zА-Яа-яЁё]/.test(str) && !/\p{Extended_Pictographic}/u.test(str);
     }
 }

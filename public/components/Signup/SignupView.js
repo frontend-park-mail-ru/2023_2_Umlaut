@@ -89,6 +89,11 @@ export class SignupView extends BaseView {
             this.nameInput.focus();
             return false;
         }
+        if (!Validate.onlyLetters(this.nameInput.value)) {
+            this.showError('Имя может содержать только буквы');
+            this.nameInput.focus();
+            return false;
+        }
         if ( this.passwordInput.value.length <= 5) {
             this.showError('Пароль должен быть длиннее 5-ти символов');
             this.passwordInput.focus();
