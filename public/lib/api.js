@@ -112,6 +112,10 @@ export class Api {
     static recomendFriend(data) {
         return Ajax.post(BACKEND_URL + URLS.remomendationsPost, data);
     }
+
+    static getTags() {
+        return Ajax.get(BACKEND_URL + URLS.getTags);
+    }
 }
 
 export function HandleStatuses(func, eventBus) {

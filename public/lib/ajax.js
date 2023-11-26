@@ -29,12 +29,9 @@ export class Ajax {
                     }
                 },
                 (error) => {
-                    console.error(error); // ошибка отправки
+                    console.error(error);
+                    return Promise.resolve({status: 512});
                 },
-            )
-            .then((body) => {
-                return body;
-            },
             );
     }
 
@@ -54,12 +51,9 @@ export class Ajax {
                     }
                 },
                 (error) => {
-                    console.error(error); // ошибка отправки
+                    console.error(error);
+                    return Promise.resolve({status: 512});
                 },
-            )
-            .then((body) => {
-                return body;
-            },
             );
     }
 
@@ -85,12 +79,9 @@ export class Ajax {
                     }
                 },
                 (error) => {
-                    console.error(error); // ошибка отправки
+                    console.error(error);
+                    return Promise.resolve({status: 512});
                 },
-            )
-            .then((body) => {
-                return body;
-            },
             );
     }
 
@@ -122,12 +113,9 @@ export class Ajax {
                     }
                 },
                 (error) => {
-                    return (error); // ошибка отправки
+                    console.error(error);
+                    return Promise.resolve({status: 512});
                 },
-            )
-            .then((body) => {
-                return body;
-            },
             );
     }
 
@@ -160,12 +148,9 @@ export class Ajax {
                     }
                 },
                 (error) => {
-                    return (error); // ошибка отправки
+                    console.error(error);
+                    return Promise.resolve({status: 512});
                 },
-            )
-            .then((body) => {
-                return body;
-            },
             );
     }
 }
