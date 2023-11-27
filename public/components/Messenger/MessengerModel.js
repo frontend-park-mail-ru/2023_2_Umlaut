@@ -16,7 +16,6 @@ export class MessengerModel {
         this.id = null;
         this.dialog_id = null;
         this.my_id = null;
-        
     }
 
     getDialogs() {
@@ -28,8 +27,8 @@ export class MessengerModel {
             (response) => {
                 if ( response.status === 200) {
                     const dialogs = response.payload;
-                    dialogs.forEach(element => {
-                        element.user_dialog_id =  `${element.id}_${element.user1_id}`;
+                    dialogs.forEach((element) => {
+                        element.user_dialog_id = `${element.id}_${element.user1_id}`;
                         this.my_id = element.user2_id;
                     });
                     this.eventBus.emit(MESSENGER_EVENTS.PAIRS_READY, dialogs);
@@ -57,20 +56,20 @@ export class MessengerModel {
 
     sendMessage(msg) {
         const message = {
-            "sender_id": this.my_id,
-            "recipient_id": this.id,
-            "dialog_id": this.dialog_id,
-            "message_text": msg
+            'sender_id': this.my_id,
+            'recipient_id': this.id,
+            'dialog_id': this.dialog_id,
+            'message_text': msg,
         };
         this.socket.send(message);
     }
 
     getMessages(id) {
-        this.id = Number(id.slice(0, id.indexOf("_")));
+        this.id = Number(id.slice(0, id.indexOf('_')));
         Api.getMessages(this.id).then((response)=>{
-            if(response.status === 200){
+            if (response.status === 200) {
                 const data = response.payload;
-                this.dialog_id = data[0].dialog_id; 
+                this.dialog_id = data[0].dialog_id;
                 data.my_id = this.my_id;
                 this.eventBus.emit(MESSENGER_EVENTS.MESSAGES_READY, data);
             }

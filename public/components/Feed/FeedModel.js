@@ -6,6 +6,7 @@ export class FeedModel {
         this.eventBus = eventBus;
         this.eventBus.on(FEED_EVENTS.RATE_PERSON, this.ratePerson.bind(this));
         this.eventBus.on(FEED_EVENTS.GET_PERSON, this.getNextPerson.bind(this));
+        this.eventBus.on(FEED_EVENTS.COMPLAIN_PERSON, this.complainPerson.bind(this));
     }
 
 
@@ -25,7 +26,7 @@ export class FeedModel {
                     if (!SETTINGS_LIST.interests) {
                         await LoadTags(this.eventBus);
                     }
-                    this.eventBus.emit(FEED_EVENTS.NO_PEOPLE, {noPeople:true, interests: SETTINGS_LIST.interests});
+                    this.eventBus.emit(FEED_EVENTS.NO_PEOPLE, {noPeople: true, interests: SETTINGS_LIST.interests});
                 }
             },
             this.eventBus),
@@ -35,6 +36,17 @@ export class FeedModel {
 
     ratePerson(data) {
         Api.addLike(data.request).then( HandleStatuses(
+            (response) => {
+                if ( response.status === 200 ) {
+                    this.getNextPerson(data.params);
+                }
+            },
+            this.eventBus),
+        );
+    }
+
+    complainPerson(data) {
+        Api.complaint(data.request).then( HandleStatuses(
             (response) => {
                 if ( response.status === 200 ) {
                     this.getNextPerson(data.params);

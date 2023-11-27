@@ -98,10 +98,6 @@ export class Api {
         return Ajax.get(BACKEND_URL + URLS.feedback);
     }
 
-    static feedFeedback() {
-        return Ajax.get(BACKEND_URL + URLS.feedFeedback);
-    }
-
     static recomendation() {
         return Ajax.get(BACKEND_URL + URLS.remomendations);
     }
@@ -118,7 +114,11 @@ export class Api {
         return Ajax.get(BACKEND_URL + URLS.getTags);
     }
 
-    static getMessages(id){
+    static complaint(data) {
+        return Ajax.post(BACKEND_URL + URLS.complaint, data);
+    }
+
+    static getMessages(id) {
         return Ajax.get(BACKEND_URL + URLS.dialogs + '/' + id + '/message');
     }
 }

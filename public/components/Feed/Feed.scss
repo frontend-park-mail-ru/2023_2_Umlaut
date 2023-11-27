@@ -75,6 +75,7 @@
     height: 40%;
     margin: 4%;
     min-height: 400px;
+    position: relative;
   }
 
   &__text {
@@ -87,7 +88,8 @@
   &__user-name {
     font-size: 40px;
     display: flex;
-    justify-content: right;
+    justify-content: left;
+    padding-left: 10px;
   }
 
   &__feed-photo {
@@ -121,6 +123,25 @@
     margin-left: auto;
     cursor: pointer;
   }
+
+  &__complain {
+    position: absolute;
+    font-size: 0.6rem;
+    font-weight: bold;
+    color: var(--dark-blue-color);
+    right: 0;
+    bottom: 0;
+    padding: 2px;
+    padding-right: 5px;
+    cursor: pointer;
+    &:hover {
+      scale: 1.03;
+    }
+    &-symbol { 
+      position: relative;
+      bottom: 0.5px;
+    }
+  } 
 }
 
 .search{

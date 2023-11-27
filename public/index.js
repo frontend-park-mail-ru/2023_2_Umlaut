@@ -37,8 +37,11 @@ document.addEventListener('DOMContentLoaded', ()=>{
     const globalEventBus = new EventBus();
     globalEventBus.on(GLOBAL_EVENTS.REDIRECT, (data) => router.go(data));
     globalEventBus.on(GLOBAL_EVENTS.POPUP, (text) => popup.render(text));
-    globalEventBus.on(GLOBAL_EVENTS.NETWORK_ERROR, ()=>popup.render('Сервер временно не доступен, повторите попытку позже'));
+    globalEventBus.on(GLOBAL_EVENTS.NETWORK_ERROR, ()=>{
+        popup.render('Сервер временно не доступен, повторите попытку позже');
+    });
     globalEventBus.on(GLOBAL_EVENTS.POPUP_CONFIRM, (data) => popup.renderConfirm(data));
+    globalEventBus.on(GLOBAL_EVENTS.POPUP_CHOOSE, (data) => popup.renderChoose(data));
     globalEventBus.on(GLOBAL_EVENTS.RERENDER_HEADER, () => globalEventBus.emit(GLOBAL_EVENTS.CHECK_AUTHORISED));
     globalEventBus.on(GLOBAL_EVENTS.UNAUTH, () => router.go('/auth') );
 

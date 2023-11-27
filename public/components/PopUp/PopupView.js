@@ -9,12 +9,15 @@ export class PopupView {
     constructor(root) {
         this.popupTmpl = require('./Popup.hbs');
         this.popupConfirmTmpl = require('./Confirm.hbs');
+        this.popupChooseTmpl = require('./Choose.hbs');
         this.root = root;
         this.eventBus = new EventBus();
         this.popup = this.root.querySelector('.popup');
         this.popup.innerHTML = this.popupTmpl();
         this.closePopup = () => this.eventBus.emit(POPUP_EVENTS.CLOSE);
         this.eventBus.on(POPUP_EVENTS.CLOSE, this.close.bind(this));
+        this.closeEvent = this.closeIfNotInPopup.bind(this);
+        this.firstClick = true;
     }
 
     render(msg) {
@@ -38,6 +41,38 @@ export class PopupView {
             this.popup.removeChild(confirm);
         });
         yes.addEventListener('click', data.func);
+    }
+
+    renderChoose(data) {
+        this.firstClick = true;
+        const choose = document.createElement('div');
+        this.currentPopup = choose;
+        choose.className = 'popup__choose';
+        choose.innerHTML = this.popupChooseTmpl(data);
+        this.popup.appendChild(choose);
+        const variants = this.popup.querySelector('.popup__variants');
+
+        document.body.addEventListener('click', this.closeEvent);
+
+        variants.addEventListener('click', (e) => {
+            if (e.target.classList.contains('popup__variant')) {
+                data.func(e.target.id);
+                this.popup.removeChild(choose);
+                document.body.removeEventListener('click', this.closeEvent);
+            }
+        });
+    }
+
+    closeIfNotInPopup(e) {
+        if (this.firstClick) {
+            this.firstClick = false;
+            return;
+        }
+        if (this.popup.contains(e.target)) {
+            return;
+        }
+        this.popup.removeChild(this.currentPopup);
+        document.body.removeEventListener('click', this.closeEvent);
     }
 
     close() {
