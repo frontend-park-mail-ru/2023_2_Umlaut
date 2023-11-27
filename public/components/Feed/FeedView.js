@@ -101,8 +101,9 @@ export class FeedView extends BaseView {
         }
     }
 
-    showStub() {
+    showStub(data) {
         console.log('пользователи кончились');
+        super.render(data);
     }
 
     /**

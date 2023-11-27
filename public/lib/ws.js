@@ -27,6 +27,7 @@ export class WebSocketWrapper {
             this.closeSubscribers.forEach((handler) => {
                 handler(event);
             });
+            setTimeout(this.connect.bind(this), 1000);
         };
         this.socket.onerror = (event) => {
             this.errorSubscribers.forEach((handler) => {

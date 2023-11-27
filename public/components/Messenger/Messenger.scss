@@ -69,8 +69,9 @@
   border: 1px solid var(--dark-blue-color);
 
   &__dialog{
-    height: 84%;
+    height: 89%;
     padding: 1%;
+    overflow: auto;
   }
 
   &__message{
@@ -98,7 +99,7 @@
 
   &__input-message{
     display: flex;
-    height: 10%;
+    height: 7%;
     background-color: white;
   }
 

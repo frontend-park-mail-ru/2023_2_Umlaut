@@ -117,6 +117,10 @@ export class Api {
     static getTags() {
         return Ajax.get(BACKEND_URL + URLS.getTags);
     }
+
+    static getMessages(id){
+        return Ajax.get(BACKEND_URL + URLS.dialogs + '/' + id + '/message');
+    }
 }
 
 export function HandleStatuses(func, eventBus) {
@@ -125,6 +129,7 @@ export function HandleStatuses(func, eventBus) {
             eventBus.emit(COMMON_EVENTS.UNAUTH);
         } else if (response.status >= 500) {
             eventBus.emit(COMMON_EVENTS.NETWORK_ERROR);
+            return func(response);
         } else {
             return func(response);
         }

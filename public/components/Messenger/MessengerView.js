@@ -17,6 +17,7 @@ export class MessengerView extends BaseView {
         this.dialogList = null;
         this.message = require('./Message.hbs');
         this.eventBus.on();
+        this.my_id = 0;
     }
 
     render(data) {
@@ -25,12 +26,6 @@ export class MessengerView extends BaseView {
         this.dialogList = [];
         this.dialogListView = document.getElementById('dialog-list');
         this.dialogWindow = document.getElementById('dialog-window');
-        this.messagesPlace = this.root.querySelector('.dialog-window__dialog');
-
-        const dialogs = this.root.querySelectorAll('.dialog-preview');
-        dialogs.forEach((dialog) => {
-            dialog.addEventListener('click', ()=>this.eventBus.emit(MESSENGER_EVENTS.GET_MESSAGES, dialog.id));
-        });
 
         this.dialogWindow.innerHTML = this.dialog();
 
@@ -67,6 +62,7 @@ export class MessengerView extends BaseView {
         data.forEach((dialog) => {
             const dialogPreview = document.createElement('div');
             dialogPreview.innerHTML = this.dialogPreviewTemplate(dialog);
+            dialogPreview.addEventListener('click', ()=>this.eventBus.emit(MESSENGER_EVENTS.GET_MESSAGES, dialog.user_dialog_id));
             this.dialogListView.appendChild(dialogPreview);
             this.dialogList.push(dialogPreview);
         });
@@ -82,26 +78,26 @@ export class MessengerView extends BaseView {
 
     openDialog(data) {
         this.dialogWindow.innerHTML = this.dialog(data);
+        this.my_id = data.my_id;
         data.forEach((mes) => {
             this.createMessage(mes);
         });
-        // todo get names from back
         const send = this.dialogWindow.querySelector('#send');
-        const msg = this.dialogWindow.querySelector('#message').value;
         send.addEventListener('click', ()=>{
+            const msg = this.dialogWindow.querySelector('#message').value;
             this.eventBus.emit(MESSENGER_EVENTS.SEND_MESSAGE, msg);
-            this.createMessage({text: msg, time: Date.now(), fromMe: true});
+            this.createMessage({message_text: msg, created_at: Date.now(), sender_id: this.my_id});
         });
     }
 
     createMessage(mes) {
         const mesElem = document.createElement('div');
-        mesElem.innerHTML = this.message({text: mes.text, time: mes.time});
-        if (mes.fromMe) {
+        mesElem.innerHTML = this.message({text: mes.message_text, time: mes.created_at});
+        if (mes.sender_id === this.my_id) {
             const myMes = mesElem.querySelector('.dialog-window__message');
             myMes.className = 'dialog-window__message dialog-window__message_me';
         }
-        this.messagesPlace.appendChild(mesElem);
+        this.root.querySelector('.dialog-window__dialog').appendChild(mesElem);
     }
 
     newMessageOtherDialog(msg) {

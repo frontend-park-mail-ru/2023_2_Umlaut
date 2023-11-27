@@ -53,6 +53,18 @@
     }
   }
 
+  &__no-people{
+    font-size: 26px;
+    font-weight: bold;
+    text-align: center;
+    width: 100%;
+    grid-column-start: 1;
+    grid-column-end: 3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
   &__user-part {
     background-color: #ffffff;
     display: grid;

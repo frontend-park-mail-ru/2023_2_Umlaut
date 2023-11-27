@@ -17,11 +17,15 @@ export class FeedModel {
                     if (!SETTINGS_LIST.interests) {
                         await LoadTags(this.eventBus);
                     }
-
                     user.interests = SETTINGS_LIST.interests;
                     this.eventBus.emit(FEED_EVENTS.NEXT_PERSON_READY, user);
                 } else if ( response.status === 404 ) {
                     this.eventBus.emit(FEED_EVENTS.NO_PEOPLE);
+                } else if ( response.status === 500 ) {
+                    if (!SETTINGS_LIST.interests) {
+                        await LoadTags(this.eventBus);
+                    }
+                    this.eventBus.emit(FEED_EVENTS.NO_PEOPLE, {noPeople:true, interests: SETTINGS_LIST.interests});
                 }
             },
             this.eventBus),
