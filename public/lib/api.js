@@ -118,7 +118,7 @@ export class Api {
         return Ajax.get(BACKEND_URL + URLS.getTags);
     }
 
-    static getMessages(id){
+    static getMessages(id) {
         return Ajax.get(BACKEND_URL + URLS.dialogs + '/' + id + '/message');
     }
 }

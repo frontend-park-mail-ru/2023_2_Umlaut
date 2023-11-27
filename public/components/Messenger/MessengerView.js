@@ -62,7 +62,9 @@ export class MessengerView extends BaseView {
         data.forEach((dialog) => {
             const dialogPreview = document.createElement('div');
             dialogPreview.innerHTML = this.dialogPreviewTemplate(dialog);
-            dialogPreview.addEventListener('click', ()=>this.eventBus.emit(MESSENGER_EVENTS.GET_MESSAGES, dialog.user_dialog_id));
+            dialogPreview.addEventListener('click', ()=>{
+                this.eventBus.emit(MESSENGER_EVENTS.GET_MESSAGES, dialog.user_dialog_id);
+            });
             this.dialogListView.appendChild(dialogPreview);
             this.dialogList.push(dialogPreview);
         });
