@@ -10,6 +10,7 @@ export class MessengerModel {
         this.eventBus.on(MESSENGER_EVENTS.GET_PAIRS, this.getPairs.bind(this));
         this.eventBus.on(MESSENGER_EVENTS.SEND_MESSAGE, this.sendMessage.bind(this));
         this.eventBus.on(MESSENGER_EVENTS.GET_MESSAGES, this.getMessages.bind(this));
+        this.eventBus.on(MESSENGER_EVENTS.MARK_AS_READ, this.markAsRead.bind(this));
         this.socket = new WebSocketWrapper('wss://umlaut-bmstu.me/websocket');
         this.socket.connect();
         this.socket.subscribe('message', (msg)=>this.gotNewMessage(msg).bind(this));
@@ -83,14 +84,19 @@ export class MessengerModel {
         this.socket.send(message);
     }
 
-    markAsRead(msg) {
-        msg.is_read = true;
-        this.socket.send(msg);
+    markAsRead(data) {
+        data.forEach((msg) => {
+            if (!msg.is_read) {
+                msg.is_read = true;
+                msg.recipient_id = 1;
+                this.socket.send(msg);
+            }
+        });
     }
 
     getMessages(id) {
-        this.id = Number(id.slice(0, id.indexOf('_')));
-        this.dialog_id = Number(id.slice(id.indexOf('_') + 1));
+        this.dialog_id = Number(id.slice(0, id.indexOf('_')));
+        this.id = Number(id.slice(id.indexOf('_') + 1));
         Api.getMessages(this.dialog_id).then((response)=>{
             if (response.status === 200) {
                 const data = {};
@@ -108,7 +114,7 @@ export class MessengerModel {
 
 
     gotNewMessage(msg) {
-        if (msg.dialog_id === this.dialog_id) {
+        if (msg['dialog_id'] === this.dialog_id) {
             this.eventBus.emit(MESSENGER_EVENTS.NEW_MESSAGE_IN_THIS_DIALOG, msg);
         } else {
             this.eventBus.emit(MESSENGER_EVENTS.NEW_MESSAGE_IN_OTHER_DIALOG, msg);
