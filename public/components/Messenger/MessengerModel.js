@@ -113,7 +113,7 @@ export class MessengerModel {
 
 
     gotNewMessage(msg) {
-        if (msg.dialog_id === this.dialog_id) {
+        if (msg['dialog_id'] === this.dialog_id) {
             this.eventBus.emit(MESSENGER_EVENTS.NEW_MESSAGE_IN_THIS_DIALOG, msg);
         } else {
             this.eventBus.emit(MESSENGER_EVENTS.NEW_MESSAGE_IN_OTHER_DIALOG, msg);
