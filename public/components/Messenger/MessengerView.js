@@ -85,6 +85,8 @@ export class MessengerView extends BaseView {
         this.dialogWindow.innerHTML = this.dialog();
         this.my_id = data.my_id;
         data.dialogs.forEach((mes) => {
+            mes.created_at = mes.created_at.slice(mes.created_at.indexOf('T') + 1, 
+            this.nthIndex(mes.created_at, ':', 2));
             this.createMessage(mes);
         });
         const send = this.dialogWindow.querySelector('#send');
@@ -93,7 +95,11 @@ export class MessengerView extends BaseView {
             const msg = inputText.value;
             inputText.value = '';
             this.eventBus.emit(MESSENGER_EVENTS.SEND_MESSAGE, msg);
-            this.createMessage({message_text: msg, created_at: Date.now(), sender_id: this.my_id});
+            const date = new Date();
+            this.createMessage({
+                message_text: msg, 
+                created_at: `${date.getHours()}:${date.getMinutes()}`, 
+                sender_id: this.my_id});
         });
     }
 
@@ -124,5 +130,15 @@ export class MessengerView extends BaseView {
         this.dialogWindow = null;
         this.dialogListView = null;
         this.dialogList = null;
+    }
+
+
+    nthIndex(str, pat, n) {
+        const L = str.length; let i = -1;
+        while (n-- && i++ < L) {
+            i = str.indexOf(pat, i);
+            if (i < 0) break;
+        }
+        return i;
     }
 }

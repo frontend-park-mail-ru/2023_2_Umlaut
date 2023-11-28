@@ -78,6 +78,7 @@ export class MessengerModel {
             'recipient_id': this.id,
             'dialog_id': this.dialog_id,
             'message_text': msg,
+            'is_read': false,
         };
         this.socket.send(message);
     }
@@ -89,12 +90,12 @@ export class MessengerModel {
 
     getMessages(id) {
         this.id = Number(id.slice(0, id.indexOf('_')));
-        Api.getMessages(this.id).then((response)=>{
+        this.dialog_id = Number(id.slice(id.indexOf('_') + 1));
+        Api.getMessages(this.dialog_id).then((response)=>{
             if (response.status === 200) {
                 const data = {};
                 data.dialogs = response.payload;
                 if (data.dialogs === null) {
-                    this.id = Number(id.slice(id.indexOf('_')));
                     data.dialogs = [];
                 } else {
                     this.dialog_id = data.dialogs[0].dialog_id;
