@@ -129,7 +129,6 @@ export function HandleStatuses(func, eventBus) {
             eventBus.emit(COMMON_EVENTS.UNAUTH);
         } else if (response.status >= 500) {
             eventBus.emit(COMMON_EVENTS.NETWORK_ERROR);
-            return func(response);
         } else {
             return func(response);
         }

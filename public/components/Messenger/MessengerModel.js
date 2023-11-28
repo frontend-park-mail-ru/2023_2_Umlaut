@@ -19,17 +19,35 @@ export class MessengerModel {
     }
 
     getDialogs() {
-        this.eventBus.emit(MESSENGER_EVENTS.DIALOGS_READY, null);
+        Api.getPairs().then( HandleStatuses(
+            (response) => {
+                if ( response.status === 200) {
+                    const dialogs = [];
+                    response.payload.forEach((element) => {
+                        if(element.last_message!==null){
+                        element.user_dialog_id = `${element.id}_${element.user1_id}`;
+                        this.my_id = element.user2_id;
+                        dialogs.push(element);
+                        }
+                    });
+                    this.eventBus.emit(MESSENGER_EVENTS.PAIRS_READY, dialogs);
+                }
+            },
+            this.eventBus),
+        );
     }
 
     getPairs() {
         Api.getPairs().then( HandleStatuses(
             (response) => {
                 if ( response.status === 200) {
-                    const dialogs = response.payload;
-                    dialogs.forEach((element) => {
+                    const dialogs = [];
+                    response.payload.forEach((element) => {
+                        if(element.last_message===null){
                         element.user_dialog_id = `${element.id}_${element.user1_id}`;
                         this.my_id = element.user2_id;
+                        dialogs.push(element);
+                        }
                     });
                     this.eventBus.emit(MESSENGER_EVENTS.PAIRS_READY, dialogs);
                 }
@@ -64,17 +82,29 @@ export class MessengerModel {
         this.socket.send(message);
     }
 
+    markAsRead(msg) {
+        msg.is_read = true;
+        this.socket.send(msg);
+    }
+
     getMessages(id) {
         this.id = Number(id.slice(0, id.indexOf('_')));
         Api.getMessages(this.id).then((response)=>{
             if (response.status === 200) {
-                const data = response.payload;
-                this.dialog_id = data[0].dialog_id;
+                const data = {};
+                data.dialogs = response.payload;
+                if(data.dialogs===null){
+                    this.id = Number(id.slice(id.indexOf('_')));
+                    data.dialogs = [];
+                }else{
+                    this.dialog_id = data.dialogs[0].dialog_id;
+                }
                 data.my_id = this.my_id;
                 this.eventBus.emit(MESSENGER_EVENTS.MESSAGES_READY, data);
             }
-        });
-    }
+        })
+    };
+    
 
     gotNewMessage(msg) {
         if (msg.dialog_id === this.dialog_id) {
