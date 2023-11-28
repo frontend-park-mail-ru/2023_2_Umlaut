@@ -27,6 +27,7 @@ export class Router {
         this.change(path);
     }
 
+
     /**
      * Переход по ссылке без заполнения history.api
      * @param {string} path

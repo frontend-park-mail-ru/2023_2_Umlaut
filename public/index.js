@@ -1,7 +1,7 @@
 'use strict';
 
 // eslint-disable-next-line
-import _ from 'lodash';
+import _, { round } from 'lodash';
 import './index.scss';
 import '../static/reset.css';
 import runtime from 'serviceworker-webpack5-plugin/lib/runtime';
@@ -18,6 +18,7 @@ import {PopupView} from './components/PopUp/PopupView.js';
 import {CsatController} from './components/Csat/CsatController.js';
 import {AdminAuthController} from './components/AdminAuth/AdminAuthController.js';
 import {StatisticsController} from './components/Statistics/StatisticsController.js';
+import {ComplainsController} from './components/Complains/ComplainsController.js';
 
 document.addEventListener('DOMContentLoaded', ()=>{
     if ('serviceWorker' in navigator) {
@@ -67,6 +68,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
     const messenger = new MessengerController(page, globalEventBus);
     const admin = new AdminAuthController(page, globalEventBus);
     const statisctics = new StatisticsController(page, globalEventBus);
+    const complaints = new ComplainsController(page, globalEventBus);
 
 
     router.add('/', feed);
@@ -75,9 +77,11 @@ document.addEventListener('DOMContentLoaded', ()=>{
     router.add('/signup', signup);
     router.add('/settings', settings);
     router.add('/messages', messenger);
-    router.add('/admin', statisctics);
+    router.add('/admin/statistics', statisctics);
     router.add('/admin/auth', admin);
+    router.add('/admin/complaints', complaints);
 
-    globalEventBus.emit(GLOBAL_EVENTS.CHECK_AUTHORISED);
+
+    // globalEventBus.emit(GLOBAL_EVENTS.CHECK_AUTHORISED);
     router.start();
 });
