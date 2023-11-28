@@ -1,6 +1,6 @@
 import {BaseView} from '../BaseView.js';
 import {Carousel} from '../Carousel/Carousel.js';
-import {FEED_EVENTS} from '../../lib/constansts.js';
+import {COMPLAIN_TYPES, FEED_EVENTS, GLOBAL_EVENTS} from '../../lib/constansts.js';
 import './Feed.scss';
 
 /**
@@ -34,11 +34,27 @@ export class FeedView extends BaseView {
         } else {
             this.addSearchParams();
 
+            const complainBtn = this.root.querySelector('.form-feed__complain');
+            complainBtn.addEventListener('click', () => this.eventBus.emit(GLOBAL_EVENTS.POPUP_CHOOSE,
+                {
+                    text: 'Выберите причину жалобы',
+                    variants: COMPLAIN_TYPES,
+                    func: (complainType) => this.complainCurrent(complainType),
+                },
+            ));
+
             const carouselRoot = this.root.querySelector('.form-feed__feed-photo');
             this.carousel = new Carousel(carouselRoot);
             this.carousel.render(data.image_paths);
             this.activateBtns();
         }
+    }
+
+    complainCurrent(complainType) {
+        this.eventBus.emit(FEED_EVENTS.COMPLAIN_PERSON, {
+            request: {'reported_user_id': this.user.id, 'complaint_type': complainType},
+            params: this.params,
+        });
     }
 
     clickWithinDiv(e) {

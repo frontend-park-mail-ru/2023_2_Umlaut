@@ -17,9 +17,9 @@ export const URLS = {
     feedFeedback: '/api/v1/admin/feed-feedback',
     remomendations: '/api/v1/admin/recomendation',
     feedbackPost: '/api/v1/feedback',
-    feedFeedbackPost: '/api/v1/feed-feedback',
     remomendationsPost: '/api/v1/recomendation',
     getTags: '/api/v1/tag',
+    complaint: '/api/v1/complaint',
 };
 
 export const SETTINGS_LIST = {
@@ -37,6 +37,33 @@ export const SETTINGS_LIST = {
     interests: undefined,
 };
 
+export const COMPLAIN_TYPES = [
+    {
+        'id': '1',
+        'name': 'Порнография',
+    },
+    {
+        'id': '2',
+        'name': 'Рассылка спама',
+    },
+    {
+        'id': '3',
+        'name': 'Оскорбительное поведение',
+    },
+    {
+        'id': '4',
+        'name': 'Мошенничество',
+    },
+    {
+        'id': '5',
+        'name': 'Рекламная страница',
+    },
+    {
+        'id': '6',
+        'name': 'Клон моей страницы (или моя старая страница)',
+    },
+];
+
 /**
  * Сслыка на бекэнд
  */
@@ -53,6 +80,7 @@ export const GLOBAL_EVENTS = {
     RERENDER_HEADER: 'Rerender',
     POPUP: 'Popup',
     POPUP_CONFIRM: 'Confirm',
+    POPUP_CHOOSE: 'Choose',
     OFFLINE: 'Offline',
     ONLINE: 'Online',
 };
@@ -71,6 +99,7 @@ export const FEED_EVENTS = {
     NEXT_PERSON_READY: 'NextPerson',
     GET_PERSON: 'GetPerson',
     MUTUAL: 'MutualLikes',
+    COMPLAIN_PERSON: 'Complain',
 };
 
 export const SETTINGS_EVENTS = {

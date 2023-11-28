@@ -11,18 +11,11 @@ export class StatisticsModel {
         Api.feedback().then(
             (feedbackResp) => {
                 if (feedbackResp.status === 200) {
-                    Api.feedFeedback().then((feedFeedbackResp) =>{
-                        if (feedFeedbackResp.status === 200) {
-                            Api.recomendation().then((recomendationResp) =>{
-                                if (recomendationResp.status === 200) {
-                                    this.eventBus.emit(STAT_EVENTS.STAT_READY, {...feedbackResp.payload,
-                                        ...feedFeedbackResp.payload,
-                                        ...recomendationResp.payload});
-                                } else if (recomendationResp.status === 401) {
-                                    this.eventBus.emit(COMMON_EVENTS.UNAUTH);
-                                }
-                            });
-                        } else if ( feedFeedbackResp.status === 401) {
+                    Api.recomendation().then((recomendationResp) =>{
+                        if (recomendationResp.status === 200) {
+                            this.eventBus.emit(STAT_EVENTS.STAT_READY, {...feedbackResp.payload,
+                                ...recomendationResp.payload});
+                        } else if (recomendationResp.status === 401) {
                             this.eventBus.emit(COMMON_EVENTS.UNAUTH);
                         }
                     });

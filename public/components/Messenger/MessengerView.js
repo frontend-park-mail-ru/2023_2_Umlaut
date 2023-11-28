@@ -62,11 +62,13 @@ export class MessengerView extends BaseView {
         data.forEach((dialog) => {
             const dialogPreview = document.createElement('div');
             dialogPreview.innerHTML = this.dialogPreviewTemplate(dialog);
+
             if (dialog.last_message !== null && !dialog.last_message.is_read) {
                 const newMes = document.createElement('div');
                 newMes.className = 'dialog-preview__new-message';
                 dialogPreview.querySelector('.dialog-preview').appendChild(newMes);
             }
+
             dialogPreview.addEventListener('click', ()=>{
                 this.eventBus.emit(MESSENGER_EVENTS.GET_MESSAGES, dialog.user_dialog_id);
             });
