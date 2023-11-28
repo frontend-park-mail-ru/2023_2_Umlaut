@@ -88,6 +88,7 @@ export class MessengerModel {
         data.forEach((msg) => {
             if (!msg.is_read) {
                 msg.is_read = true;
+                msg.recipient_id = 1;
                 this.socket.send(msg);
             }
         });
@@ -113,7 +114,7 @@ export class MessengerModel {
 
 
     gotNewMessage(msg) {
-        if (Number(msg['dialog_id']) === this.dialog_id) {
+        if (msg['dialog_id'] === this.dialog_id) {
             this.eventBus.emit(MESSENGER_EVENTS.NEW_MESSAGE_IN_THIS_DIALOG, msg);
         } else {
             this.eventBus.emit(MESSENGER_EVENTS.NEW_MESSAGE_IN_OTHER_DIALOG, msg);
