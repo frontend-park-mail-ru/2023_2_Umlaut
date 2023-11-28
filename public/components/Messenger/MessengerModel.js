@@ -94,7 +94,7 @@ export class MessengerModel {
                 const data = {};
                 data.dialogs = response.payload;
                 if (data.dialogs === null) {
-                    this.id = Number(id.slice(id.indexOf('_')));
+                    this.dialog_id = Number(id.slice(id.indexOf('_') + 1));
                     data.dialogs = [];
                 } else {
                     this.dialog_id = data.dialogs[0].dialog_id;
