@@ -27,7 +27,7 @@ export class MessengerView extends BaseView {
         this.dialogListView = document.getElementById('dialog-list');
         this.dialogWindow = document.getElementById('dialog-window');
 
-        //this.dialogWindow.innerHTML = this.dialog();
+        // this.dialogWindow.innerHTML = this.dialog();
 
         this.showDialogs = document.getElementById('show_dialogs');
         this.showPairs = document.getElementById('show_pairs');
@@ -62,7 +62,7 @@ export class MessengerView extends BaseView {
         data.forEach((dialog) => {
             const dialogPreview = document.createElement('div');
             dialogPreview.innerHTML = this.dialogPreviewTemplate(dialog);
-            if(dialog.last_message!==null && !dialog.last_message.is_read){
+            if (dialog.last_message !== null && !dialog.last_message.is_read) {
                 this.newMessageOtherDialog(dialog.last_message);
             }
             dialogPreview.addEventListener('click', ()=>{
@@ -91,14 +91,14 @@ export class MessengerView extends BaseView {
         send.addEventListener('click', ()=>{
             const inputText = this.dialogWindow.querySelector('#message');
             const msg = inputText.value;
-            inputText.value='';
+            inputText.value = '';
             this.eventBus.emit(MESSENGER_EVENTS.SEND_MESSAGE, msg);
             this.createMessage({message_text: msg, created_at: Date.now(), sender_id: this.my_id});
         });
     }
 
     createMessage(mes) {
-        if(!mes.is_read){
+        if (!mes.is_read) {
             const unread = document.createElement('div');
             unread.className = 'dialog-window__unread';
             this.root.querySelector('.dialog-window__dialog').appendChild(unread);

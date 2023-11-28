@@ -24,10 +24,10 @@ export class MessengerModel {
                 if ( response.status === 200) {
                     const dialogs = [];
                     response.payload.forEach((element) => {
-                        if(element.last_message!==null){
-                        element.user_dialog_id = `${element.id}_${element.user1_id}`;
-                        this.my_id = element.user2_id;
-                        dialogs.push(element);
+                        if (element.last_message !== null) {
+                            element.user_dialog_id = `${element.id}_${element.user1_id}`;
+                            this.my_id = element.user2_id;
+                            dialogs.push(element);
                         }
                     });
                     this.eventBus.emit(MESSENGER_EVENTS.PAIRS_READY, dialogs);
@@ -43,10 +43,10 @@ export class MessengerModel {
                 if ( response.status === 200) {
                     const dialogs = [];
                     response.payload.forEach((element) => {
-                        if(element.last_message===null){
-                        element.user_dialog_id = `${element.id}_${element.user1_id}`;
-                        this.my_id = element.user2_id;
-                        dialogs.push(element);
+                        if (element.last_message === null) {
+                            element.user_dialog_id = `${element.id}_${element.user1_id}`;
+                            this.my_id = element.user2_id;
+                            dialogs.push(element);
                         }
                     });
                     this.eventBus.emit(MESSENGER_EVENTS.PAIRS_READY, dialogs);
@@ -93,18 +93,18 @@ export class MessengerModel {
             if (response.status === 200) {
                 const data = {};
                 data.dialogs = response.payload;
-                if(data.dialogs===null){
+                if (data.dialogs === null) {
                     this.id = Number(id.slice(id.indexOf('_')));
                     data.dialogs = [];
-                }else{
+                } else {
                     this.dialog_id = data.dialogs[0].dialog_id;
                 }
                 data.my_id = this.my_id;
                 this.eventBus.emit(MESSENGER_EVENTS.MESSAGES_READY, data);
             }
-        })
-    };
-    
+        });
+    }
+
 
     gotNewMessage(msg) {
         if (msg.dialog_id === this.dialog_id) {

@@ -94,7 +94,7 @@ export class FeedView extends BaseView {
         this.addSearchParams();
     }
 
-    addSearchParams(){
+    addSearchParams() {
         this.selectTags();
         const readySearch = this.root.querySelector('#readySearch');
         readySearch.addEventListener('click', ()=>{
