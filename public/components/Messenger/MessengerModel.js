@@ -87,15 +87,21 @@ export class MessengerModel {
     markAsRead(data) {
         data.forEach((msg) => {
             if (!msg.is_read) {
-                msg.is_read = true;
-                this.socket.send(msg);
+                this.socket.send({
+                    'id': msg.id,
+                    'sender_id': msg.sender_id,
+                    'recipient_id': 201,
+                    'dialog_id': msg.dialog_id,
+                    'message_text': msg.message_text,
+                    'is_read': true,
+                });
             }
         });
     }
 
-    getMessages(id) {
-        this.dialog_id = Number(id.slice(0, id.indexOf('_')));
-        this.id = Number(id.slice(id.indexOf('_') + 1));
+    getMessages(userData) {
+        this.dialog_id = Number(userData.id.slice(0, userData.id.indexOf('_')));
+        this.id = Number(userData.id.slice(userData.id.indexOf('_') + 1));
         Api.getMessages(this.dialog_id).then((response)=>{
             if (response.status === 200) {
                 const data = {};
@@ -106,6 +112,7 @@ export class MessengerModel {
                     this.dialog_id = data.dialogs[0].dialog_id;
                 }
                 data.my_id = this.my_id;
+                data.name = userData.name;
                 this.eventBus.emit(MESSENGER_EVENTS.MESSAGES_READY, data);
             }
         });
@@ -113,10 +120,22 @@ export class MessengerModel {
 
 
     gotNewMessage(msg) {
-        if (Number(msg['dialog_id']) === this.dialog_id) {
-            this.eventBus.emit(MESSENGER_EVENTS.NEW_MESSAGE_IN_THIS_DIALOG, msg);
+        const mes = JSON.parse(msg);
+        mes.created_at = mes.created_at.slice(mes.created_at.indexOf('T') + 1,
+            this.nthIndex(mes.created_at, ':', 2));
+        if (mes.dialog_id === this.dialog_id) {
+            this.eventBus.emit(MESSENGER_EVENTS.NEW_MESSAGE_IN_THIS_DIALOG, mes);
         } else {
-            this.eventBus.emit(MESSENGER_EVENTS.NEW_MESSAGE_IN_OTHER_DIALOG, msg);
+            this.eventBus.emit(MESSENGER_EVENTS.NEW_MESSAGE_IN_OTHER_DIALOG, mes);
         }
+    }
+
+    nthIndex(str, pat, n) {
+        const L = str.length; let i = -1;
+        while (n-- && i++ < L) {
+            i = str.indexOf(pat, i);
+            if (i < 0) break;
+        }
+        return i;
     }
 }

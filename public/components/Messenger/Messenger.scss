@@ -76,9 +76,8 @@
 
   &__message{
     background-color: white;
-    width: min-content;
     border-radius: 8px;
-    max-width: 25%;
+    max-width: 400px;
     padding: 3px;
     margin: 3px 0px;
 
@@ -106,6 +105,8 @@
   &__send-img{
     width: 35px;
     background-color: white;
+    object-fit: cover;
+    cursor: pointer;
   }
 
   &__input{
@@ -116,5 +117,11 @@
   &__unread{
     background-color: gray;
     text-align: center;
+  }
+
+  &__name{
+    background-color: #76798b;
+    font-size: 30px;
+    height: 43px;
   }
 }

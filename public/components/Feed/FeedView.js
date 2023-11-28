@@ -1,6 +1,6 @@
 import {BaseView} from '../BaseView.js';
 import {Carousel} from '../Carousel/Carousel.js';
-import {COMPLAIN_TYPES, FEED_EVENTS, GLOBAL_EVENTS} from '../../lib/constansts.js';
+import {COMPLAIN_TYPES, FEED_EVENTS, GLOBAL_EVENTS, SETTINGS_LIST} from '../../lib/constansts.js';
 import './Feed.scss';
 
 /**
@@ -16,12 +16,14 @@ export class FeedView extends BaseView {
         this.eventBus.on(FEED_EVENTS.NEXT_PERSON_READY, this.update.bind(this));
         this.eventBus.on(FEED_EVENTS.NO_PEOPLE, this.showStub.bind(this));
         this.update = this.update.bind(this);
-        this.params = {};
+        this.params = {tags: []};
     }
 
     render(data) {
         this.root.innerHTML = '';
-
+        if (data) {
+            data.params = this.params;
+        }
         super.render(data);
 
         const searchBtn = this.root.querySelector('#search-btn');
@@ -103,6 +105,9 @@ export class FeedView extends BaseView {
 
     showStub(data) {
         console.log('пользователи кончились');
+        if (data) {
+            data.params = this.params;
+        }
         super.render(data);
         const searchBtn = this.root.querySelector('#search-btn');
         const searchForm = this.root.querySelector('.search');
@@ -138,6 +143,11 @@ export class FeedView extends BaseView {
     }
 
     selectTags() {
+        for (let i = 0; i < this.params.tags.length; i++) {
+            const elem = this.root.querySelector(`#${SETTINGS_LIST.interests[this.params.tags[i]]}`);
+            elem.classList.add('multiselection__selection_active');
+        }
+
         const selected = this.root.querySelector('.multiselection__selected');
         const list = this.root.querySelectorAll('.multiselection__selection_variant');
         for (let i = 0; i < list.length; i++) {

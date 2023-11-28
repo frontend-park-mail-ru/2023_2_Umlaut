@@ -70,7 +70,7 @@ export class MessengerView extends BaseView {
             }
 
             dialogPreview.addEventListener('click', ()=>{
-                this.eventBus.emit(MESSENGER_EVENTS.GET_MESSAGES, dialog.user_dialog_id);
+                this.eventBus.emit(MESSENGER_EVENTS.GET_MESSAGES, {id: dialog.user_dialog_id, name: dialog.companion});
             });
             this.dialogListView.appendChild(dialogPreview);
             this.dialogList.push(dialogPreview);
@@ -90,13 +90,21 @@ export class MessengerView extends BaseView {
         if (newMes) {
             newMes.style.visibility = 'hidden';
         }
-        this.dialogWindow.innerHTML = this.dialog();
+        this.dialogWindow.innerHTML = this.dialog({name: data.name});
         this.my_id = data.my_id;
         data.dialogs.forEach((mes) => {
             mes.created_at = mes.created_at.slice(mes.created_at.indexOf('T') + 1,
                 this.nthIndex(mes.created_at, ':', 2));
             this.createMessage(mes);
         });
+        const inputText = this.dialogWindow.querySelector('#message');
+        inputText.onfocus = () => {
+            const windowDialog = this.root.querySelector('.dialog-window__dialog');
+            const unread = this.root.querySelector('.dialog-window__unread');
+            if (unread) {
+                windowDialog.removeChild(unread);
+            }
+        };
         const send = this.dialogWindow.querySelector('#send');
         send.addEventListener('click', ()=>{
             const inputText = this.dialogWindow.querySelector('#message');
@@ -117,7 +125,7 @@ export class MessengerView extends BaseView {
         if (!windowDialog) {
             return;
         }
-        if (!mes.is_read && !this.root.querySelector('.dialog-window__unread')) {
+        if (!mes.is_read && !this.root.querySelector('.dialog-window__unread') && (mes.sender_id !== this.my_id)) {
             const unread = document.createElement('div');
             unread.className = 'dialog-window__unread';
             unread.textContent = 'Непрочитанные сообщения';
