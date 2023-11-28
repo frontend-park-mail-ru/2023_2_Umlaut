@@ -32,19 +32,7 @@ export class FeedView extends BaseView {
         if ( data === undefined ) {
             this.eventBus.emit(FEED_EVENTS.GET_PERSON);
         } else {
-            this.selectTags();
-            const readySearch = this.root.querySelector('#readySearch');
-            readySearch.addEventListener('click', ()=>{
-                const tags = this.root.querySelectorAll('.multiselection__selection_active');
-                this.params.tags = [];
-                tags.forEach((tag) => {
-                    this.params.tags.push(tag.innerHTML);
-                });
-                this.params.min_age = this.root.querySelector('#from-age').value;
-                this.params.max_age = this.root.querySelector('#to-age').value;
-                const container = this.root.querySelector('.search');
-                container.className = 'search';
-            });
+            this.addSearchParams();
 
             const complainBtn = this.root.querySelector('.form-feed__complain');
             complainBtn.addEventListener('click', () => this.eventBus.emit(GLOBAL_EVENTS.POPUP_CHOOSE,
@@ -88,8 +76,6 @@ export class FeedView extends BaseView {
     activateBtns() {
         this.dislikeBtn = document.getElementById('dislike');
         this.likeBtn = document.getElementById('like');
-        // this.dislikeBtn.disabled = false;
-        // this.likeBtn.disabled = false;
         this.dislikeFunc = () => {
             this.eventBus.emit(FEED_EVENTS.RATE_PERSON, {
                 request: {'liked_to_user_id': this.user.id, 'is_like': false},
@@ -110,8 +96,6 @@ export class FeedView extends BaseView {
 
     blockButtons() {
         if (this.dislikeBtn) {
-            // this.dislikeBtn.disabled = true;
-            // this.likeBtn.disabled = true;
             this.dislikeBtn.removeEventListener('click', this.dislikeFunc);
             this.likeBtn.removeEventListener('click', this.likeFunc);
         }
@@ -120,6 +104,27 @@ export class FeedView extends BaseView {
     showStub(data) {
         console.log('пользователи кончились');
         super.render(data);
+        const searchBtn = this.root.querySelector('#search-btn');
+        const searchForm = this.root.querySelector('.search');
+        searchBtn.addEventListener('click', () => searchForm.classList.toggle('search_visible'));
+        this.addSearchParams();
+    }
+
+    addSearchParams() {
+        this.selectTags();
+        const readySearch = this.root.querySelector('#readySearch');
+        readySearch.addEventListener('click', ()=>{
+            const tags = this.root.querySelectorAll('.multiselection__selection_active');
+            this.params.tags = [];
+            tags.forEach((tag) => {
+                this.params.tags.push(tag.innerHTML);
+            });
+            this.params.min_age = this.root.querySelector('#from-age').value;
+            this.params.max_age = this.root.querySelector('#to-age').value;
+            const container = this.root.querySelector('.search');
+            container.className = 'search';
+            this.eventBus.emit(FEED_EVENTS.GET_PERSON, this.params);
+        });
     }
 
     /**
