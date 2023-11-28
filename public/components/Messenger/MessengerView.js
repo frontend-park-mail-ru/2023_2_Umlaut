@@ -119,7 +119,8 @@ export class MessengerView extends BaseView {
     }
 
     newMessageOtherDialog(msg) {
-        const dialog = this.root.getElementById( `${msg.dialog_id}_${msg.sender_id}`);
+        const id = `${msg.dialog_id}_${msg.sender_id}`;
+        const dialog = document.getElementById(id);
         const newMes = document.createElement('div');
         newMes.className = 'messenger__new-message';
         dialog.appendChild(newMes);
