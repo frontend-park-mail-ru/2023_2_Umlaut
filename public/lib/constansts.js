@@ -95,6 +95,8 @@ export const MESSENGER_EVENTS = {
     MESSAGES_READY: 'MessagesReady',
     SEND_MESSAGE: 'SendMessage',
     PAIRS_EMPTY: 'EmptyPairs',
+    NEW_MESSAGE_IN_THIS_DIALOG: 'll',
+    MARK_AS_READ: 'lkjh',
 };
 
 export const POPUP_EVENTS = {

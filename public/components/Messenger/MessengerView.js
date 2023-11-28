@@ -63,7 +63,9 @@ export class MessengerView extends BaseView {
             const dialogPreview = document.createElement('div');
             dialogPreview.innerHTML = this.dialogPreviewTemplate(dialog);
             if (dialog.last_message !== null && !dialog.last_message.is_read) {
-                this.newMessageOtherDialog(dialog.last_message);
+                const newMes = document.createElement('div');
+                newMes.className = 'dialog-preview__new-message';
+                dialogPreview.querySelector('.dialog-preview').appendChild(newMes);
             }
             dialogPreview.addEventListener('click', ()=>{
                 this.eventBus.emit(MESSENGER_EVENTS.GET_MESSAGES, dialog.user_dialog_id);
@@ -82,6 +84,10 @@ export class MessengerView extends BaseView {
     }
 
     openDialog(data) {
+        const newMes = this.root.querySelector('.dialog-preview__new-message');
+        if (newMes) {
+            newMes.style.visibility = 'hidden';
+        }
         this.dialogWindow.innerHTML = this.dialog();
         this.my_id = data.my_id;
         data.dialogs.forEach((mes) => {
@@ -101,13 +107,19 @@ export class MessengerView extends BaseView {
                 created_at: `${date.getHours()}:${date.getMinutes()}`,
                 sender_id: this.my_id});
         });
+        this.eventBus.emit(MESSENGER_EVENTS.MARK_AS_READ, data.dialogs);
     }
 
     createMessage(mes) {
-        if (!mes.is_read) {
+        const windowDialog = this.root.querySelector('.dialog-window__dialog');
+        if (!windowDialog) {
+            return;
+        }
+        if (!mes.is_read && !this.root.querySelector('.dialog-window__unread')) {
             const unread = document.createElement('div');
             unread.className = 'dialog-window__unread';
-            this.root.querySelector('.dialog-window__dialog').appendChild(unread);
+            unread.textContent = 'Непрочитанные сообщения';
+            windowDialog.appendChild(unread);
         }
         const mesElem = document.createElement('div');
         mesElem.innerHTML = this.message({text: mes.message_text, time: mes.created_at});
@@ -115,14 +127,7 @@ export class MessengerView extends BaseView {
             const myMes = mesElem.querySelector('.dialog-window__message');
             myMes.className = 'dialog-window__message dialog-window__message_me';
         }
-        this.root.querySelector('.dialog-window__dialog').appendChild(mesElem);
-    }
-
-    newMessageOtherDialog(msg) {
-        const dialog = this.root.getElementById( `${msg.dialog_id}_${msg.sender_id}`);
-        const newMes = document.createElement('div');
-        newMes.className = 'messenger__new-message';
-        dialog.appendChild(newMes);
+        windowDialog.appendChild(mesElem);
     }
 
     close() {
@@ -140,5 +145,15 @@ export class MessengerView extends BaseView {
             if (i < 0) break;
         }
         return i;
+    }
+
+    newMessageOtherDialog() {
+        const dialog = this.root.querySelector('.dialog-preview');
+        if (!dialog) {
+            return;
+        }
+        const newMes = document.createElement('div');
+        newMes.className = 'dialog-preview__new-message';
+        dialog.appendChild(newMes);
     }
 }

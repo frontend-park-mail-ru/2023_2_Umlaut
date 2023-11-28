@@ -58,6 +58,10 @@ export class Api {
         return Ajax.getCsrf(BACKEND_URL + URLS.user);
     }
 
+    static getUserById(id) {
+        return Ajax.get(BACKEND_URL + URLS.user + '/' + id);
+    }
+
     /**
      * Get-запрос на получение диалогов
      * @return {Promise} - статус и тело ответа
