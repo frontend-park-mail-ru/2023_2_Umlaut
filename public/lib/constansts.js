@@ -20,6 +20,7 @@ export const URLS = {
     remomendationsPost: '/api/v1/recomendation',
     getTags: '/api/v1/tag',
     complaint: '/api/v1/complaint',
+    adminComplaint: '/api/v1/admin/complaint',
 };
 
 export const SETTINGS_LIST = {
@@ -131,6 +132,13 @@ export const POPUP_EVENTS = {
     YES: 'yes',
     NO: 'no',
     SHOW_CONFIRM: 'uuu',
+};
+
+export const COMPLAINTS_EVENTS = {
+    GET_COMPLAINT: 'Get',
+    ACCEPT_COMPLAINT: 'Accept',
+    DECLINE_COMPLAINT: 'Decline',
+    COMPLAINT_READY: 'Ready',
 };
 
 export const CSAT_EVENTS = {

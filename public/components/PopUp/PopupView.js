@@ -56,7 +56,7 @@ export class PopupView {
 
         variants.addEventListener('click', (e) => {
             if (e.target.classList.contains('popup__variant')) {
-                data.func(e.target.id);
+                data.func(e.target.innerHTML);
                 this.popup.removeChild(choose);
                 document.body.removeEventListener('click', this.closeEvent);
             }

@@ -121,6 +121,22 @@ export class Api {
     static getMessages(id) {
         return Ajax.get(BACKEND_URL + URLS.dialogs + '/' + id + '/message');
     }
+
+    static getComplaint() {
+        return Ajax.get(BACKEND_URL + URLS.adminComplaint);
+    }
+
+    static acceptComplaint(id) {
+        return Ajax.get(BACKEND_URL + URLS.adminComplaint + '/' + id);
+    }
+
+    static declineComplaint(id) {
+        return Ajax.delete(BACKEND_URL + URLS.adminComplaint + '/' + id);
+    }
+
+    static getUser(id) {
+        return Ajax.get(BACKEND_URL + URLS.user + '/' + id);
+    }
 }
 
 export function HandleStatuses(func, eventBus) {
