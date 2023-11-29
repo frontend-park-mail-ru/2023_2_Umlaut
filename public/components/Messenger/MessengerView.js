@@ -27,11 +27,8 @@ export class MessengerView extends BaseView {
         this.dialogListView = document.getElementById('dialog-list');
         this.dialogWindow = document.getElementById('dialog-window');
 
-        // this.dialogWindow.innerHTML = this.dialog();
-
         this.showDialogs = document.getElementById('show_dialogs');
         this.showPairs = document.getElementById('show_pairs');
-
         this.showDialogs.addEventListener('click', () => this.eventBus.emit(MESSENGER_EVENTS.GET_DIALOGS));
         this.showPairs.addEventListener('click', () => this.eventBus.emit(MESSENGER_EVENTS.GET_PAIRS));
 
@@ -90,6 +87,7 @@ export class MessengerView extends BaseView {
         if (newMes) {
             newMes.style.visibility = 'hidden';
         }
+
         this.dialogWindow.innerHTML = this.dialog({name: data.name});
         this.my_id = data.my_id;
         data.dialogs.forEach((mes) => {
@@ -97,6 +95,7 @@ export class MessengerView extends BaseView {
                 this.nthIndex(mes.created_at, ':', 2));
             this.createMessage(mes);
         });
+
         const inputText = this.dialogWindow.querySelector('#message');
         inputText.onfocus = () => {
             const windowDialog = this.root.querySelector('.dialog-window__dialog');
@@ -105,6 +104,7 @@ export class MessengerView extends BaseView {
                 windowDialog.removeChild(unread);
             }
         };
+
         const send = this.dialogWindow.querySelector('#send');
         send.addEventListener('click', ()=>{
             const inputText = this.dialogWindow.querySelector('#message');
@@ -117,6 +117,18 @@ export class MessengerView extends BaseView {
                 created_at: `${date.getHours()}:${date.getMinutes()}`,
                 sender_id: this.my_id});
         });
+
+        this.dialogWindow.querySelector('#message')
+            .addEventListener('keyup', (event) => {
+                event.preventDefault();
+                if (event.keyCode === 13) {
+                    document.getElementById('send').click();
+                }
+            });
+
+        const block = this.root.querySelector('.dialog-window__dialog');
+        block.scrollTop = block.scrollHeight;
+
         this.eventBus.emit(MESSENGER_EVENTS.MARK_AS_READ, data.dialogs);
     }
 
@@ -125,12 +137,14 @@ export class MessengerView extends BaseView {
         if (!windowDialog) {
             return;
         }
+
         if (!mes.is_read && !this.root.querySelector('.dialog-window__unread') && (mes.sender_id !== this.my_id)) {
             const unread = document.createElement('div');
             unread.className = 'dialog-window__unread';
             unread.textContent = 'Непрочитанные сообщения';
             windowDialog.appendChild(unread);
         }
+
         const mesElem = document.createElement('div');
         mesElem.innerHTML = this.message({text: mes.message_text, time: mes.created_at});
         if (mes.sender_id === this.my_id) {

@@ -1,9 +1,9 @@
 .header {
-  grid-area: header;
   display: flex;
   align-items: center;
   justify-content: space-between;
   background-color: var(--dark-blue-color);
+  min-height: var(--header-height);
 
   &__profile {
     display: flex;

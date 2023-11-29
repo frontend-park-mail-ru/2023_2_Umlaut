@@ -30,8 +30,13 @@ export class MessengerModel {
                             this.my_id = element.user2_id;
                             dialogs.push(element);
                         }
+                        if (element.сompanion_image_paths && element.сompanion_image_paths.length > 0) {
+                            element.photo = element.сompanion_image_paths[0];
+                        } else {
+                            element.photo = DEFAULT_PHOTO;
+                        }
                     });
-                    this.eventBus.emit(MESSENGER_EVENTS.PAIRS_READY, dialogs);
+                    this.eventBus.emit(MESSENGER_EVENTS.DIALOGS_READY, dialogs);
                 }
             },
             this.eventBus),
@@ -49,28 +54,17 @@ export class MessengerModel {
                             this.my_id = element.user2_id;
                             dialogs.push(element);
                         }
+                        if (element.сompanion_image_paths && element.сompanion_image_paths.length > 0) {
+                            element.photo = element.сompanion_image_paths[0];
+                        } else {
+                            element.photo = DEFAULT_PHOTO;
+                        }
                     });
                     this.eventBus.emit(MESSENGER_EVENTS.PAIRS_READY, dialogs);
                 }
             },
             this.eventBus),
         );
-    }
-
-    addPhotos(dialogs) {
-        if (dialogs) {
-            dialogs.forEach((element) => {
-                Api.getUserPhotoUrl(element.user2_id).then(
-                    (image) =>{
-                        element.photo = image;
-                        if (image === undefined) {
-                            element.photo = DEFAULT_PHOTO;
-                        }
-                    },
-                );
-            });
-        }
-        return Promise.resolve(dialogs);
     }
 
     sendMessage(msg) {

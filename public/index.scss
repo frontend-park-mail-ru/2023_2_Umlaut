@@ -16,6 +16,10 @@ body {
   --background-color: #e9cdcc;
   --dark-blue-color: #303656;
   --dialog-grey: #76798b;
+  --header-height: 65px;
+  --dialogs-width: 350px;
+  --dialog-name-height: 44px;
+  --dialog-input-height: 35px;
 }
 
 .btn {
@@ -106,19 +110,14 @@ body {
 }
 
 .root {
-  font-family: 'Montserrat';
-  height: 95vh;
-  display: grid;
-  grid-template-areas:
-    "header "
-    "content";
-  grid-template-rows: 60px 85%;
-  font:
-    1.2rem 'Montserrat';
+  min-height: 100vh;
+  display: flex;
+  font: 1.2rem "Montserrat";
+  flex-direction: column;
 }
 
 .main-part {
-  grid-area: content;
+  min-height: calc(100vh - var(--header-height));
 }
 
 .loading {

@@ -6,9 +6,9 @@
         </div>
         <div id="dialog-list" class="messenger__dialog-list">
             {{#if dialogs}}
-            {{#each dialogs}}
-                {{DialogPreview.hbs}}
-            {{/each}}
+                {{#each dialogs}}
+                    {{> DialogPreview.hbs}}
+                {{/each}}
             {{else}}
             <div class="messenger__empty-dialog">
                 У вас пока нет взаимных пар, вернитесь в <a href="/feed" class="link">ленту</a>, чтобы это исправить
