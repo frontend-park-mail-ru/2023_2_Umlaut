@@ -10,6 +10,7 @@
 
   &__dialog-list {
     overflow: auto;
+    height: calc(100vh - var(--header-height) - var(--dialog-name-height));
   }
 
   &__button {

@@ -48,6 +48,7 @@ export class PopupView {
         if (this.rendered) {
             return;
         }
+        this.choosenVariant = undefined;
         this.rendered = true;
         this.firstClick = true;
         const choose = document.createElement('div');
@@ -56,17 +57,41 @@ export class PopupView {
         choose.innerHTML = this.popupChooseTmpl(data);
         this.popup.appendChild(choose);
         const variants = this.popup.querySelector('.popup__variants');
+        const confirmBtn = this.popup.querySelector('.popup__submit');
+        confirmBtn.addEventListener('click', () => {
+            if (this.choosenVariant) {
+                if (this.choosenVariant.tagName === 'input') {
+                    data.func(this.choosenVariant.value);
+                } else {
+                    data.func(this.choosenVariant.innerHTML);
+                }
+
+                this.closeCurrent();
+            }
+        });
 
         document.body.addEventListener('click', this.closeEvent);
 
         variants.addEventListener('click', (e) => {
             if (e.target.classList.contains('popup__variant')) {
-                data.func(e.target.innerHTML);
-                this.popup.removeChild(choose);
-                document.body.removeEventListener('click', this.closeEvent);
-                this.rendered = false;
+                if (this.choosenVariant) {
+                    this.choosenVariant.classList.toggle('popup__variant-selected');
+                } else {
+                    confirmBtn.classList.toggle('btn_important');
+                }
+
+                e.target.classList.toggle('popup__variant-selected');
+                this.choosenVariant = e.target;
             }
         });
+    }
+
+    closeCurrent() {
+        if (this.popup.contains(this.currentPopup)) {
+            this.popup.removeChild(this.currentPopup);
+            document.body.removeEventListener('click', this.closeEvent);
+            this.rendered = false;
+        }
     }
 
     closeIfNotInPopup(e) {
@@ -77,9 +102,7 @@ export class PopupView {
         if (this.popup.contains(e.target)) {
             return;
         }
-        this.popup.removeChild(this.currentPopup);
-        document.body.removeEventListener('click', this.closeEvent);
-        this.rendered = false;
+        this.closeCurrent();
     }
 
     close() {

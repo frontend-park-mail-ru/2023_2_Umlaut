@@ -30,7 +30,7 @@ export class AdminAuthModel {
     isAuthorised() {
         Api.getComplaint().then(
             (response) => {
-                if ( response.status === 200 ) {
+                if ( response.status === 200 || response.status === 404) {
                     this.eventBus.emit(COMMON_EVENTS.AUTH);
                 } else if (response.status === 401) {
                     this.eventBus.emit(COMMON_EVENTS.UNAUTH);

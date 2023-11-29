@@ -3,6 +3,11 @@
 </div>
 <div class="popup__variants">
     {{#each variants}}
+    {{#if text_input}}
+    <input type="text" placeholder="{{name}}" class="popup__variant popup__text-input"/>
+    {{else}}
     <div class="popup__variant" id="{{id}}">{{name}}</div>
+    {{/if}}
     {{/each}}
+    <button class="btn popup__submit">Пожаловаться</button>
 </div>
