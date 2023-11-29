@@ -18,6 +18,7 @@ export class PopupView {
         this.eventBus.on(POPUP_EVENTS.CLOSE, this.close.bind(this));
         this.closeEvent = this.closeIfNotInPopup.bind(this);
         this.firstClick = true;
+        this.rendered = false;
     }
 
     render(msg) {
@@ -44,6 +45,10 @@ export class PopupView {
     }
 
     renderChoose(data) {
+        if (this.rendered) {
+            return;
+        }
+        this.rendered = true;
         this.firstClick = true;
         const choose = document.createElement('div');
         this.currentPopup = choose;
@@ -59,6 +64,7 @@ export class PopupView {
                 data.func(e.target.innerHTML);
                 this.popup.removeChild(choose);
                 document.body.removeEventListener('click', this.closeEvent);
+                this.rendered = false;
             }
         });
     }
@@ -73,6 +79,7 @@ export class PopupView {
         }
         this.popup.removeChild(this.currentPopup);
         document.body.removeEventListener('click', this.closeEvent);
+        this.rendered = false;
     }
 
     close() {

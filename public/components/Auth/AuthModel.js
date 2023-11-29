@@ -54,6 +54,9 @@ export class AuthModel {
             (response) => {
                 if ( response.status === 200 ) {
                     this.eventBus.emit(COMMON_EVENTS.AUTH, response.payload);
+                    if (window.location.pathname === '/auth') {
+                        this.eventBus.emit(GLOBAL_EVENTS.REDIRECT, '/feed');
+                    }
                 } else if (response.status === 401) {
                     this.eventBus.emit(COMMON_EVENTS.UNAUTH);
                 } else if (response.status === 403) {

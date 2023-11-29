@@ -69,7 +69,7 @@
     background-color: #ffffff;
     display: grid;
     grid-template-columns: 45% 55%;
-    grid-template-rows: 100%;
+    grid-template-rows: min-content min-content;
     padding: 15px;
     width: 70%;
     height: 40%;
