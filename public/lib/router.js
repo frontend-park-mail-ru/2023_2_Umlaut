@@ -31,6 +31,21 @@ export class Router {
         this.change(path);
     }
 
+    /**
+     * Переход по ссылкам в spa приложении с удалением из history.api текущего пути
+     * @param {string} path - путь
+     */
+    goOnlyForward(path) {
+        if (this.current === path) return;
+
+        if (!this.components.has(path)) {
+            this.change('/');
+            return;
+        }
+        window.history.replaceState(null, '', path);
+        this.change(path);
+    }
+
 
     /**
      * Переход по ссылке без заполнения history.api
