@@ -27,7 +27,7 @@ export class ComplainsView extends BaseView {
             this.complainId = data.id;
             const carouselRoot = this.root.querySelector('.form-feed__feed-photo');
             this.carousel = new Carousel(carouselRoot);
-            this.carousel.render(data.image_paths);
+            this.carousel.render(data.user.image_paths);
 
             this.activateBtns();
         } else {
