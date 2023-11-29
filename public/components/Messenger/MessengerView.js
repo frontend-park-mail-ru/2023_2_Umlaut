@@ -116,6 +116,8 @@ export class MessengerView extends BaseView {
                 message_text: msg,
                 created_at: `${date.getHours()}:${date.getMinutes()}`,
                 sender_id: this.my_id});
+            const block = this.root.querySelector('.dialog-window__dialog');
+            block.scrollTop = block.scrollHeight;
         });
 
         this.dialogWindow.querySelector('#message')
