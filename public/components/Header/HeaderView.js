@@ -11,6 +11,7 @@ export class HeaderView {
         this.eventBus.on(COMMON_EVENTS.UNAUTH, this.renderU.bind(this));
         this.parent = root;
         this.template = require('./Header.hbs');
+        this.adminTemplate = require('./HeaderAdmin.hbs');
     }
 
     render(user) {
@@ -19,5 +20,9 @@ export class HeaderView {
 
     renderU() {
         this.parent.innerHTML = this.template();
+    }
+
+    renderAdmin() {
+        this.parent.innerHTML = this.adminTemplate();
     }
 }

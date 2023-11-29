@@ -84,6 +84,8 @@ export const GLOBAL_EVENTS = {
     POPUP_CHOOSE: 'Choose',
     OFFLINE: 'Offline',
     ONLINE: 'Online',
+    ADMIN_AUTH: 'AdminAuth',
+    USER_BANNED: 'UserBanned',
 };
 
 export const AUTH_EVENTS = {
@@ -155,6 +157,7 @@ export const COMMON_EVENTS = {
     UNAUTH: 'Unauthorised',
     NETWORK_ERROR: 'NetworkError',
     AUTH: 'Auth',
+    USER_BANNED: 'UserBanned',
 };
 
 export const CSAT_URL = '/csat/';

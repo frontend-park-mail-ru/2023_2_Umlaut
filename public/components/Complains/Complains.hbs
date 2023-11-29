@@ -1,12 +1,14 @@
 {{#if noComplains}}
+<div class="complaint">
 <div class="center">
     <span class="complaint__line">Сейчас жалоб нет можешь отдыхать</span>
+</div>
 </div>
 {{else}}
 {{#if user}}
 <div class="complaint">
     <div class="complaint__header">На пользователя пожаловались по причине <span class="complaint__header-type">{{complaint_type}}</span></div>
-    <div class="form-feed__user-part">
+    <div class="complaint__user-part">
         {{> ../Feed/Description user}}
     </div>
     <div class="popup__buttons">

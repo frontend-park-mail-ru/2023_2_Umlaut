@@ -10,5 +10,6 @@ export class HeaderController {
         this.view = new HeaderView(root, this.eventBus);
         this.globalEventBus.on(GLOBAL_EVENTS.AUTH, (data) => this.eventBus.emit(COMMON_EVENTS.AUTH, data));
         this.globalEventBus.on(GLOBAL_EVENTS.UNAUTH, () => this.eventBus.emit(COMMON_EVENTS.UNAUTH));
+        this.globalEventBus.on(GLOBAL_EVENTS.ADMIN_AUTH, () => this.view.renderAdmin());
     }
 }

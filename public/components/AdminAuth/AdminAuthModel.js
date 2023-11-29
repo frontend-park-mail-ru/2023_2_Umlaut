@@ -13,6 +13,7 @@ export class AdminAuthModel {
             (response) => {
                 if (response.status === 200) {
                     this.eventBus.emit(COMMON_EVENTS.AUTH);
+                    this.eventBus.emit(GLOBAL_EVENTS.REDIRECT, '/admin/complaints');
                 } else if (response.status === 400) {
                     this.eventBus.emit(AUTH_EVENTS.INVALID_AUTH, {message: 'Неправильный запрос'});
                 } else if (response.status === 404) {
@@ -27,12 +28,14 @@ export class AdminAuthModel {
     }
 
     isAuthorised() {
-        Api.recomendation().then(
+        Api.getComplaint().then(
             (response) => {
                 if ( response.status === 200 ) {
-                    this.eventBus.emit(GLOBAL_EVENTS.REDIRECT, '/admin');
-                } else {
+                    this.eventBus.emit(COMMON_EVENTS.AUTH);
+                } else if (response.status === 401) {
                     this.eventBus.emit(COMMON_EVENTS.UNAUTH);
+                } else {
+                    this.eventBus.emit(COMMON_EVENTS.NETWORK_ERROR);
                 }
             },
         );

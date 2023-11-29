@@ -20,7 +20,11 @@ export class Router {
         if (this.current === path) return;
 
         if (!this.components.has(path)) {
-            this.change('/');
+            if (window.location.pathname.startsWith('/admin')) {
+                this.go('/admin/complaints');
+            } else {
+                this.change('/');
+            }
             return;
         }
         window.history.pushState(null, null, path);

@@ -19,6 +19,8 @@ export class AuthModel {
                     this.eventBus.emit(AUTH_EVENTS.INVALID_AUTH, {message: 'Неправильный запрос'});
                 } else if (response.status === 404) {
                     this.eventBus.emit(AUTH_EVENTS.INVALID_AUTH, {message: 'Страница не найдена'});
+                } else if (response.status === 403) {
+                    this.eventBus.emit(AUTH_EVENTS.INVALID_AUTH, {message: 'Вы были заблокированы'});
                 } else if (response.status === 401) {
                     this.eventBus.emit(AUTH_EVENTS.INVALID_AUTH, {message: 'Невeрный email или пароль'});
                 } else {
@@ -52,8 +54,12 @@ export class AuthModel {
             (response) => {
                 if ( response.status === 200 ) {
                     this.eventBus.emit(COMMON_EVENTS.AUTH, response.payload);
-                } else {
+                } else if (response.status === 401) {
                     this.eventBus.emit(COMMON_EVENTS.UNAUTH);
+                } else if (response.status === 403) {
+                    this.eventBus.emit(GLOBAL_EVENTS.UNAUTH);
+                } else if (response.status >= 500) {
+                    this.eventBus.emit(COMMON_EVENTS.NETWORK_ERROR);
                 }
             },
         );

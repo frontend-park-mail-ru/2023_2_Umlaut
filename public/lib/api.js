@@ -147,6 +147,8 @@ export function HandleStatuses(func, eventBus) {
     return (response) => {
         if (response.status === 401) {
             eventBus.emit(COMMON_EVENTS.UNAUTH);
+        } else if (response.status === 403) {
+            eventBus.emit(COMMON_EVENTS.USER_BANNED);
         } else if (response.status >= 500) {
             eventBus.emit(COMMON_EVENTS.NETWORK_ERROR);
         } else {

@@ -1,6 +1,7 @@
 import {BaseView} from '../BaseView.js';
 import {Carousel} from '../Carousel/Carousel.js';
 import {COMPLAINTS_EVENTS} from '../../lib/constansts.js';
+import './Complains.scss';
 
 /**
  * Компонент ленты с кнопками в анкете
@@ -18,13 +19,19 @@ export class ComplainsView extends BaseView {
     render(data) {
         super.render(data);
 
-        if (data && !data.noComplains) {
+        if (data) {
+            if (data.noComplains) {
+                return;
+            }
+
             this.complainId = data.id;
             const carouselRoot = this.root.querySelector('.form-feed__feed-photo');
             this.carousel = new Carousel(carouselRoot);
             this.carousel.render(data.image_paths);
 
             this.activateBtns();
+        } else {
+            this.eventBus.emit(COMPLAINTS_EVENTS.GET_COMPLAINT);
         }
     }
 
@@ -40,7 +47,7 @@ export class ComplainsView extends BaseView {
         this.acceptBtn = document.getElementById('accept');
         this.declineBtn = document.getElementById('decline');
         this.acceptFunc = () => {
-            this.eventBus.emit(COMPLAINTS_EVENTS.DECLINE_COMPLAINT, this.complainId);
+            this.eventBus.emit(COMPLAINTS_EVENTS.ACCEPT_COMPLAINT, this.complainId);
             this.blockButtons();
         };
         this.declineFunc = () => {
@@ -58,3 +65,13 @@ export class ComplainsView extends BaseView {
         }
     }
 }
+
+/*
+    Сообщения починить
+    Почитнить кнопку сообщений
+    Отсправка на энтер
+    Базу наполнить
+    Текстовая жалоба
+    Фотки в сообщениях
+
+*/

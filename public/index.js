@@ -45,6 +45,10 @@ document.addEventListener('DOMContentLoaded', ()=>{
     globalEventBus.on(GLOBAL_EVENTS.POPUP_CHOOSE, (data) => popup.renderChoose(data));
     globalEventBus.on(GLOBAL_EVENTS.RERENDER_HEADER, () => globalEventBus.emit(GLOBAL_EVENTS.CHECK_AUTHORISED));
     globalEventBus.on(GLOBAL_EVENTS.UNAUTH, () => router.go('/auth') );
+    globalEventBus.on(GLOBAL_EVENTS.USER_BANNED, () => {
+        popup.render('Вы были заблокированы за нарушение правил');
+        router.go('/auth');
+    });
 
     window.addEventListener('offline', () => {
         popup.render('Отсутсвует подключение к интернету');
@@ -81,7 +85,10 @@ document.addEventListener('DOMContentLoaded', ()=>{
     router.add('/admin/auth', admin);
     router.add('/admin/complaints', complaints);
 
-
-    // globalEventBus.emit(GLOBAL_EVENTS.CHECK_AUTHORISED);
+    if (!window.location.pathname.startsWith('/admin')) {
+        globalEventBus.emit(GLOBAL_EVENTS.CHECK_AUTHORISED);
+    } else {
+        admin.model.isAuthorised();
+    }
     router.start();
 });
