@@ -1,10 +1,18 @@
 .auth {
-  width: 25%;
+  width: max(25%, 300px);
   margin-top: 20px;
   margin-bottom: 40px;
   background-color: var(--dark-blue-color);
   border-radius: 4px;
-  padding: 2%;
+  padding: 20px;
+
+  @media (max-width: 800px) {
+    margin: 80px auto;
+  }
+  @media (max-width: 400px) {
+    margin-top: 90px;
+    width: 75%;
+  }
 
   &__subtitle {
     font-style: normal;
@@ -13,6 +21,13 @@
     line-height: 150%;
     color: var(--auth-text-color);
     margin-bottom: 50px;
+    @media (max-width:600px) {
+      font-size: 10px;
+      margin-bottom: 20px;
+    }
+    @media (max-width:370px) {
+      font-size: 9px;
+    }
   }
 
   &__link {
@@ -28,6 +43,13 @@
     margin-top: 10px;
     display: block;
     text-align: center;
+    @media (max-width: 600px) {
+      font-size: 20px;
+    }
+    @media (max-width: 370px) {
+      font-size: 18px;
+      margin-bottom: 30px;
+    }
   }
 }
 
@@ -37,7 +59,7 @@
   & p { 
       color: var(--main-text-color);
       font-family: 'Montserrat';
-      font-size: 14px;
+      font-size:  calc( 0.8rem + 6.4px ); 
       line-height: 24px;
       text-align: justify;
   }
@@ -45,7 +67,7 @@
   &__about {
       color: var(--main-text-color);
       font-family: 'Montserrat';
-      font-size: 30px;
+      font-size:  calc( 0.7rem + 6.4px );
       font-weight: bold;
   }
 
@@ -91,25 +113,54 @@
 
 .naming{
   position: absolute;
-  left: 69%;
+  right: 10%;
   color: #303656;
   font-size: 25px;
   text-transform: uppercase;
   width: 24%;
-  background-color: #ffffff30;
+  background-color: rgba(255, 255, 255, 0.5);
   padding: 1%;
   border-radius: 15px;
 
+  @media (max-width: 950px) {
+    font-size:  calc(0.4rem + 3vw - 10px); 
+    width: 30%;
+    background-color: rgba(255, 255, 255, 0.75);
+    bottom: 47%;
+  }
+  @media (max-width: 800px) {
+    position: initial;
+    width: max(30%, 150px);
+  }
+  @media (max-width: 500px) {
+    width: auto;
+    margin: 20%;
+    font-size: 14px;
+  }
 }
 
 .naming_small{
   font-size: 20px;
+  @media (max-width: 950px) {
+    font-size: calc(0.2rem + 3vw - 12px);
+  }
+  @media (max-width: 500px) {
+    font-size: 11px;
+  }
 }
 
 .background-holder{
   background-image: url("../../../static/pics/lending.jpg");
   background-repeat: no-repeat;
   background-size: cover;
-  background-color: #cccccc;
+  background-color: var(--background-color);
   padding: 5%;
+
+  @media (max-width: 950px){
+    background-size: auto;
+  }
+
+  @media (max-width: 800px){
+    background-size: contain;
+  }
 }

@@ -50,6 +50,7 @@ export class AuthModel {
     }
 
     isAuthorised() {
+        this.eventBus.emit(COMMON_EVENTS.UNAUTH);
         Api.user().then(
             (response) => {
                 if ( response.status === 200 ) {

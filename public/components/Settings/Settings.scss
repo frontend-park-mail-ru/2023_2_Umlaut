@@ -14,11 +14,13 @@
 }
 
 .settings-form {
-  display: grid;
-  grid-template-columns: 36% 30% 30%;
-  grid-template-rows: 100%;
-  gap: 2%;
-  padding: 2%;
+  display: flex;
+  gap: 20px;
+  padding: 20px;
+
+  @media (max-width: 900px) {
+    flex-direction: column;
+  }
 
   &__photo {
     width: 100%;
@@ -39,7 +41,6 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    margin-right: 5%;
   }
 
   &__user-name {
@@ -48,9 +49,9 @@
 
   &__description-settings {
     border: solid;
-    border-radius: 2%;
+    border-radius: 15px;
     backdrop-filter: blur(7px);
-    padding: 2%;
+    padding: 10px;
   }
 
   &__about-user {
@@ -84,13 +85,29 @@
   font-size: 16px;
   margin: 10px;
 
+  @media (max-width: 1200px) {
+    font-size: 13px;
+  }
+
+  @media (max-width: 900px) {
+    font-size: 16px;
+  }
+
   &__eye{
     cursor: pointer;
-    background-image: url('../../../static/pics/eye_closed.png');
-    width: 6%;
+    width: 20px;
     position: absolute;
-    right: 6%;
+    right: 30px;
     filter: invert(1);
+    top: 166px;
+
+    @media (max-width: 1200px) {
+      top: 143px;
+    }
+
+    @media (max-width: 1091px) {
+      top: 166px;
+    }
   }
 
   &__data-input {
