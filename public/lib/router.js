@@ -39,7 +39,11 @@ export class Router {
         if (this.current === path) return;
 
         if (!this.components.has(path)) {
-            this.goOnlyForward('/feed');
+            if (window.location.pathname.startsWith('/admin')) {
+                this.goOnlyForward('/admin/complaints');
+            } else {
+                this.goOnlyForward('/feed');
+            }
             return;
         }
         window.history.replaceState(null, '', path);

@@ -34,6 +34,7 @@ export class AdminAuthModel {
                     this.eventBus.emit(COMMON_EVENTS.AUTH);
                 } else if (response.status === 401) {
                     this.eventBus.emit(COMMON_EVENTS.UNAUTH);
+                    this.eventBus.emit(GLOBAL_EVENTS.REDIRECT, '/admin/auth');
                 } else {
                     this.eventBus.emit(COMMON_EVENTS.NETWORK_ERROR);
                 }

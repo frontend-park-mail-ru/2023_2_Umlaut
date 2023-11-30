@@ -104,7 +104,6 @@ export class FeedView extends BaseView {
     }
 
     showStub(data) {
-        console.log('пользователи кончились');
         if (data) {
             data.params = this.params;
         }

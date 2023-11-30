@@ -71,11 +71,12 @@
     font-weight: bold;
     text-align: center;
     width: 100%;
-    grid-column-start: 1;
-    grid-column-end: 3;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    @media (max-width: $phone-max-width) {
+      width: 90vw;
+      font-size: 18px;
+      padding: 10px;
+    }
   }
 
   &__user-part {
