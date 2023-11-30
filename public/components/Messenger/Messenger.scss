@@ -6,15 +6,26 @@
   &__dialogs {
     background-color: var(--dialog-grey);
     width: var(--dialogs-width);
+    @media (max-width: 650px){
+      width:min-content;
+    }
   }
 
   &__dialog-list {
     overflow: auto;
     height: calc(100vh - var(--header-height) - var(--dialog-name-height));
+    @media (max-width: 650px){
+      width:min-content;
+    }
   }
 
   &__button {
     background-color: var(--dialog-grey);
+    @media (max-width:650px) {
+      width: 70px;
+      font-size: 14px;
+      padding: 0px;
+    }
   }
 
   &__empty-dialog {
@@ -23,11 +34,20 @@
     padding: 2%;
   }
 
+  &__switch{
+    @media (max-width:650px) {
+      display: none;
+    }
+  }
 }
 
 .dialog-preview {
   height: 100px;
-  border: 1px solid var(--dark-blue-color);
+  display: flex;
+  border-bottom: 1px solid var(--dark-blue-color);
+  @media (max-width:650px) {
+    height: calc(14.2vw + 7px);
+  }
 
   &__new-message{
     background-color: red;
@@ -45,6 +65,10 @@
     border-radius: 50%;
     overflow: hidden;
     padding: 8px;
+    @media (max-width:650px) {
+      height: calc(14.2vw - 7.85px);
+      width: calc(14.2vw - 7.85px);
+    }
   }
 
   &__photo-img {
@@ -56,6 +80,9 @@
 
   &__dialog-name {
     color: white;
+    @media (max-width:650px) {
+      font-size: 14px;
+    }
   }
 
   &__preview-message {
@@ -83,6 +110,9 @@
 
     &_me{
       margin-left: auto;
+    }
+    @media (max-width:500px) {
+      max-width: 250px;
     }
   }
 

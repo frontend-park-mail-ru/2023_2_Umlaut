@@ -55,19 +55,17 @@
 
 .lending {
   padding: 1%;
+  font-size: calc(0.941vw + 8.7px); 
   
   & p { 
       color: var(--main-text-color);
       font-family: 'Montserrat';
-      font-size:  calc( 0.8rem + 6.4px ); 
-      line-height: 24px;
       text-align: justify;
   }
 
   &__about {
       color: var(--main-text-color);
       font-family: 'Montserrat';
-      font-size:  calc( 0.7rem + 6.4px );
       font-weight: bold;
   }
 
@@ -115,7 +113,7 @@
   position: absolute;
   right: 10%;
   color: #303656;
-  font-size: 25px;
+  font-size: calc(1.33vw + 5.3px);
   text-transform: uppercase;
   width: 24%;
   background-color: rgba(255, 255, 255, 0.5);
@@ -123,7 +121,6 @@
   border-radius: 15px;
 
   @media (max-width: 950px) {
-    font-size:  calc(0.4rem + 3vw - 10px); 
     width: 30%;
     background-color: rgba(255, 255, 255, 0.75);
     bottom: 47%;
@@ -135,18 +132,11 @@
   @media (max-width: 500px) {
     width: auto;
     margin: 20%;
-    font-size: 14px;
   }
 }
 
 .naming_small{
-  font-size: 20px;
-  @media (max-width: 950px) {
-    font-size: calc(0.2rem + 3vw - 12px);
-  }
-  @media (max-width: 500px) {
-    font-size: 11px;
-  }
+  font-size: calc(0.8vw + 5.2px);
 }
 
 .background-holder{
