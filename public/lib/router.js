@@ -21,9 +21,9 @@ export class Router {
 
         if (!this.components.has(path)) {
             if (window.location.pathname.startsWith('/admin')) {
-                this.go('/admin/complaints');
+                this.goOnlyForward('/admin/complaints');
             } else {
-                this.change('/');
+                this.goOnlyForward('/feed');
             }
             return;
         }
@@ -39,7 +39,7 @@ export class Router {
         if (this.current === path) return;
 
         if (!this.components.has(path)) {
-            this.change('/');
+            this.goOnlyForward('/feed');
             return;
         }
         window.history.replaceState(null, '', path);
@@ -55,8 +55,8 @@ export class Router {
         if (this.current !== null && this.components.has(this.current)) {
             this.components.get(this.current).close();
         }
-        this.components.get(path).render();
         this.current = path;
+        this.components.get(path).render();
     }
 
     /**
@@ -84,6 +84,6 @@ export class Router {
             this.change(window.location.pathname);
         });
 
-        this.go(window.location.pathname);
+        this.goOnlyForward(window.location.pathname);
     }
 }

@@ -13,7 +13,6 @@ export class AuthModel {
         Api.login(data).then(
             (response) => {
                 if (response.status === 200) {
-                    this.eventBus.emit(GLOBAL_EVENTS.REDIRECT, '/feed');
                     this.isAuthorised();
                 } else if (response.status === 400) {
                     this.eventBus.emit(AUTH_EVENTS.INVALID_AUTH, {message: 'Неправильный запрос'});
@@ -34,7 +33,6 @@ export class AuthModel {
         Api.signup(data).then(
             (response) => {
                 if (response.status === 200) {
-                    this.eventBus.emit(GLOBAL_EVENTS.REDIRECT, '/settings');
                     this.isAuthorised();
                 } else if (response.status === 400) {
                     this.eventBus.emit(AUTH_EVENTS.INVALID_AUTH, {message: 'Неправильный запрос'});
@@ -50,13 +48,14 @@ export class AuthModel {
     }
 
     isAuthorised() {
-        this.eventBus.emit(COMMON_EVENTS.UNAUTH);
         Api.user().then(
             (response) => {
                 if ( response.status === 200 ) {
                     this.eventBus.emit(COMMON_EVENTS.AUTH, response.payload);
                     if (window.location.pathname === '/auth') {
                         this.eventBus.emit(GLOBAL_EVENTS.REDIRECT, '/feed');
+                    } else if (window.location.pathname === '/signup') {
+                        this.eventBus.emit(GLOBAL_EVENTS.REDIRECT, '/settings');
                     }
                 } else if (response.status === 401) {
                     this.eventBus.emit(COMMON_EVENTS.UNAUTH);

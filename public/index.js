@@ -75,7 +75,6 @@ document.addEventListener('DOMContentLoaded', ()=>{
     const complaints = new ComplainsController(page, globalEventBus);
 
 
-    router.add('/', feed);
     router.add('/feed', feed);
     router.add('/auth', auth);
     router.add('/signup', signup);
