@@ -1,6 +1,7 @@
 .form-feed {
   padding: 20px;
   display: flex;
+  margin-top: 3vh;
   justify-content: center;
 
   &__buttons {
@@ -14,6 +15,7 @@
     align-self: flex-end;
     margin-bottom: 5%;
     z-index: 2;
+    height: 15%;
   }
 
   &__button {
@@ -24,8 +26,7 @@
     transition: transform 0.7s ease-in-out;
     border-radius: 50%;
     background-color: green;
-    height: 70px;
-    width: 70px;
+    aspect-ratio: 1 / 1;
     cursor: pointer;
 
     &:hover {
@@ -73,17 +74,21 @@
     box-shadow: 0px 0px 5px 1px rgba(34, 60, 80, 0.2);
     background-color: #ffffff;
     display: grid;
-    grid-template-columns: 45% 55%;
+    grid-template-columns: min( max(280px, 31vw), 450px) 1fr;
     grid-template-rows: 100%;
     overflow: hidden;
     column-gap: 5%;
-    width: 70%;
-    height: 40%;
-    margin: 4%;
-    min-height: 400px;
     position: relative;
     border-radius: 30px;
+    //phone
+    @media (max-width: 620px) {
+       grid-template-rows: min-content min-content;
+       grid-template-columns: 90vw;
+       row-gap: 5%;
+    }
+
   }
+
 
   &__text {
     margin: 7px;
@@ -132,6 +137,7 @@
     position: absolute;
     right: 1vw;
     top: 1vh;
+    z-index: 5;
   }
 
   &__complain {
@@ -164,6 +170,7 @@
   top: 90px;
   right: 80px;
   visibility: hidden;
+  z-index: 10;
 
   &_visible{
     visibility: visible;
