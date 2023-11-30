@@ -4,6 +4,11 @@
   margin-top: 3vh;
   justify-content: center;
 
+  @media (max-width: 620px) {
+    padding: 0;
+    margin-top: 6vh;
+  }
+
   &__buttons {
     display: flex;
     gap: 10%;
@@ -15,7 +20,7 @@
     align-self: flex-end;
     margin-bottom: 5%;
     z-index: 2;
-    height: 15%;
+    height: min(15%, 75px);
   }
 
   &__button {
@@ -122,6 +127,7 @@
   &__description {
     display: flex;
     flex-direction: column;
+    padding-bottom: 10px;
   }
 
   &__about-user {
@@ -130,14 +136,14 @@
   }
 
   &__search-btn{
-    width: 60px;
-    height: 60px;
+    height: min( 6vh, 60px);
     margin-left: auto;
     cursor: pointer;
     position: absolute;
     right: 1vw;
-    top: 1vh;
+    top: 1vw;
     z-index: 5;
+    aspect-ratio: 1 / 1;
   }
 
   &__complain {
@@ -171,6 +177,14 @@
   right: 80px;
   visibility: hidden;
   z-index: 10;
+  box-sizing: border-box;
+
+  @media (max-width: 620px) {
+    position: fixed;
+    width: 90vw;
+    left: calc(50% - 90vw/2);
+    top: 30vh;
+ }
 
   &_visible{
     visibility: visible;
