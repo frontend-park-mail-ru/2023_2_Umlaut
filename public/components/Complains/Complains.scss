@@ -1,22 +1,22 @@
 .complaint {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  margin: 20px;
+  min-width: 50vw;
+  min-height: 50vh;
+  &__header {
+    font-size: 1.2rem;
+    &-type {
+      color: var(--dark-blue-color);
+    }
+  }
+  &__user-part {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
-    margin: 20px;
-    min-width: 50vw;
-    min-height: 50vh;
-    &__header {
-        font-size: 1.2rem;
-        &-type {
-            color: var(--dark-blue-color);
-        }
-    }
-    &__user-part {
-        display: flex;
-        flex-direction: row;
-        background-color: white;
-        border-radius: 10px;
-        width: 50vw;
-    }
+    flex-direction: row;
+    background-color: white;
+    border-radius: 10px;
+    width: 50vw;
+  }
 }

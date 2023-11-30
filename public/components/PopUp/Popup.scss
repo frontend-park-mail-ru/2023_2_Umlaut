@@ -1,7 +1,7 @@
 .popup {
   z-index: 10;
 
-  &__notify{
+  &__notify {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -17,22 +17,22 @@
     background-color: #ffffff;
   }
 
-  &__btn{
+  &__btn {
     width: 36%;
   }
 
-  &__question{
+  &__question {
     margin: 10%;
     margin-top: 0;
   }
 
-  &__confirm{
+  &__confirm {
     position: fixed;
     top: 30%;
     display: flex;
     flex-direction: column;
     background-color: #f1eaea;
-    width: min(380px, 85vw);;
+    width: min(380px, 85vw);
     height: min-content;
     align-content: center;
     justify-content: center;
@@ -42,7 +42,7 @@
     box-sizing: border-box;
   }
 
-  &__choose{
+  &__choose {
     position: fixed;
     top: 15%;
     left: 50%;
@@ -93,7 +93,7 @@
     }
   }
 
-  &__buttons{
+  &__buttons {
     display: flex;
     gap: 17%;
     justify-content: center;

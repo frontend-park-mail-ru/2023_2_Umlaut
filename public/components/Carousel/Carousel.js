@@ -17,14 +17,14 @@ export class Carousel {
 
     render(images, index = 0) {
         this.close();
-
+        images = images ? images : [];
+        this.images = images;
         if (images) {
             for (let i = 0; i < images.length; i++) {
                 images[i] = images[i].replace('http:/', 'https:/');
             }
         }
 
-        this.images = images;
         this.root.innerHTML = this.template({image_paths: images});
 
         if (!images || images.length < 1) {

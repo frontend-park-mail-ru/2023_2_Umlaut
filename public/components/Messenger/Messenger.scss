@@ -22,14 +22,13 @@
     color: white;
     padding: 2%;
   }
-
 }
 
 .dialog-preview {
   height: 100px;
   border: 1px solid var(--dark-blue-color);
 
-  &__new-message{
+  &__new-message {
     background-color: red;
     width: 20px;
     height: 20px;
@@ -65,15 +64,18 @@
 
 .dialog-window {
   width: 100%;
-  background-image: url('../../../static/pics/background.jpg');
+  background-image: url("../../../static/pics/background.jpg");
 
-  &__dialog{
+  &__dialog {
     overflow: auto;
     padding: 5px;
-    height: calc(100vh - var(--header-height) - var(--dialog-name-height) - var(--dialog-input-height) - 10px);
+    height: calc(
+      100vh - var(--header-height) - var(--dialog-name-height) -
+        var(--dialog-input-height) - 10px
+    );
   }
 
-  &__message{
+  &__message {
     background-color: white;
     border-radius: 8px;
     max-width: 400px;
@@ -81,44 +83,44 @@
     margin: 3px 0px;
     width: fit-content;
 
-    &_me{
+    &_me {
       margin-left: auto;
     }
   }
 
-  &__text{
+  &__text {
     font-size: 16px;
     margin: 3px;
     word-wrap: break-word;
   }
 
-  &__time{
+  &__time {
     font-size: 12px;
   }
 
-  &__input-message{
+  &__input-message {
     display: flex;
     background-color: white;
   }
 
-  &__send-img{
+  &__send-img {
     width: var(--dialog-input-height);
     background-color: white;
     object-fit: cover;
     cursor: pointer;
   }
 
-  &__input{
+  &__input {
     width: 100%;
     border: none;
   }
 
-  &__unread{
+  &__unread {
     background-color: gray;
     text-align: center;
   }
 
-  &__name{
+  &__name {
     background-color: #76798b;
     font-size: 30px;
     height: var(--dialog-name-height);

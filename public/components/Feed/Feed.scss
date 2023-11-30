@@ -1,10 +1,12 @@
+@import "/public/lib/constants";
+
 .form-feed {
   padding: 20px;
   display: flex;
   margin-top: 3vh;
   justify-content: center;
 
-  @media (max-width: 620px) {
+  @media (max-width: $phone-max-width) {
     padding: 0;
     margin-top: 6vh;
     margin-bottom: 6vh;
@@ -64,7 +66,7 @@
     }
   }
 
-  &__no-people{
+  &__no-people {
     font-size: 26px;
     font-weight: bold;
     text-align: center;
@@ -80,21 +82,19 @@
     box-shadow: 0px 0px 5px 1px rgba(34, 60, 80, 0.2);
     background-color: #ffffff;
     display: grid;
-    grid-template-columns: min( max(280px, 31vw), 450px) 1fr;
+    grid-template-columns: min(max(280px, 31vw), 450px) 1fr;
     grid-template-rows: 100%;
     overflow: hidden;
     column-gap: 5%;
     position: relative;
     border-radius: 30px;
     //phone
-    @media (max-width: 620px) {
-       grid-template-rows: min-content min-content;
-       grid-template-columns: 90vw;
-       row-gap: 20px;
+    @media (max-width: $phone-max-width) {
+      grid-template-rows: min-content min-content;
+      grid-template-columns: 90vw;
+      row-gap: 20px;
     }
-
   }
-
 
   &__text {
     margin: 7px;
@@ -116,7 +116,7 @@
     align-self: center;
     position: relative;
   }
-  
+
   &__photo-part {
     display: flex;
     flex-direction: column;
@@ -136,8 +136,8 @@
     flex-direction: column;
   }
 
-  &__search-btn{
-    height: min( 6vh, 60px);
+  &__search-btn {
+    height: min(6vh, 60px);
     margin-left: auto;
     cursor: pointer;
     position: absolute;
@@ -160,14 +160,14 @@
     &:hover {
       scale: 1.03;
     }
-    &-symbol { 
+    &-symbol {
       position: relative;
       bottom: 0.5px;
     }
-  } 
+  }
 }
 
-.search{
+.search {
   background: #f4f4f4;
   border: solid;
   border-radius: 12px;
@@ -180,18 +180,18 @@
   z-index: 10;
   box-sizing: border-box;
 
-  @media (max-width: 620px) {
+  @media (max-width: $phone-max-width) {
     position: fixed;
-    width: 90vw;
-    left: calc(50% - 90vw/2);
+    left: 50px;
+    transform: translateX(-50%);
     top: 30vh;
- }
+  }
 
-  &_visible{
+  &_visible {
     visibility: visible;
   }
-  
-  &__age{
+
+  &__age {
     display: flex;
     width: 325px;
   }

@@ -1,17 +1,15 @@
+@import "/public/lib/constants";
+
 .auth {
-  width: max(25%, 300px);
+  width: max(20%, 300px);
   margin-top: 20px;
   margin-bottom: 40px;
   background-color: var(--dark-blue-color);
   border-radius: 4px;
   padding: 20px;
 
-  @media (max-width: 800px) {
+  @media (max-width: $phone-max-width) {
     margin: 80px auto;
-  }
-  @media (max-width: 400px) {
-    margin-top: 90px;
-    width: 75%;
   }
 
   &__subtitle {
@@ -21,12 +19,10 @@
     line-height: 150%;
     color: var(--auth-text-color);
     margin-bottom: 50px;
-    @media (max-width:600px) {
+
+    @media (max-width: $phone-max-width) {
       font-size: 10px;
       margin-bottom: 20px;
-    }
-    @media (max-width:370px) {
-      font-size: 9px;
     }
   }
 
@@ -43,124 +39,108 @@
     margin-top: 10px;
     display: block;
     text-align: center;
-    @media (max-width: 600px) {
+    @media (max-width: $phone-max-width) {
       font-size: 20px;
-    }
-    @media (max-width: 370px) {
-      font-size: 18px;
-      margin-bottom: 30px;
     }
   }
 }
 
 .lending {
   padding: 1%;
-  
-  & p { 
-      color: var(--main-text-color);
-      font-family: 'Montserrat';
-      font-size:  calc( 0.8rem + 6.4px ); 
-      line-height: 24px;
-      text-align: justify;
+
+  @media (max-width: $phone-max-width) {
+    display: none;
+  }
+
+  & p {
+    color: var(--main-text-color);
+    font-family: "Montserrat";
+    font-size: calc(0.8rem + 6.4px);
+    line-height: 24px;
+    text-align: justify;
   }
 
   &__about {
-      color: var(--main-text-color);
-      font-family: 'Montserrat';
-      font-size:  calc( 0.7rem + 6.4px );
-      font-weight: bold;
+    color: var(--main-text-color);
+    font-family: "Montserrat";
+    font-size: calc(0.7rem + 6.4px);
+    font-weight: bold;
   }
 
   &__description {
-      display: flex;
-      column-gap: 5%;
+    display: flex;
+    column-gap: 5%;
   }
 
   &__introduction {
-      width: 50%;
+    width: 50%;
   }
 
   &__points {
-      width: 50%;
-      display: flex;
-      flex-wrap: wrap;
-      flex-direction: column;
-      row-gap: 10%;
+    width: 50%;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    row-gap: 10%;
   }
 
   &__list li {
-      display: table-row;
-      &::before {
-          display: table-cell;
-          content: "+";
-          font-weight: bold;
-          color: var(--main-text-color);
-          padding-right: 12px;
-      }
-  }   
+    display: table-row;
+    &::before {
+      display: table-cell;
+      content: "+";
+      font-weight: bold;
+      color: var(--main-text-color);
+      padding-right: 12px;
+    }
+  }
 
   &__heart-holder {
-      height: 5%;
-      width: 5%;
+    height: 5%;
+    width: 5%;
   }
 
   &__heart-img {
-      height: 100%;
-      width: 100%;
-      object-fit: cover;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
   }
 }
 
-.naming{
+.naming {
   position: absolute;
-  right: 10%;
+  right: 20px;
   color: #303656;
   font-size: 25px;
   text-transform: uppercase;
-  width: 24%;
+  width: min-content;
   background-color: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(8px);
   padding: 1%;
   border-radius: 15px;
 
-  @media (max-width: 950px) {
-    font-size:  calc(0.4rem + 3vw - 10px); 
-    width: 30%;
-    background-color: rgba(255, 255, 255, 0.75);
-    bottom: 47%;
+  @media (max-width: $phone-max-width) {
+    display: none;
   }
-  @media (max-width: 800px) {
-    position: initial;
-    width: max(30%, 150px);
-  }
-  @media (max-width: 500px) {
-    width: auto;
-    margin: 20%;
+}
+
+.naming_small {
+  font-size: 20px;
+
+  @media (max-width: $phone-max-width) {
     font-size: 14px;
   }
 }
 
-.naming_small{
-  font-size: 20px;
-  @media (max-width: 950px) {
-    font-size: calc(0.2rem + 3vw - 12px);
-  }
-  @media (max-width: 500px) {
-    font-size: 11px;
-  }
-}
-
-.background-holder{
+.background-holder {
   background-image: url("../../../static/pics/lending.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   background-color: var(--background-color);
   padding: 5%;
 
-  @media (max-width: 950px){
-    background-size: auto;
-  }
-
-  @media (max-width: 800px){
+  @media (max-width: $phone-max-width) {
     background-size: contain;
+    background-image: none;
   }
 }

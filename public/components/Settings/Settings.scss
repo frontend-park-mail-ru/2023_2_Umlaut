@@ -1,3 +1,5 @@
+@import "/public/lib/constants";
+
 .logout {
   display: flex;
   justify-content: flex-end;
@@ -6,6 +8,7 @@
     max-width: 50px;
     max-height: 50px;
     cursor: pointer;
+    margin-right: 20px;
   }
 
   &:active {
@@ -18,7 +21,7 @@
   gap: 20px;
   padding: 20px;
 
-  @media (max-width: 900px) {
+  @media (max-width: $phone-max-width) {
     flex-direction: column;
   }
 
@@ -28,8 +31,10 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    @media (max-width: $phone-max-width) {
+      height: 450px;
+    }
   }
-
 
   &__user-name {
     font-size: 40px;
@@ -41,6 +46,7 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    flex: 1;
   }
 
   &__user-name {
@@ -52,6 +58,7 @@
     border-radius: 15px;
     backdrop-filter: blur(7px);
     padding: 10px;
+    flex: 1;
   }
 
   &__about-user {
@@ -59,18 +66,11 @@
     flex-direction: column;
   }
 
-  &__button-delete {
-    width: 40%;
-  }
-
-  &__button-add {
-    width: 45%;
-  }
-
   &__buttons-photo-setting {
     display: flex;
     justify-content: space-around;
-    margin: 10px;
+    margin: 5px;
+    gap: 10px;
   }
 
   &__age {
@@ -79,21 +79,19 @@
 }
 
 .input-border {
-  font-family: 'Montserrat';
+  font-family: "Montserrat";
   border: 2px solid black;
   border-radius: 10px;
   font-size: 16px;
   margin: 10px;
+  margin-left: 0;
+  margin-right: 0;
 
-  @media (max-width: 1200px) {
-    font-size: 13px;
-  }
-
-  @media (max-width: 900px) {
+  @media (max-width: $phone-max-width) {
     font-size: 16px;
   }
 
-  &__eye{
+  &__eye {
     cursor: pointer;
     width: 20px;
     position: absolute;
@@ -101,11 +99,7 @@
     filter: invert(1);
     top: 166px;
 
-    @media (max-width: 1200px) {
-      top: 143px;
-    }
-
-    @media (max-width: 1091px) {
+    @media (max-width: $phone-max-width) {
       top: 166px;
     }
   }
@@ -117,23 +111,23 @@
     border: none;
     position: relative;
     background: transparent;
-    font-family: 'Montserrat';
+    font-family: "Montserrat";
 
     &_text {
-        background-color: transparent;
-        font-family: 'Montserrat';
-        height: 50px;
-        margin: -1%;
-        resize: none;
+      background-color: transparent;
+      font-family: "Montserrat";
+      height: 50px;
+      margin: -1%;
+      resize: none;
     }
 
     &_date {
-        height: 20px;
-        font-family: 'Montserrat';
+      height: 20px;
+      font-family: "Montserrat";
     }
   }
 
-  &__show-list{
+  &__show-list {
     width: 5%;
     position: absolute;
     right: 6%;
@@ -148,14 +142,14 @@
     margin-left: 10px;
     border-radius: 10px;
 
-    &_white{
+    &_white {
       background: #f4f4f4;
     }
   }
 }
 
-.multiselection{
-  &__select-multiple{
+.multiselection {
+  &__select-multiple {
     visibility: hidden;
     position: absolute;
     background-color: #e6dddd;
@@ -165,16 +159,16 @@
     padding: 10px;
     overflow: auto;
 
-    &:hover{
+    &:hover {
       visibility: visible;
     }
   }
 
-  &:hover .multiselection__select-multiple{
-      visibility: visible;
+  &:hover .multiselection__select-multiple {
+    visibility: visible;
   }
 
-  &__selection{
+  &__selection {
     border: 0.43mm solid;
     border-radius: 9px;
     padding: 2px;
@@ -182,11 +176,11 @@
     margin: 2px 2px;
     display: inline-block;
 
-    &_active{
+    &_active {
       background-color: red;
     }
 
-    &_variant{
+    &_variant {
       cursor: pointer;
     }
   }
