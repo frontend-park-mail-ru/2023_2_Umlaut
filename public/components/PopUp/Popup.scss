@@ -43,10 +43,10 @@
   &__choose{
     position: fixed;
     top: 15%;
-    left: 37%;
+    left: calc(50% - min(380px, 85vw) / 2);
     display: flex;
     background-color: #f1eaea;
-    width: 26%;
+    width: min(380px, 85vw);
     height: fit-content;
     align-content: center;
     justify-content: center;
@@ -54,6 +54,7 @@
     flex-direction: column;
     border: var(--dark-blue-color) 2px solid;
     border-radius: 8px;
+    box-sizing: border-box;
   }
 
   &__submit {
@@ -74,6 +75,7 @@
     border-color: var(--dark-blue-color);
     border: 2px solid;
     border-radius: 4px;
+    box-sizing: border-box;
 
     color: var(--dark-blue-color);
     cursor: pointer;

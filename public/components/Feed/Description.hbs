@@ -5,11 +5,7 @@
 </div>
 <div class="form-feed__description">
     <div class="form-feed__user-name">
-    {{name}}
-    {{#if age}}
-      ,
-      {{age}}
-    {{/if}}
+    {{name}}{{#if age}}, {{age}}{{/if}}
   </div>
   <div class="form-feed__about-user">
     {{#if looking}}
@@ -40,9 +36,11 @@
       <span class="form-feed__text form-feed__text_bold">
         Теги:
       </span>
-      <span class="form-feed__text">
-        {{tags}}
-      </span>
+      <div class="multiselection">
+        {{#each tags}}
+          <span class="multiselection__selection">{{this}}</span>
+        {{/each}}
+      </div>
     {{/if}}
     {{#if description}}
       <span class="form-feed__text">

@@ -185,18 +185,18 @@ export class MessengerView extends BaseView {
         dialog.appendChild(newMes);
     }
 
-    forMobile(){
+    forMobile() {
         const dialogs = this.root.querySelector('.messenger__dialogs');
         dialogs.addEventListener('click', ()=>{
             const mesSwitch = dialogs.querySelector('.messenger__switch');
             mesSwitch.style.display = 'block';
             const names = dialogs.querySelectorAll('.dialog-preview__dialog-name');
-            names.forEach(name => {
+            names.forEach((name) => {
                 name.style.display = 'block';
             });
             const dialList = dialogs.querySelector('.messenger__dialog-list');
             dialList.style.width = 'auto';
-            
+
             dialogs.style.width = '350px';
         });
 
@@ -206,12 +206,12 @@ export class MessengerView extends BaseView {
             const mesSwitch = dialogs.querySelector('.messenger__switch');
             mesSwitch.style.display = 'none';
             const names = dialogs.querySelectorAll('.dialog-preview__dialog-name');
-            names.forEach(name => {
+            names.forEach((name) => {
                 name.style.display = 'none';
             });
             const dialList = dialogs.querySelector('.messenger__dialog-list');
             dialList.style.width = 'min-content';
-            
+
             dialogs.style.width = 'min-content';
         });
     }
