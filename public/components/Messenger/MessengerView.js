@@ -22,7 +22,7 @@ export class MessengerView extends BaseView {
 
     render(data) {
         super.render(data);
-
+        this.forMobile();
         this.dialogList = [];
         this.dialogListView = document.getElementById('dialog-list');
         this.dialogWindow = document.getElementById('dialog-window');
@@ -35,6 +35,8 @@ export class MessengerView extends BaseView {
         if (!data) {
             this.eventBus.emit(MESSENGER_EVENTS.GET_DIALOGS);
         }
+
+        this.forMobile();
     }
 
     addDialogs(data) {
@@ -181,5 +183,36 @@ export class MessengerView extends BaseView {
         const newMes = document.createElement('div');
         newMes.className = 'dialog-preview__new-message';
         dialog.appendChild(newMes);
+    }
+
+    forMobile() {
+        const dialogs = this.root.querySelector('.messenger__dialogs');
+        dialogs.addEventListener('click', ()=>{
+            const mesSwitch = dialogs.querySelector('.messenger__switch');
+            mesSwitch.style.display = 'block';
+            const names = dialogs.querySelectorAll('.dialog-preview__dialog-name');
+            names.forEach((name) => {
+                name.style.display = 'block';
+            });
+            const dialList = dialogs.querySelector('.messenger__dialog-list');
+            dialList.style.width = 'auto';
+
+            dialogs.style.width = '350px';
+        });
+
+        const dialogWindow = this.root.querySelector('.dialog-window');
+        dialogWindow.addEventListener('click', ()=>{
+            const dialogs = this.root.querySelector('.messenger__dialogs');
+            const mesSwitch = dialogs.querySelector('.messenger__switch');
+            mesSwitch.style.display = 'none';
+            const names = dialogs.querySelectorAll('.dialog-preview__dialog-name');
+            names.forEach((name) => {
+                name.style.display = 'none';
+            });
+            const dialList = dialogs.querySelector('.messenger__dialog-list');
+            dialList.style.width = 'min-content';
+
+            dialogs.style.width = 'min-content';
+        });
     }
 }
