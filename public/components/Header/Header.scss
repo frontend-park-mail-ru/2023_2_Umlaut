@@ -4,6 +4,8 @@
   justify-content: space-between;
   background-color: var(--dark-blue-color);
   min-height: var(--header-height);
+  padding-right: 5px;
+  padding-left: 5px;
 
   &__profile {
     display: flex;

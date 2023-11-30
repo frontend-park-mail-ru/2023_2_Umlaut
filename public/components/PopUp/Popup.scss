@@ -29,21 +29,24 @@
   &__confirm{
     position: fixed;
     top: 30%;
-    left: 37%;
     display: flex;
+    flex-direction: column;
     background-color: #f1eaea;
-    width: 26%;
-    height: 140px;
+    width: min(380px, 85vw);;
+    height: min-content;
     align-content: center;
     justify-content: center;
     padding: 35px;
-    flex-direction: column;
+    left: 50%;
+    transform: translateX(-50%);
+    box-sizing: border-box;
   }
 
   &__choose{
     position: fixed;
     top: 15%;
-    left: calc(50% - min(380px, 85vw) / 2);
+    left: 50%;
+    transform: translateX(-50%);
     display: flex;
     background-color: #f1eaea;
     width: min(380px, 85vw);
