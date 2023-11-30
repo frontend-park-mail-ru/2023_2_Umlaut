@@ -1,15 +1,19 @@
 .form-feed {
   padding: 20px;
   display: flex;
+  justify-content: center;
 
   &__buttons {
     display: flex;
     gap: 10%;
     flex-direction: row;
-    margin-right: 5%;
     margin-top: 8px;
     justify-content: center;
-
+    grid-row: 1;
+    grid-column: 1;
+    align-self: flex-end;
+    margin-bottom: 5%;
+    z-index: 2;
   }
 
   &__button {
@@ -66,11 +70,13 @@
   }
 
   &__user-part {
+    box-shadow: 0px 0px 5px 1px rgba(34, 60, 80, 0.2);
     background-color: #ffffff;
     display: grid;
     grid-template-columns: 45% 55%;
-    grid-template-rows: min-content min-content;
-    padding: 15px;
+    grid-template-rows: 100%;
+    overflow: hidden;
+    column-gap: 5%;
     width: 70%;
     height: 40%;
     margin: 4%;
@@ -95,7 +101,7 @@
 
   &__feed-photo {
     width: 100%;
-    height: 400px;
+    height: 100%;
     align-self: center;
     position: relative;
   }
@@ -104,13 +110,13 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    margin-right: 5%;
+    grid-column: 1;
+    grid-row: 1;
   }
 
   &__description {
     display: flex;
     flex-direction: column;
-    margin-left: 5%;
   }
 
   &__about-user {
@@ -123,6 +129,9 @@
     height: 60px;
     margin-left: auto;
     cursor: pointer;
+    position: absolute;
+    right: 1vw;
+    top: 1vh;
   }
 
   &__complain {

@@ -11,14 +11,7 @@ export class StatisticsModel {
         Api.feedback().then(
             (feedbackResp) => {
                 if (feedbackResp.status === 200) {
-                    Api.recomendation().then((recomendationResp) =>{
-                        if (recomendationResp.status === 200) {
-                            this.eventBus.emit(STAT_EVENTS.STAT_READY, {...feedbackResp.payload,
-                                ...recomendationResp.payload});
-                        } else if (recomendationResp.status === 401) {
-                            this.eventBus.emit(COMMON_EVENTS.UNAUTH);
-                        }
-                    });
+                    this.eventBus.emit(STAT_EVENTS.STAT_READY, feedbackResp.payload);
                 } else if (feedbackResp.status === 401) {
                     this.eventBus.emit(COMMON_EVENTS.UNAUTH);
                 }

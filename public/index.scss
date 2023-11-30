@@ -118,6 +118,7 @@ body {
 
 .main-part {
   min-height: calc(100vh - var(--header-height));
+  position: relative;
 }
 
 .loading {
