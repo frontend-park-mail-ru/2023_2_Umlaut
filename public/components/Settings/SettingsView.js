@@ -1,8 +1,8 @@
 import {Validate} from '../../lib/validate.js';
 import {BaseView} from '../BaseView.js';
 import {SETTINGS_EVENTS} from '../../lib/constansts.js';
-import { DEFAULT_PHOTO } from '../../lib/constansts.js';
 import './Settings.scss';
+import {Carousel} from '../Carousel/Carousel.js';
 
 /**
  * Компонент страницы авторизации (входа)
@@ -11,26 +11,50 @@ export class SettingsView extends BaseView {
     constructor(root, eventBus) {
         super(root, eventBus, require('./Settings.hbs'));
         this.eventBus.on(SETTINGS_EVENTS.GOT_USER, this.render.bind(this));
-        this.eventBus.on(SETTINGS_EVENTS.PHOTO_UPLOADED, this.updatePhoto.bind(this));
+        this.eventBus.on(SETTINGS_EVENTS.PHOTO_UPLOADED, this.addPhoto.bind(this));
         this.eventBus.on(SETTINGS_EVENTS.ERROR, this.showError.bind(this));
+        this.eventBus.on(SETTINGS_EVENTS.HIDE, this.hideError.bind(this));
+        this.eventBus.on(SETTINGS_EVENTS.PHOTO_DELETED, this.deletePhoto.bind(this));
         this.root = root;
     }
 
     render(data) {
         super.render(data);
 
+        for (let i = 0; i < data.user.tags.length; i++) {
+            const elem = this.root.querySelector(`#${data.interests[data.user.tags[i]]}`);
+            elem.classList.add('multiselection__selection_active');
+        }
+
+        this.selectTags();
+
         this.form = this.root.querySelector('.settings-form');
         this.form.addEventListener('submit', this.onSubmit.bind(this));
 
-        const deletePhotoBtn = this.root.querySelector('.settings-form__button-delete');
+        this.deletePhotoBtn = this.root.querySelector('.settings-form__button-delete');
         const selectedFile = document.querySelector('#file');
         const logoutBtn = document.querySelector('#logout');
-        this.photoPlace = document.querySelector('#user-photo');
+        const photoPlace = document.querySelector('.settings-form__photo');
+        this.photoCarousel = new Carousel(photoPlace);
+        this.photoCarousel.render(data.user.image_paths);
         this.errorLabel = this.form.querySelector('.error-label');
         this.errorLabel.style.visibility = 'hidden';
 
-        deletePhotoBtn.addEventListener('click', () => this.eventBus.emit(SETTINGS_EVENTS.DELETE_PHOTO));
-        logoutBtn.addEventListener('click', () => this.eventBus.emit(SETTINGS_EVENTS.LOGOUT));
+
+        const log = {func: () => {
+            this.eventBus.emit(SETTINGS_EVENTS.LOGOUT); this.eventBus.emit(SETTINGS_EVENTS.HIDE);
+        },
+        text: 'Вы уверены, что хотите выйти?'};
+        const del = {func: () => {
+            this.eventBus.emit(SETTINGS_EVENTS.DELETE_PHOTO, this.photoCarousel.current());
+            this.eventBus.emit(SETTINGS_EVENTS.HIDE);
+        },
+        text: 'Вы уверены, что хотите удалить фото?'};
+        logoutBtn.addEventListener('click', () => this.eventBus.emit(SETTINGS_EVENTS.SHOW_CONFIRM_LOG, log));
+        this.deletePhotoBtn.addEventListener('click', () => this.eventBus.emit(SETTINGS_EVENTS.SHOW_CONFIRM_LOG, del));
+        if (data.user.image_paths.length === 0) {
+            this.deletePhotoBtn.disabled = true;
+        }
 
         function addPhoto(eventBus) {
             return function() {
@@ -43,10 +67,24 @@ export class SettingsView extends BaseView {
         selectedFile.onchange = ()=> {
             add();
         };
+
+        const eye = this.root.querySelector('#eye');
+        eye.addEventListener('click', () => {
+            const x = document.getElementById('password');
+            if (x.type === 'password') {
+                x.type = 'text';
+                eye.src = '/pics/eye.png';
+            } else {
+                x.type = 'password';
+                eye.src = '/pics/eye_closed.png';
+            }
+        },
+        );
     }
 
     close() {
         this.form = null;
+        document.removeEventListener('click', this.clickWithinDiv);
         super.close();
     }
 
@@ -62,16 +100,21 @@ export class SettingsView extends BaseView {
             return;
         }
 
+        const tags = this.form.querySelectorAll('.multiselection__selection_active');
         const selectors = this.form.querySelectorAll('select');
         const inputs = this.form.querySelectorAll('textarea');
         const birthdayInput = this.form.querySelector('#birthday');
         const password = this.form.querySelector('#password');
         const inputsValue = {};
+        inputsValue.tags = [];
         selectors.forEach((selector) => {
             inputsValue[selector.id] = selector[selector.selectedIndex].text;
         });
         inputs.forEach((input) => {
             inputsValue[input.id] = input.value;
+        });
+        tags.forEach((tag) => {
+            inputsValue.tags.push(tag.innerHTML);
         });
         inputsValue.birthday = new Date(birthdayInput.value);
         inputsValue.password = password.value;
@@ -86,15 +129,21 @@ export class SettingsView extends BaseView {
         } else {
             inputsValue.user_gender = 0;
         }
+
         this.eventBus.emit(SETTINGS_EVENTS.SEND_DATA, inputsValue);
     }
 
+    addPhoto(image) {
+        this.photoCarousel.add(image);
+        if (this.photoCarousel.current() !== '') {
+            this.deletePhotoBtn.disabled = false;
+        }
+    }
 
-    updatePhoto(image) {
-        if (image !== DEFAULT_PHOTO) {
-            this.photoPlace.src = image + `?random=${Date.now()}`;
-        } else {
-            this.photoPlace.src = image;
+    deletePhoto(photo) {
+        this.photoCarousel.delete(photo);
+        if (this.photoCarousel.current() === '') {
+            this.deletePhotoBtn.disabled = true;
         }
     }
 
@@ -105,6 +154,10 @@ export class SettingsView extends BaseView {
         }
         if (document.querySelector('#name').value === '') {
             this.showError('Имя не должно быть пусто');
+            return false;
+        }
+        if (!Validate.onlyLetters(document.querySelector('#name').value)) {
+            this.showError('Имя может содержать только буквы');
             return false;
         }
         if (document.querySelector('#description').value === '') {
@@ -129,6 +182,14 @@ export class SettingsView extends BaseView {
             this.showError('Проверьте правильность введенной даты рождения');
             return false;
         }
+        if (Date.parse(document.querySelector('#birthday').value) - new Date(1907, 1, 1) < 0) {
+            this.showError('Самому старому человеку в мире 116 лет, вам не может быть больше');
+            return false;
+        }
+        if (Date.now() - Date.parse(document.querySelector('#birthday').value) < 0) {
+            this.showError('Извините, кажется вы еще не родились, чтобы знакомиться');
+            return false;
+        }
         if ( document.querySelector('#password').value.length <= 5 &&
              document.querySelector('#password').value.length > 0) {
             this.showError('Пароль должен быть длиннее 5-ти символов');
@@ -136,6 +197,10 @@ export class SettingsView extends BaseView {
         }
         if (document.querySelector('#repeat-password').value !== document.querySelector('#password').value) {
             this.showError('Пароли отличаются');
+            return false;
+        }
+        if (!/^[a-zA-Zа-яА-я0-9@.]/.test(document.querySelector('#mail').value)) {
+            this.showError('Почта не может содержать специальные символы');
             return false;
         }
         return true;
@@ -155,5 +220,44 @@ export class SettingsView extends BaseView {
     showError(message) {
         this.errorLabel.style.visibility = 'visible';
         this.errorLabel.innerHTML = message;
+    }
+
+    clickWithinDiv(e) {
+        const container = document.querySelector('.multiselection__input');
+        const input = document.querySelector('.multiselection__select-multiple');
+        if (!container.contains(e.target) && !input.contains(e.target)) {
+            input.style.visibility = 'hidden';
+        }
+    }
+
+    selectTags() {
+        const input = this.root.querySelector('.multiselection__input');
+        input.addEventListener('click', ()=>{
+            const tagsInput = document.querySelector('.multiselection__select-multiple');
+            tagsInput.style.visibility = 'visible';
+            console.log('click');
+        });
+        document.addEventListener('click', this.clickWithinDiv);
+
+        const selected = this.root.querySelector('.multiselection__selected');
+        const list = this.root.querySelectorAll('.multiselection__selection_variant');
+        for (let i = 0; i < list.length; i++) {
+            list[i].addEventListener('click', () => {
+                list[i].classList.toggle('multiselection__selection_active');
+                if (list[i].classList.contains('multiselection__selection_active')) {
+                    const modifyTag = document.createElement('span');
+                    modifyTag.className = 'multiselection__selection multiselection__selection_selected';
+                    modifyTag.innerHTML = list[i].innerHTML;
+                    selected.appendChild(modifyTag);
+                } else {
+                    const allTags = document.querySelectorAll('.multiselection__selection_selected');
+                    allTags.forEach((element) => {
+                        if (element.innerHTML === list[i].innerHTML) {
+                            selected.removeChild(element);
+                        }
+                    });
+                }
+            });
+        }
     }
 }

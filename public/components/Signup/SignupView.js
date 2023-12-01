@@ -1,6 +1,6 @@
 import {Validate} from '../../lib/validate.js';
 import {BaseView} from '../BaseView.js';
-import {AUTH_EVENTS} from '../../lib/constansts.js';
+import {AUTH_EVENTS, COMMON_EVENTS} from '../../lib/constansts.js';
 
 /**
  * Компонент страницы регистрации
@@ -15,7 +15,7 @@ export class SignupView extends BaseView {
     constructor(root, eventBus) {
         super(root, eventBus, require('./Signup.hbs'));
         this.eventBus.on( AUTH_EVENTS.INVALID_AUTH, (data) => this.showError(data.message));
-        this.eventBus.on( AUTH_EVENTS.UNAUTH, this.render.bind(this));
+        this.eventBus.on( COMMON_EVENTS.UNAUTH, this.render.bind(this));
     }
 
     /**
@@ -51,6 +51,18 @@ export class SignupView extends BaseView {
                 this.showError('Пароли отличаются');
             } else this.hideError();
         });
+
+        const eye = this.root.querySelector('#eye');
+        eye.addEventListener('click', () => {
+            const x = document.getElementById('password');
+            if (x.type === 'password') {
+                x.type = 'text';
+                eye.src = '/pics/eye.png';
+            } else {
+                x.type = 'password';
+                eye.src = '/pics/eye_closed.png';
+            }
+        });
     }
 
     close() {
@@ -74,6 +86,11 @@ export class SignupView extends BaseView {
         }
         if (this.nameInput.value === '') {
             this.showError('Имя не должно быть пусто');
+            this.nameInput.focus();
+            return false;
+        }
+        if (!Validate.onlyLetters(this.nameInput.value)) {
+            this.showError('Имя может содержать только буквы');
             this.nameInput.focus();
             return false;
         }

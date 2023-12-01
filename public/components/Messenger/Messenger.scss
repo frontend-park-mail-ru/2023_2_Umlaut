@@ -1,26 +1,34 @@
-.messenger {
-  display: grid;
-  height: 100%;
-  grid-template-areas: "dialog-list dialog-window";
+@import "/public/lib/constants";
 
-  grid-template-columns: 350px 1fr;
+.messenger {
+  display: flex;
+  width: 100%;
+  height: calc(100vh - 65px);
 
   &__dialogs {
-    grid-area: "dialog-list";
     background-color: var(--dialog-grey);
+    width: var(--dialogs-width);
+    min-width: 35px;
+    @media (max-width: $phone-max-width) {
+      width: min-content;
+    }
   }
 
   &__dialog-list {
     overflow: auto;
-  }
-
-  &__dialog-window {
-    grid-area: "dialog-window";
-    border: 1px solid var(--dark-blue-color);
+    height: calc(100vh - var(--header-height) - var(--dialog-name-height));
+    @media (max-width: $phone-max-width) {
+      width: min-content;
+    }
   }
 
   &__button {
     background-color: var(--dialog-grey);
+    @media (max-width: $phone-max-width) {
+      width: 70px;
+      font-size: 14px;
+      padding: 0px;
+    }
   }
 
   &__empty-dialog {
@@ -28,11 +36,30 @@
     color: white;
     padding: 2%;
   }
+
+  &__switch{
+    @media (max-width: $phone-max-width) {
+      display: none;
+    }
+  }
 }
 
 .dialog-preview {
   height: 100px;
-  border: 1px solid var(--dark-blue-color);
+  display: flex;
+  border-bottom: 1px solid var(--dark-blue-color);
+  @media (max-width:650px) {
+    height: calc(14.2vw + 7px);
+  }
+
+  &__new-message {
+    background-color: red;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    position: relative;
+    left: 100px;
+  }
 
   &__photo {
     height: 85px;
@@ -41,6 +68,10 @@
     border-radius: 50%;
     overflow: hidden;
     padding: 8px;
+    @media (max-width:650px) {
+      height: calc(14.2vw - 7.85px);
+      width: calc(14.2vw - 7.85px);
+    }
   }
 
   &__photo-img {
@@ -52,9 +83,82 @@
 
   &__dialog-name {
     color: white;
+    @media (max-width:$phone-max-width) {
+      font-size: 14px;
+      display: none;
+    }
   }
 
   &__preview-message {
     font-size: 12px;
+  }
+}
+
+.dialog-window {
+  width: 100%;
+  background-image: url("../../../static/pics/background.jpg");
+
+  &__dialog {
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    padding: 5px;
+    height: calc(
+      100vh - var(--header-height) - var(--dialog-name-height) -
+        var(--dialog-input-height) - 10px
+    );
+  }
+
+  &__message {
+    background-color: white;
+    border-radius: 8px;
+    max-width: 400px;
+    padding: 3px;
+    margin: 3px 0px;
+    width: fit-content;
+
+    &_me {
+      margin-left: auto;
+    }
+    @media (max-width:500px) {
+      max-width: 250px;
+    }
+  }
+
+  &__text {
+    font-size: 16px;
+    margin: 3px;
+    word-wrap: break-word;
+  }
+
+  &__time {
+    font-size: 12px;
+  }
+
+  &__input-message {
+    display: flex;
+    background-color: white;
+  }
+
+  &__send-img {
+    width: var(--dialog-input-height);
+    background-color: white;
+    object-fit: cover;
+    cursor: pointer;
+  }
+
+  &__input {
+    width: 100%;
+    border: none;
+  }
+
+  &__unread {
+    background-color: gray;
+    text-align: center;
+  }
+
+  &__name {
+    background-color: #76798b;
+    font-size: 30px;
+    height: var(--dialog-name-height);
   }
 }

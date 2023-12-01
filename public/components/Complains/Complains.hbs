@@ -1,0 +1,35 @@
+{{#if noComplains}}
+<div class="complaint">
+<div class="center">
+    <span class="complaint__line">Сейчас жалоб нет можешь отдыхать</span>
+</div>
+</div>
+{{else}}
+{{#if user}}
+<div class="complaint">
+    <div class="complaint__header">На пользователя пожаловались по причине <span class="complaint__header-type">{{complaint_type}}</span></div>
+    <div class="complaint__user-part">
+        {{> ../Feed/Description user}}
+    </div>
+    <div class="popup__buttons">
+        <button id="decline" class="btn complaint__btn">Отклонить</button>
+        <button id="accept" class="btn btn_important complaint__btn">Принять</button>
+    </div>
+</div>
+{{else}}
+<div class="complaint">
+    <div class="loading">
+        <svg class="loading__spinner" viewBox="0 0 50 50">
+            <circle
+              class="loading__path"
+              cx="25"
+              cy="25"
+              r="20"
+              fill="none"
+              stroke-width="5"
+            ></circle>
+          </svg>
+        </div>
+</div>
+{{/if}}
+{{/if}}

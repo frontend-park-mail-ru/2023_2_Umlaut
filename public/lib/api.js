@@ -1,6 +1,6 @@
 import {Ajax} from './ajax.js';
-import {URLS} from './constansts.js';
-import {BACKEND_URL} from './constansts.js';
+import {COMMON_EVENTS, URLS} from './constansts.js';
+import {BACKEND_URL, SETTINGS_LIST} from './constansts.js';
 
 /**
  * Класс методов API
@@ -43,10 +43,11 @@ export class Api {
 
     /**
      * Get-запрос на получение случайного пользователя для ленты
+     * @param {Object} data
      * @return {Promise} - статус и тело ответа
      */
-    static feed() {
-        return Ajax.get(BACKEND_URL + URLS.feed);
+    static feed(data = {}) {
+        return Ajax.get(BACKEND_URL + URLS.feed, data);
     }
 
     /**
@@ -57,13 +58,8 @@ export class Api {
         return Ajax.getCsrf(BACKEND_URL + URLS.user);
     }
 
-    /**
-     * Get-запрос на получение фото
-     * @param {int} id - id пользователя
-     * @return {Promise} - статус и тело ответа
-     */
-    static getUserPhotoUrl(id) {
-        return Promise.resolve(BACKEND_URL + URLS.user + '/' + id + '/photo' + `?random=${Date.now()}`);
+    static getUserById(id) {
+        return Ajax.get(BACKEND_URL + URLS.user + '/' + id);
     }
 
     /**
@@ -80,13 +76,98 @@ export class Api {
 
     /**
      * Get-запрос на удаление фото
+     * @param {string} photo - ссылка на удаляемое фото
      * @return {Promise} - статус и тело ответа
      */
-    static deletePhoto() {
-        return Ajax.delete(BACKEND_URL + URLS.photo);
+    static deletePhoto(photo) {
+        return Ajax.delete(BACKEND_URL + URLS.photo, {link: photo});
     }
 
-    static addLike(id) {
-        return Ajax.post(BACKEND_URL + URLS.like, id);
+    static addLike(data) {
+        return Ajax.post(BACKEND_URL + URLS.like, data);
     }
+
+    static csat() {
+        return Ajax.get(BACKEND_URL + URLS.csat);
+    }
+    static rateAll(data) {
+        return Ajax.post(BACKEND_URL + URLS.rateAll, data);
+    }
+
+    static admimAuth(data) {
+        return Ajax.post(BACKEND_URL + URLS.adminAuth, data);
+    }
+
+    static feedback() {
+        return Ajax.get(BACKEND_URL + URLS.feedback);
+    }
+
+    static recomendation() {
+        return Ajax.get(BACKEND_URL + URLS.remomendations);
+    }
+
+    static rateFeed(data) {
+        return Ajax.post(BACKEND_URL + URLS.feedFeedbackPost, data);
+    }
+
+    static recomendFriend(data) {
+        return Ajax.post(BACKEND_URL + URLS.remomendationsPost, data);
+    }
+
+    static getTags() {
+        return Ajax.get(BACKEND_URL + URLS.getTags);
+    }
+
+    static complaint(data) {
+        return Ajax.post(BACKEND_URL + URLS.complaint, data);
+    }
+
+    static getMessages(id) {
+        return Ajax.get(BACKEND_URL + URLS.dialogs + '/' + id + '/message');
+    }
+
+    static getComplaint() {
+        return Ajax.get(BACKEND_URL + URLS.adminComplaint);
+    }
+
+    static acceptComplaint(id) {
+        return Ajax.get(BACKEND_URL + URLS.adminComplaint + '/' + id);
+    }
+
+    static declineComplaint(id) {
+        return Ajax.delete(BACKEND_URL + URLS.adminComplaint + '/' + id);
+    }
+
+    static getUser(id) {
+        return Ajax.get(BACKEND_URL + URLS.user + '/' + id);
+    }
+}
+
+export function handleStatuses(func, eventBus) {
+    return (response) => {
+        if (response.status === 401) {
+            eventBus.emit(COMMON_EVENTS.UNAUTH);
+        } else if (response.status === 403) {
+            eventBus.emit(COMMON_EVENTS.USER_BANNED);
+        } else if (response.status >= 500) {
+            eventBus.emit(COMMON_EVENTS.NETWORK_ERROR);
+        } else {
+            return func(response);
+        }
+    };
+}
+
+export async function loadTags(eventBus) {
+    await Api.getTags().then(handleStatuses((response) =>{
+        if (response.status !== 200) {
+            eventBus.emit(COMMON_EVENTS.NETWORK_ERROR);
+            return;
+        }
+        SETTINGS_LIST.interests = {};
+        let counter = 0;
+        response.payload.forEach((el) => {
+            SETTINGS_LIST.interests[el] = 'tag_' + counter;
+            counter++;
+        });
+    }), eventBus);
 }

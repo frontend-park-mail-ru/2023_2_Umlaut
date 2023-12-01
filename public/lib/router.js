@@ -20,12 +20,36 @@ export class Router {
         if (this.current === path) return;
 
         if (!this.components.has(path)) {
-            this.change('/');
+            if (window.location.pathname.startsWith('/admin')) {
+                this.goOnlyForward('/admin/complaints');
+            } else {
+                this.goOnlyForward('/feed');
+            }
             return;
         }
         window.history.pushState(null, null, path);
         this.change(path);
     }
+
+    /**
+     * Переход по ссылкам в spa приложении с удалением из history.api текущего пути
+     * @param {string} path - путь
+     */
+    goOnlyForward(path) {
+        if (this.current === path) return;
+
+        if (!this.components.has(path)) {
+            if (window.location.pathname.startsWith('/admin')) {
+                this.goOnlyForward('/admin/complaints');
+            } else {
+                this.goOnlyForward('/feed');
+            }
+            return;
+        }
+        window.history.replaceState(null, '', path);
+        this.change(path);
+    }
+
 
     /**
      * Переход по ссылке без заполнения history.api
@@ -35,8 +59,8 @@ export class Router {
         if (this.current !== null && this.components.has(this.current)) {
             this.components.get(this.current).close();
         }
-        this.components.get(path).render();
         this.current = path;
+        this.components.get(path).render();
     }
 
     /**
@@ -64,6 +88,6 @@ export class Router {
             this.change(window.location.pathname);
         });
 
-        this.go(window.location.pathname);
+        this.goOnlyForward(window.location.pathname);
     }
 }

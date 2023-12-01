@@ -29,17 +29,14 @@ export class Ajax {
                     }
                 },
                 (error) => {
-                    console.error(error); // ошибка отправки
+                    console.error(error);
+                    return Promise.resolve({status: 512});
                 },
-            )
-            .then((body) => {
-                return body;
-            },
             );
     }
 
-    static get(url = '') {
-        return fetch(url, {
+    static get(url = '', params = {}) {
+        return fetch(url + new URLSearchParams({...params}), {
             method: 'GET',
             mode: 'cors',
             credentials: 'include',
@@ -54,23 +51,22 @@ export class Ajax {
                     }
                 },
                 (error) => {
-                    console.error(error); // ошибка отправки
+                    console.error(error);
+                    return Promise.resolve({status: 512});
                 },
-            )
-            .then((body) => {
-                return body;
-            },
             );
     }
 
-    static delete(url = '') {
+    static delete(url = '', data = {}) {
         const request = {
             method: 'DELETE',
             mode: 'cors',
             credentials: 'include',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(data),
         };
-        if (this._csrfToken !== null && this._csrfToken !== undefined && this._csrfToken !== '') {
-            request.headers = {'X-Csrf-Token': this._csrfToken};
+        if (!this._csrfToken && this._csrfToken !== '') {
+            request.headers['X-Csrf-Token'] = this._csrfToken;
         }
         return fetch(url, request)
             .then(
@@ -83,12 +79,9 @@ export class Ajax {
                     }
                 },
                 (error) => {
-                    console.error(error); // ошибка отправки
+                    console.error(error);
+                    return Promise.resolve({status: 512});
                 },
-            )
-            .then((body) => {
-                return body;
-            },
             );
     }
 
@@ -120,12 +113,9 @@ export class Ajax {
                     }
                 },
                 (error) => {
-                    return (error); // ошибка отправки
+                    console.error(error);
+                    return Promise.resolve({status: 512});
                 },
-            )
-            .then((body) => {
-                return body;
-            },
             );
     }
 
@@ -158,12 +148,9 @@ export class Ajax {
                     }
                 },
                 (error) => {
-                    return (error); // ошибка отправки
+                    console.error(error);
+                    return Promise.resolve({status: 512});
                 },
-            )
-            .then((body) => {
-                return body;
-            },
             );
     }
 }
