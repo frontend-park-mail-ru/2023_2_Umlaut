@@ -134,6 +134,8 @@ export const MESSENGER_EVENTS = {
     PAIRS_EMPTY: 'EmptyPairs',
     NEW_MESSAGE_IN_THIS_DIALOG: 'll',
     MARK_AS_READ: 'lkjh',
+    ERROR: 'error',
+    SENT: 'MessageSent',
 };
 
 export const POPUP_EVENTS = {

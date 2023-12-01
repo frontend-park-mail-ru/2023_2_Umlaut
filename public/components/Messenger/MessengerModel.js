@@ -1,4 +1,4 @@
-import {MESSENGER_EVENTS} from '../../lib/constansts.js';
+import {MESSENGER_EVENTS, COMMON_EVENTS} from '../../lib/constansts.js';
 import {DEFAULT_PHOTO} from '../../lib/constansts.js';
 import {WebSocketWrapper} from '../../lib/ws.js';
 import {Api, HandleStatuses} from '../../lib/api.js';
@@ -12,7 +12,8 @@ export class MessengerModel {
         this.eventBus.on(MESSENGER_EVENTS.GET_MESSAGES, this.getMessages.bind(this));
         this.eventBus.on(MESSENGER_EVENTS.MARK_AS_READ, this.markAsRead.bind(this));
         this.socket = new WebSocketWrapper('wss://umlaut-bmstu.me/websocket');
-        this.socket.connect();
+        this.eventBus.on(COMMON_EVENTS.AUTH, this.socket.connect.bind(this.socket));
+        this.eventBus.on(COMMON_EVENTS.UNAUTH, this.socket.disconnect.bind(this.socket));
         this.socket.subscribe('message', (msg)=>this.gotNewMessage(msg).bind(this));
         this.id = null;
         this.dialog_id = null;
@@ -68,14 +69,22 @@ export class MessengerModel {
     }
 
     sendMessage(msg) {
+        const date = new Date();
         const message = {
             'sender_id': this.my_id,
             'recipient_id': this.id,
             'dialog_id': this.dialog_id,
             'message_text': msg,
             'is_read': false,
+            'created_at': date,
         };
-        this.socket.send(message);
+        try {
+            this.socket.send(message);
+            message.created_at = `${date.getHours()}:${date.getMinutes()}`;
+            this.eventBus.emit(MESSENGER_EVENTS.SENT, message);
+        } catch (e) {
+            this.eventBus.emit(MESSENGER_EVENTS.ERROR, 'Ошибка сервера, сообщение не может быть отправлено');
+        }
     }
 
     markAsRead(data) {

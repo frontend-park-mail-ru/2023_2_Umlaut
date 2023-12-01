@@ -7,15 +7,19 @@ export class WebSocketWrapper {
     }
 
     connect() {
-        // console.log('Try to connect');
+        console.log('Try to connect');
         const connectionState = this.socket?.readyState;
         if (connectionState === WebSocket.OPEN || connectionState === WebSocket.CONNECTING) {
-            // console.log('Already connected');
+            console.log('Already connected');
             return;
         }
-        this.socket = new WebSocket(this.url);
+        try {
+            this.socket = new WebSocket(this.url);
+        } catch (e) {
+            console.log('not connected');
+        }
         this.socket.onopen = () => {
-            // console.log('Socket connected');
+            console.log('Socket connected');
         };
         this.socket.onmessage = (event) => {
             this.messageSubscribers.forEach((handler) => {
@@ -23,7 +27,7 @@ export class WebSocketWrapper {
             });
         };
         this.socket.onclose = (event) => {
-            // console.log('Socket closed');
+            console.log('Socket closed');
             this.closeSubscribers.forEach((handler) => {
                 handler(event);
             });
@@ -37,13 +41,15 @@ export class WebSocketWrapper {
     }
 
     disconnect() {
-        // console.log('Try to close socket');
-        const connectionState = this.socket?.readyState;
-        if (connectionState === WebSocket.CLOSED || connectionState === WebSocket.CLOSING) {
-            // console.log('Already closed');
-            return;
+        if (this.socket) {
+            console.log('Try to close socket');
+            const connectionState = this.socket?.readyState;
+            if (connectionState === WebSocket.CLOSED || connectionState === WebSocket.CLOSING) {
+                console.log('Already closed');
+                return;
+            }
+            this.socket.close();
         }
-        this.socket.close();
     }
 
     subscribe(eventType, handler) {
@@ -63,6 +69,11 @@ export class WebSocketWrapper {
     }
 
     send(dataObject) {
-        this.socket.send(JSON.stringify(dataObject));
+        try {
+            this.socket.send(JSON.stringify(dataObject));
+        } catch (e) {
+            console.log('not connected');
+            throw e;
+        }
     }
 }

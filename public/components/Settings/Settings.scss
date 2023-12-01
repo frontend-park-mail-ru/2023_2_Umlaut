@@ -159,13 +159,9 @@
     padding: 10px;
     overflow: auto;
 
-    &:hover {
+    &_visible{
       visibility: visible;
     }
-  }
-
-  &:hover .multiselection__select-multiple {
-    visibility: visible;
   }
 
   &__selection {
@@ -183,5 +179,19 @@
     &_variant {
       cursor: pointer;
     }
+  }
+
+  &__input{
+    display: flex;
+    width: 100%;
+  }
+
+  &__arrow{
+    width: 17px;
+    height: 23px;
+  }
+
+  &__selected{
+    width: 100%;
   }
 }

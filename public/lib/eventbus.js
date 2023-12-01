@@ -24,7 +24,11 @@ export class EventBus {
             return;
         }
         this.listeners[event].forEach((listener) => {
-            listener(data);
+            try {
+                listener(data);
+            } catch(e){
+                //console.log("error");
+            };
         });
     }
 }

@@ -9,6 +9,7 @@ export class MessengerView extends BaseView {
         this.eventBus.on(MESSENGER_EVENTS.PAIRS_READY, this.addPairs.bind(this));
         this.eventBus.on(MESSENGER_EVENTS.MESSAGES_READY, this.openDialog.bind(this));
         this.eventBus.on(MESSENGER_EVENTS.NEW_MESSAGE_IN_THIS_DIALOG, this.createMessage.bind(this));
+        this.eventBus.on(MESSENGER_EVENTS.SENT, this.createMessage.bind(this));
         this.eventBus.on(MESSENGER_EVENTS.NEW_MESSAGE_IN_OTHER_DIALOG, this.newMessageOtherDialog.bind(this));
         this.dialogPreviewTemplate = require('./DialogPreview.hbs');
         this.dialog = require('./MessengerWindow.hbs');
@@ -113,11 +114,6 @@ export class MessengerView extends BaseView {
             const msg = inputText.value;
             inputText.value = '';
             this.eventBus.emit(MESSENGER_EVENTS.SEND_MESSAGE, msg);
-            const date = new Date();
-            this.createMessage({
-                message_text: msg,
-                created_at: `${date.getHours()}:${date.getMinutes()}`,
-                sender_id: this.my_id});
             const block = this.root.querySelector('.dialog-window__dialog');
             block.scrollTop = block.scrollHeight;
         });

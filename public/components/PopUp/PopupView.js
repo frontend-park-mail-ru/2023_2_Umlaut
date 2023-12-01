@@ -29,7 +29,6 @@ export class PopupView {
         setTimeout(() => {
             this.close();
         }, 3000);
-        document.addEventListener('click', this.closePopup);
     }
 
     renderConfirm(data) {

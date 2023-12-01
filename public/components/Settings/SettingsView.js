@@ -81,6 +81,7 @@ export class SettingsView extends BaseView {
 
     close() {
         this.form = null;
+        document.removeEventListener('click', this.clickWithinDiv);
         super.close();
     }
 
@@ -212,7 +213,23 @@ export class SettingsView extends BaseView {
         this.errorLabel.innerHTML = message;
     }
 
+    clickWithinDiv(e) {
+        const container = document.querySelector('.multiselection__input');
+        const input = document.querySelector('.multiselection__select-multiple');
+        if (!container.contains(e.target) && !input.contains(e.target)) {
+            input.style.visibility = 'hidden';
+        }
+    }
+
     selectTags() {
+        const input = this.root.querySelector('.multiselection__input');
+        input.addEventListener('click', ()=>{
+            const tagsInput = document.querySelector('.multiselection__select-multiple');
+            tagsInput.style.visibility = 'visible';
+            console.log('click');
+        });
+        document.addEventListener('click', this.clickWithinDiv);
+
         const selected = this.root.querySelector('.multiselection__selected');
         const list = this.root.querySelectorAll('.multiselection__selection_variant');
         for (let i = 0; i < list.length; i++) {

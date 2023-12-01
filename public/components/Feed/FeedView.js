@@ -70,6 +70,7 @@ export class FeedView extends BaseView {
         super.close();
         this.blockButtons();
         document.removeEventListener('mouseup', this.clickWithinDiv);
+        document.removeEventListener('click', this.clickWithinTags);
     }
 
     /**
@@ -141,7 +142,23 @@ export class FeedView extends BaseView {
         this.render(user);
     }
 
+    clickWithinTags(e) {
+        const container = document.querySelector('.multiselection__input');
+        const input = document.querySelector('.multiselection__select-multiple');
+        if (!container.contains(e.target) && !input.contains(e.target)) {
+            input.style.visibility = 'hidden';
+        }
+    }
+
     selectTags() {
+        const input = this.root.querySelector('.multiselection__input');
+        input.addEventListener('click', ()=>{
+            const tagsInput = document.querySelector('.multiselection__select-multiple');
+            tagsInput.style.visibility = 'visible';
+            console.log('click');
+        });
+        document.addEventListener('click', this.clickWithinTags);
+
         for (let i = 0; i < this.params.tags.length; i++) {
             const elem = this.root.querySelector(`#${SETTINGS_LIST.interests[this.params.tags[i]]}`);
             elem.classList.add('multiselection__selection_active');
