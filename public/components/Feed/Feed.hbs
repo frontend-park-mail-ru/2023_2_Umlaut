@@ -1,23 +1,34 @@
-<img src="/pics/search.png" class="form-feed__search-btn" id="search-btn">
+<img src="/pics/search.png" class="form-feed__search-btn" id="search-btn" />
 <div class="form-feed">
-  <div class="form-feed__user-part">
-    {{#if noPeople}}
-        <div class="form-feed__no-people">
-          Извините, пользователи, которых мы могли бы вам порекомендовать закончились. 
-          Измените фильтры или возвращайтесь чуть позже - обязательно кого-нибудь вам подберем!
-        </div>
-    {{else}}
+  {{#if noPeople}}
+    <div class="form-feed__no-people">
+      Извините, пользователи, которых мы могли бы вам порекомендовать
+      закончились. Измените фильтры или возвращайтесь чуть позже - обязательно
+      кого-нибудь вам подберем!
+    </div>
+  {{else}}
+    <div class="form-feed__user-part">
       {{#if id}}
-        {{> Description}}
+        {{Description}}
         <div class="form-feed__buttons">
-          <button type="button" id="dislike" class="form-feed__button form-feed__button-dislike">
+          <button
+            type="button"
+            id="dislike"
+            class="form-feed__button form-feed__button-dislike"
+          >
             <img class="form-feed__button-img" src="/pics/heart-dislike.png" />
           </button>
-          <button type="button" id="like" class="form-feed__button form-feed__button-like">
+          <button
+            type="button"
+            id="like"
+            class="form-feed__button form-feed__button-like"
+          >
             <img class="form-feed__button-img" src="/pics/heart-like.png" />
           </button>
         </div>
-        <span class="form-feed__complain"><span class="form-feed__complain-symbol">⊘ </span>Пожаловаться</span>
+        <span class="form-feed__complain"><span
+            class="form-feed__complain-symbol"
+          >⊘ </span>Пожаловаться</span>
       {{else}}
         <div class="loading">
           <svg class="loading__spinner" viewBox="0 0 50 50">
@@ -32,43 +43,66 @@
           </svg>
         </div>
       {{/if}}
-    {{/if}}
-  </div>
-  <div class="search">
-        <div class="search__about-user">
-          Выберите параметры для поиска партнера:
-            <div class="input-border multiselection">
-                <span class="input-border__header input-border__header_white">Теги</span>
-                <div class="input-border__data-input"  id="tags">
-                    <div class="multiselection__selected">
-                      {{#if this.params.tags}}
-                            {{#each this.params.tags}}
-                                <span class="multiselection__selection multiselection__selection_selected">{{this}}</span>
-                            {{/each}} 
-                        {{/if}} 
-                    </div>
-                    <div class="multiselection__select-multiple">
-                        {{#each this.interests}}
-                            <span class="multiselection__selection multiselection__selection_variant" id="{{this}}">{{@key}}</span>
-                        {{/each}} 
-                    </div>
-                </div>
-            </div>
-            Возраст
-            <div class="search__age">
-              <div class="input-border">
-                  <span class="input-border__header input-border__header_white">От</span>
-                      <input maxlength="3" type="text" class="input-border__data-input input__data-input_password" id="from-age">
-                  </select>
-              </div>
-              <div class="input-border">
-                  <span class="input-border__header input-border__header_white">До</span>
-                      <input maxlength="3" type="text" class="input-border__data-input input__data-input_password" id="to-age">
-                  </select>
-              </div>
-            </div>
-            <div class="error-label"></div>
-            <button type="submit" id="readySearch" class="btn btn_important">искать</button>
-        </div>
     </div>
+  {{/if}}
+  <div class="search">
+    <div class="search__about-user">
+      Выберите параметры для поиска партнера:
+      <div class="input-border multiselection">
+        <span
+          class="input-border__header input-border__header_white"
+        >Теги</span>
+        <div class="input-border__data-input" id="tags">
+          <div class="multiselection__selected">
+            {{#if this.params.tags}}
+              {{#each this.params.tags}}
+                <span
+                  class="multiselection__selection multiselection__selection_selected"
+                >{{this}}</span>
+              {{/each}}
+            {{/if}}
+          </div>
+          <div class="multiselection__select-multiple">
+            {{#each this.interests}}
+              <span
+                class="multiselection__selection multiselection__selection_variant"
+                id="{{this}}"
+              >{{@key}}</span>
+            {{/each}}
+          </div>
+        </div>
+      </div>
+      Возраст
+      <div class="search__age">
+        <div class="input-border">
+          <span
+            class="input-border__header input-border__header_white"
+          >От</span>
+          <input
+            maxlength="3"
+            type="text"
+            class="input-border__data-input input__data-input_password"
+            id="from-age"
+          />
+        </div>
+        <div class="input-border">
+          <span
+            class="input-border__header input-border__header_white"
+          >До</span>
+          <input
+            maxlength="3"
+            type="text"
+            class="input-border__data-input input__data-input_password"
+            id="to-age"
+          />
+        </div>
+      </div>
+      <div class="error-label"></div>
+      <button
+        type="submit"
+        id="readySearch"
+        class="btn btn_important"
+      >искать</button>
+    </div>
+  </div>
 </div>

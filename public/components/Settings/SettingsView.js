@@ -31,7 +31,7 @@ export class SettingsView extends BaseView {
         this.form = this.root.querySelector('.settings-form');
         this.form.addEventListener('submit', this.onSubmit.bind(this));
 
-        const deletePhotoBtn = this.root.querySelector('.settings-form__button-delete');
+        this.deletePhotoBtn = this.root.querySelector('.settings-form__button-delete');
         const selectedFile = document.querySelector('#file');
         const logoutBtn = document.querySelector('#logout');
         const photoPlace = document.querySelector('.settings-form__photo');
@@ -51,7 +51,10 @@ export class SettingsView extends BaseView {
         },
         text: 'Вы уверены, что хотите удалить фото?'};
         logoutBtn.addEventListener('click', () => this.eventBus.emit(SETTINGS_EVENTS.SHOW_CONFIRM_LOG, log));
-        deletePhotoBtn.addEventListener('click', () => this.eventBus.emit(SETTINGS_EVENTS.SHOW_CONFIRM_LOG, del));
+        this.deletePhotoBtn.addEventListener('click', () => this.eventBus.emit(SETTINGS_EVENTS.SHOW_CONFIRM_LOG, del));
+        if (data.user.image_paths.length === 0) {
+            this.deletePhotoBtn.disabled = true;
+        }
 
         function addPhoto(eventBus) {
             return function() {
@@ -131,10 +134,16 @@ export class SettingsView extends BaseView {
 
     addPhoto(image) {
         this.photoCarousel.add(image);
+        if (this.photoCarousel.current() !== '') {
+            this.deletePhotoBtn.disabled = false;
+        }
     }
 
     deletePhoto(photo) {
         this.photoCarousel.delete(photo);
+        if (this.photoCarousel.current() === '') {
+            this.deletePhotoBtn.disabled = true;
+        }
     }
 
     validateForm() {
