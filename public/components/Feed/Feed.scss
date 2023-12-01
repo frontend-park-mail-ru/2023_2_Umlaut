@@ -188,9 +188,10 @@
 
   @media (max-width: $phone-max-width) {
     position: fixed;
-    left: 50px;
+    left: 50%;
     transform: translateX(-50%);
     top: 30vh;
+    width: 90vw;
   }
 
   &_visible {
