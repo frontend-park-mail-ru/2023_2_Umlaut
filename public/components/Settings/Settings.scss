@@ -86,6 +86,7 @@
   margin: 10px;
   margin-left: 0;
   margin-right: 0;
+  flex: 1;
 
   @media (max-width: $phone-max-width) {
     font-size: 16px;
