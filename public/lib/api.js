@@ -143,7 +143,7 @@ export class Api {
     }
 }
 
-export function HandleStatuses(func, eventBus) {
+export function handleStatuses(func, eventBus) {
     return (response) => {
         if (response.status === 401) {
             eventBus.emit(COMMON_EVENTS.UNAUTH);
@@ -157,8 +157,8 @@ export function HandleStatuses(func, eventBus) {
     };
 }
 
-export async function LoadTags(eventBus) {
-    await Api.getTags().then(HandleStatuses((response) =>{
+export async function loadTags(eventBus) {
+    await Api.getTags().then(handleStatuses((response) =>{
         if (response.status !== 200) {
             eventBus.emit(COMMON_EVENTS.NETWORK_ERROR);
             return;

@@ -1,5 +1,5 @@
 import {COMPLAINTS_EVENTS} from '../../lib/constansts.js';
-import {Api, HandleStatuses} from '../../lib/api.js';
+import {Api, handleStatuses} from '../../lib/api.js';
 
 export class ComplainsModel {
     constructor(eventBus) {
@@ -10,9 +10,9 @@ export class ComplainsModel {
     }
 
     getComplaintWithUser() {
-        Api.getComplaint().then(HandleStatuses((complaintR) => {
+        Api.getComplaint().then(handleStatuses((complaintR) => {
             if (complaintR.status === 200) {
-                Api.getUser(complaintR.payload.reported_user_id).then(HandleStatuses((userR) => {
+                Api.getUser(complaintR.payload.reported_user_id).then(handleStatuses((userR) => {
                     complaintR.payload.user = userR.payload;
                     this.eventBus.emit(COMPLAINTS_EVENTS.COMPLAINT_READY, complaintR.payload);
                 },
@@ -28,7 +28,7 @@ export class ComplainsModel {
     }
 
     acceptComplaint(data) {
-        Api.acceptComplaint(data).then(HandleStatuses(()=> {
+        Api.acceptComplaint(data).then(handleStatuses(()=> {
             this.getComplaintWithUser();
         },
         this.eventBus),
@@ -36,7 +36,7 @@ export class ComplainsModel {
     }
 
     declineComplaint(data) {
-        Api.declineComplaint(data).then(HandleStatuses(()=> {
+        Api.declineComplaint(data).then(handleStatuses(()=> {
             this.getComplaintWithUser();
         },
         this.eventBus),
