@@ -55,8 +55,8 @@
         <div class="input-border__data-input" id="tags">
           <div class="multiselection__input">
             <div class="multiselection__selected">
-                {{#if this.user.tags}}
-                    {{#each this.user.tags}}
+                {{#if this.params.tags}}
+                    {{#each this.params.tags}}
                         <span class="multiselection__selection multiselection__selection_selected">{{this}}</span>
                     {{/each}} 
                 {{/if}} 
