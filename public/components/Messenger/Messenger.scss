@@ -8,6 +8,7 @@
   &__dialogs {
     background-color: var(--dialog-grey);
     width: var(--dialogs-width);
+    min-width: 35px;
     @media (max-width: $phone-max-width) {
       width: min-content;
     }

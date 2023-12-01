@@ -187,11 +187,8 @@
   box-sizing: border-box;
 
   @media (max-width: $phone-max-width) {
-    position: fixed;
-    left: 50%;
-    transform: translateX(-50%);
+    right:auto;
     top: 30vh;
-    width: 90vw;
   }
 
   &_visible {
