@@ -8,16 +8,22 @@
   &__dialogs {
     background-color: var(--dialog-grey);
     width: var(--dialogs-width);
+    @media (max-width: $phone-max-width) {
+      width: min-content;
+    }
   }
 
   &__dialog-list {
     overflow: auto;
     height: calc(100vh - var(--header-height) - var(--dialog-name-height));
+    @media (max-width: $phone-max-width) {
+      width: min-content;
+    }
   }
 
   &__button {
     background-color: var(--dialog-grey);
-    @media (max-width:650px) {
+    @media (max-width: $phone-max-width) {
       width: 70px;
       font-size: 14px;
       padding: 0px;
@@ -28,6 +34,12 @@
     font-size: 16px;
     color: white;
     padding: 2%;
+  }
+
+  &__switch{
+    @media (max-width: $phone-max-width) {
+      display: none;
+    }
   }
 }
 
@@ -70,8 +82,9 @@
 
   &__dialog-name {
     color: white;
-    @media (max-width:650px) {
+    @media (max-width:$phone-max-width) {
       font-size: 14px;
+      display: none;
     }
   }
 
