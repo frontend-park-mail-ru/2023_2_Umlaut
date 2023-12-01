@@ -1,0 +1,86 @@
+<div>
+    Статистика по рекомендации друзьям
+    <div>
+        Средняя оценка: {{RecommendationStatistic.AvgRecommend}}
+    </div>
+    <div>
+        NPS: {{RecommendationStatistic.NPS}}
+    </div>
+    <div>
+        <table style="width:100%">
+            <tr>
+                <th>Что поставили</th>
+                <th>Сколько человек</th>
+            </tr>
+            {{#each RecommendationStatistic.RecommendCount}}
+                <tr>
+                    <td>{{@key}}</td>
+                </tr>
+                <tr>
+                    <td>{{this}}</td>
+                </tr>
+            {{/each}}
+        </table>
+    </div>
+</div>
+<div>
+    Статистика по общей оценке:
+    <div>
+        Средняя оценка: {{FeedbackStatistic.AvgRating}}
+    </div>
+    <div>
+        <table style="width:100%">
+            <tr>
+                <th>Что поставили</th>
+                <th>Сколько человек</th>
+            </tr>
+            {{#each FeedbackStatistic.RatingCount}}
+                <tr>
+                    <td>{{@key}}</td>
+                </tr>
+                <tr>
+                    <td>{{this}}</td>
+                </tr>
+            {{/each}}
+        </table>
+    </div>
+    <div>
+        То что понравилось пользователям:
+        {{#each FeedbackStatistic.LikedMap}}
+        <div>{{@key}}:{{this}}</div>
+        {{/each}}
+    </div>
+    <div>
+        То что надо исправить:
+        {{#each FeedbackStatistic.NeedFixMap}}
+        <div>{{@key}}:{{this}}</div>
+        {{/each}}
+    <div>
+        Что конкретно исправить:
+        {{#each FeedbackStatistic.Comments}}
+        <div>{{this}}</div>
+        {{/each}}
+    </div>
+</div>
+<div>
+    Статистика по ленте
+    <div>
+        Средняя оценка: {{FeedFeedbackStatistic.AvgRecommend}}
+    </div>
+    <div>
+        <table style="width:100%">
+            <tr>
+                <th>Что поставили</th>
+                <th>Сколько человек</th>
+            </tr>
+            {{#each FeedFeedbackStatistic.RecommendCount}}
+                <tr>
+                    <td>{{@key}}</td>
+                </tr>
+                <tr>
+                    <td>{{this}}</td>
+                </tr>
+            {{/each}}
+        </table>
+    </div>
+</div>

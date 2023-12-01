@@ -1,15 +1,11 @@
 <form class="settings-form">
     <div class="settings-form__photo-part">
         <div class="settings-form__user-name">
-            <textarea id="name" class="input-border__data-input input-border__data-input_text">{{this.user.name}}</textarea>
+            <textarea maxlength="30" id="name" class="input-border__data-input input-border__data-input_text">{{this.user.name}}</textarea>
             <span id="age" class="settings-form__age">{{this.user.age}}</span>
         </div>
         <div class="settings-form__photo">
-            {{#if this.user.image_path}}
-                <img src="https://umlaut-bmstu.me/api/v1/user/{{this.user.id}}/photo" class="settings-form__photo-img" id="user-photo" alt="">
-            {{else}}
-                <img src="/pics/avatar.png" class="settings-form__photo-img" id="user-photo" alt="">
-            {{/if}}
+
         </div>
         <div class="settings-form__buttons-photo-setting">
             <button type="button" class="btn btn_important settings-form__button-delete">удалить</button>
@@ -20,7 +16,7 @@
     <div class="settings-form__description-settings">
         <div class="settings-form__about-user">
             <div class="input-border">
-                <span class="input-border__header">Ваш пол</span>
+                <span class="input-border__header">Ваш пол *</span>
                 <select class="input-border__data-input"  id="user_gender">
                     {{#if this.user.hasGender}}
                         {{#if this.user.user_gender}}
@@ -38,7 +34,7 @@
                 </select>
             </div>
             <div class="input-border">
-                <span class="input-border__header">Кого ищете</span>
+                <span class="input-border__header">Кого ищете *</span>
                 <select class="input-border__data-input"  id="prefer_gender">
                     {{#if this.user.hasPreferGender}}
                         {{#if this.user.prefer_gender}}
@@ -81,38 +77,34 @@
                     {{/each}} 
                 </select>
             </div>
-            <div class="input-border">
-                <span class="input-border__header">Интересы</span>
-                <select class="input-border__data-input"  id="hobbies">
-                    {{#if this.user.hobbies}}
-                        <option value="" selected="selected">{{this.user.hobbies}}</option>
-                        {{else}}
-                        <option value="" selected="selected"></option>
-                    {{/if}} 
-                    {{#each this.interests}}
-                        <option value="">{{this}}</option>
-                    {{/each}} 
-                </select>
-            </div>
-            {{!-- <div class="input-border">
+            <div class="input-border multiselection">
                 <span class="input-border__header">Теги</span>
-                <select class="input-border__data-input" id="tags">
-                    {{#if this.user.tags}}
-                        <option value="" selected="selected">{{this.user.tags}}</option>
-                    {{/if}} 
-                    {{#each this.tags}}
-                        <option value="">{{this}}</option>
-                    {{/each}} 
-                </select>
-            </div> --}}
+                <div class="input-border__data-input"  id="tags">
+                    <div class="multiselection__input">
+                        <div class="multiselection__selected">
+                            {{#if this.user.tags}}
+                                {{#each this.user.tags}}
+                                    <span class="multiselection__selection multiselection__selection_selected">{{this}}</span>
+                                {{/each}} 
+                            {{/if}} 
+                        </div>
+                        <img class="multiselection__arrow" id="showTags" src="/pics/down-arrow.png">
+                    </div>
+                    <div class="multiselection__select-multiple">
+                        {{#each this.interests}}
+                            <span class="multiselection__selection multiselection__selection_variant" id="{{this}}">{{@key}}</span>
+                        {{/each}} 
+                    </div>
+                </div>
+            </div>
             <div class="input-border">
-                <span class="input-border__header">Дата рождения</span>
+                <span class="input-border__header">Дата рождения *</span>
                     <input id="birthday" type="date" class="input-border__data-input input__data-input_date" name="partydate" value='{{this.user.birthday}}'/>
                 </select>
             </div>
             <div class="input-border">
-                <span class="input-border__header">О себе</span>
-                    <textarea class="input-border__data-input input__data-input_text" id="description">{{this.user.description}}</textarea>
+                <span class="input-border__header">О себе *</span>
+                    <textarea maxlength="350" class="input-border__data-input input__data-input_text" id="description">{{this.user.description}}</textarea>
                 </select>
             </div>
             <div class="error-label"></div>
@@ -123,18 +115,19 @@
         <h2>Смена данных для входа</h2>
         <div class="settings-form__about-user">
             <div class="input-border">
-                <span class="input-border__header">Почта</span>
-                    <textarea class="input-border__data-input input__data-input_text" id="mail">{{this.user.mail}}</textarea>
+                <span class="input-border__header">Почта *</span>
+                    <textarea maxlength="40" class="input-border__data-input input__data-input_text" id="mail">{{this.user.mail}}</textarea>
                 </select>
             </div>
             <div class="input-border">
                 <span class="input-border__header">Пароль</span>
-                    <input type="password" class="input-border__data-input input__data-input_password" id="password" autocomplete="new-password">
+                    <input maxlength="50" type="password" class="input-border__data-input input__data-input_password" id="password" autocomplete="new-password">
+                    <img src="/pics/eye_closed.png" id="eye" class="input-border__eye">
                 </select>
             </div>
             <div class="input-border">
                 <span class="input-border__header">Повторите пароль</span>
-                    <input type="password" class="input-border__data-input input__data-input_password" id="repeat-password">
+                    <input maxlength="50" type="password" class="input-border__data-input input__data-input_password" id="repeat-password">
                 </select>
             </div>
         </div>

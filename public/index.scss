@@ -1,10 +1,12 @@
 @import url("https://fonts.googleapis.com/css?family=Noto+Sans:400,400i,700,700i&subset=greek-ext");
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
+@import '/public/lib/constants';
 
 body {
-  font-family: "Helvetica", sans-serif;
+  font-family: 'Montserrat';
   min-height: 100%;
-  font-family: Helvetica;
   background-color: var(--background-color);
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
 }
 
 /* Определение глобальных переменных для цветов */
@@ -16,11 +18,16 @@ body {
   --background-color: #e9cdcc;
   --dark-blue-color: #303656;
   --dialog-grey: #76798b;
+  --header-height: 65px;
+  --dialogs-width: 350px;
+  --dialog-name-height: 44px;
+  --dialog-input-height: 35px;
 }
 
 .btn {
   outline: none;
   border: 0;
+  font-family: 'Montserrat';
   padding: 10px 20px;
   text-transform: uppercase;
   border-radius: 2px;
@@ -28,9 +35,25 @@ body {
   position: relative;
   background-color: white;
 
+  @media (max-width: $phone-max-width) {
+    padding: 10px 15px;
+    font-size: 18px;
+  }
+
+  &:active{
+    box-shadow: 2px 2px 8px #fff4f4c9;
+  }
+
+  &:disabled {
+    filter: brightness(0.5);
+  }
+
   &_important {
     color: var(--auth-text-color);
     background-color: var(--input-focus-color);
+    &:active{
+      box-shadow: 2px 2px 8px #eb2344b9;
+    }
   }
 }
 
@@ -51,7 +74,23 @@ body {
 
 .input {
   position: relative;
-  margin-bottom: 25px;
+  margin-bottom: 40px;
+  font-family: 'Montserrat';
+  @media (max-width: $phone-max-width) {
+    margin-bottom: 20px;
+  }
+
+  &__show-password{
+    cursor: pointer;
+    background-image: url(../static/pics/eye.png);
+    width: 20px;
+    position: absolute;
+    left: 90%;
+    top: 2%;
+    @media (max-width:$phone-max-width) {
+      width: 15px;
+    }
+  }
 
   &__label {
     position: absolute;
@@ -61,6 +100,9 @@ body {
     color: var(--auth-text-color);
     pointer-events: none;
     transition: all 0.2s ease-in-out;
+    @media (max-width:$phone-max-width) {
+      font-size: 14px;
+    }
   }
 
   &__input {
@@ -87,20 +129,15 @@ body {
 }
 
 .root {
-  height: 95vh;
-  display: grid;
-  grid-template-areas:
-    "header "
-    "content";
-  grid-template-rows: 60px 85%;
-  font:
-    1.2rem "Helvetica",
-    sans-serif;
+  min-height: 100vh;
+  display: flex;
+  font: 1.2rem "Montserrat";
+  flex-direction: column;
 }
 
 .main-part {
-  grid-area: content;
-  padding: 2%;
+  min-height: calc(100vh - var(--header-height));
+  position: relative;
 }
 
 .loading {
@@ -111,7 +148,6 @@ body {
   &__spinner {
     animation: rotate-loading 2s linear infinite;
     z-index: 2;
-    position: absolute;
     top: 50%;
     left: 50%;
     margin: -25px 0 0 -25px;
@@ -146,3 +182,17 @@ body {
     stroke-dashoffset: -124;
   }
 }
+
+.arrow_icon {
+  width: 26px;
+  height: 26px;
+  color: gray;
+  cursor: pointer;
+}
+
+.center{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+

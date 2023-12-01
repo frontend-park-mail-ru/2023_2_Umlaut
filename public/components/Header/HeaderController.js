@@ -1,21 +1,15 @@
 import {HeaderView} from './HeaderView.js';
-import {HeaderModel} from './HeaderModel.js';
 import {EventBus} from '../../lib/eventbus.js';
-import {HEADER_EVENTS} from '../../lib/constansts.js';
+import {COMMON_EVENTS, GLOBAL_EVENTS} from '../../lib/constansts.js';
 
 
 export class HeaderController {
-    constructor(root) {
+    constructor(root, globalEventBus) {
+        this.globalEventBus = globalEventBus;
         this.eventBus = new EventBus();
         this.view = new HeaderView(root, this.eventBus);
-        this.model = new HeaderModel(this.eventBus);
-    }
-
-    renderUnauth() {
-        this.view.renderU();
-    }
-
-    render() {
-        this.eventBus.emit(HEADER_EVENTS.CHECK_AUTHORISED);
+        this.globalEventBus.on(GLOBAL_EVENTS.AUTH, (data) => this.eventBus.emit(COMMON_EVENTS.AUTH, data));
+        this.globalEventBus.on(GLOBAL_EVENTS.UNAUTH, () => this.eventBus.emit(COMMON_EVENTS.UNAUTH));
+        this.globalEventBus.on(GLOBAL_EVENTS.ADMIN_AUTH, () => this.view.renderAdmin());
     }
 }

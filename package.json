@@ -8,11 +8,11 @@
     "deploy": "NODE_ENV=prod node server/index.js",
     "start": "npm run build && node server/index.js",
     "compile:templates": "./compile_templates.bash",
-    "lint": "./node_modules/.bin/eslint ./public",
-    "docs": "./node_modules/jsdoc/jsdoc.js -c ./.jsdoc.conf.json",
-    "lint-write": "./node_modules/.bin/eslint --fix ./public",
+    "lint": "npx eslint ./public",
+    "docs": "npx jsdoc -c ./.jsdoc.conf.json",
+    "lint-write": "npx eslint --fix ./public",
     "prepare": "husky install",
-    "build": "npx webpack --config webpack.config.js --mode development"
+    "build": "npx webpack --config webpack.config.js --mode development && npx webpack --config webpack_csat.config.js --mode development"
   },
   "author": "",
   "license": "ISC",

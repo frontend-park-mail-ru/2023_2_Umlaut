@@ -13,12 +13,13 @@ const server = http.createServer((request, response) => {
     debug.log('url: ' + url);
     let filepath;
     if ( !url.includes('.') || url.includes('.html')) {
-        filepath = 'dist/index.html';
+        if ( url.startsWith('/csat/'))
+            filepath = 'dist/csat/index.html'
+        else
+            filepath = 'dist/index.html';
     } else {
         if (fs.existsSync('./dist' + url)) {
             filepath = './dist' + url;
-        } else if (fs.existsSync('./static' + url)) {
-            filepath = './static' + url;
         } else {
             debug.log('error: Not found : ' + url);
             response.write(page404);

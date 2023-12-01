@@ -1,7 +1,7 @@
 import {AuthView} from './AuthView.js';
 import {AuthModel} from './AuthModel.js';
 import {BaseController} from '../BaseController.js';
-import {AUTH_EVENTS, GLOBAL_EVENTS} from '../../lib/constansts.js';
+import {AUTH_EVENTS, COMMON_EVENTS, GLOBAL_EVENTS} from '../../lib/constansts.js';
 
 
 export class AuthController extends BaseController {
@@ -9,8 +9,10 @@ export class AuthController extends BaseController {
         super(globalEventBus);
         this.view = new AuthView(root, this.eventBus);
         this.model = new AuthModel(this.eventBus);
-        this.eventBus.on(AUTH_EVENTS.AUTH, () => this.globalEventBus.emit(GLOBAL_EVENTS.REDIRECT, '/feed'));
-        this.eventBus.on(AUTH_EVENTS.AUTH, () => this.globalEventBus.emit(GLOBAL_EVENTS.AUTH));
+        this.eventBus.on(GLOBAL_EVENTS.REDIRECT, (path) => this.globalEventBus.emit(GLOBAL_EVENTS.REDIRECT, path));
+        this.eventBus.on(COMMON_EVENTS.AUTH, (data) => this.globalEventBus.emit(GLOBAL_EVENTS.AUTH, data));
+        this.eventBus.on(COMMON_EVENTS.UNAUTH, () => this.globalEventBus.emit(GLOBAL_EVENTS.UNAUTH));
+        this.globalEventBus.on(GLOBAL_EVENTS.CHECK_AUTHORISED, () => this.eventBus.emit(AUTH_EVENTS.CHECK_AUTHORISED));
     }
 
     render() {

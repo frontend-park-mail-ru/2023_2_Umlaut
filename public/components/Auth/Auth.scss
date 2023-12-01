@@ -1,11 +1,16 @@
+@import "/public/lib/constants";
+
 .auth {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
+  width: max(20%, 300px);
+  margin-top: 20px;
+  margin-bottom: 40px;
   background-color: var(--dark-blue-color);
   border-radius: 4px;
-  padding: 70px 100px;
+  padding: 20px;
+
+  @media (max-width: $phone-max-width) {
+    margin: 80px auto;
+  }
 
   &__subtitle {
     font-style: normal;
@@ -13,8 +18,12 @@
     font-size: 13px;
     line-height: 150%;
     color: var(--auth-text-color);
-    margin-top: 12px;
     margin-bottom: 50px;
+
+    @media (max-width: $phone-max-width) {
+      font-size: 10px;
+      margin-bottom: 20px;
+    }
   }
 
   &__link {
@@ -26,8 +35,113 @@
     color: var(--auth-text-color);
     text-transform: uppercase;
     font-size: 23px;
-    margin: -50px 0 80px 0;
+    margin-bottom: 45px;
+    margin-top: 10px;
     display: block;
     text-align: center;
+    @media (max-width: $phone-max-width) {
+      font-size: 20px;
+    }
+  }
+}
+
+.lending {
+  padding: 1%;
+
+  @media (max-width: $phone-max-width) {
+    display: none;
+  }
+
+  & p {
+    color: var(--main-text-color);
+    font-family: "Montserrat";
+    font-size: calc(0.8rem + 6.4px);
+    line-height: 24px;
+    text-align: justify;
+  }
+
+  &__about {
+    color: var(--main-text-color);
+    font-family: "Montserrat";
+    font-size: calc(0.7rem + 6.4px);
+    font-weight: bold;
+  }
+
+  &__description {
+    display: flex;
+    column-gap: 5%;
+  }
+
+  &__introduction {
+    width: 50%;
+  }
+
+  &__points {
+    width: 50%;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    row-gap: 10%;
+  }
+
+  &__list li {
+    display: table-row;
+    &::before {
+      display: table-cell;
+      content: "+";
+      font-weight: bold;
+      color: var(--main-text-color);
+      padding-right: 12px;
+    }
+  }
+
+  &__heart-holder {
+    height: 5%;
+    width: 5%;
+  }
+
+  &__heart-img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+  }
+}
+
+.naming {
+  position: absolute;
+  right: 20px;
+  color: #303656;
+  font-size: calc(1.33vw + 5.3px);
+  text-transform: uppercase;
+  width: min-content;
+  background-color: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(8px);
+  padding: 1%;
+  border-radius: 15px;
+
+  @media (max-width: $phone-max-width) {
+    display: none;
+  }
+}
+
+.naming_small {
+  font-size: 20px;
+
+  @media (max-width: $phone-max-width) {
+    font-size: 14px;
+  }
+}
+
+.background-holder {
+  background-image: url("../../../static/pics/lending.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-color: var(--background-color);
+  padding: 5%;
+
+  @media (max-width: $phone-max-width) {
+    background-size: contain;
+    background-image: none;
+    padding: 0px;
   }
 }

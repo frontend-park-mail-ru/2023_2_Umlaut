@@ -1,21 +1,113 @@
+@import "/public/lib/constants";
 .popup {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  z-index: 10;
 
-  &_dark {
-    background-color: #0000003d;
+  &__notify {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    visibility: hidden;
+    top: 82%;
+    left: 82%;
+    opacity: 0;
+    transition: visibility 0.5s, opacity 0.5s linear;
+    width: 250px;
+    height: 100px;
+    border-radius: 15px;
+    background-color: #ffffff;
+    @media (max-width: $phone-max-width) {
+      left: 50%;
+      transform: translateX(-50%);
+    }
+  }
+
+  &__btn {
+    width: 36%;
+  }
+
+  &__question {
+    margin: 10%;
+    margin-top: 0;
+  }
+
+  &__confirm {
+    position: fixed;
+    top: 30%;
+    display: flex;
+    flex-direction: column;
+    background-color: #f1eaea;
+    width: min(380px, 85vw);
+    height: min-content;
+    align-content: center;
+    justify-content: center;
+    padding: 35px;
+    left: 50%;
+    transform: translateX(-50%);
+    box-sizing: border-box;
+  }
+
+  &__choose {
+    position: fixed;
+    top: 15%;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    background-color: #f1eaea;
+    width: min(380px, 85vw);
+    height: fit-content;
+    align-content: center;
+    justify-content: center;
+    padding: 35px;
+    flex-direction: column;
+    border: var(--dark-blue-color) 2px solid;
+    border-radius: 8px;
+    box-sizing: border-box;
+  }
+
+  &__submit {
+    margin-top: 10px;
+  }
+
+  &__variants {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  &__variant {
+    background-color: #f2adad;
+    width: 100%;
+    padding: 4px;
+    border: var(--dark-blue-color) 2px solid;
+    border-color: var(--dark-blue-color);
+    border: 2px solid;
+    border-radius: 4px;
+    box-sizing: border-box;
+
+    color: var(--dark-blue-color);
+    cursor: pointer;
+    &:hover {
+      scale: 1.02;
+      filter: brightness(1.02);
+    }
+
+    &-selected {
+      scale: 1.02;
+      filter: brightness(1.02);
+    }
+  }
+
+  &__buttons {
+    display: flex;
+    gap: 17%;
+    justify-content: center;
   }
 
   &__text {
     display: flex;
     justify-content: center;
-    font-size: 50px;
-    color: white;
+    font-size: 16px;
+    color: black;
   }
 }

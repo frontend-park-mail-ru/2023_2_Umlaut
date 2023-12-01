@@ -25,7 +25,10 @@ self.addEventListener('fetch', (event) => {
                     const responseClone = response.clone();
                     caches.open(CACHE_NAME)
                         .then((cache) => {
-                            cache.put(event.request, responseClone);
+                            try {
+                                cache.put(event.request, responseClone);
+                            // eslint-disable-next-line
+                            } catch {}
                         });
 
                     return response;
