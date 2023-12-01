@@ -142,6 +142,7 @@
   }
 
   &__search-btn {
+    user-select: none;
     height: min(6vh, 60px);
     margin-left: auto;
     cursor: pointer;

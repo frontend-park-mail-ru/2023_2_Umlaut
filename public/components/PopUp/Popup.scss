@@ -1,3 +1,4 @@
+@import "/public/lib/constants";
 .popup {
   z-index: 10;
 
@@ -15,6 +16,10 @@
     height: 100px;
     border-radius: 15px;
     background-color: #ffffff;
+    @media (max-width: $phone-max-width) {
+      left: 50%;
+      transform: translateX(-50%);
+    }
   }
 
   &__btn {

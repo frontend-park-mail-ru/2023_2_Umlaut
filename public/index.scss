@@ -6,6 +6,7 @@ body {
   font-family: 'Montserrat';
   min-height: 100%;
   background-color: var(--background-color);
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
 }
 
 /* Определение глобальных переменных для цветов */
