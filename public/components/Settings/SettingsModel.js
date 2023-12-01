@@ -1,5 +1,5 @@
 import {COMMON_EVENTS, SETTINGS_EVENTS, SETTINGS_LIST} from '../../lib/constansts.js';
-import {Api, HandleStatuses, LoadTags} from '../../lib/api.js';
+import {Api, handleStatuses, loadTags} from '../../lib/api.js';
 
 export class SettingsModel {
     constructor(eventBus) {
@@ -24,7 +24,7 @@ export class SettingsModel {
         this.settings.user.prefer_gender = data.prefer_gender;
         this.settings.user.mail = data.mail;
         this.settings.user.password = data.password;
-        Api.update(this.settings.user).then(HandleStatuses(
+        Api.update(this.settings.user).then(handleStatuses(
             (response) => {
                 if (response.status === 200) {
                     this.eventBus.emit(SETTINGS_EVENTS.SUCCESS, 'Данные успешно сохранены!');
@@ -34,7 +34,7 @@ export class SettingsModel {
     }
 
     isAuthorised() {
-        Api.user().then( HandleStatuses(
+        Api.user().then( handleStatuses(
             async (response) => {
                 if ( response.status === 200 ) {
                     this.settings.user = response.payload;
@@ -43,7 +43,7 @@ export class SettingsModel {
                         this.settings.tags.push(element);
                     });
                     if (!SETTINGS_LIST.interests) {
-                        await LoadTags(this.eventBus);
+                        await loadTags(this.eventBus);
                     }
                     this.settings.user.hasPreferGender = this.settings.user.prefer_gender !== null;
                     this.settings.user.hasGender = this.settings.user.user_gender !== null;
@@ -59,7 +59,7 @@ export class SettingsModel {
     }
 
     addPhoto(file) {
-        Api.addPhoto(file).then( HandleStatuses(
+        Api.addPhoto(file).then( handleStatuses(
             (response) => {
                 if ( response.status === 200 ) {
                     this.eventBus.emit(SETTINGS_EVENTS.PHOTO_UPLOADED, response.payload);
@@ -70,7 +70,7 @@ export class SettingsModel {
     }
 
     deletePhoto(photo) {
-        Api.deletePhoto(photo).then( HandleStatuses(
+        Api.deletePhoto(photo).then( handleStatuses(
             (response) => {
                 if ( response.status === 200 ) {
                     this.eventBus.emit(SETTINGS_EVENTS.PHOTO_DELETED, photo);
@@ -81,7 +81,7 @@ export class SettingsModel {
     }
 
     logout() {
-        Api.logout().then( HandleStatuses(
+        Api.logout().then( handleStatuses(
             (response) => {
                 if ( response.status === 200 ) {
                     this.eventBus.emit(COMMON_EVENTS.UNAUTH);

@@ -43,6 +43,10 @@ body {
     box-shadow: 2px 2px 8px #fff4f4c9;
   }
 
+  &:disabled {
+    filter: brightness(0.5);
+  }
+
   &_important {
     color: var(--auth-text-color);
     background-color: var(--input-focus-color);

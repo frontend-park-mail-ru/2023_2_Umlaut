@@ -26,9 +26,9 @@ export class EventBus {
         this.listeners[event].forEach((listener) => {
             try {
                 listener(data);
-            } catch(e){
-                //console.log("error");
-            };
+            } catch (e) {
+                // console.log("error");
+            }
         });
     }
 }

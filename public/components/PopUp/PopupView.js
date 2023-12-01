@@ -32,15 +32,26 @@ export class PopupView {
     }
 
     renderConfirm(data) {
+        if (this.rendered) {
+            return;
+        }
+        this.rendered = true;
+        this.firstClick = true;
+
         const confirm = document.createElement('div');
         confirm.className = 'popup__confirm';
         confirm.innerHTML = this.popupConfirmTmpl({text: data.text});
         this.popup.appendChild(confirm);
-        const yes = this.popup.querySelector('#yes');
-        this.popup.addEventListener('click', ()=>{
-            this.popup.removeChild(confirm);
+        this.currentPopup = confirm;
+
+        this.popup.querySelector('#yes').addEventListener('click', () => {
+            data.func();
+            this.closeCurrent();
         });
-        yes.addEventListener('click', data.func);
+
+        this.popup.querySelector('#no').addEventListener('click', this.closeCurrent.bind(this));
+
+        document.body.addEventListener('click', this.closeEvent);
     }
 
     renderChoose(data) {
