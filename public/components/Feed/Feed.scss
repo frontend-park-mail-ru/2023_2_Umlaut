@@ -35,7 +35,7 @@
     border-radius: 50%;
     background-color: green;
     aspect-ratio: 1 / 1;
-    @supports not (aspect-ratio: 16 / 9) {
+    @supports not (aspect-ratio: 1 / 1) {
       &::before {
         float: left;
         padding-top: 100%;
