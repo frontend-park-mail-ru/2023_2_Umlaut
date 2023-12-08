@@ -30,6 +30,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
     const root = document.getElementById('root');
     const head = root.querySelector('.header');
     const page = root.querySelector('.main-part');
+    const side = document.querySelector('.sidebar');
 
     const router = new Router();
 
@@ -61,7 +62,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
     const csat = new CsatController(document.body, globalEventBus);
     csat;
 
-    const header = new HeaderController(head, globalEventBus);
+    const header = new HeaderController(head, side, globalEventBus);
     header;
     const auth = new AuthController(page, globalEventBus);
     const signup = new SignupController(page, globalEventBus);

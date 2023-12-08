@@ -134,11 +134,22 @@ body {
   display: flex;
   font: 1.2rem "Montserrat";
   flex-direction: column;
+  width: 100%;
+}
+
+.main{
+  display: flex;
 }
 
 .main-part {
   min-height: calc(100vh - var(--header-height));
   position: relative;
+  width: 100%;
+}
+
+.sidebar{
+  border-right: 1px solid #999;
+  width: 25%;
 }
 
 .loading {
@@ -195,8 +206,4 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-div{
-  overflow: hidden;
 }
