@@ -113,8 +113,9 @@ export class MessengerView extends BaseView {
             const inputText = this.dialogWindow.querySelector('#message');
             const msg = inputText.value;
             inputText.value = '';
-            if(msg.length>0)
+            if (msg.trim().length > 0) {
                 this.eventBus.emit(MESSENGER_EVENTS.SEND_MESSAGE, msg);
+            }
         });
 
         this.dialogWindow.querySelector('#message')

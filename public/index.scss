@@ -12,7 +12,7 @@ body {
 /* Определение глобальных переменных для цветов */
 :root {
   --auth-text-color: #ffffff;
-  --link-text-color: #4460ff;
+  --link-text-color: #8fa0ff;
   --input-focus-color: #eb2344;
   --lending-text-color: #685206;
   --background-color: #e9cdcc;
@@ -59,6 +59,7 @@ body {
 
 .error-label {
   font-size: 0.8rem;
+  margin: 5px;
   color: var(--input-focus-color);
 }
 
@@ -121,7 +122,7 @@ body {
     }
 
     &:focus ~ .input__label,
-    &:valid ~ .input__label {
+    &:valid ~ .input__label{
       top: -12px;
       font-size: 12px;
     }

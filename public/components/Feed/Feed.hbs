@@ -76,26 +76,26 @@
       Возраст
       <div class="search__age">
         <div class="input-border">
-          <span
-            class="input-border__header input-border__header_white"
-          >От</span>
+          <span class="input-border__header input-border__header_white">
+            От
+          </span>
           <input
             maxlength="3"
             type="text"
             class="input-border__data-input input__data-input_password"
             id="from-age"
-          />
+            value="{{this.params.min_age}}"/>
         </div>
         <div class="input-border">
-          <span
-            class="input-border__header input-border__header_white"
-          >До</span>
+          <span class="input-border__header input-border__header_white">
+            До
+          </span>
           <input
             maxlength="3"
             type="text"
             class="input-border__data-input input__data-input_password"
             id="to-age"
-          />
+            value="{{this.params.max_age}}"/>
         </div>
       </div>
       <div class="error-label"></div>

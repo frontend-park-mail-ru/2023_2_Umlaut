@@ -34,6 +34,7 @@ export class SettingsModel {
     }
 
     isAuthorised() {
+        this.eventBus.emit(SETTINGS_EVENTS.GOT_USER, this.settings);
         Api.user().then( handleStatuses(
             async (response) => {
                 if ( response.status === 200 ) {
