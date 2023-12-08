@@ -25,7 +25,7 @@ export class PopupView {
         const notification = this.popup.querySelector('.popup__notify');
         this.popup.querySelector('.popup__text').textContent = msg;
         notification.style.visibility = 'visible';
-        notification.style.opacity = 0.8;
+        notification.style.opacity = 0.6;
         setTimeout(() => {
             this.close();
         }, 3000);

@@ -8,8 +8,8 @@
     align-items: center;
     position: fixed;
     visibility: hidden;
-    top: 82%;
-    left: 82%;
+    top: 80%;
+    left: 80%;
     opacity: 0;
     transition: visibility 0.5s, opacity 0.5s linear;
     width: 250px;
@@ -109,6 +109,6 @@
     display: flex;
     justify-content: center;
     font-size: 16px;
-    color: black;
+    color: rgb(255, 255, 255);
   }
 }
