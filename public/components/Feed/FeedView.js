@@ -50,6 +50,7 @@ export class FeedView extends BaseView {
             this.carousel.render(data.image_paths);
             this.activateBtns();
         }
+        document.querySelector('.sidebar').className = 'sidebar';
     }
 
     complainCurrent(complainType) {

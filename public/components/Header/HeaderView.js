@@ -25,6 +25,7 @@ export class HeaderView {
         this.eventBus.emit(MESSENGER_EVENTS.GET_PAIRS);
         this.eventBus.emit(MESSENGER_EVENTS.GET_DIALOGS);
         const menuBtn = document.querySelector('.main__menu-btn');
+        menuBtn.style.display = 'block';
         menuBtn.addEventListener('click', ()=>{
             const sidebar = document.querySelector('.sidebar');
             sidebar.classList.toggle('sidebar__visible');
@@ -33,6 +34,8 @@ export class HeaderView {
 
     renderU() {
         this.parent.innerHTML = this.template();
+        this.sidePlace.innerHTML = this.side();
+        document.querySelector('.main__menu-btn').style.display = 'none';
     }
 
     renderAdmin() {
@@ -46,6 +49,9 @@ export class HeaderView {
             pair.className = 'sidebar__photo-avatar';
             pair.src = element.photo;
             pairs.appendChild(pair);
+            pair.addEventListener('click', ()=>{
+                this.eventBus.emit(MESSENGER_EVENTS.GET_MESSAGES, `/messages/${element.id}`);
+            });
         });
     }
 

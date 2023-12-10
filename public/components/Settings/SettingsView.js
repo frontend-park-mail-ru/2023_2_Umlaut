@@ -80,6 +80,7 @@ export class SettingsView extends BaseView {
             }
         },
         );
+        document.querySelector('.sidebar').className = 'sidebar';
     }
 
     close() {

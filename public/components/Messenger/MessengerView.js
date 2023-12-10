@@ -23,11 +23,13 @@ export class MessengerView extends BaseView {
         super.render();
         this.dialogWindow = document.getElementById('dialog-window');
         this.eventBus.emit(MESSENGER_EVENTS.GET_MESSAGES);
+        document.querySelector('.sidebar').className = 'sidebar';
     }
 
     openDialog(data) {
-        if(!data)
+        if (!data) {
             return;
+        }
         const newMes = this.root.querySelector('.dialog-preview__new-message');
         if (newMes) {
             newMes.style.visibility = 'hidden';

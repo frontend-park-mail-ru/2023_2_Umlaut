@@ -65,8 +65,8 @@
 .sidebar{
   font-family: "Montserrat";
 
-  &__visibile{
-    visibility: visible;
+  &__visible{
+    display: block;
   }
 
   &__header{

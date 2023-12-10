@@ -1,7 +1,6 @@
 import {MESSENGER_EVENTS, COMMON_EVENTS} from '../../lib/constansts.js';
-import {DEFAULT_PHOTO} from '../../lib/constansts.js';
 import {WebSocketWrapper} from '../../lib/ws.js';
-import {Api, handleStatuses} from '../../lib/api.js';
+import {Api} from '../../lib/api.js';
 
 export class MessengerModel {
     constructor(eventBus) {
@@ -55,7 +54,7 @@ export class MessengerModel {
     getMessages() {
         const path = window.location.pathname;
         const data = {};
-        this.dialog_id = path.split('/')[path.split('/').length-1];
+        this.dialog_id = path.split('/')[path.split('/').length - 1];
         Api.getMessages(this.dialog_id).then((response)=>{
             if (response.status === 200) {
                 data.dialogs = response.payload;
@@ -67,20 +66,20 @@ export class MessengerModel {
                 Api.user().then((user)=>{
                     if (user.status === 200) {
                         this.my_id = user.payload.id;
-                        if(data.dialogs.length>0 && data.dialogs[0].sender_id===this.my_id){
+                        if (data.dialogs.length > 0 && data.dialogs[0].sender_id === this.my_id) {
                             Api.getUserById(data.dialogs[0].id).then((user2)=>{
                                 data.my_id = this.my_id;
                                 this.id = data.dialogs[0].id;
                                 data.user = user2.payload;
                                 this.eventBus.emit(MESSENGER_EVENTS.MESSAGES_READY, data);
-                            })
-                        }else if(data.dialogs.length>0){
+                            });
+                        } else if (data.dialogs.length > 0) {
                             Api.getUserById(data.dialogs[0].sender_id).then((user2)=>{
                                 data.my_id = this.my_id;
                                 data.user = user2.payload;
                                 this.id = data.dialogs[0].sender_id;
                                 this.eventBus.emit(MESSENGER_EVENTS.MESSAGES_READY, data);
-                            })
+                            });
                         }
                     }
                 });

@@ -1,22 +1,24 @@
-<div class="sidebar__header">
-    <a class="header__photo" href="/settings">
-        {{#if image_paths}}
-            <img src="{{{image_paths.[0]}}}" class="header__photo-avatar" alt=""/>
-        {{else}}
-            <img src="/pics/avatar.png" class="header__photo-avatar" alt=""/>
-        {{/if}}
-    </a>
-    <a class="link" href="/settings">
-        {{#if name}}
-            <span>{{name}}</span>
-        {{/if}}
-    </a>
-</div>
-<div class="sidebar__part">
-    <span class="sidebar__pairs-header">Взаимные пары</span>
-    <div class="sidebar__pairs"></div>
-</div>
-<div class="sidebar__part">
-    <span class="sidebar__pairs-header">Диалоги</span>
-    <div class="sidebar__dialogs"></div>
-</div>
+{{#if id}}
+    <div class="sidebar__header">
+        <a class="header__photo" href="/settings">
+            {{#if image_paths}}
+                <img src="{{{image_paths.[0]}}}" class="header__photo-avatar" alt=""/>
+            {{else}}
+                <img src="/pics/avatar.png" class="header__photo-avatar" alt=""/>
+            {{/if}}
+        </a>
+        <a class="link" href="/settings">
+            {{#if name}}
+                <span>{{name}}</span>
+            {{/if}}
+        </a>
+    </div>
+    <div class="sidebar__part">
+        <span class="sidebar__pairs-header">Взаимные пары</span>
+        <div class="sidebar__pairs"></div>
+    </div>
+    <div class="sidebar__part">
+        <span class="sidebar__pairs-header">Диалоги</span>
+        <div class="sidebar__dialogs"></div>
+    </div>
+{{/if}}

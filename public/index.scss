@@ -156,10 +156,10 @@ body {
 .sidebar{
   border-right: 1px solid #999;
   width: min-content;
-  visibility: collapse;
+  display: none;
 
   &__visible{
-    visibility: visible;
+    display: block;
   }
 }
 
