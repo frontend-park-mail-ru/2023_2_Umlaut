@@ -113,9 +113,9 @@ export class MessengerView extends BaseView {
             const inputText = this.dialogWindow.querySelector('#message');
             const msg = inputText.value;
             inputText.value = '';
-            this.eventBus.emit(MESSENGER_EVENTS.SEND_MESSAGE, msg);
-            const block = this.root.querySelector('.dialog-window__dialog');
-            block.scrollTop = block.scrollHeight;
+            if (msg.length > 0) {
+                this.eventBus.emit(MESSENGER_EVENTS.SEND_MESSAGE, msg);
+            }
         });
 
         this.dialogWindow.querySelector('#message')
@@ -151,6 +151,8 @@ export class MessengerView extends BaseView {
             const myMes = mesElem.querySelector('.dialog-window__message');
             myMes.className = 'dialog-window__message dialog-window__message_me';
         }
+        const block = this.root.querySelector('.dialog-window__dialog');
+        block.scrollTop = block.scrollHeight;
         windowDialog.appendChild(mesElem);
     }
 

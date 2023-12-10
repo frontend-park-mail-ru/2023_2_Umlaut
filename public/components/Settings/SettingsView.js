@@ -203,6 +203,10 @@ export class SettingsView extends BaseView {
             this.showError('Почта не может содержать специальные символы');
             return false;
         }
+        if (this.form.querySelectorAll('.multiselection__selection_active').length > 6) {
+            this.showError('Выберите не более 6 тегов');
+            return false;
+        }
         return true;
     }
 

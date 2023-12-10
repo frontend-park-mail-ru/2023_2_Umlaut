@@ -70,7 +70,7 @@ export class WebSocketWrapper {
 
     send(dataObject) {
         try {
-            this.socket.send(JSON.stringify(dataObject));
+            Promise.resolve(this.socket.send(JSON.stringify(dataObject)));
         } catch (e) {
             console.log('not connected');
             throw e;

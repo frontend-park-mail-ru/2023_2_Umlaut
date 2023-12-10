@@ -23,7 +23,7 @@
     align-self: flex-end;
     margin-bottom: 5%;
     z-index: 2;
-    height: min(15%, 75px);
+    height: min(70px);
   }
 
   &__button {
@@ -35,6 +35,19 @@
     border-radius: 50%;
     background-color: green;
     aspect-ratio: 1 / 1;
+    @supports not (aspect-ratio: 1 / 1) {
+      &::before {
+        float: left;
+        padding-top: 100%;
+        content: "";
+      }
+  
+      &::after {
+        display: block;
+        content: "";
+        clear: both;
+      }
+    }
     cursor: pointer;
 
     &:hover {
@@ -87,15 +100,16 @@
     box-shadow: 0px 0px 5px 1px rgba(34, 60, 80, 0.2);
     background-color: #ffffff;
     display: grid;
-    grid-template-columns: min(max(280px, 31vw), 450px) 1fr;
-    grid-template-rows: 100%;
+    max-width: min(90vw, 1000px);
+    grid-template-columns: min(max(280px, 31vw), 450px) minmax(0, 1fr);
+    grid-template-rows: min(60vh, 600px);
     overflow: hidden;
     column-gap: 2vw;
     position: relative;
     border-radius: 30px;
     //phone
     @media (max-width: $phone-max-width) {
-      grid-template-rows: min-content min-content;
+      grid-template-rows: 75vh min-content;
       grid-template-columns: 90vw;
       row-gap: 20px;
     }
@@ -103,6 +117,8 @@
 
   &__text {
     margin: 7px;
+    overflow: hidden;
+    word-wrap: break-word;
     &_bold {
       font-weight: bold;
     }
@@ -133,7 +149,8 @@
   &__description {
     display: flex;
     flex-direction: column;
-    padding-bottom: 10px;
+    padding-bottom: 15px;
+    overflow: hidden;
   }
 
   &__about-user {
@@ -197,6 +214,7 @@
 
   &__age {
     display: flex;
-    width: 325px;
+    width: min(85vw, 325px);
+    gap: 10px;
   }
 }
