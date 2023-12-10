@@ -61,6 +61,6 @@ jobs:
         with:
           host: umlaut-bmstu.me
           username: ubuntu
-          key: ${{ secrets.SHH_KEY }}
+          key: ${{ secrets.SSH_KEY }}
           source: dist
           target: /home/ubuntu/front/2023_2_Umlaut
