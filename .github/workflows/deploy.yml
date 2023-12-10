@@ -31,16 +31,16 @@ jobs:
 
       - name: Build 
         run: | 
-        if [ "${{ inputs.assemblyType }}" == "prod" ]; then
-          echo "Build production"
-          npm run build-prod
-        elif [ "${{ inputs.assemblyType }}" == "develop" ]; then
-          echo "Build develop"
-          npm run build
-        else
-          echo "Build production"
-          npm run build-prod
-        fi
+          if [ "${{ inputs.assemblyType }}" == "prod" ]; then
+            echo "Build production"
+            npm run build-prod
+          elif [ "${{ inputs.assemblyType }}" == "develop" ]; then
+            echo "Build develop"
+            npm run build
+          else
+            echo "Build production"
+            npm run build-prod
+          fi
 
       - name: Upload build result
         uses: actions/upload-artifact@v3.1.3
