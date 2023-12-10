@@ -24,6 +24,11 @@ export class HeaderView {
         this.sidePlace.innerHTML = this.side(user);
         this.eventBus.emit(MESSENGER_EVENTS.GET_PAIRS);
         this.eventBus.emit(MESSENGER_EVENTS.GET_DIALOGS);
+        const menuBtn = document.querySelector('.main__menu-btn');
+        menuBtn.addEventListener('click', ()=>{
+            const sidebar = document.querySelector('.sidebar');
+            sidebar.classList.toggle('sidebar__visible');
+        });
     }
 
     renderU() {
@@ -34,9 +39,9 @@ export class HeaderView {
         this.parent.innerHTML = this.adminTemplate();
     }
 
-    gotPairs(data){
+    gotPairs(data) {
         const pairs = this.sidePlace.querySelector('.sidebar__pairs');
-        data.forEach(element => {
+        data.forEach((element) => {
             const pair = document.createElement('img');
             pair.className = 'sidebar__photo-avatar';
             pair.src = element.photo;
@@ -44,24 +49,23 @@ export class HeaderView {
         });
     }
 
-    gotDialogs(data){
+    gotDialogs(data) {
         const dialogs = this.sidePlace.querySelector('.sidebar__dialogs');
-        dialogs.innerHTML = "";
+        dialogs.innerHTML = '';
         data.forEach((dialog) => {
             const dialogPreview = document.createElement('div');
             dialogPreview.className = 'sidebar__dialog';
             dialogPreview.innerHTML = this.dialogPreviewTemplate(dialog);
 
+            dialogPreview.addEventListener('click', ()=>{
+                this.eventBus.emit(MESSENGER_EVENTS.GET_MESSAGES, `/messages/${dialog.id}`);
+            });
+            dialogs.appendChild(dialogPreview);
             if (dialog.last_message !== null && !dialog.last_message.is_read) {
                 const newMes = document.createElement('div');
                 newMes.className = 'dialog-preview__new-message';
                 dialogPreview.querySelector('.dialog-preview').appendChild(newMes);
             }
-
-            dialogPreview.addEventListener('click', ()=>{
-                this.eventBus.emit(MESSENGER_EVENTS.GET_MESSAGES, {id: dialog.user_dialog_id, name: dialog.companion});
-            });
-            dialogs.appendChild(dialogPreview);
         });
     }
 }

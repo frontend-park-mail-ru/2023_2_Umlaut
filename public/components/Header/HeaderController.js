@@ -1,7 +1,7 @@
 import {HeaderView} from './HeaderView.js';
 import {EventBus} from '../../lib/eventbus.js';
-import {COMMON_EVENTS, GLOBAL_EVENTS} from '../../lib/constansts.js';
-import { HeaderModel } from './HeaderModel.js';
+import {COMMON_EVENTS, GLOBAL_EVENTS, MESSENGER_EVENTS} from '../../lib/constansts.js';
+import {HeaderModel} from './HeaderModel.js';
 
 
 export class HeaderController {
@@ -13,5 +13,8 @@ export class HeaderController {
         this.globalEventBus.on(GLOBAL_EVENTS.AUTH, (data) => this.eventBus.emit(COMMON_EVENTS.AUTH, data));
         this.globalEventBus.on(GLOBAL_EVENTS.UNAUTH, () => this.eventBus.emit(COMMON_EVENTS.UNAUTH));
         this.globalEventBus.on(GLOBAL_EVENTS.ADMIN_AUTH, () => this.view.renderAdmin());
+        this.eventBus.on(MESSENGER_EVENTS.GET_MESSAGES, (data) => {
+            this.globalEventBus.emit(GLOBAL_EVENTS.REDIRECT_WITH_HISTORY, data);
+        });
     }
 }

@@ -1,5 +1,5 @@
-import { MESSENGER_EVENTS, DEFAULT_PHOTO } from "../../lib/constansts.js";
-import { Api, handleStatuses } from "../../lib/api.js";
+import {MESSENGER_EVENTS, DEFAULT_PHOTO} from '../../lib/constansts.js';
+import {Api, handleStatuses} from '../../lib/api.js';
 
 export class HeaderModel {
     constructor(eventBus) {

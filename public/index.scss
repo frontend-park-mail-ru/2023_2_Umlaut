@@ -139,6 +139,12 @@ body {
 
 .main{
   display: flex;
+
+  &__menu-btn{
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+  }
 }
 
 .main-part {
@@ -149,7 +155,12 @@ body {
 
 .sidebar{
   border-right: 1px solid #999;
-  width: 25%;
+  width: min-content;
+  visibility: collapse;
+
+  &__visible{
+    visibility: visible;
+  }
 }
 
 .loading {

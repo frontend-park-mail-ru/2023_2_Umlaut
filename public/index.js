@@ -38,6 +38,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
 
     const globalEventBus = new EventBus();
     globalEventBus.on(GLOBAL_EVENTS.REDIRECT, (data) => router.goOnlyForward(data));
+    globalEventBus.on(GLOBAL_EVENTS.REDIRECT_WITH_HISTORY, (data) => router.go(data));
     globalEventBus.on(GLOBAL_EVENTS.POPUP, (text) => popup.render(text));
     globalEventBus.on(GLOBAL_EVENTS.NETWORK_ERROR, ()=>{
         popup.render('Сервер временно не доступен, повторите попытку позже');

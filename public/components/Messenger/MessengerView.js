@@ -5,8 +5,6 @@ import './Messenger.scss';
 export class MessengerView extends BaseView {
     constructor(root, eventBus) {
         super(root, eventBus, require('./Messenger.hbs'));
-        this.eventBus.on(MESSENGER_EVENTS.DIALOGS_READY, this.addDialogs.bind(this));
-        this.eventBus.on(MESSENGER_EVENTS.PAIRS_READY, this.addPairs.bind(this));
         this.eventBus.on(MESSENGER_EVENTS.MESSAGES_READY, this.openDialog.bind(this));
         this.eventBus.on(MESSENGER_EVENTS.NEW_MESSAGE_IN_THIS_DIALOG, this.createMessage.bind(this));
         this.eventBus.on(MESSENGER_EVENTS.SENT, this.createMessage.bind(this));
@@ -21,77 +19,21 @@ export class MessengerView extends BaseView {
         this.my_id = 0;
     }
 
-    render(data) {
-        super.render(data);
-        this.forMobile();
-        this.dialogList = [];
-        this.dialogListView = document.getElementById('dialog-list');
+    render() {
+        super.render();
         this.dialogWindow = document.getElementById('dialog-window');
-
-        this.showDialogs = document.getElementById('show_dialogs');
-        this.showPairs = document.getElementById('show_pairs');
-        this.showDialogs.addEventListener('click', () => this.eventBus.emit(MESSENGER_EVENTS.GET_DIALOGS));
-        this.showPairs.addEventListener('click', () => this.eventBus.emit(MESSENGER_EVENTS.GET_PAIRS));
-
-        if (!data) {
-            this.eventBus.emit(MESSENGER_EVENTS.GET_DIALOGS);
-        }
-
-        this.forMobile();
-    }
-
-    addDialogs(data) {
-        if (data) {
-            this.addData(data);
-        } else {
-            this.addEmptyDialogs(require('./EmptyDialogs.hbs'));
-        }
-    }
-
-    addPairs(data) {
-        if (data) {
-            this.addData(data);
-        } else {
-            this.addEmptyDialogs(require('./EmptyPairs.hbs'));
-        }
-    }
-
-    addData(data) {
-        this.dialogList = [];
-        this.dialogListView.innerHTML = '';
-        data.forEach((dialog) => {
-            const dialogPreview = document.createElement('div');
-            dialogPreview.innerHTML = this.dialogPreviewTemplate(dialog);
-
-            if (dialog.last_message !== null && !dialog.last_message.is_read) {
-                const newMes = document.createElement('div');
-                newMes.className = 'dialog-preview__new-message';
-                dialogPreview.querySelector('.dialog-preview').appendChild(newMes);
-            }
-
-            dialogPreview.addEventListener('click', ()=>{
-                this.eventBus.emit(MESSENGER_EVENTS.GET_MESSAGES, {id: dialog.user_dialog_id, name: dialog.companion});
-            });
-            this.dialogListView.appendChild(dialogPreview);
-            this.dialogList.push(dialogPreview);
-        });
-    }
-
-    addEmptyDialogs(empty) {
-        this.dialogListView.innerHTML = '';
-        const dialogPreview = document.createElement('div');
-        dialogPreview.innerHTML = empty();
-        this.dialogListView.appendChild(dialogPreview);
-        this.dialogList.push(dialogPreview);
+        this.eventBus.emit(MESSENGER_EVENTS.GET_MESSAGES);
     }
 
     openDialog(data) {
+        if(!data)
+            return;
         const newMes = this.root.querySelector('.dialog-preview__new-message');
         if (newMes) {
             newMes.style.visibility = 'hidden';
         }
 
-        this.dialogWindow.innerHTML = this.dialog({name: data.name});
+        this.dialogWindow.innerHTML = this.dialog({user: data.user});
         this.my_id = data.my_id;
         data.dialogs.forEach((mes) => {
             mes.created_at = mes.created_at.slice(mes.created_at.indexOf('T') + 1,
@@ -181,36 +123,5 @@ export class MessengerView extends BaseView {
         const newMes = document.createElement('div');
         newMes.className = 'dialog-preview__new-message';
         dialog.appendChild(newMes);
-    }
-
-    forMobile() {
-        const dialogs = this.root.querySelector('.messenger__dialogs');
-        dialogs.addEventListener('click', ()=>{
-            const mesSwitch = dialogs.querySelector('.messenger__switch');
-            mesSwitch.style.display = 'block';
-            const names = dialogs.querySelectorAll('.dialog-preview__dialog-name');
-            names.forEach((name) => {
-                name.style.display = 'block';
-            });
-            const dialList = dialogs.querySelector('.messenger__dialog-list');
-            dialList.style.width = 'auto';
-
-            dialogs.style.width = '350px';
-        });
-
-        const dialogWindow = this.root.querySelector('.dialog-window');
-        dialogWindow.addEventListener('click', ()=>{
-            const dialogs = this.root.querySelector('.messenger__dialogs');
-            const mesSwitch = dialogs.querySelector('.messenger__switch');
-            mesSwitch.style.display = 'none';
-            const names = dialogs.querySelectorAll('.dialog-preview__dialog-name');
-            names.forEach((name) => {
-                name.style.display = 'none';
-            });
-            const dialList = dialogs.querySelector('.messenger__dialog-list');
-            dialList.style.width = 'min-content';
-
-            dialogs.style.width = 'min-content';
-        });
     }
 }

@@ -78,7 +78,8 @@ export const BACKEND_URL = 'https://umlaut-bmstu.me';
 export const DEFAULT_PHOTO = '/pics/avatar.png';
 
 export const GLOBAL_EVENTS = {
-    REDIRECT: 'Redirect',
+    REDIRECT: 'RedirectWithoutHistory',
+    REDIRECT_WITH_HISTORY: 'RedirectWithHistory',
     UNAUTH: 'Unauthorised',
     NETWORK_ERROR: 'NetworkError',
     AUTH: 'Authorised',

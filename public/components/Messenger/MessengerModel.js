@@ -6,8 +6,6 @@ import {Api, handleStatuses} from '../../lib/api.js';
 export class MessengerModel {
     constructor(eventBus) {
         this.eventBus = eventBus;
-        this.eventBus.on(MESSENGER_EVENTS.GET_DIALOGS, this.getDialogs.bind(this));
-        this.eventBus.on(MESSENGER_EVENTS.GET_PAIRS, this.getPairs.bind(this));
         this.eventBus.on(MESSENGER_EVENTS.SEND_MESSAGE, this.sendMessage.bind(this));
         this.eventBus.on(MESSENGER_EVENTS.GET_MESSAGES, this.getMessages.bind(this));
         this.eventBus.on(MESSENGER_EVENTS.MARK_AS_READ, this.markAsRead.bind(this));
@@ -18,54 +16,6 @@ export class MessengerModel {
         this.id = null;
         this.dialog_id = null;
         this.my_id = null;
-    }
-
-    getDialogs() {
-        Api.getPairs().then( handleStatuses(
-            (response) => {
-                if ( response.status === 200) {
-                    const dialogs = [];
-                    response.payload.forEach((element) => {
-                        if (element.last_message !== null) {
-                            element.user_dialog_id = `${element.id}_${element.user1_id}`;
-                            this.my_id = element.user2_id;
-                            dialogs.push(element);
-                        }
-                        if (element.сompanion_image_paths && element.сompanion_image_paths.length > 0) {
-                            element.photo = element.сompanion_image_paths[0];
-                        } else {
-                            element.photo = DEFAULT_PHOTO;
-                        }
-                    });
-                    this.eventBus.emit(MESSENGER_EVENTS.DIALOGS_READY, dialogs);
-                }
-            },
-            this.eventBus),
-        );
-    }
-
-    getPairs() {
-        Api.getPairs().then( handleStatuses(
-            (response) => {
-                if ( response.status === 200) {
-                    const dialogs = [];
-                    response.payload.forEach((element) => {
-                        if (element.last_message === null) {
-                            element.user_dialog_id = `${element.id}_${element.user1_id}`;
-                            this.my_id = element.user2_id;
-                            dialogs.push(element);
-                        }
-                        if (element.сompanion_image_paths && element.сompanion_image_paths.length > 0) {
-                            element.photo = element.сompanion_image_paths[0];
-                        } else {
-                            element.photo = DEFAULT_PHOTO;
-                        }
-                    });
-                    this.eventBus.emit(MESSENGER_EVENTS.PAIRS_READY, dialogs);
-                }
-            },
-            this.eventBus),
-        );
     }
 
     sendMessage(msg) {
@@ -102,21 +52,38 @@ export class MessengerModel {
         });
     }
 
-    getMessages(userData) {
-        this.dialog_id = Number(userData.id.slice(0, userData.id.indexOf('_')));
-        this.id = Number(userData.id.slice(userData.id.indexOf('_') + 1));
+    getMessages() {
+        const path = window.location.pathname;
+        const data = {};
+        this.dialog_id = path.split('/')[path.split('/').length-1];
         Api.getMessages(this.dialog_id).then((response)=>{
             if (response.status === 200) {
-                const data = {};
                 data.dialogs = response.payload;
                 if (data.dialogs === null) {
                     data.dialogs = [];
                 } else {
                     this.dialog_id = data.dialogs[0].dialog_id;
                 }
-                data.my_id = this.my_id;
-                data.name = userData.name;
-                this.eventBus.emit(MESSENGER_EVENTS.MESSAGES_READY, data);
+                Api.user().then((user)=>{
+                    if (user.status === 200) {
+                        this.my_id = user.payload.id;
+                        if(data.dialogs.length>0 && data.dialogs[0].sender_id===this.my_id){
+                            Api.getUserById(data.dialogs[0].id).then((user2)=>{
+                                data.my_id = this.my_id;
+                                this.id = data.dialogs[0].id;
+                                data.user = user2.payload;
+                                this.eventBus.emit(MESSENGER_EVENTS.MESSAGES_READY, data);
+                            })
+                        }else if(data.dialogs.length>0){
+                            Api.getUserById(data.dialogs[0].sender_id).then((user2)=>{
+                                data.my_id = this.my_id;
+                                data.user = user2.payload;
+                                this.id = data.dialogs[0].sender_id;
+                                this.eventBus.emit(MESSENGER_EVENTS.MESSAGES_READY, data);
+                            })
+                        }
+                    }
+                });
             }
         });
     }
