@@ -9,7 +9,7 @@ import {Router} from './lib/router.js';
 import {AuthController} from './components/Auth/AuthController.js';
 import {FeedController} from './components/Feed/FeedController.js';
 import {EventBus} from './lib/eventbus.js';
-import {GLOBAL_EVENTS} from './lib/constansts.js';
+import {COMMON_EVENTS, GLOBAL_EVENTS} from './lib/constansts.js';
 import {SignupController} from './components/Signup/SignupController.js';
 import {HeaderController} from './components/Header/HeaderController.js';
 import {SettingsController} from './components/Settings/SettingsController.js';
@@ -54,10 +54,12 @@ document.addEventListener('DOMContentLoaded', ()=>{
 
     window.addEventListener('offline', () => {
         popup.render('Отсутсвует подключение к интернету');
+        globalEventBus.emit(COMMON_EVENTS.OFFLINE);
     });
 
     window.addEventListener('online', () => {
         popup.render('Подключение восстановлено');
+        globalEventBus.emit(COMMON_EVENTS.ONLINE);
     });
 
     const csat = new CsatController(document.body, globalEventBus);

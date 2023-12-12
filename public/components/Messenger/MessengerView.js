@@ -95,9 +95,9 @@ export class MessengerView extends BaseView {
             const myMes = mesElem.querySelector('.dialog-window__message');
             myMes.className = 'dialog-window__message dialog-window__message_me';
         }
+        windowDialog.appendChild(mesElem);
         const block = this.root.querySelector('.dialog-window__dialog');
         block.scrollTop = block.scrollHeight;
-        windowDialog.appendChild(mesElem);
     }
 
     close() {

@@ -141,6 +141,10 @@ export class Api {
     static getUser(id) {
         return Ajax.get(BACKEND_URL + URLS.user + '/' + id);
     }
+
+    static getDialogById(id){
+        return Ajax.get(BACKEND_URL + URLS.dialogs + '/' + id);
+    }
 }
 
 export function handleStatuses(func, eventBus) {

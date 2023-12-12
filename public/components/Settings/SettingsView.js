@@ -20,7 +20,7 @@ export class SettingsView extends BaseView {
 
     render(data) {
         super.render(data);
-
+        document.querySelector('.sidebar').className = 'sidebar';
         for (let i = 0; i < data.user.tags.length; i++) {
             const elem = this.root.querySelector(`#${data.interests[data.user.tags[i]]}`);
             elem.classList.add('multiselection__selection_active');
@@ -80,7 +80,6 @@ export class SettingsView extends BaseView {
             }
         },
         );
-        document.querySelector('.sidebar').className = 'sidebar';
     }
 
     close() {

@@ -67,9 +67,13 @@ body {
   text-decoration: none;
   color: #ffffff;
   cursor: pointer;
+  overflow: hidden;
 
   &_blue {
     color: var(--link-text-color);
+  }
+  &_black {
+    color: #000;
   }
 }
 
@@ -144,6 +148,8 @@ body {
     width: 50px;
     height: 50px;
     cursor: pointer;
+    position: absolute;
+    z-index: 2;
   }
 }
 

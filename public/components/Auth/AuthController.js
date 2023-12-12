@@ -4,6 +4,9 @@ import {BaseController} from '../BaseController.js';
 import {AUTH_EVENTS, COMMON_EVENTS, GLOBAL_EVENTS} from '../../lib/constansts.js';
 
 
+/**
+ * Класс контроллера, отвечающий за вход в аккаунт
+ */
 export class AuthController extends BaseController {
     constructor(root, globalEventBus) {
         super(globalEventBus);
@@ -15,6 +18,9 @@ export class AuthController extends BaseController {
         this.globalEventBus.on(GLOBAL_EVENTS.CHECK_AUTHORISED, () => this.eventBus.emit(AUTH_EVENTS.CHECK_AUTHORISED));
     }
 
+    /**
+     * Рендер страницы входа
+     */
     render() {
         this.eventBus.emit(AUTH_EVENTS.CHECK_AUTHORISED);
     }
