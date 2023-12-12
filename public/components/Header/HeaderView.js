@@ -21,7 +21,7 @@ export class HeaderView {
         this.showMenu = ()=>{
             const sidebar = document.querySelector('.sidebar');
             sidebar.classList.toggle('sidebar__visible');
-        }
+        };
     }
 
     render(user) {
