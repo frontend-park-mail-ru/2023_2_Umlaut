@@ -218,3 +218,21 @@
     gap: 10px;
   }
 }
+
+.input{
+  &_complain{
+    margin-top: 10px;
+  }
+
+  &__input{
+    &_complain{
+      color: var(--dark-blue-color);
+    }
+  }
+
+  &__label{
+    &_complain{
+      color: var(--dark-blue-color);
+    }
+  }
+}

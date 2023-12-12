@@ -9,6 +9,9 @@
         <div class="popup__variant" id="{{id}}">{{type_name}}</div>
     {{/if}}
     {{/each}}
-    <input type="text" placeholder="Комментарий" class="popup__text-input"/>
+    <div class="input input_complain">
+        <input type="text" class="popup__text-input input__input input__input_complain" id="mail" required=""/>
+        <label class="input__label input__label_complain">Комментарий</label>
+    </div>
     <button class="btn popup__submit">Пожаловаться</button>
 </div>
