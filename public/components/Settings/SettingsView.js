@@ -40,6 +40,17 @@ export class SettingsView extends BaseView {
         this.errorLabel = this.form.querySelector('.error-label');
         this.errorLabel.style.visibility = 'hidden';
 
+        function addPhoto(eventBus) {
+            return function() {
+                eventBus.emit(SETTINGS_EVENTS.ADD_PHOTO, selectedFile.files[0]);
+            };
+        }
+
+        const add = addPhoto(this.eventBus);
+
+        selectedFile.onchange = ()=> {
+            add();
+        };
 
         const log = {func: () => {
             this.eventBus.emit(SETTINGS_EVENTS.LOGOUT); this.eventBus.emit(SETTINGS_EVENTS.HIDE);
@@ -56,17 +67,6 @@ export class SettingsView extends BaseView {
             this.deletePhotoBtn.disabled = true;
         }
 
-        function addPhoto(eventBus) {
-            return function() {
-                eventBus.emit(SETTINGS_EVENTS.ADD_PHOTO, selectedFile.files[0]);
-            };
-        }
-
-        const add = addPhoto(this.eventBus);
-
-        selectedFile.onchange = ()=> {
-            add();
-        };
 
         const eye = this.root.querySelector('#eye');
         eye.addEventListener('click', () => {
