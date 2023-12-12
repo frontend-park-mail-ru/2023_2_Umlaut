@@ -25,7 +25,7 @@ export class Ajax {
                     if ( contentType && contentType.indexOf('application/json') !== -1 ) {
                         return response.json();
                     } else {
-                        return Promise.resolve(null);
+                        return Promise.resolve({status: 512});
                     }
                 },
                 () => {
