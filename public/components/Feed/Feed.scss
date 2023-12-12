@@ -8,7 +8,7 @@
 
   @media (max-width: $phone-max-width) {
     padding: 0;
-    margin-top: 6vh;
+    margin-top: 7vh;
     margin-bottom: 6vh;
   }
 
@@ -102,7 +102,7 @@
     display: grid;
     max-width: min(90vw, 1000px);
     grid-template-columns: min(max(280px, 31vw), 450px) minmax(0, 1fr);
-    grid-template-rows: min(60vh, 600px);
+    grid-template-rows: min(max(450px, 60vh), 600px);
     overflow: hidden;
     column-gap: 2vw;
     position: relative;
@@ -172,7 +172,7 @@
 
   &__complain {
     position: absolute;
-    font-size: 0.6rem;
+    font-size: 0.8rem;
     font-weight: bold;
     color: var(--dark-blue-color);
     right: 0;
