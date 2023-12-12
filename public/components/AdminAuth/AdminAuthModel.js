@@ -13,7 +13,7 @@ export class AdminAuthModel {
 
     /**
      * Метод отвечающий за вход в аккаунт
-     * 
+     * @param {object} data - параметры для входа
      */
     signIn(data) {
         Api.admimAuth(data).then(

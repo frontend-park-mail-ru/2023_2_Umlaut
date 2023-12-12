@@ -142,7 +142,7 @@ export class Api {
         return Ajax.get(BACKEND_URL + URLS.user + '/' + id);
     }
 
-    static getDialogById(id){
+    static getDialogById(id) {
         return Ajax.get(BACKEND_URL + URLS.dialogs + '/' + id);
     }
 }
