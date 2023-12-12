@@ -1,5 +1,5 @@
 import {EventBus} from '../../lib/eventbus';
-import {POPUP_EVENTS} from '../../lib/constansts.js';
+import {POPUP_EVENTS, COMPLAIN_TYPES} from '../../lib/constansts.js';
 import './Popup.scss';
 
 /**
@@ -10,6 +10,7 @@ export class PopupView {
         this.popupTmpl = require('./Popup.hbs');
         this.popupConfirmTmpl = require('./Confirm.hbs');
         this.popupChooseTmpl = require('./Choose.hbs');
+        this.popupComplaintTmpl = require('./Complaint.hbs');
         this.root = root;
         this.eventBus = new EventBus();
         this.popup = this.root.querySelector('.popup');
@@ -95,6 +96,70 @@ export class PopupView {
             }
         });
     }
+
+    renderComplaint(callback) {
+        if (this.rendered) {
+            return;
+        }
+        this.choosenVariant = undefined;
+        this.rendered = true;
+        this.firstClick = true;
+        const complaint = document.createElement('div');
+        this.currentPopup = complaint;
+        complaint.className = 'popup__choose';
+        complaint.innerHTML = this.popupComplaintTmpl({complaint_types: COMPLAIN_TYPES});
+        this.popup.appendChild(complaint);
+        const variants = this.popup.querySelector('.popup__variants');
+        const confirmBtn = this.popup.querySelector('.popup__submit');
+        const textInput = this.popup.querySelector('.popup__text-input');
+
+        confirmBtn.addEventListener('click', () => {
+            if (this.choosenVariant && confirmBtn.classList.contains('btn_important')) {
+                callback({
+                    type: parseInt(this.choosenVariant.id),
+                    description: textInput.value.trim(),
+                });
+                this.closeCurrent();
+            }
+        });
+
+        textInput.addEventListener('input', () => {
+            if (!this.choosenVariant || !this.choosenVariant.classList.contains('need_text')) {
+                return;
+            }
+            if (textInput.value.trim() === '') {
+                if (confirmBtn.classList.contains('btn_important')) {
+                    confirmBtn.classList.remove('btn_important');
+                }
+            } else {
+                if (!confirmBtn.classList.contains('btn_important')) {
+                    confirmBtn.classList.add('btn_important');
+                }
+            }
+        });
+
+        document.body.addEventListener('click', this.closeEvent);
+
+        variants.addEventListener('click', (e) => {
+            if (e.target.classList.contains('popup__variant')) {
+                if (this.choosenVariant) {
+                    this.choosenVariant.classList.toggle('popup__variant-selected');
+                }
+                e.target.classList.toggle('popup__variant-selected');
+
+                if (e.target.classList.contains('need_text') && textInput.value.trim() === '') {
+                    if (confirmBtn.classList.contains('btn_important')) {
+                        confirmBtn.classList.remove('btn_important');
+                    }
+                } else if (!confirmBtn.classList.contains('btn_important')) {
+                    confirmBtn.classList.add('btn_important');
+                }
+
+                this.choosenVariant = e.target;
+            }
+        });
+    }
+
 
     closeCurrent() {
         if (this.popup.contains(this.currentPopup)) {

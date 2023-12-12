@@ -10,7 +10,7 @@ export class FeedController extends BaseController {
         this.view = new FeedView(root, this.eventBus);
         this.model = new FeedModel(this.eventBus);
         this.eventBus.on(COMMON_EVENTS.UNAUTH, () => this.globalEventBus.emit(GLOBAL_EVENTS.UNAUTH));
-        this.eventBus.on(GLOBAL_EVENTS.POPUP_CHOOSE, (data) =>
-            this.globalEventBus.emit(GLOBAL_EVENTS.POPUP_CHOOSE, data));
+        this.eventBus.on(GLOBAL_EVENTS.POPUP_COMPLAINT, (data) =>
+            this.globalEventBus.emit(GLOBAL_EVENTS.POPUP_COMPLAINT, data));
     }
 }

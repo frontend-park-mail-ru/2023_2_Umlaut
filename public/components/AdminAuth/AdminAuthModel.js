@@ -11,10 +11,6 @@ export class AdminAuthModel {
         this.eventBus.on(AUTH_EVENTS.CHECK_AUTHORISED, this.isAuthorised.bind(this));
     }
 
-    /**
-     * Метод отвечающий за вход в аккаунт
-     * 
-     */
     signIn(data) {
         Api.admimAuth(data).then(
             (response) => {

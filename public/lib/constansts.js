@@ -40,33 +40,33 @@ export const SETTINGS_LIST = {
 
 export const COMPLAIN_TYPES = [
     {
-        'id': 'var_1',
-        'name': 'Порнография',
+        'id': 1,
+        'type_name': 'Порнография',
     },
     {
-        'id': 'var_2',
-        'name': 'Рассылка спама',
+        'id': 2,
+        'type_name': 'Рассылка спама',
     },
     {
-        'id': 'var_3',
-        'name': 'Оскорбительное поведение',
+        'id': 3,
+        'type_name': 'Оскорбительное поведение',
     },
     {
-        'id': 'var_4',
-        'name': 'Мошенничество',
+        'id': 4,
+        'type_name': 'Мошенничество',
     },
     {
-        'id': 'var_5',
-        'name': 'Рекламная страница',
+        'id': 5,
+        'type_name': 'Рекламная страница',
     },
     {
-        'id': 'var_6',
-        'name': 'Клон моей страницы (или моя старая страница)',
+        'id': 6,
+        'type_name': 'Клон моей страницы (или моя старая страница)',
     },
     {
-        'id': 'var_input_1',
-        'name': 'Другое',
-        'text_input': true,
+        'id': 7,
+        'type_name': 'Другое',
+        'need_text': true,
     },
 ];
 
@@ -92,6 +92,7 @@ export const GLOBAL_EVENTS = {
     ONLINE: 'Online',
     ADMIN_AUTH: 'AdminAuth',
     USER_BANNED: 'UserBanned',
+    POPUP_COMPLAINT: 'gjnj',
 };
 
 export const AUTH_EVENTS = {

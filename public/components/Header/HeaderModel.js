@@ -13,6 +13,10 @@ export class HeaderModel {
             (response) => {
                 if ( response.status === 200) {
                     const dialogs = [];
+                    if (!response.payload) {
+                        this.eventBus.emit(MESSENGER_EVENTS.DIALOGS_READY, dialogs);
+                        return;
+                    }
                     response.payload.forEach((element) => {
                         if (element.last_message !== null) {
                             element.user_dialog_id = `${element.id}_${element.user1_id}`;
@@ -37,6 +41,10 @@ export class HeaderModel {
             (response) => {
                 if ( response.status === 200) {
                     const dialogs = [];
+                    if (!response.payload) {
+                        this.eventBus.emit(MESSENGER_EVENTS.DIALOGS_READY, dialogs);
+                        return;
+                    }
                     response.payload.forEach((element) => {
                         if (element.last_message === null) {
                             element.user_dialog_id = `${element.id}_${element.user1_id}`;
