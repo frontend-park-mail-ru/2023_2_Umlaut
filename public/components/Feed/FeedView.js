@@ -1,6 +1,6 @@
 import {BaseView} from '../BaseView.js';
 import {Carousel} from '../Carousel/Carousel.js';
-import {COMPLAIN_TYPES, FEED_EVENTS, GLOBAL_EVENTS, SETTINGS_LIST} from '../../lib/constansts.js';
+import {FEED_EVENTS, GLOBAL_EVENTS, SETTINGS_LIST} from '../../lib/constansts.js';
 import './Feed.scss';
 
 /**
@@ -37,13 +37,9 @@ export class FeedView extends BaseView {
             this.addSearchParams();
 
             const complainBtn = this.root.querySelector('.form-feed__complain');
-            complainBtn.addEventListener('click', () => this.eventBus.emit(GLOBAL_EVENTS.POPUP_CHOOSE,
-                {
-                    text: 'Выберите причину жалобы',
-                    variants: COMPLAIN_TYPES,
-                    func: (complainType) => this.complainCurrent(complainType),
-                },
-            ));
+            complainBtn.addEventListener('click', () => this.eventBus.emit(GLOBAL_EVENTS.POPUP_COMPLAINT,
+                (complain) => this.complainCurrent(complain)),
+            );
 
             const carouselRoot = this.root.querySelector('.form-feed__feed-photo');
             this.carousel = new Carousel(carouselRoot);
@@ -53,9 +49,13 @@ export class FeedView extends BaseView {
         document.querySelector('.sidebar').className = 'sidebar';
     }
 
-    complainCurrent(complainType) {
+    complainCurrent(complain) {
         this.eventBus.emit(FEED_EVENTS.COMPLAIN_PERSON, {
-            request: {'reported_user_id': this.user.id, 'complaint_type': complainType},
+            request: {
+                'reported_user_id': this.user.id,
+                'complaint_type_id': complain.type,
+                'complaint_text': complain.description,
+            },
             params: this.params,
         });
     }
