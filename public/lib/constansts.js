@@ -167,7 +167,7 @@ export const COMMON_EVENTS = {
     AUTH: 'Auth',
     USER_BANNED: 'UserBanned',
     OFFLINE: 'Offline',
-    ONLINE: 'Online'
+    ONLINE: 'Online',
 };
 
 export const CSAT_URL = '/csat/';

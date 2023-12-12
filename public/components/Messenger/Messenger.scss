@@ -104,10 +104,10 @@
     overflow: auto;
     -webkit-overflow-scrolling: touch;
     padding: 5px;
-    height: calc(
-      100vh - var(--header-height) - var(--dialog-name-height) -
-        var(--dialog-input-height) - 10px
-    );
+    height: calc(100vh - var(--header-height) 
+                       - var(--dialog-name-height) 
+                       - var(--dialog-input-height) 
+                       - 30px);
   }
 
   &__message {
@@ -140,6 +140,8 @@
   &__input-message {
     display: flex;
     background-color: white;
+    margin: 5px 20px;
+    border-radius: 20px;
   }
 
   &__send-img {
@@ -147,11 +149,13 @@
     background-color: white;
     object-fit: cover;
     cursor: pointer;
+    border-radius: 20px;
   }
 
   &__input {
     width: 100%;
     border: none;
+    border-radius: 20px;
   }
 
   &__unread {
@@ -160,7 +164,6 @@
   }
 
   &__name {
-    background-color: #76798b;
     font-size: 30px;
     height: var(--dialog-name-height);
   }

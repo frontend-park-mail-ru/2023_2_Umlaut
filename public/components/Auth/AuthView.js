@@ -4,7 +4,7 @@ import {AUTH_EVENTS, COMMON_EVENTS} from '../../lib/constansts.js';
 import './Auth.scss';
 
 /**
- * Компонент страницы авторизации (входа)
+ * Класс отображения страницы авторизации (входа)
  */
 export class AuthView extends BaseView {
     form;
@@ -44,6 +44,9 @@ export class AuthView extends BaseView {
         );
     }
 
+    /**
+     * Закрытие страницы входа
+     */
     close() {
         this.form = null;
         this.mailInput = null;

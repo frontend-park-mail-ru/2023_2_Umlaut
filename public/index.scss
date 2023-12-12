@@ -72,6 +72,9 @@ body {
   &_blue {
     color: var(--link-text-color);
   }
+  &_black {
+    color: #000;
+  }
 }
 
 .input {

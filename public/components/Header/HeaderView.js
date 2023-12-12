@@ -50,7 +50,7 @@ export class HeaderView {
             pair.src = element.photo;
             pairs.appendChild(pair);
             pair.addEventListener('click', ()=>{
-                this.eventBus.emit(MESSENGER_EVENTS.GET_MESSAGES, `/messages/${element.user1_id}`);
+                this.eventBus.emit(MESSENGER_EVENTS.GET_MESSAGES, `/messages/${element.id}`);
             });
         });
     }
@@ -64,7 +64,7 @@ export class HeaderView {
             dialogPreview.innerHTML = this.dialogPreviewTemplate(dialog);
 
             dialogPreview.addEventListener('click', ()=>{
-                this.eventBus.emit(MESSENGER_EVENTS.GET_MESSAGES, `/messages/${dialog.user1_id}`);
+                this.eventBus.emit(MESSENGER_EVENTS.GET_MESSAGES, `/messages/${dialog.id}`);
             });
             dialogs.appendChild(dialogPreview);
             if (dialog.last_message !== null && !dialog.last_message.is_read) {

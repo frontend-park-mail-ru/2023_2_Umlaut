@@ -1,6 +1,9 @@
 import {AUTH_EVENTS, COMMON_EVENTS, GLOBAL_EVENTS} from '../../lib/constansts.js';
 import {Api} from '../../lib/api.js';
 
+/**
+ * Класс логики по входу в аккаунт и регистрации
+ */
 export class AuthModel {
     constructor(eventBus) {
         this.eventBus = eventBus;
@@ -9,6 +12,10 @@ export class AuthModel {
         this.eventBus.on(AUTH_EVENTS.CHECK_AUTHORISED, this.isAuthorised.bind(this));
     }
 
+    /**
+     * Вход в аккаунт
+     * @param {object} data - параметры для входа
+     */
     signIn(data) {
         Api.login(data).then(
             (response) => {
@@ -29,6 +36,10 @@ export class AuthModel {
         );
     }
 
+    /**
+     * Регистрация нового аккаунта
+     * @param {object} data - параметры для регистрации
+     */
     signUp(data) {
         Api.signup(data).then(
             (response) => {
@@ -47,6 +58,9 @@ export class AuthModel {
         );
     }
 
+    /**
+     * Проверка на то, авторизован ли пользователь
+     */
     isAuthorised() {
         Api.user().then(
             (response) => {
