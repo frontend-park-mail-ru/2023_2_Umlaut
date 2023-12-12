@@ -1,6 +1,6 @@
 import {BaseView} from '../BaseView.js';
 import {Carousel} from '../Carousel/Carousel.js';
-import {FEED_EVENTS, GLOBAL_EVENTS, SETTINGS_LIST} from '../../lib/constansts.js';
+import {COMMON_EVENTS, FEED_EVENTS, GLOBAL_EVENTS, SETTINGS_LIST} from '../../lib/constansts.js';
 import './Feed.scss';
 
 /**
@@ -15,6 +15,9 @@ export class FeedView extends BaseView {
         super(root, eventBus, require('./Feed.hbs'));
         this.eventBus.on(FEED_EVENTS.NEXT_PERSON_READY, this.update.bind(this));
         this.eventBus.on(FEED_EVENTS.NO_PEOPLE, this.showStub.bind(this));
+        this.eventBus.on(COMMON_EVENTS.ONLINE, ()=> {
+            this.blockButtons(), this.activateBtns();
+        });
         this.update = this.update.bind(this);
         this.params = {tags: []};
     }
