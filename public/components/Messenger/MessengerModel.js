@@ -54,8 +54,8 @@ export class MessengerModel {
     getMessages() {
         const path = window.location.pathname;
         const data = {};
-        this.dialog_id = path.split('/')[path.split('/').length - 1];
-        Api.getMessages(this.dialog_id).then((response)=>{
+        this.id = path.split('/')[path.split('/').length - 1];
+        Api.getMessages(this.id).then((response)=>{
             if (response.status === 200) {
                 data.dialogs = response.payload;
                 if (data.dialogs === null) {
@@ -63,28 +63,21 @@ export class MessengerModel {
                 } else {
                     this.dialog_id = data.dialogs[0].dialog_id;
                 }
+                if(!this.my_id){
                 Api.user().then((user)=>{
                     if (user.status === 200) {
                         this.my_id = user.payload.id;
-                        if (data.dialogs.length > 0 && data.dialogs[0].sender_id === this.my_id) {
-                            Api.getUserById(data.dialogs[0].id).then((user2)=>{
-                                data.my_id = this.my_id;
-                                this.id = data.dialogs[0].id;
-                                data.user = user2.payload;
-                                this.eventBus.emit(MESSENGER_EVENTS.MESSAGES_READY, data);
-                            });
-                        } else if (data.dialogs.length > 0) {
-                            Api.getUserById(data.dialogs[0].sender_id).then((user2)=>{
-                                data.my_id = this.my_id;
-                                data.user = user2.payload;
-                                this.id = data.dialogs[0].sender_id;
-                                this.eventBus.emit(MESSENGER_EVENTS.MESSAGES_READY, data);
-                            });
-                        }
+                    }});
+                }
+                Api.getUserById(this.id).then((user2)=>{
+                    if(user2.status === 200){
+                        data.user = user2.payload;
+                        data.my_id = this.my_id;
+                        this.eventBus.emit(MESSENGER_EVENTS.MESSAGES_READY, data);
                     }
                 });
             }
-        });
+        })
     }
 
 

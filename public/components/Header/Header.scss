@@ -1,3 +1,5 @@
+@import "/public/lib/constants";
+
 .header {
   display: flex;
   align-items: center;
@@ -64,9 +66,17 @@
 
 .sidebar{
   font-family: "Montserrat";
+  margin-top: var(--header-height);
 
   &__visible{
     display: block;
+    @media (max-width: $phone-max-width) {
+      width: 100%;
+      position: absolute;
+      z-index: 1;
+      background-color: var(--background-color);
+      height: 100%;
+    }
   }
 
   &__header{

@@ -83,6 +83,7 @@
 
   &__dialog-name {
     color: white;
+    overflow: hidden;
     @media (max-width:$phone-max-width) {
       font-size: 14px;
       display: none;
@@ -91,6 +92,7 @@
 
   &__preview-message {
     font-size: 12px;
+    overflow: hidden;
   }
 }
 
