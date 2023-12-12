@@ -54,7 +54,7 @@ export class MessengerModel {
     getMessages() {
         const path = window.location.pathname;
         const data = {};
-        this.dialog_id = path.split('/')[path.split('/').length - 1];
+        this.dialog_id = Number(path.split('/')[path.split('/').length - 1]);
         Api.getDialogById(this.dialog_id).then((dialog)=>{
             if (dialog.status === 200) {
                 this.my_id = dialog.payload.user2_id;

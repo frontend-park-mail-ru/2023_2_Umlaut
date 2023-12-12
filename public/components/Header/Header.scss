@@ -18,6 +18,7 @@
     display: flex;
     justify-content: center;
     gap: 12px;
+    margin-left: auto;
   }
 
   &__photo {
@@ -70,6 +71,7 @@
 
   &__visible{
     display: block;
+
     @media (max-width: $phone-max-width) {
       width: 100%;
       position: absolute;

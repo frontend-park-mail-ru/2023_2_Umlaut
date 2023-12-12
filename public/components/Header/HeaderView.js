@@ -17,25 +17,32 @@ export class HeaderView {
         this.adminTemplate = require('./HeaderAdmin.hbs');
         this.side = require('./Sidebar.hbs');
         this.dialogPreviewTemplate = require('./DialogPreview.hbs');
+
+        this.showMenu = ()=>{
+            const sidebar = document.querySelector('.sidebar');
+            sidebar.classList.toggle('sidebar__visible');
+        }
     }
 
     render(user) {
+        const menuBtn = document.querySelector('.main__menu-btn');
+        menuBtn.removeEventListener('click', this.showMenu);
+
         this.parent.innerHTML = this.template(user);
         this.sidePlace.innerHTML = this.side(user);
         this.eventBus.emit(MESSENGER_EVENTS.GET_PAIRS);
         this.eventBus.emit(MESSENGER_EVENTS.GET_DIALOGS);
-        const menuBtn = document.querySelector('.main__menu-btn');
         menuBtn.style.display = 'block';
-        menuBtn.addEventListener('click', ()=>{
-            const sidebar = document.querySelector('.sidebar');
-            sidebar.classList.toggle('sidebar__visible');
-        });
+
+        menuBtn.addEventListener('click', this.showMenu);
     }
 
     renderU() {
         this.parent.innerHTML = this.template();
         this.sidePlace.innerHTML = this.side();
         document.querySelector('.main__menu-btn').style.display = 'none';
+        const menuBtn = document.querySelector('.main__menu-btn');
+        menuBtn.removeEventListener('click', this.showMenu);
     }
 
     renderAdmin() {
