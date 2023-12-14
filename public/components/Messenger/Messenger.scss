@@ -5,6 +5,12 @@
   width: 100%;
   height: calc(100vh - 65px);
 
+  &__user-form{
+    display: flex;
+    flex-direction: column;
+    max-width: 25%;
+  }
+
   &__dialogs {
     background-color: var(--dialog-grey);
     width: var(--dialogs-width);

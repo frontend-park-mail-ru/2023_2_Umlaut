@@ -1,4 +1,4 @@
-import {COMMON_EVENTS, SETTINGS_EVENTS, SETTINGS_LIST, USER_PHOTO} from '../../lib/constansts.js';
+import {COMMON_EVENTS, SETTINGS_EVENTS, SETTINGS_LIST} from '../../lib/constansts.js';
 import {Api, handleStatuses, loadTags} from '../../lib/api.js';
 
 /**

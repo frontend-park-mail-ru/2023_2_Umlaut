@@ -60,11 +60,13 @@ export class SettingsView extends BaseView {
             this.eventBus.emit(SETTINGS_EVENTS.LOGOUT); this.eventBus.emit(SETTINGS_EVENTS.HIDE);
         },
         text: 'Вы уверены, что хотите выйти?'};
+
         const del = {func: () => {
             this.eventBus.emit(SETTINGS_EVENTS.DELETE_PHOTO, this.photoCarousel.current());
             this.eventBus.emit(SETTINGS_EVENTS.HIDE);
         },
         text: 'Вы уверены, что хотите удалить фото?'};
+        
         logoutBtn.addEventListener('click', () => this.eventBus.emit(SETTINGS_EVENTS.SHOW_CONFIRM_LOG, log));
         this.deletePhotoBtn.addEventListener('click', () => this.eventBus.emit(SETTINGS_EVENTS.SHOW_CONFIRM_LOG, del));
         if (data.user.image_paths.length === 0) {

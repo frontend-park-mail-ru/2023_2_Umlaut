@@ -101,7 +101,7 @@ export class MessengerModel {
      */
     gotNewMessage(msg) {
         const mes = JSON.parse(msg);
-        if(mes.type==='Message'){
+        if (mes.type === 'Message') {
             mes.created_at = mes.created_at.slice(mes.created_at.indexOf('T') + 1,
                 this.nthIndex(mes.created_at, ':', 2));
             if (mes.dialog_id === this.dialog_id) {
@@ -109,7 +109,7 @@ export class MessengerModel {
             } else {
                 this.eventBus.emit(MESSENGER_EVENTS.NEW_MESSAGE_IN_OTHER_DIALOG, mes.payload);
             }
-        }else if(mes.type === 'Match'){
+        } else if (mes.type === 'Match') {
             this.eventBus.emit(MESSENGER_EVENTS.MATCH, mes.payload);
         }
     }

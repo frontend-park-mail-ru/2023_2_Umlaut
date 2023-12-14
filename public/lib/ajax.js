@@ -74,12 +74,12 @@ export class Ajax {
             method: 'DELETE',
             mode: 'cors',
             credentials: 'include',
-            headers: {'Content-Type': 'application/json'},
+            headers: {
+                'Content-Type': 'application/json',
+                'X-Csrf-Token': this._csrfToken,
+            },
             body: JSON.stringify(data),
         };
-        if (!this._csrfToken && this._csrfToken !== '') {
-            request.headers['X-Csrf-Token'] = this._csrfToken;
-        }
         return fetch(url, request)
             .then(
                 (response) => {

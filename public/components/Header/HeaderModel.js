@@ -47,33 +47,4 @@ export class HeaderModel {
             this.eventBus),
         );
     }
-
-
-    getPairs() {
-        Api.getPairs().then( handleStatuses(
-            (response) => {
-                if ( response.status === 200) {
-                    const dialogs = [];
-                    if (!response.payload) {
-                        this.eventBus.emit(MESSENGER_EVENTS.DIALOGS_READY, dialogs);
-                        return;
-                    }
-                    response.payload.forEach((element) => {
-                        if (element.last_message === null) {
-                            element.user_dialog_id = `${element.id}_${element.user1_id}`;
-                            this.my_id = element.user2_id;
-                            dialogs.push(element);
-                        }
-                        if (element.сompanion_image_paths && element.сompanion_image_paths.length > 0) {
-                            element.photo = element.сompanion_image_paths[0];
-                        } else {
-                            element.photo = DEFAULT_PHOTO;
-                        }
-                    });
-                    this.eventBus.emit(MESSENGER_EVENTS.PAIRS_READY, dialogs);
-                }
-            },
-            this.eventBus),
-        );
-    }
 }

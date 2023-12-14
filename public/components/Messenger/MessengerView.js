@@ -1,5 +1,6 @@
 import {BaseView} from '../BaseView.js';
 import {MESSENGER_EVENTS} from '../../lib/constansts.js';
+import { Carousel } from '../Carousel/Carousel.js';
 import './Messenger.scss';
 
 /**
@@ -54,7 +55,7 @@ export class MessengerView extends BaseView {
         });
 
         const inputText = this.dialogWindow.querySelector('#message');
-        inputText.onfocus = () => {
+        inputText.onchange = () => {
             const windowDialog = this.root.querySelector('.dialog-window__dialog');
             const unread = this.root.querySelector('.dialog-window__unread');
             if (unread) {
@@ -84,6 +85,16 @@ export class MessengerView extends BaseView {
         block.scrollTop = block.scrollHeight;
 
         this.eventBus.emit(MESSENGER_EVENTS.MARK_AS_READ, data.dialogs);
+
+        this.renderUserForm(data.user);
+    }
+
+    renderUserForm(user){
+        const userForm = this.root.querySelector('.messenger__user-form');
+        userForm.innerHTML = require('../Feed/Description.hbs')(user);
+        const carouselRoot = this.root.querySelector('.form-feed__feed-photo');
+        this.carousel = new Carousel(carouselRoot);
+        this.carousel.render(user.image_paths);
     }
 
     /**
@@ -143,6 +154,7 @@ export class MessengerView extends BaseView {
 
     /**
      * Создает элемент нового сообщения
+     * @param {Object} msg - сообщение
      */
     newMessageOtherDialog(msg) {
         const dialog = document.getElementById(msg.dialog_id);

@@ -16,10 +16,10 @@ export class WebSocketWrapper {
         try {
             this.socket = new WebSocket(this.url);
         } catch (e) {
-            // console.log('not connected');
+            console.log('not connected');
         }
         this.socket.onopen = () => {
-            // console.log('Socket connected');
+            console.log('Socket connected');
         };
         this.socket.onmessage = (event) => {
             this.messageSubscribers.forEach((handler) => {
@@ -27,11 +27,13 @@ export class WebSocketWrapper {
             });
         };
         this.socket.onclose = (event) => {
-            // console.log('Socket closed');
+            console.log('Socket closed');
             this.closeSubscribers.forEach((handler) => {
                 handler(event);
             });
-            setTimeout(this.connect.bind(this), 1000);
+            if (event.wasClean === false) {
+                setTimeout(this.connect.bind(this), 1000);
+            }
         };
         // this.socket.onerror = (event) => {
         //     this.errorSubscribers.forEach((handler) => {
@@ -72,7 +74,7 @@ export class WebSocketWrapper {
         try {
             this.socket.send(JSON.stringify(dataObject));
         } catch (e) {
-            // console.log('not connected');
+            console.log('not connected');
             e;
             throw e;
         }

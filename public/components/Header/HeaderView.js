@@ -1,4 +1,4 @@
-import {COMMON_EVENTS, MESSENGER_EVENTS, USER_PHOTO} from '../../lib/constansts.js';
+import {COMMON_EVENTS, MESSENGER_EVENTS} from '../../lib/constansts.js';
 import './Header.scss';
 
 /**
@@ -34,8 +34,7 @@ export class HeaderView {
 
         this.parent.innerHTML = this.template(user);
         this.sidePlace.innerHTML = this.side(user);
-        this.eventBus.emit(MESSENGER_EVENTS.GET_PAIRS);
-        this.eventBus.emit(MESSENGER_EVENTS.GET_DIALOGS);
+        this.eventBus.emit(MESSENGER_EVENTS.GET_PAIRS_AND_DIALOGS);
         menuBtn.style.display = 'block';
 
         menuBtn.addEventListener('click', this.showMenu);
