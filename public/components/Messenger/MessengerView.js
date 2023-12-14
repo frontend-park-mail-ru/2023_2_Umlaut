@@ -2,6 +2,9 @@ import {BaseView} from '../BaseView.js';
 import {MESSENGER_EVENTS} from '../../lib/constansts.js';
 import './Messenger.scss';
 
+/**
+ * Класс отображения мессенджера
+ */
 export class MessengerView extends BaseView {
     constructor(root, eventBus) {
         super(root, eventBus, require('./Messenger.hbs'));
@@ -19,6 +22,9 @@ export class MessengerView extends BaseView {
         this.my_id = 0;
     }
 
+    /**
+     * отрисовывает окно диалога при его открытии
+     */
     render() {
         super.render();
         this.dialogWindow = document.getElementById('dialog-window');
@@ -26,6 +32,10 @@ export class MessengerView extends BaseView {
         document.querySelector('.sidebar').className = 'sidebar';
     }
 
+    /**
+     * Отрисовывает сообщения в окне диалога
+     * @param {Object} data - список сообщений
+     */
     openDialog(data) {
         if (!data) {
             return;
@@ -76,6 +86,10 @@ export class MessengerView extends BaseView {
         this.eventBus.emit(MESSENGER_EVENTS.MARK_AS_READ, data.dialogs);
     }
 
+    /**
+     * Создает элемент сообщения
+     * @param {Object} mes - объект сообщения, которое нужно отрисовать
+     */
     createMessage(mes) {
         const windowDialog = this.root.querySelector('.dialog-window__dialog');
         if (!windowDialog) {
@@ -100,6 +114,9 @@ export class MessengerView extends BaseView {
         block.scrollTop = block.scrollHeight;
     }
 
+    /**
+     * Закрытие страницы сообщений
+     */
     close() {
         super.close();
         this.dialogWindow = null;
@@ -108,6 +125,13 @@ export class MessengerView extends BaseView {
     }
 
 
+    /**
+     * Обрезает строку по подстроке и возвращает индекс конкретного по счету
+     * @param {String} str - строка которую нужно обрезать
+     * @param {String} pat - подстрока по которой нужно обрезать
+     * @param {Int} n - номер символа индекс которого нужно вернуть
+     * @return {Int} - индекс нужного символа
+     */
     nthIndex(str, pat, n) {
         const L = str.length; let i = -1;
         while (n-- && i++ < L) {
@@ -117,6 +141,9 @@ export class MessengerView extends BaseView {
         return i;
     }
 
+    /**
+     * Создает элемент нового сообщения
+     */
     newMessageOtherDialog() {
         const dialog = this.root.querySelector('.dialog-preview');
         if (!dialog) {

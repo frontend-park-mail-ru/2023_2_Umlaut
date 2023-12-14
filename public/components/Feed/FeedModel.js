@@ -1,6 +1,9 @@
 import {Api, handleStatuses, loadTags} from '../../lib/api.js';
 import {FEED_EVENTS, SETTINGS_LIST} from '../../lib/constansts.js';
 
+/**
+ * Класс, отвечающий за логику показа анкет в ленте
+ */
 export class FeedModel {
     constructor(eventBus) {
         this.eventBus = eventBus;
@@ -9,7 +12,10 @@ export class FeedModel {
         this.eventBus.on(FEED_EVENTS.COMPLAIN_PERSON, this.complainPerson.bind(this));
     }
 
-
+    /**
+     * Получает следующую анкету
+     * @param {object} data - фильтры
+     */
     getNextPerson(data = {}) {
         Api.feed(data).then( handleStatuses(
             async (response) => {
@@ -32,6 +38,10 @@ export class FeedModel {
         Api.getTags();
     }
 
+    /**
+     * Метод оценки пользователя (лайк или дизлайк)
+     * @param {object} data - request: лайк или дизлайк, params: фильтры для получения следующего пользователя
+     */
     ratePerson(data) {
         Api.addLike(data.request).then( handleStatuses(
             (response) => {
@@ -43,6 +53,11 @@ export class FeedModel {
         );
     }
 
+    /**
+     * Метод отправки жалобы на пользователя
+     * @param {object} data - request: причина жалобы и комментарий,
+     *                        params: фильтры для получения следующего пользователя
+     */
     complainPerson(data) {
         Api.complaint(data.request).then( handleStatuses(
             (response) => {

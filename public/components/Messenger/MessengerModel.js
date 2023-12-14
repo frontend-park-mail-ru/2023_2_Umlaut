@@ -2,6 +2,9 @@ import {MESSENGER_EVENTS, COMMON_EVENTS} from '../../lib/constansts.js';
 import {WebSocketWrapper} from '../../lib/ws.js';
 import {Api} from '../../lib/api.js';
 
+/**
+ * Класс, отвечающий за логику мессенджера
+ */
 export class MessengerModel {
     constructor(eventBus) {
         this.eventBus = eventBus;
@@ -17,6 +20,10 @@ export class MessengerModel {
         this.my_id = null;
     }
 
+    /**
+     * Отправляет сообщения
+     * @param {String} msg - текст сообщения
+     */
     sendMessage(msg) {
         const date = new Date();
         const message = {
@@ -36,6 +43,10 @@ export class MessengerModel {
         }
     }
 
+    /**
+     * Отмечает сообщения в диалоге как прочитанные
+     * @param {Object} data - сообщения, которые надо отметить прочитанными
+     */
     markAsRead(data) {
         data.forEach((msg) => {
             if (!msg.is_read) {
@@ -51,6 +62,9 @@ export class MessengerModel {
         });
     }
 
+    /**
+     * Получает все сообщения открытого сейчас диалога
+     */
     getMessages() {
         const path = window.location.pathname;
         const data = {};
@@ -81,6 +95,10 @@ export class MessengerModel {
     }
 
 
+    /**
+     * Получает новые сообщения
+     * @param {Object} msg - новое сообщение
+     */
     gotNewMessage(msg) {
         const mes = JSON.parse(msg);
         mes.created_at = mes.created_at.slice(mes.created_at.indexOf('T') + 1,
@@ -92,6 +110,13 @@ export class MessengerModel {
         }
     }
 
+    /**
+     * Обрезает строку по подстроке и возвращает индекс конкретного по счету
+     * @param {String} str - строка которую нужно обрезать
+     * @param {String} pat - подстрока по которой нужно обрезать
+     * @param {Int} n - номер символа индекс которого нужно вернуть
+     * @return {Int} - индекс нужного символа
+     */
     nthIndex(str, pat, n) {
         const L = str.length; let i = -1;
         while (n-- && i++ < L) {

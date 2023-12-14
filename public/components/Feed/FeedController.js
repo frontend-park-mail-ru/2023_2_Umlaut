@@ -3,7 +3,9 @@ import {FeedModel} from './FeedModel.js';
 import {BaseController} from '../BaseController.js';
 import {COMMON_EVENTS, GLOBAL_EVENTS} from '../../lib/constansts.js';
 
-
+/**
+ * Класс контроллера ленты
+ */
 export class FeedController extends BaseController {
     constructor(root, globalEventBus) {
         super(globalEventBus);

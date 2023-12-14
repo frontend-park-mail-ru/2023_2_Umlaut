@@ -3,7 +3,9 @@ import {SettingsModel} from './SettingsModel.js';
 import {BaseController} from '../BaseController.js';
 import {SETTINGS_EVENTS, GLOBAL_EVENTS, COMMON_EVENTS} from '../../lib/constansts.js';
 
-
+/**
+ * Класс контроллера настроек
+ */
 export class SettingsController extends BaseController {
     constructor(root, globalEventBus) {
         super(globalEventBus);
@@ -16,6 +18,9 @@ export class SettingsController extends BaseController {
         this.eventBus.on(COMMON_EVENTS.UNAUTH, () => this.globalEventBus.emit(GLOBAL_EVENTS.UNAUTH));
     }
 
+    /**
+     * Проверяет авторизован ли пользователь
+     */
     render() {
         this.eventBus.emit(SETTINGS_EVENTS.CHECK_AUTHORISED);
     }

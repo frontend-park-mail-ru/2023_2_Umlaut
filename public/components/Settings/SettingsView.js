@@ -5,7 +5,7 @@ import './Settings.scss';
 import {Carousel} from '../Carousel/Carousel.js';
 
 /**
- * Компонент страницы авторизации (входа)
+ * Класс отображения страницы натроек
  */
 export class SettingsView extends BaseView {
     constructor(root, eventBus) {
@@ -18,6 +18,10 @@ export class SettingsView extends BaseView {
         this.root = root;
     }
 
+    /**
+     * Рендер страницы настроек
+     * @param {Object} data - старые настройки пользователя
+     */
     render(data) {
         super.render(data);
         document.querySelector('.sidebar').className = 'sidebar';
@@ -82,6 +86,9 @@ export class SettingsView extends BaseView {
         );
     }
 
+    /**
+     * Закрытие страницы настроек
+     */
     close() {
         this.form = null;
         document.removeEventListener('click', this.clickWithinDiv);
@@ -89,7 +96,7 @@ export class SettingsView extends BaseView {
     }
 
     /**
-     * Проверка правильности введенных данных, отправка запроса на бекенд и переход в ленту/сообщение об ошибке
+     * Проверка правильности введенных данных, отправка запроса на бекенд
      * @param {SubmitEvent} event
      */
     onSubmit(event) {
@@ -133,6 +140,10 @@ export class SettingsView extends BaseView {
         this.eventBus.emit(SETTINGS_EVENTS.SEND_DATA, inputsValue);
     }
 
+    /**
+     * Добавить фото пользователя
+     * @param {Object} image - файл фотографии
+     */
     addPhoto(image) {
         this.photoCarousel.add(image);
         if (this.photoCarousel.current() !== '') {
@@ -140,6 +151,10 @@ export class SettingsView extends BaseView {
         }
     }
 
+    /**
+     * Удалить фото пользователя
+     * @param {String} photo - ссылка на фото
+     */
     deletePhoto(photo) {
         this.photoCarousel.delete(photo);
         if (this.photoCarousel.current() === '') {
@@ -147,6 +162,10 @@ export class SettingsView extends BaseView {
         }
     }
 
+    /**
+     * Проверка правильности введенных данных
+     * @return {boolean} правильность введенных данных
+     */
     validateForm() {
         if (!Validate.email(document.querySelector('#mail').value)) {
             this.showError('Неверный email');
@@ -226,6 +245,10 @@ export class SettingsView extends BaseView {
         this.errorLabel.innerHTML = message;
     }
 
+    /**
+     * Закрытие окна с тегами по клику вне него
+     * @param {event} e - событие клика
+     */
     clickWithinDiv(e) {
         const container = document.querySelector('.multiselection__input');
         const input = document.querySelector('.multiselection__select-multiple');
@@ -234,6 +257,9 @@ export class SettingsView extends BaseView {
         }
     }
 
+    /**
+     * Отрисовка выбора тегов
+     */
     selectTags() {
         const input = this.root.querySelector('.multiselection__input');
         input.addEventListener('click', ()=>{

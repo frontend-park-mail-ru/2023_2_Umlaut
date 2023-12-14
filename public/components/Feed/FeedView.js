@@ -4,7 +4,7 @@ import {FEED_EVENTS, GLOBAL_EVENTS, SETTINGS_LIST} from '../../lib/constansts.js
 import './Feed.scss';
 
 /**
- * Компонент ленты с кнопками в анкете
+ * Класс отображения ленты
  */
 export class FeedView extends BaseView {
     description;
@@ -19,6 +19,10 @@ export class FeedView extends BaseView {
         this.params = {tags: []};
     }
 
+    /**
+     * Метод отображения ленты
+     * @param {object} data - анкета следующего пользователя, которую надо отрендерить
+     */
     render(data) {
         this.root.innerHTML = '';
         if (data) {
@@ -49,6 +53,10 @@ export class FeedView extends BaseView {
         document.querySelector('.sidebar').className = 'sidebar';
     }
 
+    /**
+     * Метод жалобы на пользователя
+     * @param {object} complain - жалоба
+     */
     complainCurrent(complain) {
         this.eventBus.emit(FEED_EVENTS.COMPLAIN_PERSON, {
             request: {
@@ -60,6 +68,10 @@ export class FeedView extends BaseView {
         });
     }
 
+    /**
+     * Закрытие контейнера в случае нажатия вне экрана
+     * @param {Event} e - событие клика
+     */
     clickWithinDiv(e) {
         const container = document.querySelector('.search');
         if (!container.contains(e.target)) {
@@ -67,6 +79,9 @@ export class FeedView extends BaseView {
         }
     }
 
+    /**
+     * Метод закрытия страницы ленты
+     */
     close() {
         super.close();
         this.blockButtons();
@@ -98,6 +113,9 @@ export class FeedView extends BaseView {
         this.likeBtn.addEventListener('click', this.likeFunc);
     }
 
+    /**
+     * Блокирует кнопки, убирает действия по нажатию на кнопки анкеты
+     */
     blockButtons() {
         if (this.dislikeBtn) {
             this.dislikeBtn.removeEventListener('click', this.dislikeFunc);
@@ -105,6 +123,10 @@ export class FeedView extends BaseView {
         }
     }
 
+    /**
+     * Показывает сообщение о том, что пользователи для ленты закончились
+     * @param {object} data - params: фильтры для получения следующего пользователя
+     */
     showStub(data) {
         if (data) {
             data.params = this.params;
@@ -116,6 +138,9 @@ export class FeedView extends BaseView {
         this.addSearchParams();
     }
 
+    /**
+     * Добавление параметров поиска (фильтров)
+     */
     addSearchParams() {
         this.selectTags();
         const readySearch = this.root.querySelector('#readySearch');
@@ -143,6 +168,10 @@ export class FeedView extends BaseView {
         this.render(user);
     }
 
+    /**
+     * Закрытие окошка с тегами по клику вне него
+     * @param {Event} e - событие клика
+     */
     clickWithinTags(e) {
         const container = document.querySelector('.multiselection__input');
         const input = document.querySelector('.multiselection__select-multiple');
@@ -151,6 +180,9 @@ export class FeedView extends BaseView {
         }
     }
 
+    /**
+     * Обеспечивает отрисовку выбора тегов
+     */
     selectTags() {
         const input = this.root.querySelector('.multiselection__input');
         input.addEventListener('click', ()=>{

@@ -3,7 +3,7 @@ import {POPUP_EVENTS, COMPLAIN_TYPES} from '../../lib/constansts.js';
 import './Popup.scss';
 
 /**
- * Компонент ленты с кнопками в анкете
+ * Компонент попапа
  */
 export class PopupView {
     constructor(root) {
@@ -22,6 +22,10 @@ export class PopupView {
         this.rendered = false;
     }
 
+    /**
+     * Отрисовывает попап-уведомление
+     * @param {String} msg - строка которую нужно отобразить в уведомлении
+     */
     render(msg) {
         const notification = this.popup.querySelector('.popup__notify');
         this.popup.querySelector('.popup__text').textContent = msg;
@@ -32,6 +36,10 @@ export class PopupView {
         }, 3000);
     }
 
+    /**
+     * Отрисовывает попап-подтверждение
+     * @param {Object} data - text: информация которую нужно отобразить и func:действие в случае "да"
+     */
     renderConfirm(data) {
         if (this.rendered) {
             return;
@@ -55,6 +63,10 @@ export class PopupView {
         document.body.addEventListener('click', this.closeEvent);
     }
 
+    /**
+     * Отрисовывает попап-выбор-из-нескольких-вариантов
+     * @param {Object} data - информация которую нужно отобразить
+     */
     renderChoose(data) {
         if (this.rendered) {
             return;
@@ -97,6 +109,10 @@ export class PopupView {
         });
     }
 
+    /**
+     * Отрисовывает попап жалобы
+     * @param {Object} callback - что нужно сделать после выбора варианта
+     */
     renderComplaint(callback) {
         if (this.rendered) {
             return;
@@ -161,6 +177,9 @@ export class PopupView {
     }
 
 
+    /**
+     * Закрывает попап
+     */
     closeCurrent() {
         if (this.popup.contains(this.currentPopup)) {
             this.popup.removeChild(this.currentPopup);
@@ -169,6 +188,10 @@ export class PopupView {
         }
     }
 
+    /**
+     * Закрывает попап по клику вне него
+     * @param {Event} e - событие клика
+     */
     closeIfNotInPopup(e) {
         if (this.firstClick) {
             this.firstClick = false;
@@ -180,6 +203,9 @@ export class PopupView {
         this.closeCurrent();
     }
 
+    /**
+     * Закрытие попапа
+     */
     close() {
         document.removeEventListener('click', this.closePopup);
         const notification = this.popup.querySelector('.popup__notify');

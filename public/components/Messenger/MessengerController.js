@@ -4,6 +4,9 @@ import {BaseController} from '../BaseController.js';
 import {COMMON_EVENTS, GLOBAL_EVENTS, MESSENGER_EVENTS} from '../../lib/constansts.js';
 
 
+/**
+ * Класс контроллера мессенджера
+ */
 export class MessengerController extends BaseController {
     constructor(root, globalEventBus) {
         super(globalEventBus);

@@ -4,6 +4,11 @@ import {BaseController} from '../BaseController.js';
 import {GLOBAL_EVENTS} from '../../lib/constansts.js';
 
 
+/**
+ * Класс отвечающий за показ ксата (опрос удовлетворенности сайтом)
+ * @param {array} images - ссылки на фотографии пользователя
+ * @param {int} index - номер фотографии, которая должна быть сейчас показана
+ */
 export class CsatController extends BaseController {
     constructor(root, globalEventBus) {
         super(globalEventBus);
@@ -14,6 +19,9 @@ export class CsatController extends BaseController {
         });
     }
 
+    /**
+     * Проверяет возможность показа ксата и рендерит ксат
+     */
     onAuth() {
         if (this.showChecked) {
             return;

@@ -2,7 +2,7 @@ import {COMMON_EVENTS, MESSENGER_EVENTS} from '../../lib/constansts.js';
 import './Header.scss';
 
 /**
- * Компонент хедер для всех страниц
+ * Отображения хедера и бокового меню для всех страниц
  */
 export class HeaderView {
     constructor(root, sidePlace, eventBus) {
@@ -24,6 +24,10 @@ export class HeaderView {
         };
     }
 
+    /**
+     * Рендерит версию хедера и бокового меню для авторизованных пользователей
+     * @param {Object} user - модель пользователя
+     */
     render(user) {
         const menuBtn = document.querySelector('.main__menu-btn');
         menuBtn.removeEventListener('click', this.showMenu);
@@ -37,6 +41,9 @@ export class HeaderView {
         menuBtn.addEventListener('click', this.showMenu);
     }
 
+    /**
+     * Рендерит версию хедера и бокового меню для неавторизованных пользователей
+     */
     renderU() {
         this.parent.innerHTML = this.template();
         this.sidePlace.innerHTML = this.side();
@@ -45,10 +52,17 @@ export class HeaderView {
         menuBtn.removeEventListener('click', this.showMenu);
     }
 
+    /**
+     * Рендерит версию хедера и бокового меню для администратора
+     */
     renderAdmin() {
         this.parent.innerHTML = this.adminTemplate();
     }
 
+    /**
+     * Рендерит пары пользователя в боковое меню
+     * @param {Object} data - пары
+     */
     gotPairs(data) {
         const pairs = this.sidePlace.querySelector('.sidebar__pairs');
         data.forEach((element) => {
@@ -62,6 +76,10 @@ export class HeaderView {
         });
     }
 
+    /**
+     * Рендерит диалоги для бокового меню
+     * @param {Object} data - диалоги
+     */
     gotDialogs(data) {
         const dialogs = this.sidePlace.querySelector('.sidebar__dialogs');
         dialogs.innerHTML = '';

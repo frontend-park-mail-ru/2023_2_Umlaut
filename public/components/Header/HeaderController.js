@@ -4,6 +4,9 @@ import {COMMON_EVENTS, GLOBAL_EVENTS, MESSENGER_EVENTS} from '../../lib/constans
 import {HeaderModel} from './HeaderModel.js';
 
 
+/**
+ * Класс контролера хедера и бокового меню
+ */
 export class HeaderController {
     constructor(root, sidePlace, globalEventBus) {
         this.globalEventBus = globalEventBus;
