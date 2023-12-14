@@ -144,8 +144,8 @@ export class MessengerView extends BaseView {
     /**
      * Создает элемент нового сообщения
      */
-    newMessageOtherDialog() {
-        const dialog = this.root.querySelector('.dialog-preview');
+    newMessageOtherDialog(msg) {
+        const dialog = document.getElementById(msg.dialog_id);
         if (!dialog) {
             return;
         }

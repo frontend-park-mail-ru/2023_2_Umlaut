@@ -45,6 +45,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
     });
     globalEventBus.on(GLOBAL_EVENTS.POPUP_CONFIRM, (data) => popup.renderConfirm(data));
     globalEventBus.on(GLOBAL_EVENTS.POPUP_COMPLAINT, (data) => popup.renderComplaint(data));
+    globalEventBus.on(GLOBAL_EVENTS.POPUP_MATCH, (data) => popup.renderMatch(data));
     globalEventBus.on(GLOBAL_EVENTS.RERENDER_HEADER, () => globalEventBus.emit(GLOBAL_EVENTS.CHECK_AUTHORISED));
     globalEventBus.on(GLOBAL_EVENTS.UNAUTH, () => router.goOnlyForward('/auth') );
     globalEventBus.on(GLOBAL_EVENTS.USER_BANNED, () => {

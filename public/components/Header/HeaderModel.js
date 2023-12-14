@@ -25,6 +25,7 @@ export class HeaderModel {
                         return;
                     }
                     response.payload.forEach((element) => {
+                        element.user_dialog_id = element.id;
                         if (element.сompanion_image_paths && element.сompanion_image_paths.length > 0) {
                             element.photo = element.сompanion_image_paths[0];
                         } else {

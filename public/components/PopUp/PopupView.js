@@ -11,6 +11,7 @@ export class PopupView {
         this.popupConfirmTmpl = require('./Confirm.hbs');
         this.popupChooseTmpl = require('./Choose.hbs');
         this.popupComplaintTmpl = require('./Complaint.hbs');
+        this.popupMatchTmpl = require('./PopupMatch.hbs');
         this.root = root;
         this.eventBus = new EventBus();
         this.popup = this.root.querySelector('.popup');
@@ -174,6 +175,27 @@ export class PopupView {
                 this.choosenVariant = e.target;
             }
         });
+    }
+
+    /**
+     * Отрисовывает попап-match
+     * @param {Object} data - информация которую нужно отобразить
+     */
+    renderMatch(data) {
+        if (this.rendered) {
+            return;
+        }
+        this.rendered = true;
+        this.firstClick = true;
+
+        const match = document.createElement('div');
+        match.className = 'popup__match';
+        match.innerHTML = this.popupMatchTmpl(data);
+        this.popup.appendChild(match);
+        this.currentPopup = match;
+
+        match.querySelector('#toDialog').addEventListener('click', this.closeCurrent.bind(this));
+        match.querySelector('#toFeed').addEventListener('click', this.closeCurrent.bind(this));
     }
 
 

@@ -1,4 +1,4 @@
-import {AUTH_EVENTS, COMMON_EVENTS, GLOBAL_EVENTS} from '../../lib/constansts.js';
+import {AUTH_EVENTS, COMMON_EVENTS, GLOBAL_EVENTS, USER_PHOTO} from '../../lib/constansts.js';
 import {Api} from '../../lib/api.js';
 
 /**

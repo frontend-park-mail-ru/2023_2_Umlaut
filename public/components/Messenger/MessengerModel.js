@@ -96,17 +96,21 @@ export class MessengerModel {
 
 
     /**
-     * Получает новые сообщения
+     * Получает новые сообщения и уведомления о мэтчах
      * @param {Object} msg - новое сообщение
      */
     gotNewMessage(msg) {
         const mes = JSON.parse(msg);
-        mes.created_at = mes.created_at.slice(mes.created_at.indexOf('T') + 1,
-            this.nthIndex(mes.created_at, ':', 2));
-        if (mes.dialog_id === this.dialog_id) {
-            this.eventBus.emit(MESSENGER_EVENTS.NEW_MESSAGE_IN_THIS_DIALOG, mes);
-        } else {
-            this.eventBus.emit(MESSENGER_EVENTS.NEW_MESSAGE_IN_OTHER_DIALOG, mes);
+        if(mes.type==='Message'){
+            mes.created_at = mes.created_at.slice(mes.created_at.indexOf('T') + 1,
+                this.nthIndex(mes.created_at, ':', 2));
+            if (mes.dialog_id === this.dialog_id) {
+                this.eventBus.emit(MESSENGER_EVENTS.NEW_MESSAGE_IN_THIS_DIALOG, mes.payload);
+            } else {
+                this.eventBus.emit(MESSENGER_EVENTS.NEW_MESSAGE_IN_OTHER_DIALOG, mes.payload);
+            }
+        }else if(mes.type === 'Match'){
+            this.eventBus.emit(MESSENGER_EVENTS.MATCH, mes.payload);
         }
     }
 

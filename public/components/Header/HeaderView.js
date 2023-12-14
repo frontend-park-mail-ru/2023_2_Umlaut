@@ -1,4 +1,4 @@
-import {COMMON_EVENTS, MESSENGER_EVENTS} from '../../lib/constansts.js';
+import {COMMON_EVENTS, MESSENGER_EVENTS, USER_PHOTO} from '../../lib/constansts.js';
 import './Header.scss';
 
 /**

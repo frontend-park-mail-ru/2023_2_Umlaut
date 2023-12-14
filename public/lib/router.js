@@ -19,7 +19,7 @@ export class Router {
     go(path) {
         if (this.current === path) return;
 
-        if (!this.components.has(path) && path.split('/')[1] !== 'messages') {
+        if (!this.components.has(path) && !path.startsWith('/messages')) {
             if (window.location.pathname.startsWith('/admin')) {
                 this.goOnlyForward('/admin/complaints');
             } else {
@@ -38,7 +38,7 @@ export class Router {
     goOnlyForward(path) {
         if (this.current === path) return;
 
-        if (!this.components.has('/' + path.split('/')[1]) && !path.startsWith('/messages')) {
+        if (!this.components.has(path) && !path.startsWith('/messages')) {
             if (window.location.pathname.startsWith('/admin')) {
                 this.goOnlyForward('/admin/complaints');
             } else {
