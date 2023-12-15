@@ -66,7 +66,7 @@ export class SettingsView extends BaseView {
             this.eventBus.emit(SETTINGS_EVENTS.HIDE);
         },
         text: 'Вы уверены, что хотите удалить фото?'};
-        
+
         logoutBtn.addEventListener('click', () => this.eventBus.emit(SETTINGS_EVENTS.SHOW_CONFIRM_LOG, log));
         this.deletePhotoBtn.addEventListener('click', () => this.eventBus.emit(SETTINGS_EVENTS.SHOW_CONFIRM_LOG, del));
         if (data.user.image_paths.length === 0) {

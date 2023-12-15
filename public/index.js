@@ -19,6 +19,7 @@ import {CsatController} from './components/Csat/CsatController.js';
 import {AdminAuthController} from './components/AdminAuth/AdminAuthController.js';
 import {StatisticsController} from './components/Statistics/StatisticsController.js';
 import {ComplainsController} from './components/Complains/ComplainsController.js';
+import { PremiumController } from './components/Premium/PremiumController.js';
 
 document.addEventListener('DOMContentLoaded', ()=>{
     if ('serviceWorker' in navigator) {
@@ -79,6 +80,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
     const statisctics = new StatisticsController(page, globalEventBus);
     const complaints = new ComplainsController(page, globalEventBus);
 
+    const premium = new PremiumController(page, globalEventBus);
 
     router.add('/feed', feed);
     router.add('/auth', auth);
@@ -88,6 +90,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
     router.add('/admin/statistics', statisctics);
     router.add('/admin/auth', admin);
     router.add('/admin/complaints', complaints);
+    router.add('/premium', premium);
 
     if (!window.location.pathname.startsWith('/admin')) {
         globalEventBus.emit(GLOBAL_EVENTS.CHECK_AUTHORISED);

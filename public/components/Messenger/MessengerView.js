@@ -1,6 +1,6 @@
 import {BaseView} from '../BaseView.js';
 import {MESSENGER_EVENTS} from '../../lib/constansts.js';
-import { Carousel } from '../Carousel/Carousel.js';
+import {Carousel} from '../Carousel/Carousel.js';
 import './Messenger.scss';
 
 /**
@@ -89,7 +89,7 @@ export class MessengerView extends BaseView {
         this.renderUserForm(data.user);
     }
 
-    renderUserForm(user){
+    renderUserForm(user) {
         const userForm = this.root.querySelector('.messenger__user-form');
         userForm.innerHTML = require('../Feed/Description.hbs')(user);
         const carouselRoot = this.root.querySelector('.form-feed__feed-photo');

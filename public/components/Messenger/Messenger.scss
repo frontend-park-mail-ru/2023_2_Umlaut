@@ -9,6 +9,8 @@
     display: flex;
     flex-direction: column;
     max-width: 25%;
+    height: calc(100vh - var(--header-height));
+    overflow: auto;
   }
 
   &__dialogs {
