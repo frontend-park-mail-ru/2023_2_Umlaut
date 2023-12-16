@@ -14,7 +14,7 @@ export class MessengerModel {
         this.socket = new WebSocketWrapper('wss://umlaut-bmstu.me/websocket');
         this.eventBus.on(COMMON_EVENTS.AUTH, this.socket.connect.bind(this.socket));
         this.eventBus.on(COMMON_EVENTS.UNAUTH, this.socket.disconnect.bind(this.socket));
-        this.socket.subscribe('message', (msg)=>this.gotNewMessage(msg).bind(this));
+        this.socket.subscribe('message', (msg)=>this.gotNewMessage(msg));
         this.id = null;
         this.dialog_id = null;
         this.my_id = null;
