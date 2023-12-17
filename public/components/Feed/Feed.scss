@@ -61,14 +61,14 @@
       width: 100%;
       position: relative;
       &-like{
-        stroke: rgb(0, 114, 0);
+        stroke: #ff5182;
         scale: 0.9;
         position: relative;
         top:2px;
       }
       &-dislike{
         scale: 1.2;
-        stroke: #dd1428;
+        stroke: #4a58a2;
       }
     }
 
