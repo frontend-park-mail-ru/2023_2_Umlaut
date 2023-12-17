@@ -31,9 +31,10 @@
     cursor: pointer;
     appearance: none;
     background-color: inherit;
-    transition: transform 0.7s ease-in-out;
+    transition: all 0.2s ease-in-out;
     border-radius: 50%;
-    background-color: green;
+    background-color: rgb(252, 252, 252);
+    box-shadow: 0px 3px 5px 1px rgba(105, 105, 105, 0.6);
     aspect-ratio: 1 / 1;
     @supports not (aspect-ratio: 1 / 1) {
       &::before {
@@ -51,23 +52,24 @@
     cursor: pointer;
 
     &:hover {
-      filter: brightness(1.2);
+      filter: brightness(1.1);
+      transform: scale(1.01) translateY(-1px);
     }
 
     &-img {
       height: 100%;
       width: 100%;
       position: relative;
-      top: 3px;
-      scale: 1.2;
-    }
-
-    &-like {
-      background-color: rgb(0, 114, 0);
-    }
-
-    &-dislike {
-      background-color: #dd1428;
+      &-like{
+        stroke: rgb(0, 114, 0);
+        scale: 0.9;
+        position: relative;
+        top:2px;
+      }
+      &-dislike{
+        scale: 1.2;
+        stroke: #dd1428;
+      }
     }
 
     &:active:enabled {
@@ -150,6 +152,9 @@
     display: flex;
     flex-direction: column;
     padding-bottom: 15px;
+    @media (min-width: $phone-max-width) {
+      padding-right: 10px;
+    }
   }
 
   &__about-user {
