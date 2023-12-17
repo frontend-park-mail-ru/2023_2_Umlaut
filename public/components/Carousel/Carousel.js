@@ -39,16 +39,19 @@ export class Carousel {
             return;
         }
 
-        this.curIndex = index;
+        this.curIndex = undefined;
         this.slider = this.root.querySelector('.carousel__slider');
         this.btnPrev = this.root.querySelector('.carousel__prev');
         this.btnNext = this.root.querySelector('.carousel__next');
+        this.bullets = this.root.querySelector('.carousel__bullets');
         if ( this.images.length === 1) {
             this.btnPrev.style.visibility = 'hidden';
             this.btnNext.style.visibility = 'hidden';
+            this.bullets.style.visibility = 'hidden';
         } else {
             this.btnNext.addEventListener('click', this.next.bind(this));
             this.btnPrev.addEventListener('click', this.prev.bind(this));
+            this.bullets.addEventListener('click', this.bulletsClick.bind(this));
             this.move(index);
         }
     }
@@ -61,10 +64,28 @@ export class Carousel {
         if ( index < 0 || index >= this.images.length ) {
             return;
         }
+        if (this.curIndex !== undefined) {
+            const bullet = this.bullets.querySelector(`[data-bullet-index="${this.curIndex}"]`);
+            bullet.classList.toggle('carousel__bullet--active');
+            bullet.firstElementChild.classList.toggle('carousel__bullet-circle--big');
+        }
+        const bullet = this.bullets.querySelector(`[data-bullet-index="${index}"]`);
+        bullet.classList.toggle('carousel__bullet--active');
+        bullet.firstElementChild.classList.toggle('carousel__bullet-circle--big');
+
         this.btnPrev.style.visibility = index !== 0 ? '' : 'hidden';
         this.btnNext.style.visibility = index === this.images.length - 1 ? 'hidden' : '';
         this.slider.style.transform = `translateX(${-index * 100}%)`;
         this.curIndex = index;
+    }
+
+    bulletsClick(e) {
+        if (!e.target.classList.contains('carousel__bullet') &&
+            !e.target.classList.contains('carousel__bullet-circle')) {
+            return;
+        }
+
+        this.move(parseInt(e.target.dataset.bulletIndex));
     }
 
     /**
