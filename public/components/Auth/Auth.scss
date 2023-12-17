@@ -109,26 +109,40 @@
 
 .naming {
   position: absolute;
-  right: 20px;
   color: #303656;
-  font-size: calc(1.33vw + 5.3px);
+  font-size: calc(1.5vw + 6px);
   text-transform: uppercase;
-  width: min-content;
-  background-color: rgba(255, 255, 255, 0.5);
+  background-color: rgba(255, 255, 255, 0.64);
   backdrop-filter: blur(8px);
   padding: 1%;
-  border-radius: 15px;
+  border-radius: 10px;
+  width: 60%;
+  top: 300px;
+  left: 18%;
+  text-align: center;
 
   @media (max-width: $phone-max-width) {
     display: none;
   }
-}
 
-.naming_small {
-  font-size: 20px;
+  &_small {
+    font-size: calc(1.2vw + 4px);
 
-  @media (max-width: $phone-max-width) {
-    font-size: 14px;
+    @media (max-width: $phone-max-width) {
+      font-size: 14px;
+    }
+  }
+
+  &__buttons{
+    display: flex;
+    font-size: calc(1.2vw + 4px);
+    gap: 5%;
+    justify-content: center;
+    padding: 10px 0;
+  }
+
+  &__auth-btn{
+    width: 270px;
   }
 }
 
@@ -138,10 +152,50 @@
   background-size: cover;
   background-color: var(--background-color);
   padding: 5%;
+  margin: 1% 5%;
+  min-height: 100vh;
 
   @media (max-width: $phone-max-width) {
     background-size: contain;
     background-image: none;
     padding: 0px;
+  }
+}
+
+.different-acquaintance{
+
+  &__name{
+    font-size: calc(1.5vw + 6px);
+    text-align: center;
+    color: var(--dark-blue-color);
+    margin: 2%;
+  }
+
+  &__examples{
+    margin: 2% 5%;
+    display: flex;
+    gap: 4%;
+  }
+
+  &__example{
+    width: 30%;
+  }
+
+  &__example-name{
+    margin: 10px 0;
+    text-align: center;
+    color: var(--dark-blue-color);
+    font-size: 22px;
+  }
+
+  &__example-img{
+    width: 100%;
+  }
+
+  &__text{
+    font-size: 18px;
+    margin: 10px;
+    text-align: center;
+    color: var(--dark-blue-color);
   }
 }

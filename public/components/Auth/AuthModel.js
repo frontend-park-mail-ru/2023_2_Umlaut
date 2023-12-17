@@ -43,29 +43,30 @@ export class AuthModel {
     signUp(data) {
         const path = window.location.pathname;
         const invitedBy = path.split('/').slice(-1);
-        if (invitedBy !== 'signup')
+        if (invitedBy !== 'signup') {
             data.invited_by = invitedBy;
+        }
         Api.signup(data).then(
             (response) => {
                 switch (response.status) {
-                    case 200:
-                        this.isAuthorised();
-                        break;
-                    case 400:
-                        this.eventBus.emit(AUTH_EVENTS.INVALID_AUTH, {message: 'Неправильный запрос'});
-                        break;
-                    case 404:
-                        this.eventBus.emit(AUTH_EVENTS.INVALID_AUTH, {message: 'Страница не найдена'});
-                        break;
-                    case 401:
-                        this.eventBus.emit(AUTH_EVENTS.INVALID_AUTH, {message: 'Невeрный email или пароль'});
-                        break;
-                    case 414:
-                        this.eventBus.emit(AUTH_EVENTS.INVALID_AUTH, {message: 'Неверная ссылка'});
-                        break;
-                    default:
-                        this.eventBus.emit(AUTH_EVENTS.INVALID_AUTH, {message: 'Неожиданная ошибка'});
-                        break;
+                case 200:
+                    this.isAuthorised();
+                    break;
+                case 400:
+                    this.eventBus.emit(AUTH_EVENTS.INVALID_AUTH, {message: 'Неправильный запрос'});
+                    break;
+                case 404:
+                    this.eventBus.emit(AUTH_EVENTS.INVALID_AUTH, {message: 'Страница не найдена'});
+                    break;
+                case 401:
+                    this.eventBus.emit(AUTH_EVENTS.INVALID_AUTH, {message: 'Невeрный email или пароль'});
+                    break;
+                case 414:
+                    this.eventBus.emit(AUTH_EVENTS.INVALID_AUTH, {message: 'Неверная ссылка'});
+                    break;
+                default:
+                    this.eventBus.emit(AUTH_EVENTS.INVALID_AUTH, {message: 'Неожиданная ошибка'});
+                    break;
                 }
             },
         );

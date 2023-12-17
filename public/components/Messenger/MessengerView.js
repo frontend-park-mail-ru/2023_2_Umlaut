@@ -2,7 +2,7 @@ import {BaseView} from '../BaseView.js';
 import {MESSENGER_EVENTS} from '../../lib/constansts.js';
 import {Carousel} from '../Carousel/Carousel.js';
 import './Messenger.scss';
-import { fromHTML } from '../../lib/util.js';
+import {fromHTML} from '../../lib/util.js';
 
 /**
  * Класс отображения мессенджера

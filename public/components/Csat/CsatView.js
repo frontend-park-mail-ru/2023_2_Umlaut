@@ -1,6 +1,6 @@
 import './Csat.scss';
 import {CSAT_URL} from '../../lib/constansts';
-import { fromHTML } from '../../lib/util';
+import {fromHTML} from '../../lib/util';
 
 /**
  * Компонент страницы авторизации (входа)
