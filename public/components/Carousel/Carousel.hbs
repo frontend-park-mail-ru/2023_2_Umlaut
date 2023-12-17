@@ -15,6 +15,13 @@
     <div class="carousel__next carousel__btn">
         <img src="/pics/arrow-right.png" class="arrow_icon">
     </div>
+    <div class="carousel__bullets">
+        {{#each image_paths}}
+            <div class="carousel__bullet" data-bullet-index="{{@index}}">
+                <div class="carousel__bullet-circle" data-bullet-index="{{@index}}"></div>
+            </div>
+        {{/each}}
+    </div>
     {{else}}
     <div class="carousel__slider">
         <div class="carousel__slide">

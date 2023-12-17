@@ -10,16 +10,6 @@ export class Csat {
         this.inputValue = {};
     }
 
-    checkAuthorisation(){
-        Api.user().then(
-        (response) => {
-            if ( response.status === 401 ) {
-                window.top.postMessage('close', window.location.origin);
-            }
-        });
-    }
-
-
     renderAboutAll() {
         this.root.innerHTML = this.number({text:"Оцените общее впечатление от пользования нашим сайтом"});
         const btnNext = this.root.querySelector('#take-survey');
@@ -82,9 +72,9 @@ export class Csat {
 
     renderFinal(){
         this.root.innerHTML = this.final();
-        setTimeout(()=>window.top.postMessage('close', window.location.origin), 3000);
+        setTimeout(close, 3000);
         const cross = this.root.querySelector('#cross');
-        cross.addEventListener('click', ()=>window.top.postMessage('close', window.location.origin));
+        cross.addEventListener('click', close);
     }
 
     renderAboutFeed() {
@@ -114,9 +104,13 @@ export class Csat {
     addListenersOnCrossAndSkip(){
         const skip = this.root.querySelector('#skip');
         const cross = this.root.querySelector('#cross');
-        cross.addEventListener('click', ()=>window.top.postMessage('close', window.location.origin));
+        cross.addEventListener('click', close);
         skip.addEventListener('click', ()=>{
             this.renderFinal();
         });
     }
+}
+
+export function close(){
+    window.top.postMessage('close', window.location.origin);
 }
