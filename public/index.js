@@ -19,7 +19,7 @@ import {CsatController} from './components/Csat/CsatController.js';
 import {AdminAuthController} from './components/AdminAuth/AdminAuthController.js';
 import {StatisticsController} from './components/Statistics/StatisticsController.js';
 import {ComplainsController} from './components/Complains/ComplainsController.js';
-import { PremiumController } from './components/Premium/PremiumController.js';
+import {PremiumController} from './components/Premium/PremiumController.js';
 
 document.addEventListener('DOMContentLoaded', ()=>{
     if ('serviceWorker' in navigator) {
