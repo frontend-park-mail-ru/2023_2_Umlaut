@@ -1,4 +1,5 @@
 import {COMMON_EVENTS, MESSENGER_EVENTS} from '../../lib/constansts.js';
+import { fromHTML } from '../../lib/util.js';
 import './Header.scss';
 
 /**
@@ -83,9 +84,7 @@ export class HeaderView {
         const dialogs = this.sidePlace.querySelector('.sidebar__dialogs');
         dialogs.innerHTML = '';
         data.forEach((dialog) => {
-            const dialogPreview = document.createElement('div');
-            dialogPreview.className = 'sidebar__dialog';
-            dialogPreview.innerHTML = this.dialogPreviewTemplate(dialog);
+            const dialogPreview =  fromHTML(this.dialogPreviewTemplate(dialog));
 
             dialogPreview.addEventListener('click', ()=>{
                 this.eventBus.emit(MESSENGER_EVENTS.GET_MESSAGES, `/messages/${dialog.id}`);

@@ -1,5 +1,6 @@
 import './Csat.scss';
 import {CSAT_URL} from '../../lib/constansts';
+import { fromHTML } from '../../lib/util';
 
 /**
  * Компонент страницы авторизации (входа)
@@ -26,7 +27,7 @@ export class CsatView {
     }
 
     render(data) {
-        this.csatDiv = this.fromHTML(this.template({url: window.location.origin + CSAT_URL}));
+        this.csatDiv = fromHTML(this.template({url: window.location.origin + CSAT_URL}));
         this.iframe = this.csatDiv.querySelector('iframe');
         this.iframe.onload = () => this.iframe.contentWindow.postMessage(data, window.location.origin);
         this.iframe.onerror = () => this.close();
@@ -42,17 +43,5 @@ export class CsatView {
         this.root.removeChild(this.csatDiv);
         this.csatDiv = null;
         this.iframe = null;
-    }
-
-    fromHTML(html, trim = true) {
-        html = trim ? html : html.trim();
-        if (!html) return null;
-
-        const template = document.createElement('template');
-        template.innerHTML = html;
-        const result = template.content.children;
-
-        if (result.length === 1) return result[0];
-        return result;
     }
 }
