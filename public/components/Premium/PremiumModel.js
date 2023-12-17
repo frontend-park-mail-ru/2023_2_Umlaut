@@ -1,7 +1,7 @@
 
 
-export class PremiumModel{
-    constructor(eventBus){
+export class PremiumModel {
+    constructor(eventBus) {
         this.eventBus = eventBus;
     }
 }

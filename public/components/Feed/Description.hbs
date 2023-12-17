@@ -5,46 +5,46 @@
 </div>
 <div class="form-feed__description">
     <div class="form-feed__user-name">
-    {{name}}{{#if age}}, {{age}}{{/if}}
+    {{user.name}}{{#if user.age}}, {{user.age}}{{/if}}
   </div>
   <div class="form-feed__about-user">
-    {{#if looking}}
+    {{#if user.looking}}
       <span class="form-feed__text form-feed__text_bold">
         Цель:
       </span>
       <span class="form-feed__text">
-        {{looking}}
+        {{user.looking}}
       </span>
     {{/if}}
-    {{#if education}}
+    {{#if user.education}}
       <span class="form-feed__text form-feed__text_bold">
         Образование:
       </span>
       <span class="form-feed__text">
-        {{education}}
+        {{user.education}}
       </span>
     {{/if}}
-    {{#if hobbies}}
+    {{#if user.hobbies}}
       <span class="form-feed__text form-feed__text_bold">
         Увлечения:
       </span>
       <span class="form-feed__text">
-        {{hobbies}}
+        {{user.hobbies}}
       </span>
     {{/if}}
-    {{#if tags}}
+    {{#if user.tags}}
       <span class="form-feed__text form-feed__text_bold">
         Теги:
       </span>
       <div class="multiselection form-feed__text">
-        {{#each tags}}
+        {{#each user.tags}}
           <span class="multiselection__selection">{{this}}</span>
         {{/each}}
       </div>
     {{/if}}
-    {{#if description}}
+    {{#if user.description}}
       <span class="form-feed__text">
-        {{description}}
+        {{user.description}}
       </span>
     {{/if}}
   </div>

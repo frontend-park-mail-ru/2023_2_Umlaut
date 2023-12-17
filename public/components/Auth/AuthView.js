@@ -30,6 +30,8 @@ export class AuthView extends BaseView {
         this.errorLabel.style.visibility = 'hidden';
         this.mailInput = this.form.querySelector('#mail');
         this.mailInput.addEventListener('change', this.validateMail.bind(this));
+        const b = this.root.querySelector('#auth-btn');
+        b.addEventListener('click', ()=>this.form.scrollIntoView({ block: "center", behavior: "smooth" }));
 
         eye.addEventListener('click', () => {
             const x = document.getElementById('password');
