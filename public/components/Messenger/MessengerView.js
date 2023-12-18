@@ -118,7 +118,7 @@ export class MessengerView extends BaseView {
             windowDialog.appendChild(unread);
         }
 
-        const mesElem = document.createElement(div);
+        const mesElem = document.createElement('div');
         mesElem.innerHTML = this.message({text: mes.message_text, time: mes.created_at});
         if (mes.sender_id === this.my_id) {
             const myMes = mesElem.querySelector('.dialog-window__message');
