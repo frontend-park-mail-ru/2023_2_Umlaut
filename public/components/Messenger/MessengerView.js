@@ -86,7 +86,7 @@ export class MessengerView extends BaseView {
         this.renderUserForm(data.user);
     }
 
-    openDialogMessages(data){
+    openDialogMessages(data) {
         data.dialogs.forEach((mes) => {
             mes.created_at = mes.created_at.slice(mes.created_at.indexOf('T') + 1,
                 this.nthIndex(mes.created_at, ':', 2));
@@ -119,7 +119,7 @@ export class MessengerView extends BaseView {
             windowDialog.appendChild(unread);
         }
 
-        const mesElem = fromHTML(this.message({text: mes.message_text, time: mes.created_at}));
+        const mesElem = this.message({text: mes.message_text, time: mes.created_at});
         if (mes.sender_id === this.my_id) {
             const myMes = mesElem.querySelector('.dialog-window__message');
             myMes.className = 'dialog-window__message dialog-window__message_me';

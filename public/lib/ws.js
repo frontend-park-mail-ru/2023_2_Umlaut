@@ -71,12 +71,12 @@ export class WebSocketWrapper {
     }
 
     send(dataObject) {
-        // try {
-        this.socket.send(JSON.stringify(dataObject));
-        // } catch (e) {
-        //     console.log('not connected');
-        //     e;
-        //     throw e;
-        // }
+        try {
+            this.socket.send(JSON.stringify(dataObject));
+        } catch (e) {
+            console.log('not connected');
+            e;
+            throw e;
+        }
     }
 }
