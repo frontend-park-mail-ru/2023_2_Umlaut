@@ -227,6 +227,22 @@ export class Api {
     static getDialogById(id) {
         return Ajax.get(BACKEND_URL + URLS.dialogs + '/' + id);
     }
+
+    /**
+     * Get-запрос на получение пользователей, лайкнувших текущего
+     * @return {Promise} - статус и тело ответа
+     */
+    static getLiked() {
+        return Ajax.get(BACKEND_URL + URLS.getLiked);
+    }
+
+    /**
+     * Get-запрос на получение реферальной пригласительной ссылки
+     * @return {Promise} - статус и тело ответа
+     */
+    static getLink() {
+        return Ajax.get(BACKEND_URL + URLS.getLink);
+    }
 }
 
 /**

@@ -19,7 +19,7 @@ export class Router {
     go(path) {
         if (this.current === path) return;
 
-        if (!this.components.has(path) && !path.startsWith('/messages')) {
+        if (!this.components.has(path) && !path.startsWith('/messages') && !path.startsWith('/signup/')) {
             if (window.location.pathname.startsWith('/admin')) {
                 this.goOnlyForward('/admin/complaints');
             } else {

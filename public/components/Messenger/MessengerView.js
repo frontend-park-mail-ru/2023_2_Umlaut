@@ -2,7 +2,6 @@ import {BaseView} from '../BaseView.js';
 import {MESSENGER_EVENTS} from '../../lib/constansts.js';
 import {Carousel} from '../Carousel/Carousel.js';
 import './Messenger.scss';
-import {fromHTML} from '../../lib/util.js';
 
 /**
  * Класс отображения мессенджера
@@ -48,11 +47,8 @@ export class MessengerView extends BaseView {
 
         this.dialogWindow.innerHTML = this.dialog({user: data.user});
         this.my_id = data.my_id;
-        data.dialogs.forEach((mes) => {
-            mes.created_at = mes.created_at.slice(mes.created_at.indexOf('T') + 1,
-                this.nthIndex(mes.created_at, ':', 2));
-            this.createMessage(mes);
-        });
+
+        this.openDialogMessages(data);
 
         const inputText = this.dialogWindow.querySelector('#message');
         inputText.onchange = () => {
@@ -89,6 +85,14 @@ export class MessengerView extends BaseView {
         this.renderUserForm(data.user);
     }
 
+    openDialogMessages(data) {
+        data.dialogs.forEach((mes) => {
+            mes.created_at = mes.created_at.slice(mes.created_at.indexOf('T') + 1,
+                this.nthIndex(mes.created_at, ':', 2));
+            this.createMessage(mes);
+        });
+    }
+
     renderUserForm(user) {
         const userForm = this.root.querySelector('.messenger__user-form');
         userForm.innerHTML = require('../Feed/Description.hbs')(user);
@@ -114,7 +118,8 @@ export class MessengerView extends BaseView {
             windowDialog.appendChild(unread);
         }
 
-        const mesElem = fromHTML(this.message({text: mes.message_text, time: mes.created_at}));
+        const mesElem = document.createElement('div');
+        mesElem.innerHTML = this.message({text: mes.message_text, time: mes.created_at});
         if (mes.sender_id === this.my_id) {
             const myMes = mesElem.querySelector('.dialog-window__message');
             myMes.className = 'dialog-window__message dialog-window__message_me';

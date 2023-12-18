@@ -18,8 +18,10 @@ export class FeedView extends BaseView {
         this.eventBus.on(COMMON_EVENTS.ONLINE, ()=> {
             this.blockButtons(), this.activateBtns();
         });
+        this.eventBus.on(FEED_EVENTS.SHOW_LIKED, this.showLikedPerson.bind(this));
         this.update = this.update.bind(this);
         this.params = {tags: []};
+        this.user;
     }
 
     /**
@@ -30,6 +32,7 @@ export class FeedView extends BaseView {
         this.root.innerHTML = '';
         if (data) {
             data.params = this.params;
+            this.user = data.user;
         }
         super.render(data);
 
@@ -137,6 +140,20 @@ export class FeedView extends BaseView {
         super.render(data);
         const searchBtn = this.root.querySelector('#search-btn');
         const searchForm = this.root.querySelector('.search');
+        searchBtn.addEventListener('click', () => searchForm.classList.toggle('search_visible'));
+        this.addSearchParams();
+    }
+
+    /**
+     * Показ анкеты лайкнувшего человека
+     * @param {Object} user - лайкнувший человек
+     */
+    showLikedPerson(user) {
+        this.user = user;
+        super.render({user: user, interests: SETTINGS_LIST.interests});
+        const searchBtn = this.root.querySelector('#search-btn');
+        const searchForm = this.root.querySelector('.search');
+        this.activateBtns();
         searchBtn.addEventListener('click', () => searchForm.classList.toggle('search_visible'));
         this.addSearchParams();
     }

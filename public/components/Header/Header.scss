@@ -87,6 +87,18 @@
     font-size: 22px;
   }
 
+  &__buy-premium{
+    background-color: var(--premium-green);
+    width: 92%;
+    display: block;
+    padding: 4%;
+    font-size: 20px;
+  }
+
+  &__premium-img{
+    height: 25px;
+  }
+
   &__pairs-header{
     padding: 5px 0px;
   }
