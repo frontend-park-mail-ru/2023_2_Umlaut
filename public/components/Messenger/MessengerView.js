@@ -49,11 +49,7 @@ export class MessengerView extends BaseView {
         this.dialogWindow.innerHTML = this.dialog({user: data.user});
         this.my_id = data.my_id;
 
-        data.dialogs.forEach((mes) => {
-            mes.created_at = mes.created_at.slice(mes.created_at.indexOf('T') + 1,
-                this.nthIndex(mes.created_at, ':', 2));
-            this.createMessage(mes);
-        });
+        this.openDialogMessages(data);
 
         const inputText = this.dialogWindow.querySelector('#message');
         inputText.onchange = () => {
@@ -88,6 +84,14 @@ export class MessengerView extends BaseView {
         this.eventBus.emit(MESSENGER_EVENTS.MARK_AS_READ, data.dialogs);
 
         this.renderUserForm(data.user);
+    }
+
+    openDialogMessages(data){
+        data.dialogs.forEach((mes) => {
+            mes.created_at = mes.created_at.slice(mes.created_at.indexOf('T') + 1,
+                this.nthIndex(mes.created_at, ':', 2));
+            this.createMessage(mes);
+        });
     }
 
     renderUserForm(user) {
