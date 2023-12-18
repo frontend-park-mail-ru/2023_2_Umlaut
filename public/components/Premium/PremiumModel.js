@@ -1,5 +1,5 @@
-import { Api } from "../../lib/api.js";
-import { PREMIUM_EVENTS } from "../../lib/constansts.js";
+import {Api} from '../../lib/api.js';
+import {PREMIUM_EVENTS} from '../../lib/constansts.js';
 
 export class PremiumModel {
     constructor(eventBus) {
@@ -7,9 +7,9 @@ export class PremiumModel {
         this.eventBus.on(PREMIUM_EVENTS.GET_LINK, this.getInviteLink.bind(this));
     }
 
-    getInviteLink(){
+    getInviteLink() {
         Api.getLink().then((response) =>{
-            if(response.status === 200){
+            if (response.status === 200) {
                 this.eventBus.emit(PREMIUM_EVENTS.GOT_LINK, response.payload);
             }
         });

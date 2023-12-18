@@ -148,9 +148,9 @@ export class FeedView extends BaseView {
      * Показ анкеты лайкнувшего человека
      * @param {Object} user - лайкнувший человек
      */
-    showLikedPerson(user){
+    showLikedPerson(user) {
         this.user = user;
-        super.render({user:user, interests: SETTINGS_LIST.interests});
+        super.render({user: user, interests: SETTINGS_LIST.interests});
         const searchBtn = this.root.querySelector('#search-btn');
         const searchForm = this.root.querySelector('.search');
         this.activateBtns();

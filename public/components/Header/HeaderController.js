@@ -20,10 +20,10 @@ export class HeaderController {
             this.globalEventBus.emit(GLOBAL_EVENTS.REDIRECT_WITH_HISTORY, data);
         });
         this.eventBus.on(MESSENGER_EVENTS.GET_PEMIUM, (link) => {
-            this.globalEventBus.emit(COMMON_EVENTS.REDIRECT_WITH_HISTORY, link)
+            this.globalEventBus.emit(COMMON_EVENTS.REDIRECT_WITH_HISTORY, link);
         });
         this.eventBus.on(MESSENGER_EVENTS.SHOW_LIKED, (element) => {
-            this.globalEventBus.emit(COMMON_EVENTS.SHOW_LIKED, element)
+            this.globalEventBus.emit(COMMON_EVENTS.SHOW_LIKED, element);
         });
     }
 }

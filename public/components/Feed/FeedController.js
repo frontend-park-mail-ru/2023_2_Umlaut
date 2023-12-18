@@ -1,7 +1,7 @@
 import {FeedView} from './FeedView.js';
 import {FeedModel} from './FeedModel.js';
 import {BaseController} from '../BaseController.js';
-import {COMMON_EVENTS, GLOBAL_EVENTS} from '../../lib/constansts.js';
+import {COMMON_EVENTS, GLOBAL_EVENTS, FEED_EVENTS} from '../../lib/constansts.js';
 
 /**
  * Класс контроллера ленты
@@ -16,7 +16,7 @@ export class FeedController extends BaseController {
         this.eventBus.on(GLOBAL_EVENTS.POPUP_COMPLAINT, (data) =>
             this.globalEventBus.emit(GLOBAL_EVENTS.POPUP_COMPLAINT, data));
         this.globalEventBus.on(COMMON_EVENTS.SHOW_LIKED, (element) => {
-            this.eventBus.emit(FEED_EVENTS.SHOW_LIKED, element)
+            this.eventBus.emit(FEED_EVENTS.SHOW_LIKED, element);
         });
     }
 }

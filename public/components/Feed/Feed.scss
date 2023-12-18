@@ -172,6 +172,7 @@
     z-index: 5;
     aspect-ratio: 1 / 1;
     display: flex;
+    align-items: center;
   }
 
   &__search-btn {
@@ -180,6 +181,7 @@
 
   &__search-text{
     color: var(--dark-blue-color);
+    font-size: 22px;
     @media (max-width: $phone-max-width) {
       display: none;
     }

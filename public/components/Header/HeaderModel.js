@@ -52,7 +52,7 @@ export class HeaderModel {
     /**
      * Получает диалоги и пары для отображения в боковом меню
      */
-    getLiked(){
+    getLiked() {
         Api.getLiked().then( handleStatuses(
             (response) => {
                 if ( response.status === 200) {

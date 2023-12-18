@@ -34,10 +34,11 @@ export class HeaderView {
         const menuBtn = document.querySelector('.main__menu-btn');
         menuBtn.removeEventListener('click', this.showMenu);
 
-        if(user.role===2)
-            user.premium = true
-        else
+        if (user.role === 2) {
+            user.premium = true;
+        } else {
             user.premium = false;
+        }
         this.parent.innerHTML = this.template(user);
         this.sidePlace.innerHTML = this.side(user);
         this.eventBus.emit(MESSENGER_EVENTS.GET_PAIRS_AND_DIALOGS);
@@ -88,7 +89,7 @@ export class HeaderView {
      */
     gotLiked(data) {
         const pairs = this.sidePlace.querySelector('#liked');
-        if(!data.show){
+        if (!data.show) {
             data.likes.forEach((element) => {
                 const pair = document.createElement('img');
                 pair.className = 'sidebar__photo-avatar';
@@ -98,8 +99,7 @@ export class HeaderView {
                     this.eventBus.emit(MESSENGER_EVENTS.GET_PEMIUM, '/premium');
                 });
             });
-        }
-        else{
+        } else {
             data.likes.forEach((element) => {
                 const pair = document.createElement('img');
                 pair.className = 'sidebar__photo-avatar';

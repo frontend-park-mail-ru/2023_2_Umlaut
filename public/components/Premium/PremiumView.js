@@ -1,5 +1,5 @@
 import {BaseView} from '../BaseView.js';
-import { PREMIUM_EVENTS } from "../../lib/constansts.js";
+import {PREMIUM_EVENTS} from '../../lib/constansts.js';
 import './Premium.scss';
 
 export class PremiumView extends BaseView {
@@ -11,9 +11,10 @@ export class PremiumView extends BaseView {
     }
 
     render(link) {
-        if(!link)
+        if (!link) {
             this.eventBus.emit(PREMIUM_EVENTS.GET_LINK);
-        else
+        } else {
             super.render(link);
+        }
     }
 }
