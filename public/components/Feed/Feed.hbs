@@ -8,8 +8,8 @@
     </div>
   {{else}}
     <div class="form-feed__user-part">
-      {{#if user.id}}
-        {{> Description}}
+      {{#if user}}
+        {{> Description user}}
         <div class="form-feed__buttons">
           <button
             type="button"

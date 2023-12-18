@@ -2,6 +2,7 @@ import {BaseView} from '../BaseView.js';
 import {MESSENGER_EVENTS} from '../../lib/constansts.js';
 import {Carousel} from '../Carousel/Carousel.js';
 import './Messenger.scss';
+import {fromHTML} from '../../lib/util.js';
 
 /**
  * Класс отображения мессенджера
@@ -13,7 +14,6 @@ export class MessengerView extends BaseView {
         this.eventBus.on(MESSENGER_EVENTS.NEW_MESSAGE_IN_THIS_DIALOG, this.createMessage.bind(this));
         this.eventBus.on(MESSENGER_EVENTS.SENT, this.createMessage.bind(this));
         this.eventBus.on(MESSENGER_EVENTS.NEW_MESSAGE_IN_OTHER_DIALOG, this.newMessageOtherDialog.bind(this));
-        this.dialogPreviewTemplate = require('./DialogPreview.hbs');
         this.dialog = require('./MessengerWindow.hbs');
         this.dialogWindow = null;
         this.dialogListView = null;
@@ -114,8 +114,7 @@ export class MessengerView extends BaseView {
             windowDialog.appendChild(unread);
         }
 
-        const mesElem = document.createElement('div');
-        mesElem.innerHTML = this.message({text: mes.message_text, time: mes.created_at});
+        const mesElem = fromHTML(this.message({text: mes.message_text, time: mes.created_at}));
         if (mes.sender_id === this.my_id) {
             const myMes = mesElem.querySelector('.dialog-window__message');
             myMes.className = 'dialog-window__message dialog-window__message_me';

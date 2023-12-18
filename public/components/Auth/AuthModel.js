@@ -41,18 +41,32 @@ export class AuthModel {
      * @param {object} data - параметры для регистрации
      */
     signUp(data) {
+        const path = window.location.pathname;
+        const invitedBy = path.split('/').slice(-1);
+        if (invitedBy !== 'signup') {
+            data.invited_by = invitedBy;
+        }
         Api.signup(data).then(
             (response) => {
-                if (response.status === 200) {
+                switch (response.status) {
+                case 200:
                     this.isAuthorised();
-                } else if (response.status === 400) {
+                    break;
+                case 400:
                     this.eventBus.emit(AUTH_EVENTS.INVALID_AUTH, {message: 'Неправильный запрос'});
-                } else if (response.status === 404) {
+                    break;
+                case 404:
                     this.eventBus.emit(AUTH_EVENTS.INVALID_AUTH, {message: 'Страница не найдена'});
-                } else if (response.status === 401) {
+                    break;
+                case 401:
                     this.eventBus.emit(AUTH_EVENTS.INVALID_AUTH, {message: 'Невeрный email или пароль'});
-                } else {
+                    break;
+                case 414:
+                    this.eventBus.emit(AUTH_EVENTS.INVALID_AUTH, {message: 'Неверная ссылка'});
+                    break;
+                default:
                     this.eventBus.emit(AUTH_EVENTS.INVALID_AUTH, {message: 'Неожиданная ошибка'});
+                    break;
                 }
             },
         );
@@ -74,7 +88,7 @@ export class AuthModel {
                 } else if (response.status === 401) {
                     this.eventBus.emit(COMMON_EVENTS.UNAUTH);
                 } else if (response.status === 403) {
-                    this.eventBus.emit(GLOBAL_EVENTS.UNAUTH);
+                    this.eventBus.emit(GLOBAL_EVENTS.USER_BANNED);
                 } else if (response.status >= 500) {
                     this.eventBus.emit(COMMON_EVENTS.NETWORK_ERROR);
                 }

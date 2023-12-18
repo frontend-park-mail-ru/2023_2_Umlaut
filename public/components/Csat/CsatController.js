@@ -1,5 +1,5 @@
 import {CsatView} from './CsatView.js';
-import {Api} from '../../lib/api.js';
+import {Api, handleStatuses} from '../../lib/api.js';
 import {BaseController} from '../BaseController.js';
 import {GLOBAL_EVENTS} from '../../lib/constansts.js';
 
@@ -27,15 +27,14 @@ export class CsatController extends BaseController {
             return;
         }
 
-        Api.csat().then((responce) => {
+        Api.csat().then( handleStatuses( (responce) => {
             if (responce.status === 200) {
                 if (responce.payload !== 0) {
                     setTimeout( () => this.view.render(responce.payload), 2000);
                 }
                 this.showChecked = true;
-            } else if ( responce.status === 401) {
-                this.globalEventBus.emit(GLOBAL_EVENTS.UNAUTH);
             }
-        });
+        },
+        this.eventBus));
     }
 }
