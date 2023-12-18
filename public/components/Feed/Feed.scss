@@ -102,7 +102,7 @@
     box-shadow: 0px 0px 5px 1px rgba(34, 60, 80, 0.2);
     background-color: #ffffff;
     display: grid;
-    max-width: min(90vw, 1000px);
+    width: min(80vw, 900px);
     grid-template-columns: min(max(280px, 31vw), 450px) minmax(0, 1fr);
     grid-template-rows: min(max(450px, 60vh), 600px);
     overflow: hidden;
@@ -162,16 +162,27 @@
     flex-direction: column;
   }
 
-  &__search-btn {
+  &__search {
     user-select: none;
     height: min(6vh, 60px);
-    margin-left: auto;
     cursor: pointer;
     position: absolute;
     right: 1vw;
     top: 10px;
     z-index: 5;
     aspect-ratio: 1 / 1;
+    display: flex;
+  }
+
+  &__search-btn {
+    height: min(6vh, 60px);
+  }
+
+  &__search-text{
+    color: var(--dark-blue-color);
+    @media (max-width: $phone-max-width) {
+      display: none;
+    }
   }
 
   &__complain {

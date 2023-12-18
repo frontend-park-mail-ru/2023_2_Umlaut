@@ -42,7 +42,7 @@ export class AuthModel {
      */
     signUp(data) {
         const path = window.location.pathname;
-        const invitedBy = path.split('/').slice(-1);
+        const invitedBy = path.substring(path.lastIndexOf('/')+1);
         if (invitedBy !== 'signup') {
             data.invited_by = invitedBy;
         }
@@ -83,7 +83,8 @@ export class AuthModel {
                     if (window.location.pathname === '/auth') {
                         this.eventBus.emit(GLOBAL_EVENTS.REDIRECT, '/feed');
                     } else if (window.location.pathname === '/signup') {
-                        this.eventBus.emit(GLOBAL_EVENTS.REDIRECT, '/settings');
+                        this.eventBus.emit(GLOBAL_EVENTS.REDIRECT, '/feed');
+                        this.eventBus.emit(GLOBAL_EVENTS.POPUP_SETTINGS);
                     }
                 } else if (response.status === 401) {
                     this.eventBus.emit(COMMON_EVENTS.UNAUTH);

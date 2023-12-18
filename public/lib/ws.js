@@ -31,9 +31,9 @@ export class WebSocketWrapper {
             this.closeSubscribers.forEach((handler) => {
                 handler(event);
             });
-            if (event.wasClean === false) {
-                setTimeout(this.connect.bind(this), 1000);
-            }
+            // if (event.wasClean === false) {
+            //     setTimeout(this.connect.bind(this), 1000);
+            // }
         };
         // this.socket.onerror = (event) => {
         //     this.errorSubscribers.forEach((handler) => {

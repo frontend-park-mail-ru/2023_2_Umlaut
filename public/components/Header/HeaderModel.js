@@ -8,6 +8,7 @@ export class HeaderModel {
     constructor(eventBus) {
         this.eventBus = eventBus;
         this.eventBus.on(MESSENGER_EVENTS.GET_PAIRS_AND_DIALOGS, this.getDialogs.bind(this));
+        this.eventBus.on(MESSENGER_EVENTS.GET_LIKED, this.getLiked.bind(this));
     }
 
     /**
@@ -42,6 +43,34 @@ export class HeaderModel {
                     });
                     this.eventBus.emit(MESSENGER_EVENTS.DIALOGS_READY, dialogs);
                     this.eventBus.emit(MESSENGER_EVENTS.PAIRS_READY, pairs);
+                }
+            },
+            this.eventBus),
+        );
+    }
+
+    /**
+     * Получает диалоги и пары для отображения в боковом меню
+     */
+    getLiked(){
+        Api.getLiked().then( handleStatuses(
+            (response) => {
+                if ( response.status === 200) {
+                    const liked = [];
+                    if (!response.payload.likes) {
+                        this.eventBus.emit(MESSENGER_EVENTS.LIKED_READY, liked);
+                        return;
+                    }
+                    response.payload.likes.forEach((element) => {
+                        element.user_dialog_id = element.id;
+                        if (element.сompanion_image_paths && element.сompanion_image_paths.length > 0) {
+                            element.photo = element.сompanion_image_paths[0];
+                        } else {
+                            element.photo = DEFAULT_PHOTO;
+                        }
+                        liked.push(element);
+                    });
+                    this.eventBus.emit(MESSENGER_EVENTS.LIKED_READY, liked);
                 }
             },
             this.eventBus),

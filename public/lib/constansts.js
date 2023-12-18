@@ -21,6 +21,8 @@ export const URLS = {
     getTags: '/api/v1/tag',
     complaint: '/api/v1/complaint',
     adminComplaint: '/api/v1/admin/complaint',
+    getLiked: '/api/v1/premium/likes',
+    getLink: '/api/v1/user/share'
 };
 
 export const SETTINGS_LIST = {
@@ -93,6 +95,7 @@ export const GLOBAL_EVENTS = {
     ADMIN_AUTH: 'AdminAuth',
     USER_BANNED: 'UserBanned',
     POPUP_COMPLAINT: 'gjnj',
+    POPUP_MATCH: 'PopupMatch',
 };
 
 export const AUTH_EVENTS = {
@@ -138,6 +141,8 @@ export const MESSENGER_EVENTS = {
     MARK_AS_READ: 'lkjh',
     ERROR: 'error',
     SENT: 'MessageSent',
+    GET_PAIRS_AND_DIALOGS: "GetPairsAndDialogs",
+    GET_LIKED: 'GetLiked'
 };
 
 export const POPUP_EVENTS = {
@@ -170,5 +175,10 @@ export const COMMON_EVENTS = {
     OFFLINE: 'Offline',
     ONLINE: 'Online',
 };
+
+export const PREMIUM_EVENTS = {
+    GET_LINK: "GettingLink",
+    GOT_LINK: "LinkIsReady",
+}
 
 export const CSAT_URL = '/csat/';

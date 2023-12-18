@@ -12,6 +12,7 @@ export class HeaderView {
         this.eventBus.on(COMMON_EVENTS.AUTH, this.render.bind(this));
         this.eventBus.on(COMMON_EVENTS.UNAUTH, this.renderU.bind(this));
         this.eventBus.on(MESSENGER_EVENTS.PAIRS_READY, this.gotPairs.bind(this));
+        this.eventBus.on(MESSENGER_EVENTS.LIKED_READY, this.gotLiked.bind(this));
         this.eventBus.on(MESSENGER_EVENTS.DIALOGS_READY, this.gotDialogs.bind(this));
         this.parent = root;
         this.template = require('./Header.hbs');
@@ -33,9 +34,14 @@ export class HeaderView {
         const menuBtn = document.querySelector('.main__menu-btn');
         menuBtn.removeEventListener('click', this.showMenu);
 
+        if(user.role===2)
+            user.premium = true
+        else
+            user.premium = false;
         this.parent.innerHTML = this.template(user);
         this.sidePlace.innerHTML = this.side(user);
         this.eventBus.emit(MESSENGER_EVENTS.GET_PAIRS_AND_DIALOGS);
+        this.eventBus.emit(MESSENGER_EVENTS.GET_LIKED);
         menuBtn.style.display = 'block';
 
         menuBtn.addEventListener('click', this.showMenu);
@@ -64,7 +70,7 @@ export class HeaderView {
      * @param {Object} data - пары
      */
     gotPairs(data) {
-        const pairs = this.sidePlace.querySelector('.sidebar__pairs');
+        const pairs = this.sidePlace.querySelector('#pairs');
         data.forEach((element) => {
             const pair = document.createElement('img');
             pair.className = 'sidebar__photo-avatar';
@@ -74,6 +80,36 @@ export class HeaderView {
                 this.eventBus.emit(MESSENGER_EVENTS.GET_MESSAGES, `/messages/${element.id}`);
             });
         });
+    }
+
+    /**
+     * Рендерит тех кто лайкнул пользователя в боковое меню
+     * @param {Object} data - лайкнувшие
+     */
+    gotLiked(data) {
+        const pairs = this.sidePlace.querySelector('#liked');
+        if(!data.show){
+            data.likes.forEach((element) => {
+                const pair = document.createElement('img');
+                pair.className = 'sidebar__photo-avatar';
+                pair.src = element.photo;
+                pairs.appendChild(pair);
+                pair.addEventListener('click', ()=>{
+                    this.eventBus.emit(MESSENGER_EVENTS.GET_PEMIUM, '/premium');
+                });
+            });
+        }
+        else{
+            data.likes.forEach((element) => {
+                const pair = document.createElement('img');
+                pair.className = 'sidebar__photo-avatar';
+                pair.src = element.photo;
+                pairs.appendChild(pair);
+                pair.addEventListener('click', ()=>{
+                    this.eventBus.emit(MESSENGER_EVENTS.SHOW_LIKED, element);
+                });
+            });
+        }
     }
 
     /**
