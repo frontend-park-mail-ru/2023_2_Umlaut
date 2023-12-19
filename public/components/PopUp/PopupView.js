@@ -38,6 +38,22 @@ export class PopupView {
     }
 
     /**
+     * Отрисовывает попап-уведомление о том что нужно заполнить настройки
+     */
+    renderPopupAboutSettings() {
+        const notification = this.popup.querySelector('.popup__notify');
+        this.popup.querySelector('.popup__text').textContent = 
+        "Ваш аккаунт сейчас не виден пользователям с полной анкетой, заполните свои настройки чтобы снять это ограничение";
+        notification.style.visibility = 'visible';
+        notification.style.opacity = 0.6;
+        notification.className = '.popup__settings'
+        setTimeout(() => {
+            this.close();
+        }, 10000);
+    }
+
+
+    /**
      * Отрисовывает попап-подтверждение
      * @param {Object} data - text: информация которую нужно отобразить и func:действие в случае "да"
      */
