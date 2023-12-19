@@ -118,6 +118,8 @@ export class FeedView extends BaseView {
         };
         this.dislikeBtn.addEventListener('click', this.dislikeFunc);
         this.likeBtn.addEventListener('click', this.likeFunc);
+        this.dislikeBtn.disabled = false;
+        this.likeBtn.disabled = false;
     }
 
     /**
@@ -127,6 +129,8 @@ export class FeedView extends BaseView {
         if (this.dislikeBtn) {
             this.dislikeBtn.removeEventListener('click', this.dislikeFunc);
             this.likeBtn.removeEventListener('click', this.likeFunc);
+            this.dislikeBtn.disabled = true;
+            this.likeBtn.disabled = true;
         }
     }
 
