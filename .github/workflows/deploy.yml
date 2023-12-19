@@ -12,6 +12,7 @@ on:
         options:
         - prod
         - develop
+        - deploy
 
 jobs:
   build:
