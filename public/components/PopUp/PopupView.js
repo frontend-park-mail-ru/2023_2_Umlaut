@@ -47,7 +47,7 @@ export class PopupView {
         заполните свои настройки чтобы снять это ограничение`;
         notification.style.visibility = 'visible';
         notification.style.opacity = 0.6;
-        notification.className = '.popup__settings';
+        notification.className = 'popup__settings';
         setTimeout(() => {
             notification.style.opacity = 0;
             notification.style.visibility = 'hidden';

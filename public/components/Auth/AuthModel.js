@@ -43,7 +43,7 @@ export class AuthModel {
     signUp(data) {
         const path = window.location.pathname;
         const invitedBy = path.substring(path.lastIndexOf('/') + 1);
-        if (invitedBy !== 'signup') {
+        if (invitedBy !== 'signup' && invitedBy!=='auth') {
             data.invited_by = invitedBy;
         }
         Api.signup(data).then(
