@@ -42,11 +42,12 @@ export class PopupView {
      */
     renderPopupAboutSettings() {
         const notification = this.popup.querySelector('.popup__notify');
-        this.popup.querySelector('.popup__text').textContent = 
-        "Ваш аккаунт сейчас не виден пользователям с полной анкетой, заполните свои настройки чтобы снять это ограничение";
+        this.popup.querySelector('.popup__text').textContent =
+        `Ваш аккаунт сейчас не виден пользователям с полной анкетой, 
+        заполните свои настройки чтобы снять это ограничение`;
         notification.style.visibility = 'visible';
         notification.style.opacity = 0.6;
-        notification.className = '.popup__settings'
+        notification.className = '.popup__settings';
         setTimeout(() => {
             this.close();
         }, 10000);
@@ -157,7 +158,7 @@ export class PopupView {
         });
 
         textInput.addEventListener('input', () => {
-            if (!this.choosenVariant || !this.choosenVariant.classList.contains('need_text')) {
+            if ( !this.choosenVariant?.classList.contains('need_text')) {
                 return;
             }
             if (textInput.value.trim() === '') {

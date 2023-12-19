@@ -1,6 +1,7 @@
-import {MESSENGER_EVENTS, COMMON_EVENTS} from '../../lib/constansts.js';
+import {MESSENGER_EVENTS, COMMON_EVENTS, WEBSOCKET_URL} from '../../lib/constansts.js';
 import {WebSocketWrapper} from '../../lib/ws.js';
 import {Api} from '../../lib/api.js';
+import {nthIndex} from '../../lib/util.js';
 
 /**
  * Класс, отвечающий за логику мессенджера
@@ -11,7 +12,7 @@ export class MessengerModel {
         this.eventBus.on(MESSENGER_EVENTS.SEND_MESSAGE, this.sendMessage.bind(this));
         this.eventBus.on(MESSENGER_EVENTS.GET_MESSAGES, this.getMessages.bind(this));
         this.eventBus.on(MESSENGER_EVENTS.MARK_AS_READ, this.markAsRead.bind(this));
-        this.socket = new WebSocketWrapper('wss://umlaut-bmstu.me/websocket');
+        this.socket = new WebSocketWrapper(WEBSOCKET_URL);
         this.eventBus.on(COMMON_EVENTS.AUTH, this.socket.connect.bind(this.socket));
         this.eventBus.on(COMMON_EVENTS.UNAUTH, this.socket.disconnect.bind(this.socket));
         this.socket.subscribe('message', (msg)=>this.gotNewMessage(msg));
@@ -37,7 +38,7 @@ export class MessengerModel {
         try {
             this.socket.send(message);
             message.created_at = `${date.getHours()}:${date.getMinutes()}`;
-            this.eventBus.emit(MESSENGER_EVENTS.SENT, message);
+            this.eventBus.emit(MESSENGER_EVENTS.SEND, message);
         } catch (e) {
             this.eventBus.emit(MESSENGER_EVENTS.ERROR, 'Ошибка сервера, сообщение не может быть отправлено');
         }
@@ -103,7 +104,7 @@ export class MessengerModel {
         const mes = JSON.parse(msg);
         if (mes.type === 'message') {
             mes.created_at = mes.created_at.slice(mes.created_at.indexOf('T') + 1,
-                this.nthIndex(mes.created_at, ':', 2));
+                nthIndex(mes.created_at, ':', 2));
             if (mes.dialog_id === this.dialog_id) {
                 this.eventBus.emit(MESSENGER_EVENTS.NEW_MESSAGE_IN_THIS_DIALOG, mes.payload);
             } else {
@@ -112,21 +113,5 @@ export class MessengerModel {
         } else if (mes.type === 'match') {
             this.eventBus.emit(MESSENGER_EVENTS.MATCH, mes.payload);
         }
-    }
-
-    /**
-     * Обрезает строку по подстроке и возвращает индекс конкретного по счету
-     * @param {String} str - строка которую нужно обрезать
-     * @param {String} pat - подстрока по которой нужно обрезать
-     * @param {Int} n - номер символа индекс которого нужно вернуть
-     * @return {Int} - индекс нужного символа
-     */
-    nthIndex(str, pat, n) {
-        const L = str.length; let i = -1;
-        while (n-- && i++ < L) {
-            i = str.indexOf(pat, i);
-            if (i < 0) break;
-        }
-        return i;
     }
 }

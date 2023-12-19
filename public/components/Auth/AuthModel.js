@@ -82,7 +82,7 @@ export class AuthModel {
                     this.eventBus.emit(COMMON_EVENTS.AUTH, response.payload);
                     if (window.location.pathname === '/auth') {
                         this.eventBus.emit(GLOBAL_EVENTS.REDIRECT, '/feed');
-                    } else if (window.location.pathname === '/signup') {
+                    } else if (window.location.pathname.startsWith('/signup')) {
                         this.eventBus.emit(GLOBAL_EVENTS.REDIRECT, '/feed');
                         this.eventBus.emit(GLOBAL_EVENTS.POPUP_SETTINGS);
                     }

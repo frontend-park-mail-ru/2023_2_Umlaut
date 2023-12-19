@@ -2,6 +2,7 @@ import {BaseView} from '../BaseView.js';
 import {MESSENGER_EVENTS} from '../../lib/constansts.js';
 import {Carousel} from '../Carousel/Carousel.js';
 import './Messenger.scss';
+import {nthIndex} from '../../lib/util.js';
 
 /**
  * Класс отображения мессенджера
@@ -11,7 +12,7 @@ export class MessengerView extends BaseView {
         super(root, eventBus, require('./Messenger.hbs'));
         this.eventBus.on(MESSENGER_EVENTS.MESSAGES_READY, this.openDialog.bind(this));
         this.eventBus.on(MESSENGER_EVENTS.NEW_MESSAGE_IN_THIS_DIALOG, this.createMessage.bind(this));
-        this.eventBus.on(MESSENGER_EVENTS.SENT, this.createMessage.bind(this));
+        this.eventBus.on(MESSENGER_EVENTS.SEND, this.createMessage.bind(this));
         this.eventBus.on(MESSENGER_EVENTS.NEW_MESSAGE_IN_OTHER_DIALOG, this.newMessageOtherDialog.bind(this));
         this.dialog = require('./MessengerWindow.hbs');
         this.dialogWindow = null;
@@ -88,7 +89,7 @@ export class MessengerView extends BaseView {
     openDialogMessages(data) {
         data.dialogs.forEach((mes) => {
             mes.created_at = mes.created_at.slice(mes.created_at.indexOf('T') + 1,
-                this.nthIndex(mes.created_at, ':', 2));
+                nthIndex(mes.created_at, ':', 2));
             this.createMessage(mes);
         });
     }
@@ -137,23 +138,6 @@ export class MessengerView extends BaseView {
         this.dialogWindow = null;
         this.dialogListView = null;
         this.dialogList = null;
-    }
-
-
-    /**
-     * Обрезает строку по подстроке и возвращает индекс конкретного по счету
-     * @param {String} str - строка которую нужно обрезать
-     * @param {String} pat - подстрока по которой нужно обрезать
-     * @param {Int} n - номер символа индекс которого нужно вернуть
-     * @return {Int} - индекс нужного символа
-     */
-    nthIndex(str, pat, n) {
-        const L = str.length; let i = -1;
-        while (n-- && i++ < L) {
-            i = str.indexOf(pat, i);
-            if (i < 0) break;
-        }
-        return i;
     }
 
     /**
