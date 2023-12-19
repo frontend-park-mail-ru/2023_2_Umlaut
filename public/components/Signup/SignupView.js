@@ -65,6 +65,9 @@ export class SignupView extends BaseView {
         });
     }
 
+    /**
+     * Закрытие страницы регистрации
+     */
     close() {
         super.close();
         this.mailInput = null;
@@ -107,6 +110,7 @@ export class SignupView extends BaseView {
     }
 
     /**
+     * Отправка данных с формы регистрации
      * @param {SubmitEvent} event
      */
     onSubmit(event) {

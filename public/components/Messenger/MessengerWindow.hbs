@@ -1,5 +1,10 @@
-<div class="dialog-window__name">
-    {{name}}
+<div class="dialog-window__user">
+    {{#if user.image_paths}}
+        <img src="{{{user.image_paths.[0]}}}" class="header__photo-avatar" alt=""/>
+    {{else}}
+        <img src="/pics/avatar.png" class="header__photo-avatar" alt=""/>
+    {{/if}}
+    <span class="dialog-window__name">{{user.name}}</span> 
 </div>
 <div class="dialog-window__dialog">
     

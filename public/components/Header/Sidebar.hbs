@@ -1,0 +1,32 @@
+{{#if id}}
+    <div class="sidebar__header">
+        <a class="header__photo" href="/settings">
+            {{#if image_paths}}
+                <img src="{{{image_paths.[0]}}}" class="header__photo-avatar" alt=""/>
+            {{else}}
+                <img src="/pics/avatar.png" class="header__photo-avatar" alt=""/>
+            {{/if}}
+        </a>
+        <a class="link link_black" href="/settings">
+            {{#if name}}
+                <span>{{name}}</span>
+            {{/if}}
+        </a>
+    </div>
+    <a href="/premium" class="sidebar__buy-premium link">
+        <img class="sidebar__premium-img" src="/pics/lightning.png">
+        Получить премиум
+    </a>
+    <div class="sidebar__part">
+        <span class="sidebar__pairs-header">Вас лайкнули</span>
+        <div id="liked" class="sidebar__pairs"></div>
+    </div>
+    <div class="sidebar__part">
+        <span class="sidebar__pairs-header">Взаимные пары</span>
+        <div id="pairs" class="sidebar__pairs"></div>
+    </div>
+    <div class="sidebar__part">
+        <span class="sidebar__pairs-header">Диалоги</span>
+        <div class="sidebar__dialogs"></div>
+    </div>
+{{/if}}

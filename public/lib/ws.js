@@ -31,13 +31,15 @@ export class WebSocketWrapper {
             this.closeSubscribers.forEach((handler) => {
                 handler(event);
             });
-            setTimeout(this.connect.bind(this), 1000);
+            // if (event.wasClean === false) {
+            //     setTimeout(this.connect.bind(this), 1000);
+            // }
         };
-        this.socket.onerror = (event) => {
-            this.errorSubscribers.forEach((handler) => {
-                handler(event);
-            });
-        };
+        // this.socket.onerror = (event) => {
+        //     this.errorSubscribers.forEach((handler) => {
+        //         handler(event);
+        //     });
+        // };
     }
 
     disconnect() {
@@ -70,9 +72,10 @@ export class WebSocketWrapper {
 
     send(dataObject) {
         try {
-            Promise.resolve(this.socket.send(JSON.stringify(dataObject)));
+            this.socket.send(JSON.stringify(dataObject));
         } catch (e) {
             console.log('not connected');
+            e;
             throw e;
         }
     }

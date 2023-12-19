@@ -58,6 +58,41 @@
     }
   }
 
+  &__bullets {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    position: absolute;
+    top:20px;
+    left: 50%;
+    z-index: 3;
+    transform: translate(-50%, 0);
+  }
+
+  &__bullet {
+    
+    transform-origin: center;
+    cursor: pointer;
+    padding: 3px;
+    transition: all .25s ease-in-out;
+    &--active {
+      cursor: default;
+    }
+    &-circle {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background-color: rgba(128, 128, 128, 0.6);
+      transition: all .25s ease-in-out;
+      &--big {
+        transform: scale(1.25);
+        background-color: #eca4b8;
+      }
+    }
+  }
+
+
+
   &__prev {
     left: 2%;
     align-items: start;

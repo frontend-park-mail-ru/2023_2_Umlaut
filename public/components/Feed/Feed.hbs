@@ -1,4 +1,7 @@
-<img src="/pics/search.png" class="form-feed__search-btn" id="search-btn" />
+<div class="form-feed__search" id="search-btn">
+  <img src="/pics/search.png" class="form-feed__search-btn" />
+  <span class="form-feed__search-text">Фильтры</span>
+</div>
 <div class="form-feed">
   {{#if noPeople}}
     <div class="form-feed__no-people">
@@ -8,22 +11,26 @@
     </div>
   {{else}}
     <div class="form-feed__user-part">
-      {{#if id}}
-        {{> Description}}
+      {{#if user}}
+        {{> Description user}}
         <div class="form-feed__buttons">
           <button
             type="button"
             id="dislike"
-            class="form-feed__button form-feed__button-dislike"
+            class="form-feed__button"
           >
-            <img class="form-feed__button-img" src="/pics/heart-dislike.png" />
+            <svg viewBox="0 0 24 24" class="form-feed__button-img form-feed__button-img-dislike" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M16 8L8 16M8.00001 8L16 16" stroke-width="2.112" stroke-linecap="round" stroke-linejoin="round"></path>
+            </svg>
           </button>
           <button
             type="button"
             id="like"
-            class="form-feed__button form-feed__button-like"
+            class="form-feed__button"
           >
-            <img class="form-feed__button-img" src="/pics/heart-like.png" />
+            <svg viewBox="0 0 24 24" class="form-feed__button-img form-feed__button-img-like" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M4.3314 12.0474L12 20L19.6686 12.0474C20.5211 11.1633 21 9.96429 21 8.71405C21 6.11055 18.9648 4 16.4543 4C15.2487 4 14.0925 4.49666 13.24 5.38071L12 6.66667L10.76 5.38071C9.90749 4.49666 8.75128 4 7.54569 4C5.03517 4 3 6.11055 3 8.71405C3 9.96429 3.47892 11.1633 4.3314 12.0474Z" stroke-width="2.112" stroke-linecap="round" stroke-linejoin="round"></path> 
+            </svg>
           </button>
         </div>
         <span class="form-feed__complain"><span
@@ -76,26 +83,26 @@
       Возраст
       <div class="search__age">
         <div class="input-border">
-          <span
-            class="input-border__header input-border__header_white"
-          >От</span>
+          <span class="input-border__header input-border__header_white">
+            От
+          </span>
           <input
             maxlength="3"
             type="text"
             class="input-border__data-input input__data-input_password"
             id="from-age"
-          />
+            value="{{this.params.min_age}}"/>
         </div>
         <div class="input-border">
-          <span
-            class="input-border__header input-border__header_white"
-          >До</span>
+          <span class="input-border__header input-border__header_white">
+            До
+          </span>
           <input
             maxlength="3"
             type="text"
             class="input-border__data-input input__data-input_password"
             id="to-age"
-          />
+            value="{{this.params.max_age}}"/>
         </div>
       </div>
       <div class="error-label"></div>

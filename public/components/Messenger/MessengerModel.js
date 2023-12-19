@@ -1,73 +1,29 @@
 import {MESSENGER_EVENTS, COMMON_EVENTS} from '../../lib/constansts.js';
-import {DEFAULT_PHOTO} from '../../lib/constansts.js';
 import {WebSocketWrapper} from '../../lib/ws.js';
-import {Api, handleStatuses} from '../../lib/api.js';
+import {Api} from '../../lib/api.js';
 
+/**
+ * Класс, отвечающий за логику мессенджера
+ */
 export class MessengerModel {
     constructor(eventBus) {
         this.eventBus = eventBus;
-        this.eventBus.on(MESSENGER_EVENTS.GET_DIALOGS, this.getDialogs.bind(this));
-        this.eventBus.on(MESSENGER_EVENTS.GET_PAIRS, this.getPairs.bind(this));
         this.eventBus.on(MESSENGER_EVENTS.SEND_MESSAGE, this.sendMessage.bind(this));
         this.eventBus.on(MESSENGER_EVENTS.GET_MESSAGES, this.getMessages.bind(this));
         this.eventBus.on(MESSENGER_EVENTS.MARK_AS_READ, this.markAsRead.bind(this));
         this.socket = new WebSocketWrapper('wss://umlaut-bmstu.me/websocket');
         this.eventBus.on(COMMON_EVENTS.AUTH, this.socket.connect.bind(this.socket));
         this.eventBus.on(COMMON_EVENTS.UNAUTH, this.socket.disconnect.bind(this.socket));
-        this.socket.subscribe('message', (msg)=>this.gotNewMessage(msg).bind(this));
+        this.socket.subscribe('message', (msg)=>this.gotNewMessage(msg));
         this.id = null;
         this.dialog_id = null;
         this.my_id = null;
     }
 
-    getDialogs() {
-        Api.getPairs().then( handleStatuses(
-            (response) => {
-                if ( response.status === 200) {
-                    const dialogs = [];
-                    response.payload.forEach((element) => {
-                        if (element.last_message !== null) {
-                            element.user_dialog_id = `${element.id}_${element.user1_id}`;
-                            this.my_id = element.user2_id;
-                            dialogs.push(element);
-                        }
-                        if (element.сompanion_image_paths && element.сompanion_image_paths.length > 0) {
-                            element.photo = element.сompanion_image_paths[0];
-                        } else {
-                            element.photo = DEFAULT_PHOTO;
-                        }
-                    });
-                    this.eventBus.emit(MESSENGER_EVENTS.DIALOGS_READY, dialogs);
-                }
-            },
-            this.eventBus),
-        );
-    }
-
-    getPairs() {
-        Api.getPairs().then( handleStatuses(
-            (response) => {
-                if ( response.status === 200) {
-                    const dialogs = [];
-                    response.payload.forEach((element) => {
-                        if (element.last_message === null) {
-                            element.user_dialog_id = `${element.id}_${element.user1_id}`;
-                            this.my_id = element.user2_id;
-                            dialogs.push(element);
-                        }
-                        if (element.сompanion_image_paths && element.сompanion_image_paths.length > 0) {
-                            element.photo = element.сompanion_image_paths[0];
-                        } else {
-                            element.photo = DEFAULT_PHOTO;
-                        }
-                    });
-                    this.eventBus.emit(MESSENGER_EVENTS.PAIRS_READY, dialogs);
-                }
-            },
-            this.eventBus),
-        );
-    }
-
+    /**
+     * Отправляет сообщения
+     * @param {String} msg - текст сообщения
+     */
     sendMessage(msg) {
         const date = new Date();
         const message = {
@@ -87,6 +43,10 @@ export class MessengerModel {
         }
     }
 
+    /**
+     * Отмечает сообщения в диалоге как прочитанные
+     * @param {Object} data - сообщения, которые надо отметить прочитанными
+     */
     markAsRead(data) {
         data.forEach((msg) => {
             if (!msg.is_read) {
@@ -102,37 +62,65 @@ export class MessengerModel {
         });
     }
 
-    getMessages(userData) {
-        this.dialog_id = Number(userData.id.slice(0, userData.id.indexOf('_')));
-        this.id = Number(userData.id.slice(userData.id.indexOf('_') + 1));
-        Api.getMessages(this.dialog_id).then((response)=>{
-            if (response.status === 200) {
-                const data = {};
-                data.dialogs = response.payload;
-                if (data.dialogs === null) {
-                    data.dialogs = [];
-                } else {
-                    this.dialog_id = data.dialogs[0].dialog_id;
-                }
-                data.my_id = this.my_id;
-                data.name = userData.name;
-                this.eventBus.emit(MESSENGER_EVENTS.MESSAGES_READY, data);
+    /**
+     * Получает все сообщения открытого сейчас диалога
+     */
+    getMessages() {
+        const path = window.location.pathname;
+        const data = {};
+        this.dialog_id = Number(path.split('/')[path.split('/').length - 1]);
+        Api.getDialogById(this.dialog_id).then((dialog)=>{
+            if (dialog.status === 200) {
+                this.my_id = dialog.payload.user2_id;
+                this.id = dialog.payload.user1_id;
+                Api.getMessages(this.id).then((response)=>{
+                    if (response.status === 200) {
+                        data.dialogs = response.payload;
+                        if (data.dialogs === null) {
+                            data.dialogs = [];
+                        } else {
+                            this.dialog_id = data.dialogs[0].dialog_id;
+                        }
+                        Api.getUserById(this.id).then((user2)=>{
+                            if (user2.status === 200) {
+                                data.user = user2.payload;
+                                data.my_id = this.my_id;
+                                this.eventBus.emit(MESSENGER_EVENTS.MESSAGES_READY, data);
+                            }
+                        });
+                    }
+                });
             }
         });
     }
 
 
+    /**
+     * Получает новые сообщения и уведомления о мэтчах
+     * @param {Object} msg - новое сообщение
+     */
     gotNewMessage(msg) {
         const mes = JSON.parse(msg);
-        mes.created_at = mes.created_at.slice(mes.created_at.indexOf('T') + 1,
-            this.nthIndex(mes.created_at, ':', 2));
-        if (mes.dialog_id === this.dialog_id) {
-            this.eventBus.emit(MESSENGER_EVENTS.NEW_MESSAGE_IN_THIS_DIALOG, mes);
-        } else {
-            this.eventBus.emit(MESSENGER_EVENTS.NEW_MESSAGE_IN_OTHER_DIALOG, mes);
+        if (mes.type === 'message') {
+            mes.created_at = mes.created_at.slice(mes.created_at.indexOf('T') + 1,
+                this.nthIndex(mes.created_at, ':', 2));
+            if (mes.dialog_id === this.dialog_id) {
+                this.eventBus.emit(MESSENGER_EVENTS.NEW_MESSAGE_IN_THIS_DIALOG, mes.payload);
+            } else {
+                this.eventBus.emit(MESSENGER_EVENTS.NEW_MESSAGE_IN_OTHER_DIALOG, mes.payload);
+            }
+        } else if (mes.type === 'match') {
+            this.eventBus.emit(MESSENGER_EVENTS.MATCH, mes.payload);
         }
     }
 
+    /**
+     * Обрезает строку по подстроке и возвращает индекс конкретного по счету
+     * @param {String} str - строка которую нужно обрезать
+     * @param {String} pat - подстрока по которой нужно обрезать
+     * @param {Int} n - номер символа индекс которого нужно вернуть
+     * @return {Int} - индекс нужного символа
+     */
     nthIndex(str, pat, n) {
         const L = str.length; let i = -1;
         while (n-- && i++ < L) {

@@ -1,22 +1,8 @@
 <div id="messenger" class="messenger">
-    <div class="messenger__dialogs">
-        <div class="messenger__switch">
-            <button class="btn messenger__button" id="show_dialogs">Диалоги</button>
-            <button class="btn messenger__button" id="show_pairs">Пары</button>
-        </div>
-        <div id="dialog-list" class="messenger__dialog-list">
-            {{#if dialogs}}
-                {{#each dialogs}}
-                    {{> DialogPreview.hbs}}
-                {{/each}}
-            {{else}}
-            <div class="messenger__empty-dialog">
-                У вас пока нет взаимных пар, вернитесь в <a href="/feed" class="link">ленту</a>, чтобы это исправить
-            </div>
-            {{/if}}
-        </div>
-    </div>
     <div class="dialog-window" id="dialog-window">
 
+    </div>
+    <div class="messenger__user-form">
+        
     </div>
 </div>

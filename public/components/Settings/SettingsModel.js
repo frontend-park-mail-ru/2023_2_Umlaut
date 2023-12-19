@@ -1,6 +1,9 @@
 import {COMMON_EVENTS, SETTINGS_EVENTS, SETTINGS_LIST} from '../../lib/constansts.js';
 import {Api, handleStatuses, loadTags} from '../../lib/api.js';
 
+/**
+ * Класс, отвечающий за логику настроек
+ */
 export class SettingsModel {
     constructor(eventBus) {
         this.eventBus = eventBus;
@@ -12,6 +15,10 @@ export class SettingsModel {
         this.settings = SETTINGS_LIST;
     }
 
+    /**
+     * Отправляет заполненные настройки
+     * @param {Object} data - данные настроек пользователя
+     */
     sendForm(data) {
         this.settings.user.looking = data.looking;
         this.settings.user.hobbies = data.hobbies;
@@ -33,6 +40,9 @@ export class SettingsModel {
             this.eventBus));
     }
 
+    /**
+     * Проверяет авторизован ли пользователь
+     */
     isAuthorised() {
         Api.user().then( handleStatuses(
             async (response) => {
@@ -58,6 +68,10 @@ export class SettingsModel {
         );
     }
 
+    /**
+     * Добавить фото пользователя
+     * @param {Object} file - файл фото
+     */
     addPhoto(file) {
         Api.addPhoto(file).then( handleStatuses(
             (response) => {
@@ -69,6 +83,10 @@ export class SettingsModel {
         );
     }
 
+    /**
+     * Удалить фото пользователя
+     * @param {String} photo - ссылка на фото
+     */
     deletePhoto(photo) {
         Api.deletePhoto(photo).then( handleStatuses(
             (response) => {
@@ -80,6 +98,9 @@ export class SettingsModel {
         );
     }
 
+    /**
+     * Выйти из профиля
+     */
     logout() {
         Api.logout().then( handleStatuses(
             (response) => {

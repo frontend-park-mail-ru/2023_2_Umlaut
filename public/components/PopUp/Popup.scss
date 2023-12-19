@@ -1,6 +1,7 @@
 @import "/public/lib/constants";
 .popup {
   z-index: 10;
+  position: absolute;
 
   &__notify {
     display: flex;
@@ -8,14 +9,15 @@
     align-items: center;
     position: fixed;
     visibility: hidden;
-    top: 82%;
-    left: 82%;
+    top: 80%;
+    left: 80%;
     opacity: 0;
     transition: visibility 0.5s, opacity 0.5s linear;
     width: 250px;
     height: 100px;
     border-radius: 15px;
-    background-color: #ffffff;
+    background-color: #000000;
+    padding: 10px;
     @media (max-width: $phone-max-width) {
       left: 50%;
       transform: translateX(-50%);
@@ -76,7 +78,7 @@
   }
 
   &__variant {
-    background-color: #f2adad;
+    background-color: #f2c7c7;
     width: 100%;
     padding: 4px;
     border: var(--dark-blue-color) 2px solid;
@@ -108,6 +110,48 @@
     display: flex;
     justify-content: center;
     font-size: 16px;
-    color: black;
+    color: rgb(255, 255, 255);
+
+    &_big{
+      font-size: 40px;
+      font-weight: 1000;
+    }
+  }
+
+  &__match{
+    min-height: 100vh;
+    background-color: #ff75b5de;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+  }
+
+  &__match-text{
+    font-size: 26px;
+    color: white;
+    margin: 20px;
+  }
+
+  &__match-buttons{
+    margin: 10px;
+  }
+
+  &__dialog-link{
+    background-color: #ff0078;
+    padding: 8px;
+    border-radius: 15px;
+  }
+
+  &__or{
+    margin: 0 13px;
+  }
+
+  &__feed-link{
+    background-color: #e662a0;
+    padding: 8px;
+    border-radius: 15px;
   }
 }

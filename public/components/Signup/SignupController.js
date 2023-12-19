@@ -3,7 +3,9 @@ import {AuthModel} from '../Auth/AuthModel.js';
 import {BaseController} from '../BaseController.js';
 import {AUTH_EVENTS, COMMON_EVENTS, GLOBAL_EVENTS} from '../../lib/constansts.js';
 
-
+/**
+ * Класс контроллера, отвечающий за регистрацию нового аккаунта
+ */
 export class SignupController extends BaseController {
     constructor(root, globalEventBus) {
         super(globalEventBus);
@@ -13,6 +15,9 @@ export class SignupController extends BaseController {
         this.eventBus.on(COMMON_EVENTS.AUTH, () => this.globalEventBus.emit(GLOBAL_EVENTS.AUTH));
     }
 
+    /**
+     * Рендер страницы регистрации
+     */
     render() {
         this.eventBus.emit(AUTH_EVENTS.CHECK_AUTHORISED);
     }

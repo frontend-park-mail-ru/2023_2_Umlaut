@@ -5,6 +5,14 @@
   width: 100%;
   height: calc(100vh - 65px);
 
+  &__user-form{
+    display: flex;
+    flex-direction: column;
+    max-width: 25%;
+    height: calc(100vh - var(--header-height));
+    overflow: auto;
+  }
+
   &__dialogs {
     background-color: var(--dialog-grey);
     width: var(--dialogs-width);
@@ -83,6 +91,7 @@
 
   &__dialog-name {
     color: white;
+    overflow: hidden;
     @media (max-width:$phone-max-width) {
       font-size: 14px;
       display: none;
@@ -91,6 +100,7 @@
 
   &__preview-message {
     font-size: 12px;
+    overflow: hidden;
   }
 }
 
@@ -102,10 +112,10 @@
     overflow: auto;
     -webkit-overflow-scrolling: touch;
     padding: 5px;
-    height: calc(
-      100vh - var(--header-height) - var(--dialog-name-height) -
-        var(--dialog-input-height) - 10px
-    );
+    height: calc(100vh - var(--header-height) 
+                       - var(--dialog-name-height) 
+                       - var(--dialog-input-height) 
+                       - 30px);
   }
 
   &__message {
@@ -128,6 +138,7 @@
     font-size: 16px;
     margin: 3px;
     word-wrap: break-word;
+    overflow: hidden;
   }
 
   &__time {
@@ -137,6 +148,8 @@
   &__input-message {
     display: flex;
     background-color: white;
+    margin: 5px 20px;
+    border-radius: 20px;
   }
 
   &__send-img {
@@ -144,11 +157,13 @@
     background-color: white;
     object-fit: cover;
     cursor: pointer;
+    border-radius: 20px;
   }
 
   &__input {
     width: 100%;
     border: none;
+    border-radius: 20px;
   }
 
   &__unread {
@@ -157,7 +172,6 @@
   }
 
   &__name {
-    background-color: #76798b;
     font-size: 30px;
     height: var(--dialog-name-height);
   }

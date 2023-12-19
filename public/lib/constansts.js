@@ -21,6 +21,8 @@ export const URLS = {
     getTags: '/api/v1/tag',
     complaint: '/api/v1/complaint',
     adminComplaint: '/api/v1/admin/complaint',
+    getLiked: '/api/v1/premium/likes',
+    getLink: '/api/v1/user/share',
 };
 
 export const SETTINGS_LIST = {
@@ -40,33 +42,33 @@ export const SETTINGS_LIST = {
 
 export const COMPLAIN_TYPES = [
     {
-        'id': 'var_1',
-        'name': 'Порнография',
+        'id': 1,
+        'type_name': 'Порнография',
     },
     {
-        'id': 'var_2',
-        'name': 'Рассылка спама',
+        'id': 2,
+        'type_name': 'Рассылка спама',
     },
     {
-        'id': 'var_3',
-        'name': 'Оскорбительное поведение',
+        'id': 3,
+        'type_name': 'Оскорбительное поведение',
     },
     {
-        'id': 'var_4',
-        'name': 'Мошенничество',
+        'id': 4,
+        'type_name': 'Мошенничество',
     },
     {
-        'id': 'var_5',
-        'name': 'Рекламная страница',
+        'id': 5,
+        'type_name': 'Рекламная страница',
     },
     {
-        'id': 'var_6',
-        'name': 'Клон моей страницы (или моя старая страница)',
+        'id': 6,
+        'type_name': 'Клон моей страницы (или моя старая страница)',
     },
     {
-        'id': 'var_input_1',
-        'name': 'Другое',
-        'text_input': true,
+        'id': 7,
+        'type_name': 'Другое',
+        'need_text': true,
     },
 ];
 
@@ -78,7 +80,8 @@ export const BACKEND_URL = 'https://umlaut-bmstu.me';
 export const DEFAULT_PHOTO = '/pics/avatar.png';
 
 export const GLOBAL_EVENTS = {
-    REDIRECT: 'Redirect',
+    REDIRECT: 'RedirectWithoutHistory',
+    REDIRECT_WITH_HISTORY: 'RedirectWithHistory',
     UNAUTH: 'Unauthorised',
     NETWORK_ERROR: 'NetworkError',
     AUTH: 'Authorised',
@@ -91,6 +94,8 @@ export const GLOBAL_EVENTS = {
     ONLINE: 'Online',
     ADMIN_AUTH: 'AdminAuth',
     USER_BANNED: 'UserBanned',
+    POPUP_COMPLAINT: 'gjnj',
+    POPUP_MATCH: 'PopupMatch',
 };
 
 export const AUTH_EVENTS = {
@@ -136,6 +141,8 @@ export const MESSENGER_EVENTS = {
     MARK_AS_READ: 'lkjh',
     ERROR: 'error',
     SENT: 'MessageSent',
+    GET_PAIRS_AND_DIALOGS: 'GetPairsAndDialogs',
+    GET_LIKED: 'GetLiked',
 };
 
 export const POPUP_EVENTS = {
@@ -165,6 +172,13 @@ export const COMMON_EVENTS = {
     NETWORK_ERROR: 'NetworkError',
     AUTH: 'Auth',
     USER_BANNED: 'UserBanned',
+    OFFLINE: 'Offline',
+    ONLINE: 'Online',
+};
+
+export const PREMIUM_EVENTS = {
+    GET_LINK: 'GettingLink',
+    GOT_LINK: 'LinkIsReady',
 };
 
 export const CSAT_URL = '/csat/';

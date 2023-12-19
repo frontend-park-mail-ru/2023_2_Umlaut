@@ -5,7 +5,7 @@
 export class Ajax {
     static _csrfToken = '';
     /**
-     * Get-запрос на бекенд
+     * Get-запрос с получением CSRF-токена на бекенд
      * @param {string} url - путь запроса
      * @return {Promise} - статус и тело ответа
      */
@@ -25,16 +25,22 @@ export class Ajax {
                     if ( contentType && contentType.indexOf('application/json') !== -1 ) {
                         return response.json();
                     } else {
-                        return Promise.resolve(null);
+                        return Promise.resolve({status: 512});
                     }
                 },
-                (error) => {
-                    console.error(error);
+                () => {
+                    // console.error(error);
                     return Promise.resolve({status: 512});
                 },
             );
     }
 
+    /**
+     * Get-запрос на бекенд
+     * @param {string} url - путь запроса
+     * @param {Object} params - query параметры запроса
+     * @return {Promise} - статус и тело ответа
+     */
     static get(url = '', params = {}) {
         return fetch(url + new URLSearchParams({...params}), {
             method: 'GET',
@@ -47,27 +53,33 @@ export class Ajax {
                     if ( contentType && contentType.indexOf('application/json') !== -1 ) {
                         return response.json();
                     } else {
-                        return Promise.resolve(null);
+                        return Promise.resolve({status: 512});
                     }
                 },
-                (error) => {
-                    console.error(error);
+                () => {
+                    // console.error(error);
                     return Promise.resolve({status: 512});
                 },
             );
     }
 
+    /**
+     * Delete-запрос на бекенд
+     * @param {string} url - путь запроса
+     * @param {Object} data - данные которые нужно удалить (тело запроса)
+     * @return {Promise} - статус и тело ответа
+     */
     static delete(url = '', data = {}) {
         const request = {
             method: 'DELETE',
             mode: 'cors',
             credentials: 'include',
-            headers: {'Content-Type': 'application/json'},
+            headers: {
+                'Content-Type': 'application/json',
+                'X-Csrf-Token': this._csrfToken,
+            },
             body: JSON.stringify(data),
         };
-        if (!this._csrfToken && this._csrfToken !== '') {
-            request.headers['X-Csrf-Token'] = this._csrfToken;
-        }
         return fetch(url, request)
             .then(
                 (response) => {
@@ -75,11 +87,11 @@ export class Ajax {
                     if ( contentType && contentType.indexOf('application/json') !== -1 ) {
                         return response.json();
                     } else {
-                        return Promise.resolve(null);
+                        return Promise.resolve({status: 512});
                     }
                 },
-                (error) => {
-                    console.error(error);
+                () => {
+                    // console.error(error);
                     return Promise.resolve({status: 512});
                 },
             );
@@ -109,18 +121,18 @@ export class Ajax {
                     if ( contentType && contentType.indexOf('application/json') !== -1 ) {
                         return response.json();
                     } else {
-                        return Promise.resolve(null);
+                        return Promise.resolve({status: 512});
                     }
                 },
-                (error) => {
-                    console.error(error);
+                () => {
+                    // console.error(error);
                     return Promise.resolve({status: 512});
                 },
             );
     }
 
     /**
-     * Post-запрос на бекенд
+     * Post-запрос отправки файла на бекенд
      * @param {string} url - путь запроса
      * @param {object} data - тело запроса
      * @return {Promise} - статус и тело ответа
@@ -144,11 +156,11 @@ export class Ajax {
                     if ( contentType && contentType.indexOf('application/json') !== -1 ) {
                         return response.json();
                     } else {
-                        return Promise.resolve(null);
+                        return Promise.resolve({status: 512});
                     }
                 },
-                (error) => {
-                    console.error(error);
+                () => {
+                    // console.error(error);
                     return Promise.resolve({status: 512});
                 },
             );
