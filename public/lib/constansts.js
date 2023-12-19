@@ -72,10 +72,14 @@ export const COMPLAIN_TYPES = [
     },
 ];
 
+export const BACKEND_DOMEN = 'umlaut-bmstu.me';
+
 /**
  * Сслыка на бекэнд
  */
-export const BACKEND_URL = 'https://umlaut-bmstu.me';
+export const BACKEND_URL = 'https://' + BACKEND_DOMEN;
+
+export const WEBSOCKET_URL = 'wss://' + BACKEND_DOMEN + '/websocket';
 
 export const DEFAULT_PHOTO = '/pics/avatar.png';
 
@@ -96,6 +100,8 @@ export const GLOBAL_EVENTS = {
     USER_BANNED: 'UserBanned',
     POPUP_COMPLAINT: 'gjnj',
     POPUP_MATCH: 'PopupMatch',
+    SHOW_LIKED: 'Show liked',
+    POPUP_SETTINGS: 'Settings_popup',
 };
 
 export const AUTH_EVENTS = {
@@ -113,6 +119,7 @@ export const FEED_EVENTS = {
     GET_PERSON: 'GetPerson',
     MUTUAL: 'MutualLikes',
     COMPLAIN_PERSON: 'Complain',
+    SHOW_LIKED: 'Show liked',
 };
 
 export const SETTINGS_EVENTS = {
@@ -140,9 +147,14 @@ export const MESSENGER_EVENTS = {
     NEW_MESSAGE_IN_THIS_DIALOG: 'll',
     MARK_AS_READ: 'lkjh',
     ERROR: 'error',
-    SENT: 'MessageSent',
+    SEND: 'MessageSent',
     GET_PAIRS_AND_DIALOGS: 'GetPairsAndDialogs',
     GET_LIKED: 'GetLiked',
+    LIKED_READY: 'LikedReady',
+    SHOW_LIKED: 'Show liked',
+    GET_PREMIUM: 'Get Premium',
+    NEW_MESSAGE_IN_OTHER_DIALOG: 'Mess in other dialog',
+    MATCH: 'MAtch',
 };
 
 export const POPUP_EVENTS = {

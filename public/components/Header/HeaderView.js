@@ -96,7 +96,7 @@ export class HeaderView {
                 pair.src = element.photo;
                 pairs.appendChild(pair);
                 pair.addEventListener('click', ()=>{
-                    this.eventBus.emit(MESSENGER_EVENTS.GET_PEMIUM, '/premium');
+                    this.eventBus.emit(MESSENGER_EVENTS.GET_PREMIUM, '/premium');
                 });
             });
         } else {
