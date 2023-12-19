@@ -42,13 +42,17 @@ export class PopupView {
      */
     renderPopupAboutSettings() {
         const notification = this.popup.querySelector('.popup__notify');
-        this.popup.querySelector('.popup__text').textContent = 
-        "Ваш аккаунт сейчас не виден пользователям с полной анкетой, заполните свои настройки чтобы снять это ограничение";
+        this.popup.querySelector('.popup__text').textContent =
+        'Ваш аккаунт сейчас не виден другим пользователям, заполните свои настройки чтобы снять это ограничение';
         notification.style.visibility = 'visible';
         notification.style.opacity = 0.6;
-        notification.className = '.popup__settings'
+        notification.className = 'popup__settings';
         setTimeout(() => {
-            this.close();
+            notification.style.opacity = 0;
+            notification.style.visibility = 'hidden';
+            setTimeout(() => {
+                notification.className = 'popup__notify';
+            }, 1000);
         }, 10000);
     }
 

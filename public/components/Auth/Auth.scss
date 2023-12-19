@@ -4,7 +4,7 @@
   width: max(20%, 300px);
   margin-top: 20px;
   margin-bottom: 40px;
-  background-color: var(--dark-blue-color);
+  background-color: #303656e3;
   border-radius: 4px;
   padding: 20px;
 
@@ -122,15 +122,22 @@
   text-align: center;
 
   @media (max-width: $phone-max-width) {
-    display: none;
+    top: 100px;
+  }
+
+  &_in-bottom{
+    width: 35%;
+    top: 350px;
+    left: 55%;
+
+    @media (max-width: 810px) {
+      width: 90%;
+      position: static;
+    }
   }
 
   &_small {
     font-size: calc(1.2vw + 4px);
-
-    @media (max-width: $phone-max-width) {
-      font-size: 14px;
-    }
   }
 
   &__buttons{
@@ -139,6 +146,9 @@
     gap: 5%;
     justify-content: center;
     padding: 10px 0;
+    @media (max-width: $phone-max-width) {
+      font-size: calc(1.2vw + 4px);
+    }
   }
 
   &__auth-btn{
@@ -147,7 +157,7 @@
 }
 
 .background-holder {
-  background-image: url("../../../static/pics/lending.jpg");
+  background-image: url("../../../static/pics/pair.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   background-color: var(--background-color);
@@ -156,16 +166,23 @@
   min-height: 100vh;
 
   @media (max-width: $phone-max-width) {
-    background-size: contain;
-    background-image: none;
     padding: 0px;
+    height: min-content;
+    min-height: 80vh;
+  }
+
+  &_disappear{
+    background-image: url("../../../static/pics/lending.jpg");
+    @media (max-width: $phone-max-width) {
+      display: none;
+    }
   }
 }
 
 .different-acquaintance{
 
   &__name{
-    font-size: calc(1.5vw + 6px);
+    font-size: calc(1.6vw + 10px);
     text-align: center;
     color: var(--dark-blue-color);
     margin: 2%;
@@ -185,15 +202,16 @@
     margin: 10px 0;
     text-align: center;
     color: var(--dark-blue-color);
-    font-size: 22px;
+    font-size: calc(1.5vw + 6px);
   }
 
   &__example-img{
     width: 100%;
+    border-radius: 25px;
   }
 
   &__text{
-    font-size: 18px;
+    font-size: calc(1.2vw + 4px);
     margin: 10px;
     text-align: center;
     color: var(--dark-blue-color);

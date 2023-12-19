@@ -33,9 +33,17 @@
             </svg>
           </button>
         </div>
-        <span class="form-feed__complain"><span
-            class="form-feed__complain-symbol"
-          >⊘ </span>Пожаловаться</span>
+        {{#if like_counter}}
+          <span class="form-feed__left-swipes">
+            Сделано {{like_counter}}/50 свайпов
+          </span>
+        {{/if}}
+        <span class="form-feed__complain">
+          <span class="form-feed__complain-symbol">
+            ⊘ 
+          </span>
+          Пожаловаться
+        </span>
       {{else}}
         <div class="loading">
           <svg class="loading__spinner" viewBox="0 0 50 50">

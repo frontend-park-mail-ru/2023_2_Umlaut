@@ -30,6 +30,8 @@ export class SettingsView extends BaseView {
             elem.classList.add('multiselection__selection_active');
         }
 
+        this.changeTextareaHeight();
+
         this.selectTags();
 
         this.form = this.root.querySelector('.settings-form');
@@ -86,6 +88,22 @@ export class SettingsView extends BaseView {
             }
         },
         );
+    }
+
+    /**
+     * Меняет высоту textarea при вводе текста
+     */
+    changeTextareaHeight() {
+        const tx = document.getElementsByTagName('textarea');
+        for (let i = 0; i < tx.length; i++) {
+            tx[i].setAttribute('style', 'height:' + (tx[i].scrollHeight) + 'px;overflow-y:hidden;');
+            tx[i].addEventListener('input', OnInput, false);
+        }
+
+        function OnInput() {
+            this.style.height = 0;
+            this.style.height = (this.scrollHeight) + 'px';
+        }
     }
 
     /**

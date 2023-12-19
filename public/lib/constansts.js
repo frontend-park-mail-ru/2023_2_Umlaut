@@ -96,6 +96,7 @@ export const GLOBAL_EVENTS = {
     USER_BANNED: 'UserBanned',
     POPUP_COMPLAINT: 'gjnj',
     POPUP_MATCH: 'PopupMatch',
+    POPUP_SETTINGS: 'PopupAboutEmptySettings',
 };
 
 export const AUTH_EVENTS = {

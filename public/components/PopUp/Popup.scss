@@ -30,10 +30,10 @@
     align-items: center;
     position: fixed;
     visibility: hidden;
-    top: 10%;
-    left: 1%;
+    top: 12%;
+    left: 2%;
     opacity: 0;
-    transition: visibility 0.5s, opacity 0.5s linear;
+    transition: visibility 0.3s, opacity 0.5s linear;
     width: 250px;
     height: 100px;
     border-radius: 15px;

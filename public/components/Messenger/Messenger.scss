@@ -11,6 +11,10 @@
     max-width: 25%;
     height: calc(100vh - var(--header-height));
     overflow: auto;
+
+    @media(max-width: 660px){
+      display: none;
+    }
   }
 
   &__dialogs {
