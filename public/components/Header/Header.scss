@@ -107,6 +107,7 @@
     overflow: auto;
     width: 250px;
     white-space: nowrap;
+    padding: 3px;
   }
 
   &__part{
@@ -124,6 +125,10 @@
     overflow: auto;
     margin: 0 5px;
     cursor: pointer;
+
+    &_blur{
+      filter: blur(2px);
+    }
   }
 
   &__dialog-preview{

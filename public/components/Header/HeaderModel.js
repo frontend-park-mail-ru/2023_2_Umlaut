@@ -56,21 +56,24 @@ export class HeaderModel {
         Api.getLiked().then( handleStatuses(
             (response) => {
                 if ( response.status === 200) {
+                    const data = {};
                     const liked = [];
+                    data.likes = liked;
                     if (!response.payload.likes) {
-                        this.eventBus.emit(MESSENGER_EVENTS.LIKED_READY, liked);
+                        this.eventBus.emit(MESSENGER_EVENTS.LIKED_READY, data);
                         return;
                     }
+                    data.show = response.payload.show;
                     response.payload.likes.forEach((element) => {
-                        element.user_dialog_id = element.id;
-                        if (element.сompanion_image_paths && element.сompanion_image_paths.length > 0) {
-                            element.photo = element.сompanion_image_paths[0];
+                        if (element.image_paths && element.image_paths.length > 0) {
+                            element.photo = element.image_paths[0];
                         } else {
                             element.photo = DEFAULT_PHOTO;
                         }
                         liked.push(element);
                     });
-                    this.eventBus.emit(MESSENGER_EVENTS.LIKED_READY, liked);
+                    data.likes = liked;
+                    this.eventBus.emit(MESSENGER_EVENTS.LIKED_READY, data);
                 }
             },
             this.eventBus),

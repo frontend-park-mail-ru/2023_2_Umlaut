@@ -45,7 +45,9 @@ document.addEventListener('DOMContentLoaded', ()=>{
         popup.render('Сервер временно не доступен, повторите попытку позже');
     });
     globalEventBus.on(GLOBAL_EVENTS.POPUP_CONFIRM, (data) => popup.renderConfirm(data));
-    globalEventBus.on(GLOBAL_EVENTS.POPUP_SETTINGS, () => {popup.renderPopupAboutSettings(); console.log("aboba");});
+    globalEventBus.on(GLOBAL_EVENTS.POPUP_SETTINGS, () => {
+        popup.renderPopupAboutSettings(); console.log('aboba');
+    });
     globalEventBus.on(GLOBAL_EVENTS.POPUP_COMPLAINT, (data) => popup.renderComplaint(data));
     globalEventBus.on(GLOBAL_EVENTS.POPUP_MATCH, (data) => popup.renderMatch(data));
     globalEventBus.on(GLOBAL_EVENTS.RERENDER_HEADER, () => globalEventBus.emit(GLOBAL_EVENTS.CHECK_AUTHORISED));

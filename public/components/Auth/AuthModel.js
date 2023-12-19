@@ -87,6 +87,8 @@ export class AuthModel {
                         this.eventBus.emit(GLOBAL_EVENTS.POPUP_SETTINGS);
                     }
                 } else if (response.status === 401) {
+                    if(window.location.pathname.startsWith('/signup'))
+                        return;
                     this.eventBus.emit(COMMON_EVENTS.UNAUTH);
                 } else if (response.status === 403) {
                     this.eventBus.emit(GLOBAL_EVENTS.USER_BANNED);

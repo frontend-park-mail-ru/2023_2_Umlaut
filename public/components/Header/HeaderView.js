@@ -92,7 +92,7 @@ export class HeaderView {
         if (!data.show) {
             data.likes.forEach((element) => {
                 const pair = document.createElement('img');
-                pair.className = 'sidebar__photo-avatar';
+                pair.className = 'sidebar__photo-avatar sidebar__photo-avatar_blur';
                 pair.src = element.photo;
                 pairs.appendChild(pair);
                 pair.addEventListener('click', ()=>{
