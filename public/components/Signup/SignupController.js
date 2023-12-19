@@ -13,6 +13,7 @@ export class SignupController extends BaseController {
         this.model = new AuthModel(this.eventBus);
         this.eventBus.on(GLOBAL_EVENTS.REDIRECT, (path) => this.globalEventBus.emit(GLOBAL_EVENTS.REDIRECT, path));
         this.eventBus.on(COMMON_EVENTS.AUTH, () => this.globalEventBus.emit(GLOBAL_EVENTS.AUTH));
+        this.eventBus.on(GLOBAL_EVENTS.POPUP_SETTINGS, ()=> this.globalEventBus.emit(GLOBAL_EVENTS.POPUP_SETTINGS));
     }
 
     /**
