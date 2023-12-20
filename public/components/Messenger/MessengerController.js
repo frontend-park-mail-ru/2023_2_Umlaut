@@ -15,5 +15,7 @@ export class MessengerController extends BaseController {
         this.globalEventBus.on(GLOBAL_EVENTS.AUTH, (data) => this.eventBus.emit(COMMON_EVENTS.AUTH, data));
         this.globalEventBus.on(GLOBAL_EVENTS.UNAUTH, () => this.eventBus.emit(COMMON_EVENTS.UNAUTH));
         this.eventBus.on(MESSENGER_EVENTS.MATCH, (mes)=>this.globalEventBus.emit(GLOBAL_EVENTS.POPUP_MATCH, mes));
+        this.eventBus.on(GLOBAL_EVENTS.NEW_MESSAGE, (mes) =>
+            this.globalEventBus.emit(GLOBAL_EVENTS.NEW_MESSAGE, mes));
     }
 }

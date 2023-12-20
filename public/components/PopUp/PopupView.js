@@ -1,6 +1,7 @@
 import {EventBus} from '../../lib/eventbus';
 import {POPUP_EVENTS, COMPLAIN_TYPES} from '../../lib/constansts.js';
 import './Popup.scss';
+import {fromHTML} from '../../lib/util.js';
 
 /**
  * Компонент попапа
@@ -17,10 +18,13 @@ export class PopupView {
         this.popup = this.root.querySelector('.popup');
         this.popup.innerHTML = this.popupTmpl();
         this.closePopup = () => this.eventBus.emit(POPUP_EVENTS.CLOSE);
+        this.newMesTemplate = require('./NewMessage.hbs');
         this.eventBus.on(POPUP_EVENTS.CLOSE, this.close.bind(this));
         this.closeEvent = this.closeIfNotInPopup.bind(this);
         this.firstClick = true;
         this.rendered = false;
+        this.notificationAudio = new Audio('/notification.mp3');
+        this.notificationAudio.volume = 0.5;
     }
 
     /**
@@ -196,6 +200,26 @@ export class PopupView {
                 this.choosenVariant = e.target;
             }
         });
+    }
+
+    /**
+     * Показывает уведомление о сообщении со звуком
+     * @param {*} mes - пришедшее сообщение
+     */
+    renderNewMessage(mes) {
+        const notification = fromHTML(this.newMesTemplate(mes));
+        notification.style.visibility = 'visible';
+        notification.style.opacity = 0.9;
+        this.popup.appendChild(notification);
+        setTimeout(() => {
+            notification.style.opacity = 0;
+            setTimeout(() => {
+                this.popup.removeChild(notification);
+            }, 500);
+        }, 4000);
+        this.notificationAudio.pause();
+        this.notificationAudio.currentTime = 0;
+        this.notificationAudio.play();
     }
 
     /**

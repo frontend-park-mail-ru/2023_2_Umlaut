@@ -48,6 +48,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
     globalEventBus.on(GLOBAL_EVENTS.POPUP_SETTINGS, () => {
         popup.renderPopupAboutSettings(); console.log('aboba');
     });
+    globalEventBus.on(GLOBAL_EVENTS.NEW_MESSAGE, (mes) => popup.renderNewMessage(mes));
     globalEventBus.on(GLOBAL_EVENTS.POPUP_COMPLAINT, (data) => popup.renderComplaint(data));
     globalEventBus.on(GLOBAL_EVENTS.POPUP_MATCH, (data) => popup.renderMatch(data));
     globalEventBus.on(GLOBAL_EVENTS.RERENDER_HEADER, () => globalEventBus.emit(GLOBAL_EVENTS.CHECK_AUTHORISED));
@@ -100,6 +101,29 @@ document.addEventListener('DOMContentLoaded', ()=>{
     } else {
         admin.model.isAuthorised();
     }
-
+    popup.renderNewMessage({
+        dialog_id: 8,
+        dialog: {
+            'id': 8,
+            'user1_id': 6,
+            'user2_id': 2,
+            'banned': false,
+            'companion': 'Полина',
+            'photo': 'https://umlaut-bmstu.me/photos/user-id-6/b450c2f6-c173-4404-9b84-5d1198d3e4dd',
+            'сompanion_image_paths': [
+                'https://umlaut-bmstu.me/photos/user-id-6/b450c2f6-c173-4404-9b84-5d1198d3e4dd',
+                'https://umlaut-bmstu.me/photos/user-id-6/765c6506-c660-4cb0-899c-ac0492941ef1',
+                'https://umlaut-bmstu.me/photos/user-id-6/81f6911b-b093-467b-8084-7dfc21bbd858',
+            ],
+            'last_message': {
+                'id': 41,
+                'sender_id': 2,
+                'recipient_id': 6,
+                'dialog_id': 8,
+                'message_text': '1',
+                'is_read': false,
+                'created_at': '2023-12-20T11:00:44.074512Z',
+            },
+        }});
     router.start();
 });
