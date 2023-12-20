@@ -101,6 +101,6 @@ document.addEventListener('DOMContentLoaded', ()=>{
     } else {
         admin.model.isAuthorised();
     }
-    
+
     router.start();
 });

@@ -130,8 +130,8 @@ export class MessengerModel {
                         mes.payload.my_photo = DEFAULT_PHOTO;
                     }
                 }
+                this.eventBus.emit(MESSENGER_EVENTS.MATCH, mes.payload);
             });
-            this.eventBus.emit(MESSENGER_EVENTS.MATCH, mes.payload);
         }
     }
 }
