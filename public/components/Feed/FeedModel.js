@@ -66,9 +66,9 @@ export class FeedModel {
         );
     }
 
-    getLikedPerson(data){
+    getLikedPerson(data) {
         Api.getUserById(data.liked_by_user_id).then((response) =>{
-            if(response.status === 200){
+            if (response.status === 200) {
                 this.eventBus.emit(FEED_EVENTS.READY_LIKED, response.payload);
             }
         });

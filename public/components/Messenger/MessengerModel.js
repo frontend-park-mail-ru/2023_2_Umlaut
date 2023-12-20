@@ -103,9 +103,9 @@ export class MessengerModel {
     gotNewMessage(msg) {
         const mes = JSON.parse(msg);
         if (mes.type === 'message') {
-            mes.payload.created_at = mes.payload.created_at.slice(mes.created_at.indexOf('T') + 1,
+            mes.payload.created_at = mes.payload.created_at.slice(mes.payload.created_at.indexOf('T') + 1,
                 nthIndex(mes.payload.created_at, ':', 2));
-            if (mes.payload.dialog_id === this.payload.dialog_id) {
+            if (mes.payload.dialog_id === this.dialog_id) {
                 this.eventBus.emit(MESSENGER_EVENTS.NEW_MESSAGE_IN_THIS_DIALOG, mes.payload);
             } else {
                 Api.getDialogById(mes.payload.dialog_id).then(handleStatuses((r) =>{

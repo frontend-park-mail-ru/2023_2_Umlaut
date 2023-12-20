@@ -121,7 +121,7 @@ export const FEED_EVENTS = {
     MUTUAL: 'MutualLikes',
     COMPLAIN_PERSON: 'Complain',
     SHOW_LIKED: 'Show liked',
-    READY_LIKED: 'ReadyLikedPerson'
+    READY_LIKED: 'ReadyLikedPerson',
 };
 
 export const SETTINGS_EVENTS = {
