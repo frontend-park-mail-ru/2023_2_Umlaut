@@ -18,5 +18,8 @@ export class FeedController extends BaseController {
         this.globalEventBus.on(GLOBAL_EVENTS.SHOW_LIKED, (element) => {
             this.eventBus.emit(FEED_EVENTS.SHOW_LIKED, element);
         });
+        this.eventBus.on(GLOBAL_EVENTS.REDIRECT_WITH_HISTORY, (data) => {
+            this.globalEventBus.emit(GLOBAL_EVENTS.REDIRECT_WITH_HISTORY, data);
+        });
     }
 }
