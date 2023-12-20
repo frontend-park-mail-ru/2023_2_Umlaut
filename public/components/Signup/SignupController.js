@@ -19,6 +19,6 @@ export class SignupController extends BaseController {
      * Рендер страницы регистрации
      */
     render() {
-        this.eventBus.emit(AUTH_EVENTS.CHECK_AUTHORISED);
+        this.eventBus.emit(AUTH_EVENTS.CHECK_AUTHORISED, false);
     }
 }

@@ -74,8 +74,9 @@ export class AuthModel {
 
     /**
      * Проверка на то, авторизован ли пользователь
+     * @param {bool} global - общая проверка авторизации или страниц входа
      */
-    isAuthorised() {
+    isAuthorised(global) {
         Api.user().then(
             (response) => {
                 if ( response.status === 200 ) {
@@ -87,7 +88,13 @@ export class AuthModel {
                         this.eventBus.emit(GLOBAL_EVENTS.POPUP_SETTINGS);
                     }
                 } else if (response.status === 401) {
-                    this.eventBus.emit(COMMON_EVENTS.UNAUTH);
+                    if (global) {
+                        if (window.location.pathname !== '/auth' && !window.location.pathname.startsWith('/signup')) {
+                            this.eventBus.emit(GLOBAL_EVENTS.UNAUTH);
+                        }
+                    } else {
+                        this.eventBus.emit(COMMON_EVENTS.UNAUTH);
+                    }
                 } else if (response.status === 403) {
                     this.eventBus.emit(GLOBAL_EVENTS.USER_BANNED);
                 } else if (response.status >= 500) {
