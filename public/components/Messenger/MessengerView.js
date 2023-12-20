@@ -29,7 +29,9 @@ export class MessengerView extends BaseView {
     render() {
         super.render();
         this.dialogWindow = document.getElementById('dialog-window');
-        this.eventBus.emit(MESSENGER_EVENTS.GET_MESSAGES);
+        if (window.location.pathname.split('/').slice(-1) !== 'messages') {
+            this.eventBus.emit(MESSENGER_EVENTS.GET_MESSAGES);
+        }
         document.querySelector('.sidebar').className = 'sidebar';
     }
 

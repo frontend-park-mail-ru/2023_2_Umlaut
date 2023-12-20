@@ -21,6 +21,8 @@ export class PopupView {
         this.closeEvent = this.closeIfNotInPopup.bind(this);
         this.firstClick = true;
         this.rendered = false;
+        this.notificationAudio = new Audio('/notification.mp3');
+        this.notificationAudio.volume = 0.5;
     }
 
     /**
@@ -192,6 +194,18 @@ export class PopupView {
                 this.choosenVariant = e.target;
             }
         });
+    }
+
+    /**
+     * Показывает уведомление о сообщении со звуком
+     * @param {*} mes - пришедшее сообщение
+     */
+    renderNewMessage(mes) {
+        mes;
+        this.render('У вас новое сообщение');
+        this.notificationAudio.pause();
+        this.notificationAudio.currentTime = 0;
+        this.notificationAudio.play();
     }
 
     /**

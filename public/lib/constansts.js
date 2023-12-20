@@ -102,6 +102,7 @@ export const GLOBAL_EVENTS = {
     POPUP_MATCH: 'PopupMatch',
     SHOW_LIKED: 'Show liked',
     POPUP_SETTINGS: 'Settings_popup',
+    NEW_MESSAGE: 'New message',
 };
 
 export const AUTH_EVENTS = {
