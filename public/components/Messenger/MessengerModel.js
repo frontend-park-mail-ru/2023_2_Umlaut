@@ -112,11 +112,12 @@ export class MessengerModel {
             }
         } else if (mes.type === 'match') {
             Api.user().then((response) => {
-                if(response.status === 200){
-                    if(response.payload.image_paths && response.payload.image_paths.length > 0)
+                if (response.status === 200) {
+                    if (response.payload.image_paths && response.payload.image_paths.length > 0) {
                         mes.payload.my_photo = response.payload.image_paths[0];
-                    else
+                    } else {
                         mes.payload.my_photo = DEFAULT_PHOTO;
+                    }
                 }
             });
             this.eventBus.emit(MESSENGER_EVENTS.MATCH, mes.payload);
