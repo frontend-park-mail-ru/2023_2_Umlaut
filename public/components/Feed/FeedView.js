@@ -33,8 +33,9 @@ export class FeedView extends BaseView {
         if (data) {
             data.params = this.params;
             this.user = data.user;
-            data.like_counter = 50 - data.like_counter;
-            if (!document.querySelector('.sidebar__buy-premium link')) {
+            if (data.like_counter!==-1) {
+                data.like_counter = 50 - data.like_counter;
+            }else{
                 data.like_counter = null;
             }
         }
