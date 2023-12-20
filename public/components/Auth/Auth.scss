@@ -174,7 +174,7 @@
   &_disappear{
     background-image: url("../../../static/pics/lending.jpg");
     @media (max-width: $phone-max-width) {
-      background-image: url();
+      background-image: none;
     }
   }
 }

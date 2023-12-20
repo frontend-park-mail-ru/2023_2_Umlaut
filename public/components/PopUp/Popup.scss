@@ -151,13 +151,30 @@
   }
 
   &__match-text{
-    font-size: 26px;
+    font-size: calc(1.5vw + 8px);
     color: white;
     margin: 20px;
+    text-align: center;
+  }
+
+  &__photo-img{
+    width: 70px;
+    object-fit: cover;
+    height: 70px;
+    border-radius: 50%;
+    display: inline-block;
+    margin: 0 10px;
   }
 
   &__match-buttons{
     margin: 10px;
+    display: flex;
+
+    @media (max-width: $phone-max-width){  
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
   }
 
   &__dialog-link{
@@ -168,6 +185,7 @@
 
   &__or{
     margin: 0 13px;
+    color: white;
   }
 
   &__feed-link{

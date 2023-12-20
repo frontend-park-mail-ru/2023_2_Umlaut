@@ -1,4 +1,4 @@
-import {MESSENGER_EVENTS, COMMON_EVENTS, WEBSOCKET_URL} from '../../lib/constansts.js';
+import {MESSENGER_EVENTS, COMMON_EVENTS, WEBSOCKET_URL, DEFAULT_PHOTO} from '../../lib/constansts.js';
 import {WebSocketWrapper} from '../../lib/ws.js';
 import {Api} from '../../lib/api.js';
 import {nthIndex} from '../../lib/util.js';
@@ -103,14 +103,22 @@ export class MessengerModel {
     gotNewMessage(msg) {
         const mes = JSON.parse(msg);
         if (mes.type === 'message') {
-            mes.created_at = mes.created_at.slice(mes.created_at.indexOf('T') + 1,
-                nthIndex(mes.created_at, ':', 2));
-            if (mes.dialog_id === this.dialog_id) {
+            mes.payload.created_at = mes.payload.created_at.slice(mes.created_at.indexOf('T') + 1,
+                nthIndex(mes.payload.created_at, ':', 2));
+            if (mes.payload.dialog_id === this.payload.dialog_id) {
                 this.eventBus.emit(MESSENGER_EVENTS.NEW_MESSAGE_IN_THIS_DIALOG, mes.payload);
             } else {
                 this.eventBus.emit(MESSENGER_EVENTS.NEW_MESSAGE_IN_OTHER_DIALOG, mes.payload);
             }
         } else if (mes.type === 'match') {
+            Api.user().then((response) => {
+                if(response.status === 200){
+                    if(response.payload.image_paths && response.payload.image_paths.length > 0)
+                        mes.payload.my_photo = response.payload.image_paths[0];
+                    else
+                        mes.payload.my_photo = DEFAULT_PHOTO;
+                }
+            });
             this.eventBus.emit(MESSENGER_EVENTS.MATCH, mes.payload);
         }
     }

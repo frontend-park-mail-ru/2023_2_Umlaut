@@ -80,7 +80,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
     const settings = new SettingsController(page, globalEventBus);
     const messenger = new MessengerController(page, globalEventBus);
     const admin = new AdminAuthController(page, globalEventBus);
-    const statisctics = new StatisticsController(page, globalEventBus);
+    const statistics = new StatisticsController(page, globalEventBus);
     const complaints = new ComplainsController(page, globalEventBus);
 
     const premium = new PremiumController(page, globalEventBus);
@@ -90,7 +90,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
     router.add('/signup', signup);
     router.add('/settings', settings);
     router.add('/messages', messenger);
-    router.add('/admin/statistics', statisctics);
+    router.add('/admin/statistics', statistics);
     router.add('/admin/auth', admin);
     router.add('/admin/complaints', complaints);
     router.add('/premium', premium);

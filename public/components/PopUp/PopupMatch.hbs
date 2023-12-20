@@ -2,15 +2,15 @@
     БУМ!!!
 </div>
 <div class="popup__photos">
-    {{#if photo}}
-        <img class="dialog-preview__photo-img" src={{photo}}>
+    {{#if сompanion_image_paths}}
+        <img class="popup__photo-img" src={{сompanion_image_paths.[0]}}>
     {{else}}
-        <img class="dialog-preview__photo-img" src='/pics/avatar.png'>
+        <img class="popup__photo-img" src='/pics/avatar.png'>
     {{/if}}
     {{#if my_photo}}
-        <img class="dialog-preview__photo-img" src={{my_photo}}>
+        <img class="popup__photo-img" src={{my_photo}}>
     {{else}}
-        <img class="dialog-preview__photo-img" src='/pics/avatar.png'>
+        <img class="popup__photo-img" src='/pics/avatar.png'>
     {{/if}}
 </div>
 <div class="popup__match-text">

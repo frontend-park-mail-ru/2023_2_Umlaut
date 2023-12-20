@@ -32,7 +32,6 @@ export class HeaderView {
      */
     render(user) {
         const menuBtn = document.querySelector('.main__menu-btn');
-        menuBtn.removeEventListener('click', this.showMenu);
 
         if (user.role === 2) {
             user.premium = true;
@@ -45,7 +44,7 @@ export class HeaderView {
         this.eventBus.emit(MESSENGER_EVENTS.GET_LIKED);
         menuBtn.style.display = 'block';
 
-        menuBtn.addEventListener('click', this.showMenu);
+        menuBtn.onclick = this.showMenu;
     }
 
     /**
