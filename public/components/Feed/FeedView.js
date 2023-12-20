@@ -18,7 +18,7 @@ export class FeedView extends BaseView {
         this.eventBus.on(COMMON_EVENTS.ONLINE, ()=> {
             this.blockButtons(), this.activateBtns();
         });
-        this.eventBus.on(FEED_EVENTS.SHOW_LIKED, this.showLikedPerson.bind(this));
+        this.eventBus.on(FEED_EVENTS.READY_LIKED, this.showLikedPerson.bind(this));
         this.update = this.update.bind(this);
         this.params = {tags: []};
         this.user;
@@ -34,6 +34,8 @@ export class FeedView extends BaseView {
             data.params = this.params;
             this.user = data.user;
             data.like_counter = 50 - data.like_counter;
+            if(!document.querySelector('.sidebar__buy-premium link'))
+                data.like_counter = null;
         }
         super.render(data);
 
@@ -159,6 +161,16 @@ export class FeedView extends BaseView {
         const searchBtn = this.root.querySelector('#search-btn');
         const searchForm = this.root.querySelector('.search');
         this.activateBtns();
+
+        const complainBtn = this.root.querySelector('.form-feed__complain');
+        complainBtn.addEventListener('click', () => this.eventBus.emit(GLOBAL_EVENTS.POPUP_COMPLAINT,
+            (complain) => this.complainCurrent(complain)),
+        );
+
+        const carouselRoot = this.root.querySelector('.form-feed__feed-photo');
+        this.carousel = new Carousel(carouselRoot);
+        this.carousel.render(user.image_paths);
+
         searchBtn.addEventListener('click', () => searchForm.classList.toggle('search_visible'));
         this.addSearchParams();
     }

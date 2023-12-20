@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
     });
 
     window.addEventListener('offline', () => {
-        popup.render('Отсутсвует подключение к интернету');
+        popup.render('Отсутствует подключение к интернету');
         globalEventBus.emit(COMMON_EVENTS.OFFLINE);
     });
 

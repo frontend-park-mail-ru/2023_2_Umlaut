@@ -13,10 +13,13 @@
             {{/if}}
         </a>
     </div>
-    <a href="/premium" class="sidebar__buy-premium link">
-        <img class="sidebar__premium-img" src="/pics/lightning.png">
-        Получить премиум
-    </a>
+    {{#if premium}}
+    {{else}}
+        <a href="/premium" class="sidebar__buy-premium link">
+            <img class="sidebar__premium-img" src="/pics/lightning.png">
+            Получить премиум
+        </a>
+    {{/if}}
     <div class="sidebar__part">
         <span class="sidebar__pairs-header">Вас лайкнули</span>
         <div id="liked" class="sidebar__pairs"></div>

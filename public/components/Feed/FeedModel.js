@@ -10,6 +10,7 @@ export class FeedModel {
         this.eventBus.on(FEED_EVENTS.RATE_PERSON, this.ratePerson.bind(this));
         this.eventBus.on(FEED_EVENTS.GET_PERSON, this.getNextPerson.bind(this));
         this.eventBus.on(FEED_EVENTS.COMPLAIN_PERSON, this.complainPerson.bind(this));
+        this.eventBus.on(FEED_EVENTS.SHOW_LIKED, this.getLikedPerson.bind(this));
     }
 
     /**
@@ -63,5 +64,13 @@ export class FeedModel {
             },
             this.eventBus),
         );
+    }
+
+    getLikedPerson(data){
+        Api.getUserById(data.liked_by_user_id).then((response) =>{
+            if(response.status === 200){
+                this.eventBus.emit(FEED_EVENTS.READY_LIKED, response.payload);
+            }
+        });
     }
 }
