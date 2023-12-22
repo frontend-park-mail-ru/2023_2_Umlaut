@@ -21,6 +21,8 @@ export class MessengerView extends BaseView {
         this.message = require('./Message.hbs');
         this.eventBus.on();
         this.my_id = 0;
+        this.cantSend = () => 
+            this.eventBus.emit(MESSENGER_EVENTS.ERROR, 'Ошибка сервера, сообщение не может быть отправлено');
     }
 
     /**
@@ -74,14 +76,16 @@ export class MessengerView extends BaseView {
         send.addEventListener('click', sendFunc);
         addEventListener('online', ()=>{
             const send = this.dialogWindow.querySelector('#send');
-            if(send)
+            if (send) {
                 send.addEventListener('click', sendFunc);
+                send.removeEventListener('click', this.cantSend);
+            }
         });
         addEventListener('offline', ()=>{
             const send = this.dialogWindow.querySelector('#send');
-            if(send){
+            if (send) {
                 send.removeEventListener('click', sendFunc);
-                this.eventBus.emit(MESSENGER_EVENTS.ERROR, 'Ошибка сервера, сообщение не может быть отправлено');
+                send.addEventListener('click', this.cantSend);
             }
         });
 
