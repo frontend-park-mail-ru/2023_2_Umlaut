@@ -156,6 +156,10 @@
     @media (min-width: $phone-max-width) {
       padding-right: 10px;
     }
+
+    &__no-overflow{
+      overflow: unset;
+    }
   }
 
   &__about-user {

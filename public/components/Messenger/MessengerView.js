@@ -21,8 +21,8 @@ export class MessengerView extends BaseView {
         this.message = require('./Message.hbs');
         this.eventBus.on();
         this.my_id = 0;
-        this.cantSend = () => 
-            this.eventBus.emit(MESSENGER_EVENTS.ERROR, 'Ошибка сервера, сообщение не может быть отправлено');
+        this.cantSend = () =>
+            this.eventBus.emit(MESSENGER_EVENTS.ERROR, 'Нет интернета, сообщение не может быть отправлено');
     }
 
     /**
@@ -118,6 +118,7 @@ export class MessengerView extends BaseView {
         const userForm = this.root.querySelector('.messenger__user-form');
         userForm.innerHTML = require('../Feed/Description.hbs')(user);
         const carouselRoot = this.root.querySelector('.form-feed__feed-photo');
+        userForm.querySelector('.form-feed__description').className = 'form-feed__description_no-overflow';
         this.carousel = new Carousel(carouselRoot);
         this.carousel.render(user.image_paths);
     }
