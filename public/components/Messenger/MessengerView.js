@@ -76,7 +76,7 @@ export class MessengerView extends BaseView {
             send.addEventListener('click', sendFunc);
         });
         send.addEventListener('offline', ()=>{
-            send.addEventListener('click', sendFunc);
+            send.removeEventListener('click', sendFunc);
             this.eventBus.emit(MESSENGER_EVENTS.ERROR, 'Ошибка сервера, сообщение не может быть отправлено');
         });
 

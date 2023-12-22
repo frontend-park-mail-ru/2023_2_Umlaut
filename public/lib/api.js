@@ -259,8 +259,7 @@ export function handleStatuses(func, eventBus) {
             eventBus.emit(COMMON_EVENTS.USER_BANNED);
         } else if (response.status === 512) {
             eventBus.emit(COMMON_EVENTS.NETWORK_ERROR);
-        }
-        else if (response.status >= 500) {
+        } else if (response.status >= 500) {
             eventBus.emit(COMMON_EVENTS.SERVER_ERROR);
         } else {
             return func(response);

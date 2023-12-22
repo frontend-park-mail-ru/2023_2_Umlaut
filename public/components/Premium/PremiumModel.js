@@ -1,4 +1,4 @@
-import {Api} from '../../lib/api.js';
+import {Api, handleStatuses} from '../../lib/api.js';
 import {PREMIUM_EVENTS} from '../../lib/constansts.js';
 
 export class PremiumModel {
