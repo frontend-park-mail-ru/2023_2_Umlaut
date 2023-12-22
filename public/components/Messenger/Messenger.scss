@@ -119,7 +119,7 @@
     height: calc(100vh - var(--header-height) 
                        - var(--dialog-name-height) 
                        - var(--dialog-input-height) 
-                       - 30px);
+                       - 40px);
   }
 
   &__message {
@@ -178,5 +178,9 @@
   &__name {
     font-size: 30px;
     height: var(--dialog-name-height);
+  }
+
+  &__user{
+    padding: 5px;
   }
 }

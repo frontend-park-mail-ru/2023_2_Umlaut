@@ -102,6 +102,11 @@ export class SignupView extends BaseView {
             this.passwordInput.focus();
             return false;
         }
+        if ( Validate.areSmails(this.passwordInput.value)) {
+            this.showError('Пароль не может содержать смайлики');
+            this.passwordInput.focus();
+            return false;
+        }
         if (this.passwordInput.value !== this.repasswordInput.value) {
             this.showError('Пароли отличаются');
             return false;

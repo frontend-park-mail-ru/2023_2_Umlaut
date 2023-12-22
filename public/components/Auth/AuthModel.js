@@ -53,7 +53,7 @@ export class AuthModel {
                     this.isAuthorised();
                     break;
                 case 400:
-                    this.eventBus.emit(AUTH_EVENTS.INVALID_AUTH, {message: 'Неправильный запрос'});
+                    this.eventBus.emit(AUTH_EVENTS.INVALID_AUTH, {message: 'Аккаунт с такой почтой уже существует'});
                     break;
                 case 404:
                     this.eventBus.emit(AUTH_EVENTS.INVALID_AUTH, {message: 'Страница не найдена'});
