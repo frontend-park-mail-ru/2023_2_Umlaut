@@ -70,11 +70,11 @@ export class MessengerModel {
         const path = window.location.pathname;
         const data = {};
         this.dialog_id = Number(path.split('/')[path.split('/').length - 1]);
-        Api.getDialogById(this.dialog_id).then((dialog)=>{
+        Api.getDialogById(this.dialog_id).then(handleStatuses((dialog)=>{
             if (dialog.status === 200) {
                 this.my_id = dialog.payload.user2_id;
                 this.id = dialog.payload.user1_id;
-                Api.getMessages(this.id).then((response)=>{
+                Api.getMessages(this.id).then(handleStatuses((response)=>{
                     if (response.status === 200) {
                         data.dialogs = response.payload;
                         if (data.dialogs === null) {
@@ -82,17 +82,17 @@ export class MessengerModel {
                         } else {
                             this.dialog_id = data.dialogs[0].dialog_id;
                         }
-                        Api.getUserById(this.id).then((user2)=>{
+                        Api.getUserById(this.id).then(handleStatuses((user2)=>{
                             if (user2.status === 200) {
                                 data.user = user2.payload;
                                 data.my_id = this.my_id;
                                 this.eventBus.emit(MESSENGER_EVENTS.MESSAGES_READY, data);
                             }
-                        });
+                        }, this.eventBus));
                     }
-                });
+                }, this.eventBus));
             }
-        });
+        }, this.eventBus));
     }
 
 
@@ -122,7 +122,7 @@ export class MessengerModel {
                 }, this.eventBus));
             }
         } else if (mes.type === 'match') {
-            Api.user().then((response) => {
+            Api.user().then(handleStatuses((response) => {
                 if (response.status === 200) {
                     if (response.payload.image_paths && response.payload.image_paths.length > 0) {
                         mes.payload.my_photo = response.payload.image_paths[0];
@@ -131,7 +131,7 @@ export class MessengerModel {
                     }
                 }
                 this.eventBus.emit(MESSENGER_EVENTS.MATCH, mes.payload);
-            });
+            }, this.eventBus));
         }
     }
 }

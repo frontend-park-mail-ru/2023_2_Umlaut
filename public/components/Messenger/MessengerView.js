@@ -63,14 +63,23 @@ export class MessengerView extends BaseView {
         };
 
         const send = this.dialogWindow.querySelector('#send');
-        send.addEventListener('click', ()=>{
+        const sendFunc = ()=>{
             const inputText = this.dialogWindow.querySelector('#message');
             const msg = inputText.value;
             inputText.value = '';
             if (msg.trim().length > 0) {
                 this.eventBus.emit(MESSENGER_EVENTS.SEND_MESSAGE, msg);
             }
+        };
+        send.addEventListener('click', sendFunc);
+        send.addEventListener('online', ()=>{
+            send.addEventListener('click', sendFunc);
         });
+        send.addEventListener('offline', ()=>{
+            send.addEventListener('click', sendFunc);
+            this.eventBus.emit(MESSENGER_EVENTS.ERROR, 'Ошибка сервера, сообщение не может быть отправлено');
+        });
+
 
         this.dialogWindow.querySelector('#message')
             .addEventListener('keyup', (event) => {

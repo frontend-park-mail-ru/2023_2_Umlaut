@@ -74,7 +74,7 @@ export class WebSocketWrapper {
         try {
             this.socket.send(JSON.stringify(dataObject));
         } catch (e) {
-            console.log('not connected');
+            console.log('not connected', e);
             e;
             throw e;
         }

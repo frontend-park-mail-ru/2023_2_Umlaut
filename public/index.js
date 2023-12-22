@@ -41,8 +41,11 @@ document.addEventListener('DOMContentLoaded', ()=>{
     globalEventBus.on(GLOBAL_EVENTS.REDIRECT, (data) => router.goOnlyForward(data));
     globalEventBus.on(GLOBAL_EVENTS.REDIRECT_WITH_HISTORY, (data) => router.go(data));
     globalEventBus.on(GLOBAL_EVENTS.POPUP, (text) => popup.render(text));
-    globalEventBus.on(GLOBAL_EVENTS.NETWORK_ERROR, ()=>{
+    globalEventBus.on(GLOBAL_EVENTS.SERVER_ERROR, ()=>{
         popup.render('Сервер временно не доступен, повторите попытку позже');
+    });
+    globalEventBus.on(GLOBAL_EVENTS.NETWORK_ERROR, ()=>{
+        popup.render('Отсутствует подключение к интернету');
     });
     globalEventBus.on(GLOBAL_EVENTS.POPUP_CONFIRM, (data) => popup.renderConfirm(data));
     globalEventBus.on(GLOBAL_EVENTS.POPUP_SETTINGS, () => {

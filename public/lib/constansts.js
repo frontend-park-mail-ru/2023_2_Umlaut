@@ -103,6 +103,7 @@ export const GLOBAL_EVENTS = {
     SHOW_LIKED: 'Show liked',
     POPUP_SETTINGS: 'Settings_popup',
     NEW_MESSAGE: 'New message',
+    SERVER_ERROR: 'ServerError',
 };
 
 export const AUTH_EVENTS = {
@@ -188,6 +189,7 @@ export const COMMON_EVENTS = {
     USER_BANNED: 'UserBanned',
     OFFLINE: 'Offline',
     ONLINE: 'Online',
+    SERVER_ERROR: 'ServerError',
 };
 
 export const PREMIUM_EVENTS = {

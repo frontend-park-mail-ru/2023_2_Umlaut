@@ -234,12 +234,13 @@ export class SettingsView extends BaseView {
             this.showError('Пароль должен быть длиннее 5-ти символов');
             return false;
         }
-        if (document.querySelector('#repeat-password').value !== document.querySelector('#password').value) {
-            this.showError('Пароли отличаются');
+        if ( Validate.areSmails(document.querySelector('#password').value) &&
+             document.querySelector('#password').value.length > 0) {
+            this.showError('Пароль не должен содержать смайлики');
             return false;
         }
-        if (!/^[a-zA-Zа-яА-я0-9@.]/.test(document.querySelector('#mail').value)) {
-            this.showError('Почта не может содержать специальные символы');
+        if (document.querySelector('#repeat-password').value !== document.querySelector('#password').value) {
+            this.showError('Пароли отличаются');
             return false;
         }
         if (this.form.querySelectorAll('.multiselection__selection_active').length > 6) {

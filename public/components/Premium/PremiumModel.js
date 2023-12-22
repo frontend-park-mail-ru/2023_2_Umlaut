@@ -8,10 +8,10 @@ export class PremiumModel {
     }
 
     getInviteLink() {
-        Api.getLink().then((response) =>{
+        Api.getLink().then(handleStatuses((response) =>{
             if (response.status === 200) {
                 this.eventBus.emit(PREMIUM_EVENTS.GOT_LINK, response.payload);
             }
-        });
+        }, this.eventBus));
     }
 }
