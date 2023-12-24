@@ -62,7 +62,7 @@ export class Router {
         if (path.startsWith('/signup/')) {
             path = '/signup';
         }
-        
+
         if (this.current !== null && this.components.has(this.current)) {
             this.components.get(this.current).close();
         }

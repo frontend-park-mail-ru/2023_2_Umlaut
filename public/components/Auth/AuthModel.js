@@ -37,19 +37,18 @@ export class AuthModel {
         );
     }
 
-    vkLogin(){
-        const data = "";
+    vkLogin() {
         const path = window.location.pathname;
-        const invitedBy = path.substring(path.lastIndexOf('/') + 1);
-        if (invitedBy !== 'signup' && invitedBy !== 'auth') {
-            data = invitedBy;
+        let invitedBy = path.substring(path.lastIndexOf('/') + 1);
+        if (invitedBy === 'signup' || invitedBy === 'auth') {
+            invitedBy = '';
         }
-        Api.vkLogin(data).then(
+        Api.vkLogin(invitedBy).then(
             (response)=>{
-                if(response.status===200){
+                if (response.status === 200) {
                     window.history.pushState(null, null, response.payload);
                 }
-        });
+            });
     }
 
     /**
