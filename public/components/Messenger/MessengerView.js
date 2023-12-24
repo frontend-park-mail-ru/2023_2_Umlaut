@@ -14,6 +14,7 @@ export class MessengerView extends BaseView {
         this.eventBus.on(MESSENGER_EVENTS.NEW_MESSAGE_IN_THIS_DIALOG, this.createMessage.bind(this));
         this.eventBus.on(MESSENGER_EVENTS.SEND, this.createMessage.bind(this));
         this.eventBus.on(MESSENGER_EVENTS.NEW_MESSAGE_IN_OTHER_DIALOG, this.newMessageOtherDialog.bind(this));
+        this.eventBus.on(MESSENGER_EVENTS.MESSAGE_NOT_SENT, this.messageNotSent.bind(this));
         this.dialog = require('./MessengerWindow.hbs');
         this.dialogWindow = null;
         this.dialogListView = null;
@@ -104,6 +105,10 @@ export class MessengerView extends BaseView {
         this.eventBus.emit(MESSENGER_EVENTS.MARK_AS_READ, data.dialogs);
 
         this.renderUserForm(data.user);
+    }
+
+    messageNotSent(data){
+        this.dialogWindow.querySelector('#message').value = data;
     }
 
     openDialogMessages(data) {

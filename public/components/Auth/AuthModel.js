@@ -46,9 +46,10 @@ export class AuthModel {
         Api.vkLogin(invitedBy).then(
             (response)=>{
                 if (response.status === 200) {
-                    window.history.pushState(null, null, response.payload);
+                    window.location = response.payload;
                 }
-            });
+            }
+        );
     }
 
     /**

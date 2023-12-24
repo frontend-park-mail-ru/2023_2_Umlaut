@@ -160,6 +160,7 @@ export const MESSENGER_EVENTS = {
     GET_PREMIUM: 'Get Premium',
     NEW_MESSAGE_IN_OTHER_DIALOG: 'Mess in other dialog',
     MATCH: 'MAtch',
+    MESSAGE_NOT_SENT: "MessageNotSent"
 };
 
 export const POPUP_EVENTS = {

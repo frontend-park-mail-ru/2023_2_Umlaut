@@ -41,6 +41,7 @@ export class MessengerModel {
             this.eventBus.emit(MESSENGER_EVENTS.SEND, message);
         } catch (e) {
             this.eventBus.emit(MESSENGER_EVENTS.ERROR, 'Ошибка сервера, сообщение не может быть отправлено');
+            this.eventBus.emit(MESSENGER_EVENTS.MESSAGE_NOT_SENT, message.message_text);
         }
     }
 
