@@ -39,11 +39,12 @@ export class AuthModel {
 
     vkLogin() {
         const path = window.location.pathname;
+        const data = {};
         let invitedBy = path.substring(path.lastIndexOf('/') + 1);
-        if (invitedBy === 'signup' || invitedBy === 'auth') {
-            invitedBy = '';
+        if (invitedBy !== 'signup' && invitedBy !== 'auth') {
+            data.invite_by = invitedBy;
         }
-        Api.vkLogin(invitedBy).then(
+        Api.vkLogin(data).then(
             (response)=>{
                 if (response.status === 200) {
                     window.location = response.payload;
