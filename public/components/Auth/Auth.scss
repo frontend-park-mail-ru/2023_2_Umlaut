@@ -43,6 +43,22 @@
       font-size: 20px;
     }
   }
+
+  &__social-media{
+    color: white;
+    font-size: calc(0.355vw + 12.67px);
+    background-color: #5a5a75;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    padding: 2px;
+  }
+
+  &__vk-img{
+    width: 20px;
+    margin: 7px;
+  }
 }
 
 .lending {

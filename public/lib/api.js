@@ -243,6 +243,15 @@ export class Api {
     static getLink() {
         return Ajax.get(BACKEND_URL + URLS.getLink);
     }
+
+    /**
+     * Get-запрос на авторизацию через вк
+     * @param {String} query - id пригласившего
+     * @return {Promise} - статус и тело ответа
+     */
+    static vkLogin(query) {
+        return Ajax.get(BACKEND_URL + URLS.vkLogin, query);
+    }
 }
 
 /**

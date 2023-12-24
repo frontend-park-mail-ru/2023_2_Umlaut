@@ -63,6 +63,9 @@ export class SignupView extends BaseView {
                 eye.src = '/pics/eye_closed.png';
             }
         });
+
+        const vk = this.root.querySelector('#vk');
+        vk.addEventListener('click', ()=>this.eventBus.emit(AUTH_EVENTS.VK_AUTH));
     }
 
     /**

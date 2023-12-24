@@ -10,6 +10,7 @@ export class AuthModel {
         this.eventBus.on(AUTH_EVENTS.SIGN_IN, this.signIn.bind(this));
         this.eventBus.on(AUTH_EVENTS.SIGN_UP, this.signUp.bind(this));
         this.eventBus.on(AUTH_EVENTS.CHECK_AUTHORISED, this.isAuthorised.bind(this));
+        this.eventBus.on(AUTH_EVENTS.VK_AUTH, this.vkLogin.bind(this));
     }
 
     /**
@@ -34,6 +35,21 @@ export class AuthModel {
                 }
             },
         );
+    }
+
+    vkLogin(){
+        const data = "";
+        const path = window.location.pathname;
+        const invitedBy = path.substring(path.lastIndexOf('/') + 1);
+        if (invitedBy !== 'signup' && invitedBy !== 'auth') {
+            data = invitedBy;
+        }
+        Api.vkLogin(data).then(
+            (response)=>{
+                if(response.status===200){
+                    window.history.pushState(null, null, response.payload);
+                }
+        });
     }
 
     /**

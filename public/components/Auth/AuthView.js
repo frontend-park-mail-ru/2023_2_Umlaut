@@ -25,6 +25,7 @@ export class AuthView extends BaseView {
         super.render();
         this.form = this.root.querySelector('.auth');
         const eye = this.root.querySelector('#eye');
+        const vk = this.root.querySelector('#vk');
         this.form.addEventListener('submit', this.onSubmit.bind(this));
         this.errorLabel = this.form.querySelector('.error-label');
         this.errorLabel.style.visibility = 'hidden';
@@ -44,6 +45,8 @@ export class AuthView extends BaseView {
             }
         },
         );
+
+        vk.addEventListener('click', ()=>this.eventBus.emit(AUTH_EVENTS.VK_AUTH));
     }
 
     /**
