@@ -20,6 +20,7 @@ export class WebSocketWrapper {
         }
         this.socket.onopen = () => {
             console.log('Socket connected');
+            setTimeout(this.socket.send(''), 30000);
         };
         this.socket.onmessage = (event) => {
             this.messageSubscribers.forEach((handler) => {

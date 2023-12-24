@@ -110,6 +110,7 @@
         </div>
     </div>
     <div class="settings-form__description-settings">
+        {{#if this.user.oauthId}}
         <h2>Смена данных для входа</h2>
         <div class="settings-form__about-user">
             <div class="input-border">
@@ -131,6 +132,7 @@
             <div class="error-label"></div>
             <button type="submit" class="btn">сохранить</button>
         </div>
+        {{/if}}
     </div>
 </form>
 <div class="logout">
