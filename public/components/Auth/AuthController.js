@@ -17,6 +17,7 @@ export class AuthController extends BaseController {
             this.globalEventBus.emit(GLOBAL_EVENTS.REDIRECT_WITH_HISTORY, path));
         this.eventBus.on(COMMON_EVENTS.AUTH, (data) => this.globalEventBus.emit(GLOBAL_EVENTS.AUTH, data));
         this.eventBus.on(GLOBAL_EVENTS.UNAUTH, () => this.globalEventBus.emit(GLOBAL_EVENTS.UNAUTH));
+        this.globalEventBus.on(GLOBAL_EVENTS.CHECK_AUTHORISED, ()=>this.eventBus.emit(AUTH_EVENTS.CHECK_AUTHORISED));
     }
 
     /**
