@@ -1,8 +1,9 @@
+@import "/public/lib/constants";
+
 .header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: var(--dark-blue-color);
   min-height: var(--header-height);
   padding-right: 5px;
   padding-left: 5px;
@@ -17,6 +18,7 @@
     display: flex;
     justify-content: center;
     gap: 12px;
+    margin-left: auto;
   }
 
   &__photo {
@@ -60,5 +62,87 @@
     color: white;
     margin-right: 10px;
     text-decoration: none;
+  }
+}
+
+.sidebar{
+  font-family: "Montserrat";
+  margin-top: var(--header-height);
+
+  &__visible{
+    display: block;
+
+    @media (max-width: $phone-max-width) {
+      width: 100%;
+      position: absolute;
+      z-index: 3;
+      background-color: var(--background-color);
+      height: 100%;
+    }
+  }
+
+  &__header{
+    display: flex;
+    padding: 10px;
+    font-size: 22px;
+  }
+
+  &__buy-premium{
+    background-color: var(--premium-green);
+    width: 92%;
+    display: block;
+    padding: 4%;
+    font-size: 20px;
+    box-shadow: 0px 0px 5px 1px rgba(34, 60, 80, 0.2);
+  }
+
+  &__premium-img{
+    height: 25px;
+  }
+
+  &__pairs-header{
+    padding: 5px 0px;
+  }
+
+  &__pairs{
+    overflow: auto;
+    width: 250px;
+    white-space: nowrap;
+    padding: 3px;
+  }
+
+  &__part{
+    display: flex;
+    flex-direction: column;
+    padding: 15px 10px;
+  }
+
+  &__photo-avatar{
+    width: 50px;
+    object-fit: cover;
+    height: 50px;
+    border-radius: 50%;
+    display: inline-block;
+    overflow: auto;
+    margin: 0 5px;
+    cursor: pointer;
+
+    &_blur{
+      filter: blur(2px);
+    }
+  }
+
+  &__dialog-preview{
+    display: flex;
+    padding: 10px 0px;
+    cursor: pointer;
+  }
+
+  &__dialog{
+    border-bottom: 1px solid #999;
+  }
+
+  &__content{
+    padding: 10px;
   }
 }

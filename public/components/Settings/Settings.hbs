@@ -51,7 +51,7 @@
                     {{/if}}
                 </select>
             </div>
-            <div class="input-border">
+            <div class="input-border input-border_not-important">
                 <span class="input-border__header">Цель</span>
                 <select class="input-border__data-input"  id="looking">
                     {{#if this.user.looking}}
@@ -64,7 +64,7 @@
                     {{/each}} 
                 </select>
             </div>
-            <div class="input-border">
+            <div class="input-border input-border_not-important">
                 <span class="input-border__header">Образование</span>
                 <select class="input-border__data-input"  id="education">
                     {{#if this.user.education}}
@@ -77,7 +77,7 @@
                     {{/each}} 
                 </select>
             </div>
-            <div class="input-border multiselection">
+            <div class="input-border input-border_not-important multiselection">
                 <span class="input-border__header">Теги</span>
                 <div class="input-border__data-input"  id="tags">
                     <div class="multiselection__input">
@@ -107,8 +107,6 @@
                     <textarea maxlength="350" class="input-border__data-input input__data-input_text" id="description">{{this.user.description}}</textarea>
                 </select>
             </div>
-            <div class="error-label"></div>
-            <button type="submit" class="btn">сохранить</button>
         </div>
     </div>
     <div class="settings-form__description-settings">
@@ -130,6 +128,8 @@
                     <input maxlength="50" type="password" class="input-border__data-input input__data-input_password" id="repeat-password">
                 </select>
             </div>
+            <div class="error-label"></div>
+            <button type="submit" class="btn">сохранить</button>
         </div>
     </div>
 </form>

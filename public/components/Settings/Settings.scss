@@ -86,9 +86,14 @@
   margin: 10px;
   margin-left: 0;
   margin-right: 0;
+  flex: 1;
 
   @media (max-width: $phone-max-width) {
     font-size: 16px;
+  }
+
+  &_not-important{
+    border: 2px solid #807d7d;
   }
 
   &__eye {
@@ -119,6 +124,7 @@
       height: 50px;
       margin: -1%;
       resize: none;
+      overflow: hidden;
     }
 
     &_date {

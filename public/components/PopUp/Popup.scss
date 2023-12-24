@@ -1,6 +1,7 @@
 @import "/public/lib/constants";
 .popup {
   z-index: 10;
+  position: absolute;
 
   &__notify {
     display: flex;
@@ -8,14 +9,67 @@
     align-items: center;
     position: fixed;
     visibility: hidden;
-    top: 82%;
-    left: 82%;
+    top: 80%;
+    left: 80%;
     opacity: 0;
     transition: visibility 0.5s, opacity 0.5s linear;
     width: 250px;
     height: 100px;
     border-radius: 15px;
-    background-color: #ffffff;
+    background-color: #000000;
+    padding: 10px;
+    @media (max-width: $phone-max-width) {
+      left: 50%;
+      transform: translateX(-50%);
+    }
+  }
+
+  &__photo{
+    height: 60px;
+    width: 60px;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+
+  &__message {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    visibility: hidden;
+    gap: 3px;
+    top: 95%;
+    left: 95%;
+    transform: translateX(-100%) translateY(-100%);
+    opacity: 0;
+    transition: visibility 0.5s, opacity 0.5s linear;
+    width: 250px;
+    height: 100px;
+    border-radius: 15px;
+    background-color: #000000;
+    padding: 10px;
+    @media (max-width: $phone-max-width) {
+      left: 50%;
+      transform: translateX(-50%);
+    }
+  }
+
+  &__settings {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    visibility: hidden;
+    top: 12%;
+    left: 2%;
+    opacity: 0;
+    transition: visibility 0.3s, opacity 0.5s linear;
+    width: 250px;
+    height: 100px;
+    border-radius: 15px;
+    background-color: #000000;
+    padding: 10px;
     @media (max-width: $phone-max-width) {
       left: 50%;
       transform: translateX(-50%);
@@ -76,7 +130,7 @@
   }
 
   &__variant {
-    background-color: #f2adad;
+    background-color: #f2c7c7;
     width: 100%;
     padding: 4px;
     border: var(--dark-blue-color) 2px solid;
@@ -108,6 +162,70 @@
     display: flex;
     justify-content: center;
     font-size: 16px;
-    color: black;
+    color: rgb(255, 255, 255);
+
+    &_big{
+      font-size: 40px;
+      font-weight: 1000;
+    }
+
+    &-mes {
+      align-self: start;
+    }
+  }
+
+  &__match{
+    min-height: 100vh;
+    background-color: #ff75b5de;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+  }
+
+  &__match-text{
+    font-size: calc(1.5vw + 8px);
+    color: white;
+    margin: 20px;
+    text-align: center;
+  }
+
+  &__photo-img{
+    width: 70px;
+    object-fit: cover;
+    height: 70px;
+    border-radius: 50%;
+    display: inline-block;
+    margin: 0 10px;
+  }
+
+  &__match-buttons{
+    margin: 10px;
+    display: flex;
+
+    @media (max-width: $phone-max-width){  
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+
+  &__dialog-link{
+    background-color: #ff0078;
+    padding: 8px;
+    border-radius: 15px;
+  }
+
+  &__or{
+    margin: 0 13px;
+    color: white;
+  }
+
+  &__feed-link{
+    background-color: #e662a0;
+    padding: 8px;
+    border-radius: 15px;
   }
 }

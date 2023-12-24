@@ -3,12 +3,12 @@
 .form-feed {
   padding: 20px;
   display: flex;
-  margin-top: 3vh;
+  margin-top: 5vh;
   justify-content: center;
 
   @media (max-width: $phone-max-width) {
     padding: 0;
-    margin-top: 6vh;
+    margin-top: 7vh;
     margin-bottom: 6vh;
   }
 
@@ -23,7 +23,7 @@
     align-self: flex-end;
     margin-bottom: 5%;
     z-index: 2;
-    height: min(15%, 75px);
+    height: min(70px);
   }
 
   &__button {
@@ -31,30 +31,45 @@
     cursor: pointer;
     appearance: none;
     background-color: inherit;
-    transition: transform 0.7s ease-in-out;
+    transition: all 0.2s ease-in-out;
     border-radius: 50%;
-    background-color: green;
+    background-color: rgb(252, 252, 252);
+    box-shadow: $shadow;
     aspect-ratio: 1 / 1;
+    @supports not (aspect-ratio: 1 / 1) {
+      &::before {
+        float: left;
+        padding-top: 100%;
+        content: "";
+      }
+  
+      &::after {
+        display: block;
+        content: "";
+        clear: both;
+      }
+    }
     cursor: pointer;
 
     &:hover {
-      filter: brightness(1.2);
+      filter: brightness(1.1);
+      transform: scale(1.01) translateY(-1px);
     }
 
     &-img {
       height: 100%;
       width: 100%;
       position: relative;
-      top: 3px;
-      scale: 1.2;
-    }
-
-    &-like {
-      background-color: rgb(0, 114, 0);
-    }
-
-    &-dislike {
-      background-color: #dd1428;
+      &-like{
+        stroke: #ff5182;
+        scale: 0.9;
+        position: relative;
+        top:2px;
+      }
+      &-dislike{
+        scale: 1.2;
+        stroke: #4a58a2;
+      }
     }
 
     &:active:enabled {
@@ -87,22 +102,25 @@
     box-shadow: 0px 0px 5px 1px rgba(34, 60, 80, 0.2);
     background-color: #ffffff;
     display: grid;
-    grid-template-columns: min(max(280px, 31vw), 450px) 1fr;
-    grid-template-rows: 100%;
+    width: min(80vw, 900px);
+    grid-template-columns: min(max(280px, 31vw), 450px) minmax(0, 1fr);
+    grid-template-rows: min(max(450px, 60vh), 600px);
     overflow: hidden;
     column-gap: 2vw;
     position: relative;
     border-radius: 30px;
     //phone
     @media (max-width: $phone-max-width) {
-      grid-template-rows: min-content min-content;
-      grid-template-columns: 90vw;
+      grid-template-rows: 75vh min-content;
+      grid-template-columns: 80vw;
       row-gap: 20px;
     }
   }
 
   &__text {
     margin: 7px;
+    overflow: hidden;
+    word-wrap: break-word;
     &_bold {
       font-weight: bold;
     }
@@ -133,7 +151,15 @@
   &__description {
     display: flex;
     flex-direction: column;
-    padding-bottom: 10px;
+    padding-bottom: 15px;
+    overflow: auto;
+    @media (min-width: $phone-max-width) {
+      padding-right: 10px;
+    }
+
+    &__no-overflow{
+      overflow: unset;
+    }
   }
 
   &__about-user {
@@ -141,21 +167,34 @@
     flex-direction: column;
   }
 
-  &__search-btn {
+  &__search {
     user-select: none;
     height: min(6vh, 60px);
-    margin-left: auto;
     cursor: pointer;
     position: absolute;
     right: 1vw;
-    top: 1vw;
+    top: 10px;
     z-index: 5;
     aspect-ratio: 1 / 1;
+    display: flex;
+    align-items: center;
+  }
+
+  &__search-btn {
+    height: min(6vh, 60px);
+  }
+
+  &__search-text{
+    color: var(--dark-blue-color);
+    font-size: 22px;
+    @media (max-width: $phone-max-width) {
+      display: none;
+    }
   }
 
   &__complain {
     position: absolute;
-    font-size: 0.6rem;
+    font-size: 0.8rem;
     font-weight: bold;
     color: var(--dark-blue-color);
     right: 0;
@@ -163,6 +202,7 @@
     padding: 2px;
     padding-right: 20px;
     cursor: pointer;
+    background-color: white;
     &:hover {
       scale: 1.03;
     }
@@ -170,6 +210,18 @@
       position: relative;
       bottom: 0.5px;
     }
+  }
+
+  &__left-swipes{
+    position: absolute;
+    font-size: 0.7rem;
+    font-weight: bold;
+    color: var(--dark-blue-color);
+    left: 50%;
+    bottom: 0;
+    padding: 2px;
+    padding-right: 20px;
+    background-color: white;
   }
 }
 
@@ -197,6 +249,25 @@
 
   &__age {
     display: flex;
-    width: 325px;
+    width: min(85vw, 325px);
+    gap: 10px;
+  }
+}
+
+.input{
+  &_complain{
+    margin-top: 10px;
+  }
+
+  &__input{
+    &_complain{
+      color: var(--dark-blue-color);
+    }
+  }
+
+  &__label{
+    &_complain{
+      color: var(--dark-blue-color);
+    }
   }
 }

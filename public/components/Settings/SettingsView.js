@@ -5,7 +5,7 @@ import './Settings.scss';
 import {Carousel} from '../Carousel/Carousel.js';
 
 /**
- * Компонент страницы авторизации (входа)
+ * Класс отображения страницы натроек
  */
 export class SettingsView extends BaseView {
     constructor(root, eventBus) {
@@ -18,13 +18,19 @@ export class SettingsView extends BaseView {
         this.root = root;
     }
 
+    /**
+     * Рендер страницы настроек
+     * @param {Object} data - старые настройки пользователя
+     */
     render(data) {
         super.render(data);
-
+        document.querySelector('.sidebar').className = 'sidebar';
         for (let i = 0; i < data.user.tags.length; i++) {
             const elem = this.root.querySelector(`#${data.interests[data.user.tags[i]]}`);
             elem.classList.add('multiselection__selection_active');
         }
+
+        this.changeTextareaHeight();
 
         this.selectTags();
 
@@ -40,22 +46,6 @@ export class SettingsView extends BaseView {
         this.errorLabel = this.form.querySelector('.error-label');
         this.errorLabel.style.visibility = 'hidden';
 
-
-        const log = {func: () => {
-            this.eventBus.emit(SETTINGS_EVENTS.LOGOUT); this.eventBus.emit(SETTINGS_EVENTS.HIDE);
-        },
-        text: 'Вы уверены, что хотите выйти?'};
-        const del = {func: () => {
-            this.eventBus.emit(SETTINGS_EVENTS.DELETE_PHOTO, this.photoCarousel.current());
-            this.eventBus.emit(SETTINGS_EVENTS.HIDE);
-        },
-        text: 'Вы уверены, что хотите удалить фото?'};
-        logoutBtn.addEventListener('click', () => this.eventBus.emit(SETTINGS_EVENTS.SHOW_CONFIRM_LOG, log));
-        this.deletePhotoBtn.addEventListener('click', () => this.eventBus.emit(SETTINGS_EVENTS.SHOW_CONFIRM_LOG, del));
-        if (data.user.image_paths.length === 0) {
-            this.deletePhotoBtn.disabled = true;
-        }
-
         function addPhoto(eventBus) {
             return function() {
                 eventBus.emit(SETTINGS_EVENTS.ADD_PHOTO, selectedFile.files[0]);
@@ -67,6 +57,24 @@ export class SettingsView extends BaseView {
         selectedFile.onchange = ()=> {
             add();
         };
+
+        const log = {func: () => {
+            this.eventBus.emit(SETTINGS_EVENTS.LOGOUT); this.eventBus.emit(SETTINGS_EVENTS.HIDE);
+        },
+        text: 'Вы уверены, что хотите выйти?'};
+
+        const del = {func: () => {
+            this.eventBus.emit(SETTINGS_EVENTS.DELETE_PHOTO, this.photoCarousel.current());
+            this.eventBus.emit(SETTINGS_EVENTS.HIDE);
+        },
+        text: 'Вы уверены, что хотите удалить фото?'};
+
+        logoutBtn.addEventListener('click', () => this.eventBus.emit(SETTINGS_EVENTS.SHOW_CONFIRM_LOG, log));
+        this.deletePhotoBtn.addEventListener('click', () => this.eventBus.emit(SETTINGS_EVENTS.SHOW_CONFIRM_LOG, del));
+        if (data.user.image_paths.length === 0) {
+            this.deletePhotoBtn.disabled = true;
+        }
+
 
         const eye = this.root.querySelector('#eye');
         eye.addEventListener('click', () => {
@@ -82,6 +90,25 @@ export class SettingsView extends BaseView {
         );
     }
 
+    /**
+     * Меняет высоту textarea при вводе текста
+     */
+    changeTextareaHeight() {
+        const tx = document.getElementsByTagName('textarea');
+        for (let i = 0; i < tx.length; i++) {
+            tx[i].setAttribute('style', 'height:' + (tx[i].scrollHeight) + 'px;overflow-y:hidden;');
+            tx[i].addEventListener('input', OnInput, false);
+        }
+
+        function OnInput() {
+            this.style.height = 0;
+            this.style.height = (this.scrollHeight) + 'px';
+        }
+    }
+
+    /**
+     * Закрытие страницы настроек
+     */
     close() {
         this.form = null;
         document.removeEventListener('click', this.clickWithinDiv);
@@ -89,7 +116,7 @@ export class SettingsView extends BaseView {
     }
 
     /**
-     * Проверка правильности введенных данных, отправка запроса на бекенд и переход в ленту/сообщение об ошибке
+     * Проверка правильности введенных данных, отправка запроса на бекенд
      * @param {SubmitEvent} event
      */
     onSubmit(event) {
@@ -133,6 +160,10 @@ export class SettingsView extends BaseView {
         this.eventBus.emit(SETTINGS_EVENTS.SEND_DATA, inputsValue);
     }
 
+    /**
+     * Добавить фото пользователя
+     * @param {Object} image - файл фотографии
+     */
     addPhoto(image) {
         this.photoCarousel.add(image);
         if (this.photoCarousel.current() !== '') {
@@ -140,6 +171,10 @@ export class SettingsView extends BaseView {
         }
     }
 
+    /**
+     * Удалить фото пользователя
+     * @param {String} photo - ссылка на фото
+     */
     deletePhoto(photo) {
         this.photoCarousel.delete(photo);
         if (this.photoCarousel.current() === '') {
@@ -147,6 +182,10 @@ export class SettingsView extends BaseView {
         }
     }
 
+    /**
+     * Проверка правильности введенных данных
+     * @return {boolean} правильность введенных данных
+     */
     validateForm() {
         if (!Validate.email(document.querySelector('#mail').value)) {
             this.showError('Неверный email');
@@ -195,12 +234,17 @@ export class SettingsView extends BaseView {
             this.showError('Пароль должен быть длиннее 5-ти символов');
             return false;
         }
+        if ( Validate.areSmails(document.querySelector('#password').value) &&
+             document.querySelector('#password').value.length > 0) {
+            this.showError('Пароль не должен содержать смайлики');
+            return false;
+        }
         if (document.querySelector('#repeat-password').value !== document.querySelector('#password').value) {
             this.showError('Пароли отличаются');
             return false;
         }
-        if (!/^[a-zA-Zа-яА-я0-9@.]/.test(document.querySelector('#mail').value)) {
-            this.showError('Почта не может содержать специальные символы');
+        if (this.form.querySelectorAll('.multiselection__selection_active').length > 6) {
+            this.showError('Выберите не более 6 тегов');
             return false;
         }
         return true;
@@ -222,6 +266,10 @@ export class SettingsView extends BaseView {
         this.errorLabel.innerHTML = message;
     }
 
+    /**
+     * Закрытие окна с тегами по клику вне него
+     * @param {event} e - событие клика
+     */
     clickWithinDiv(e) {
         const container = document.querySelector('.multiselection__input');
         const input = document.querySelector('.multiselection__select-multiple');
@@ -230,6 +278,9 @@ export class SettingsView extends BaseView {
         }
     }
 
+    /**
+     * Отрисовка выбора тегов
+     */
     selectTags() {
         const input = this.root.querySelector('.multiselection__input');
         input.addEventListener('click', ()=>{

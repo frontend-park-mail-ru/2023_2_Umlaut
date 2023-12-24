@@ -5,6 +5,39 @@
   width: 100%;
   height: calc(100vh - 65px);
 
+  &__cross{
+    width: 15px;
+    margin-top: 10px;
+    margin-left: 10px;
+    cursor: pointer;
+  }
+
+  &__user-form{
+    display: flex;
+    flex-direction: column;
+    max-width: 25%;
+    height: calc(100vh - var(--header-height) - 20px);
+    overflow: auto;
+    margin: 10px;
+    border-radius: 30px;
+    box-shadow: $shadow;
+
+    @media(max-width: 660px){
+      position: absolute;
+      background-color: var(--background-color);
+      z-index: 2;
+      height: 100%;
+      margin: 0;
+      border-radius: 0;
+      box-shadow: none;
+      max-width: 100%;
+    }
+
+    &_invisible{
+      display: none;
+    }
+  }
+
   &__dialogs {
     background-color: var(--dialog-grey);
     width: var(--dialogs-width);
@@ -83,6 +116,7 @@
 
   &__dialog-name {
     color: white;
+    overflow: hidden;
     @media (max-width:$phone-max-width) {
       font-size: 14px;
       display: none;
@@ -91,21 +125,40 @@
 
   &__preview-message {
     font-size: 12px;
+    overflow: hidden;
   }
 }
 
 .dialog-window {
   width: 100%;
   background-image: url("../../../static/pics/background.jpg");
+  @media (max-width:$phone-max-width) {
+    margin: 0;
+    border-radius: 0;
+    box-shadow: none;
+  }
+  
+  margin: 10px;
+  margin-right: 0;
+  box-shadow: $shadow;
+  border-radius: 30px;
 
   &__dialog {
     overflow: auto;
     -webkit-overflow-scrolling: touch;
     padding: 5px;
-    height: calc(
-      100vh - var(--header-height) - var(--dialog-name-height) -
-        var(--dialog-input-height) - 10px
-    );
+
+    @media (max-width:$phone-max-width) {
+      height: calc(100vh - var(--header-height) 
+      - var(--dialog-name-height) 
+      - var(--dialog-input-height) 
+      - 40px);
+    }
+
+    height: calc(100vh - var(--header-height) 
+                       - var(--dialog-name-height) 
+                       - var(--dialog-input-height) 
+                       - 60px);
   }
 
   &__message {
@@ -128,6 +181,7 @@
     font-size: 16px;
     margin: 3px;
     word-wrap: break-word;
+    overflow: hidden;
   }
 
   &__time {
@@ -137,6 +191,8 @@
   &__input-message {
     display: flex;
     background-color: white;
+    margin: 5px 20px;
+    border-radius: 20px;
   }
 
   &__send-img {
@@ -144,11 +200,14 @@
     background-color: white;
     object-fit: cover;
     cursor: pointer;
+    border-radius: 20px;
   }
 
   &__input {
     width: 100%;
     border: none;
+    border-radius: 20px;
+    padding: 0 10px;
   }
 
   &__unread {
@@ -157,8 +216,12 @@
   }
 
   &__name {
-    background-color: #76798b;
     font-size: 30px;
     height: var(--dialog-name-height);
+  }
+
+  &__user{
+    padding: 5px;
+    cursor: pointer;
   }
 }

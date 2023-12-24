@@ -1,6 +1,9 @@
 import {AUTH_EVENTS, COMMON_EVENTS, GLOBAL_EVENTS} from '../../lib/constansts.js';
 import {Api} from '../../lib/api.js';
 
+/**
+ * Класс модель для страницы входа в админскую часть приложения
+ */
 export class AdminAuthModel {
     constructor(eventBus) {
         this.eventBus = eventBus;
@@ -8,6 +11,10 @@ export class AdminAuthModel {
         this.eventBus.on(AUTH_EVENTS.CHECK_AUTHORISED, this.isAuthorised.bind(this));
     }
 
+    /**
+     * Метод отвечающий за вход в аккаунт
+     * @param {object} data - параметры для входа
+     */
     signIn(data) {
         Api.admimAuth(data).then(
             (response) => {
@@ -27,6 +34,11 @@ export class AdminAuthModel {
         );
     }
 
+
+    /**
+     * Вход в аккаунт
+     * Вызывает COMMON_EVENTS.AUTH в случае успеха
+     */
     isAuthorised() {
         Api.getComplaint().then(
             (response) => {

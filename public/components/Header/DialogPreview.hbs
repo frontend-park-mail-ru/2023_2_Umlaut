@@ -1,0 +1,18 @@
+<div class="sidebar__dialog">
+  <div class="sidebar__dialog-preview" id={{user_dialog_id}}>
+    <div>
+      <img class="sidebar__photo-avatar" src={{photo}} />
+    </div>
+    <div class="sidebar__content">
+      <span class="sidebar__dialog-name">{{companion}}</span>
+      {{#if lastMessage}}
+        <div class="sidebar__preview-message">{{lastMessage}}</div>
+      {{/if}}
+    </div>
+    {{#if unreadCount}}
+      <div class="sidebar__unread-count">
+        <span>{{unreadCount}}</span>
+      </div>
+    {{/if}}
+  </div>
+</div>

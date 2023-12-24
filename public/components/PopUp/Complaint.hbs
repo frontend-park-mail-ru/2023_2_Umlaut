@@ -1,0 +1,17 @@
+<div class="popup__question">
+    Выберите причину жалобы
+</div>
+<div class="popup__variants">
+    {{#each complaint_types}}
+    {{#if need_text}}
+        <div class="popup__variant need_text" id="{{id}}">{{type_name}}</div>
+    {{else}}
+        <div class="popup__variant" id="{{id}}">{{type_name}}</div>
+    {{/if}}
+    {{/each}}
+    <div class="input input_complain">
+        <input type="text" class="popup__text-input input__input input__input_complain" id="mail" required=""/>
+        <label class="input__label input__label_complain">Комментарий</label>
+    </div>
+    <button class="btn popup__submit">Пожаловаться</button>
+</div>
