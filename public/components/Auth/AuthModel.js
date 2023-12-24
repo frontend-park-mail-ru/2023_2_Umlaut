@@ -118,7 +118,7 @@ export class AuthModel {
         const params = new URLSearchParams(window.location.search);
         if (params.get('code')) {
             if (params.get('state')) {
-                params.append('invited_by', params.get('state'));
+                params.append('invite_by', params.get('state'));
                 params.delete('state');
             }
             const vkResponce = await Api.vkAuth(params);
