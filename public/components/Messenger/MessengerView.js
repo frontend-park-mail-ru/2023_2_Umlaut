@@ -105,6 +105,13 @@ export class MessengerView extends BaseView {
         this.eventBus.emit(MESSENGER_EVENTS.MARK_AS_READ, data.dialogs);
 
         this.renderUserForm(data.user);
+
+        const cross = this.root.querySelector('#cross');
+        const user = this.root.querySelector('#user-name');
+        cross.addEventListener('click', ()=>
+            this.root.querySelector('.messenger__user-form').classList.toggle('messenger__user-form_invisible'));
+        user.addEventListener('click', ()=>
+            this.root.querySelector('.messenger__user-form').classList.toggle('messenger__user-form_invisible'));
     }
 
     messageNotSent(data) {
@@ -121,7 +128,7 @@ export class MessengerView extends BaseView {
 
     renderUserForm(user) {
         const userForm = this.root.querySelector('.messenger__user-form');
-        userForm.innerHTML = require('../Feed/Description.hbs')(user);
+        userForm.innerHTML += require('../Feed/Description.hbs')(user);
         const carouselRoot = this.root.querySelector('.form-feed__feed-photo');
         userForm.querySelector('.form-feed__description').className = 'form-feed__description_no-overflow';
         this.carousel = new Carousel(carouselRoot);

@@ -5,6 +5,13 @@
   width: 100%;
   height: calc(100vh - 65px);
 
+  &__cross{
+    width: 15px;
+    margin-top: 10px;
+    margin-left: 10px;
+    cursor: pointer;
+  }
+
   &__user-form{
     display: flex;
     flex-direction: column;
@@ -16,6 +23,17 @@
     box-shadow: $shadow;
 
     @media(max-width: 660px){
+      position: absolute;
+      background-color: var(--background-color);
+      z-index: 2;
+      height: 100%;
+      margin: 0;
+      border-radius: 0;
+      box-shadow: none;
+      max-width: 100%;
+    }
+
+    &_invisible{
       display: none;
     }
   }
@@ -204,5 +222,6 @@
 
   &__user{
     padding: 5px;
+    cursor: pointer;
   }
 }
