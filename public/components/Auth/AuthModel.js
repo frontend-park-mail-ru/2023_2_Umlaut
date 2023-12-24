@@ -48,7 +48,7 @@ export class AuthModel {
                 if (response.status === 200) {
                     window.location = response.payload;
                 }
-            }
+            },
         );
     }
 

@@ -24,7 +24,7 @@ export const URLS = {
     getLiked: '/api/v1/premium/likes',
     getLink: '/api/v1/user/share',
     vkLogin: '/api/v1/auth/vk-login',
-    vkAuth: '/api/v1/auth/vk-sign-up',
+    vkAuth: '/api/v1/auth/vk-sign-up?',
 };
 
 export const SETTINGS_LIST = {
@@ -160,7 +160,7 @@ export const MESSENGER_EVENTS = {
     GET_PREMIUM: 'Get Premium',
     NEW_MESSAGE_IN_OTHER_DIALOG: 'Mess in other dialog',
     MATCH: 'MAtch',
-    MESSAGE_NOT_SENT: "MessageNotSent"
+    MESSAGE_NOT_SENT: 'MessageNotSent',
 };
 
 export const POPUP_EVENTS = {

@@ -107,7 +107,7 @@ export class MessengerView extends BaseView {
         this.renderUserForm(data.user);
     }
 
-    messageNotSent(data){
+    messageNotSent(data) {
         this.dialogWindow.querySelector('#message').value = data;
     }
 
