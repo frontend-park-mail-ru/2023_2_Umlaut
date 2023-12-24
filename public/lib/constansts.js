@@ -23,7 +23,7 @@ export const URLS = {
     adminComplaint: '/api/v1/admin/complaint',
     getLiked: '/api/v1/premium/likes',
     getLink: '/api/v1/user/share',
-    vkLogin: '/api/v1/auth/vk-login',
+    vkLogin: '/api/v1/auth/vk-login?',
     vkAuth: '/api/v1/auth/vk-sign-up?',
 };
 

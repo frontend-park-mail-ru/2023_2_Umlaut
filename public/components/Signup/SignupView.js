@@ -37,7 +37,7 @@ export class SignupView extends BaseView {
             } else this.hideError();
         });
         this.nameInput.addEventListener('change', () => {
-            if (this.nameInput.value.length<2) {
+            if (this.nameInput.value.length < 2) {
                 this.showError('Имя должно содержать не менее 2х символов');
             } else this.hideError();
         });
@@ -90,7 +90,7 @@ export class SignupView extends BaseView {
             this.mailInput.focus();
             return false;
         }
-        if (this.nameInput.value.length<2) {
+        if (this.nameInput.value.length < 2) {
             this.showError('Имя должно содержать не менее 2х символов');
             this.nameInput.focus();
             return false;
