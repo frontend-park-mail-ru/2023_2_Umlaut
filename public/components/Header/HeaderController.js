@@ -25,5 +25,8 @@ export class HeaderController {
         this.eventBus.on(MESSENGER_EVENTS.SHOW_LIKED, (element) => {
             this.globalEventBus.emit(GLOBAL_EVENTS.SHOW_LIKED, element);
         });
+
+        this.globalEventBus.on(GLOBAL_EVENTS.RENDER_DIALOGS, ()=> this.eventBus.emit(MESSENGER_EVENTS.GET_PAIRS_AND_DIALOGS));
+        this.globalEventBus.on(GLOBAL_EVENTS.RENDER_LIKES, ()=> this.eventBus.emit(MESSENGER_EVENTS.GET_LIKED));
     }
 }

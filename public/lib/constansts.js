@@ -106,6 +106,8 @@ export const GLOBAL_EVENTS = {
     POPUP_SETTINGS: 'Settings_popup',
     NEW_MESSAGE: 'New message',
     SERVER_ERROR: 'ServerError',
+    RENDER_DIALOGS: 'RenderDialogs',
+    RENDER_LIKES: 'RenderLikes',
 };
 
 export const AUTH_EVENTS = {

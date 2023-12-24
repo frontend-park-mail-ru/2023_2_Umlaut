@@ -11,7 +11,10 @@ export class SettingsController extends BaseController {
         super(globalEventBus);
         this.view = new SettingsView(root, this.eventBus);
         this.model = new SettingsModel(this.eventBus);
-        this.eventBus.on(SETTINGS_EVENTS.SUCCESS, (text) => this.globalEventBus.emit(GLOBAL_EVENTS.POPUP, text));
+        this.eventBus.on(SETTINGS_EVENTS.SUCCESS, (text) => {
+            this.globalEventBus.emit(GLOBAL_EVENTS.POPUP, text);
+            this.globalEventBus.emit(GLOBAL_EVENTS.RERENDER_HEADER);
+        });
         this.eventBus.on(SETTINGS_EVENTS.SHOW_CONFIRM_LOG, (data) =>
             this.globalEventBus.emit(GLOBAL_EVENTS.POPUP_CONFIRM, data));
         this.eventBus.on(SETTINGS_EVENTS.PHOTO_UPLOADED, () => this.globalEventBus.emit(GLOBAL_EVENTS.RERENDER_HEADER));

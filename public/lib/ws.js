@@ -27,7 +27,7 @@ export class WebSocketWrapper {
             });
         };
         this.socket.onclose = (event) => {
-            console.log('Socket closed');
+            console.log('Socket closed', event);
             this.closeSubscribers.forEach((handler) => {
                 handler(event);
             });

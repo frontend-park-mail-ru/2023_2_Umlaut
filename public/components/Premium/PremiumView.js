@@ -11,6 +11,7 @@ export class PremiumView extends BaseView {
     }
 
     render(link) {
+        document.querySelector('.sidebar').className = 'sidebar';
         if (!link) {
             this.eventBus.emit(PREMIUM_EVENTS.GET_LINK);
         } else {

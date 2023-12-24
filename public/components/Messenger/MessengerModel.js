@@ -132,6 +132,7 @@ export class MessengerModel {
                     }
                 }
                 this.eventBus.emit(MESSENGER_EVENTS.MATCH, mes.payload);
+                
             }, this.eventBus));
         }
     }
