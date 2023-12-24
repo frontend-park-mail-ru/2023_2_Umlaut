@@ -243,6 +243,10 @@ export class Api {
     static getLink() {
         return Ajax.get(BACKEND_URL + URLS.getLink);
     }
+
+    static vkAuth(params) {
+        return Ajax.get(BACKEND_URL + URLS.vkAuth, params);
+    }
 }
 
 /**

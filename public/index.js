@@ -21,7 +21,7 @@ import {StatisticsController} from './components/Statistics/StatisticsController
 import {ComplainsController} from './components/Complains/ComplainsController.js';
 import {PremiumController} from './components/Premium/PremiumController.js';
 
-document.addEventListener('DOMContentLoaded', ()=>{
+document.addEventListener('DOMContentLoaded', async ()=>{
     if ('serviceWorker' in navigator) {
         runtime.register().catch((error) => {
             console.log('Registration failed with ' + error);
@@ -100,7 +100,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
     router.add('/premium', premium);
 
     if (!window.location.pathname.startsWith('/admin')) {
-        globalEventBus.emit(GLOBAL_EVENTS.CHECK_AUTHORISED);
+        await auth.model.isAuthorisedGlobalAsync();
     } else {
         admin.model.isAuthorised();
     }
