@@ -252,6 +252,10 @@ export class Api {
     static vkLogin(query) {
         return Ajax.get(BACKEND_URL + URLS.vkLogin, query);
     }
+
+    static vkAuth(params) {
+        return Ajax.get(BACKEND_URL + URLS.vkAuth, params);
+    }
 }
 
 /**

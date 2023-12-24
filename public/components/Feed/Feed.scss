@@ -34,7 +34,7 @@
     transition: all 0.2s ease-in-out;
     border-radius: 50%;
     background-color: rgb(252, 252, 252);
-    box-shadow: 0px 3px 5px 1px rgba(105, 105, 105, 0.6);
+    box-shadow: $shadow;
     aspect-ratio: 1 / 1;
     @supports not (aspect-ratio: 1 / 1) {
       &::before {

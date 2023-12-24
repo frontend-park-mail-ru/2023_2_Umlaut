@@ -89,9 +89,8 @@ export class AuthModel {
 
     /**
      * Проверка на то, авторизован ли пользователь
-     * @param {bool} global - общая проверка авторизации или страниц входа
      */
-    isAuthorised(global) {
+    isAuthorised() {
         Api.user().then(
             (response) => {
                 if ( response.status === 200 ) {
@@ -103,12 +102,44 @@ export class AuthModel {
                         this.eventBus.emit(GLOBAL_EVENTS.POPUP_SETTINGS);
                     }
                 } else if (response.status === 401) {
-                    if (global) {
-                        if (window.location.pathname !== '/auth' && !window.location.pathname.startsWith('/signup')) {
-                            this.eventBus.emit(GLOBAL_EVENTS.UNAUTH);
-                        }
-                    } else {
-                        this.eventBus.emit(COMMON_EVENTS.UNAUTH);
+                    this.eventBus.emit(COMMON_EVENTS.UNAUTH);
+                } else if (response.status === 403) {
+                    this.eventBus.emit(GLOBAL_EVENTS.USER_BANNED);
+                } else if (response.status >= 500) {
+                    this.eventBus.emit(COMMON_EVENTS.NETWORK_ERROR);
+                }
+            },
+        );
+    }
+
+    async isAuthorisedGlobalAsync() {
+        const params = new URLSearchParams(window.location.search);
+        if (params.get('code')) {
+            if (params.get('state')) {
+                params.append('invited_by', params.get('state'));
+                params.delete('state');
+            }
+            const vkResponce = await Api.vkAuth(params);
+            if (vkResponce.status === 400) {
+                this.eventBus.emit(GLOBAL_EVENTS.REDIRECT, '/auth');
+            } else if (vkResponce.status >= 500) {
+                this.eventBus.emit(COMMON_EVENTS.NETWORK_ERROR);
+            }
+        }
+
+        Api.user().then(
+            (response) => {
+                if ( response.status === 200 ) {
+                    this.eventBus.emit(COMMON_EVENTS.AUTH, response.payload);
+                    if (window.location.pathname === '/auth') {
+                        this.eventBus.emit(GLOBAL_EVENTS.REDIRECT, '/feed');
+                    } else if (window.location.pathname.startsWith('/signup')) {
+                        this.eventBus.emit(GLOBAL_EVENTS.REDIRECT, '/feed');
+                        this.eventBus.emit(GLOBAL_EVENTS.POPUP_SETTINGS);
+                    }
+                } else if (response.status === 401) {
+                    if (window.location.pathname !== '/auth' && !window.location.pathname.startsWith('/signup')) {
+                        this.eventBus.emit(GLOBAL_EVENTS.UNAUTH);
                     }
                 } else if (response.status === 403) {
                     this.eventBus.emit(GLOBAL_EVENTS.USER_BANNED);

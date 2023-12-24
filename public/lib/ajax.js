@@ -42,7 +42,11 @@ export class Ajax {
      * @return {Promise} - статус и тело ответа
      */
     static get(url = '', params = {}) {
-        return fetch(url + new URLSearchParams({...params}), {
+        if (!(params instanceof URLSearchParams)) {
+            params = new URLSearchParams({...params});
+        }
+
+        return fetch(url + params, {
             method: 'GET',
             mode: 'cors',
             credentials: 'include',
