@@ -17,8 +17,10 @@ export class SettingsController extends BaseController {
         });
         this.eventBus.on(SETTINGS_EVENTS.SHOW_CONFIRM_LOG, (data) =>
             this.globalEventBus.emit(GLOBAL_EVENTS.POPUP_CONFIRM, data));
-        this.eventBus.on(SETTINGS_EVENTS.PHOTO_UPLOADED, () => this.globalEventBus.emit(GLOBAL_EVENTS.CHECK_AUTHORISED));
-        this.eventBus.on(SETTINGS_EVENTS.PHOTO_DELETED, () => this.globalEventBus.emit(GLOBAL_EVENTS.CHECK_AUTHORISED));
+        this.eventBus.on(SETTINGS_EVENTS.PHOTO_UPLOADED, () =>
+            this.globalEventBus.emit(GLOBAL_EVENTS.CHECK_AUTHORISED));
+        this.eventBus.on(SETTINGS_EVENTS.PHOTO_DELETED, () =>
+            this.globalEventBus.emit(GLOBAL_EVENTS.CHECK_AUTHORISED));
         this.eventBus.on(COMMON_EVENTS.UNAUTH, () => this.globalEventBus.emit(GLOBAL_EVENTS.UNAUTH));
     }
 

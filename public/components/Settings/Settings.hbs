@@ -111,6 +111,11 @@
     </div>
     <div class="settings-form__description-settings">
         <h2>Смена данных для входа</h2>
+        {{#if this.user.oauthId}}
+            <div class="settings-form__warning">
+                Можете ввести логин и пароль для возможности авторизации не только через вк
+            </div>
+        {{/if}}
         <div class="settings-form__about-user">
             <div class="input-border">
                 <span class="input-border__header">Почта *</span>

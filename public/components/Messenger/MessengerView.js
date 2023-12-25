@@ -44,6 +44,8 @@ export class MessengerView extends BaseView {
      */
     openDialog(data) {
         if (!data) {
+            document.getElementById('messenger__user-form').innerHTML="";
+            this.dialogWindow.innerHTML = this.dialog();
             return;
         }
         const newMes = this.root.querySelector('.dialog-preview__new-message');
@@ -106,7 +108,7 @@ export class MessengerView extends BaseView {
 
         this.renderUserForm(data.user);
 
-        const cross = this.root.querySelector('#cross');
+        const cross = this.root.querySelector('.messenger__cross');
         const user = this.root.querySelector('#user-name');
         cross.addEventListener('click', ()=>
             this.root.querySelector('.messenger__user-form').classList.toggle('messenger__user-form_invisible'));
@@ -127,10 +129,19 @@ export class MessengerView extends BaseView {
     }
 
     renderUserForm(user) {
-        const userForm = this.root.querySelector('.messenger__user-form');
+        const userForm = document.createElement('div');
+        userForm.className = 'messenger__user-form';
+        const cross = document.createElement('img');
+        cross.className='messenger__cross';
+        cross.src = '/pics/cross.png';
+        userForm.appendChild(cross);
+
         userForm.innerHTML += require('../Feed/Description.hbs')(user);
-        const carouselRoot = this.root.querySelector('.form-feed__feed-photo');
+        const carouselRoot = userForm.querySelector('.form-feed__feed-photo');
         userForm.querySelector('.form-feed__description').className = 'form-feed__description_no-overflow';
+        const messenger = this.root.querySelector('.messenger');
+        messenger.appendChild(userForm);
+
         this.carousel = new Carousel(carouselRoot);
         this.carousel.render(user.image_paths);
     }

@@ -23,6 +23,7 @@ export class SettingsView extends BaseView {
      * @param {Object} data - старые настройки пользователя
      */
     render(data) {
+        this.user = data.user;
         super.render(data);
         document.querySelector('.sidebar').className = 'sidebar';
         for (let i = 0; i < data.user.tags.length; i++) {
@@ -187,8 +188,12 @@ export class SettingsView extends BaseView {
      * @return {boolean} правильность введенных данных
      */
     validateForm() {
-        if (!Validate.email(document.querySelector('#mail').value)) {
+        if (document.querySelector('#mail').value.length>0 && !Validate.email(document.querySelector('#mail').value)) {
             this.showError('Неверный email');
+            return false;
+        }
+        if(!this.user.oauthId && document.querySelector('#mail').value.length===0){
+            this.showError('Введите email');
             return false;
         }
         if (document.querySelector('#name').value === '') {
