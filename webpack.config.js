@@ -45,13 +45,11 @@ module.exports = {
 
   optimization: {
     minimizer: [
+      `...`,
       new MiniCssExtractPlugin(),
       new ImageMinimizerPlugin({
         minimizer: {
           implementation: ImageMinimizerPlugin.sharpMinify,
-          options: {
-            encodeOptions: {},
-          },
         },
       }),
     ],

@@ -43,6 +43,18 @@ module.exports = {
     ]
   },
 
+  optimization: {
+    minimizer: [
+      `...`,
+      new MiniCssExtractPlugin(),
+      new ImageMinimizerPlugin({
+        minimizer: {
+          implementation: ImageMinimizerPlugin.sharpMinify,
+        },
+      }),
+    ],
+  },
+
   plugins: [
     new MiniCssExtractPlugin({
       filename: 'index.css',
@@ -54,14 +66,6 @@ module.exports = {
           to: path.resolve(__dirname, 'dist/csat/')
         }
       ]
-    }),
-    new ImageMinimizerPlugin({
-      minimizer: {
-        implementation: ImageMinimizerPlugin.sharpMinify,
-        options: {
-          encodeOptions: {},
-        },
-      },
     }),
   ]
 };
