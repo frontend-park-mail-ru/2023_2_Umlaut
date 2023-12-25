@@ -45,7 +45,7 @@ module.exports = {
 
   optimization: {
     minimizer: [
-      new CssMinimizerPlugin(),
+      new MiniCssExtractPlugin(),
       new ImageMinimizerPlugin({
         minimizer: {
           implementation: ImageMinimizerPlugin.sharpMinify,
