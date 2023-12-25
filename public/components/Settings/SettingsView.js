@@ -75,20 +75,6 @@ export class SettingsView extends BaseView {
         if (data.user.image_paths.length === 0) {
             this.deletePhotoBtn.disabled = true;
         }
-
-
-        const eye = this.root.querySelector('#eye');
-        eye.addEventListener('click', () => {
-            const x = document.getElementById('password');
-            if (x.type === 'password') {
-                x.type = 'text';
-                eye.src = '/pics/eye.png';
-            } else {
-                x.type = 'password';
-                eye.src = '/pics/eye_closed.png';
-            }
-        },
-        );
     }
 
     /**
