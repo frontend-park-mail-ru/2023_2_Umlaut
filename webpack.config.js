@@ -2,7 +2,7 @@ const path = require('path');
 const ServiceWorkerWebpackPlugin = require('serviceworker-webpack5-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
+const ImageMinimizerPlugin = require("image-minimizer-webpack-plugin");
 
 module.exports = {
   entry: ['./public/index.js'],
