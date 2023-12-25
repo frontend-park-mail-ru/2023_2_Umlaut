@@ -188,11 +188,12 @@ export class SettingsView extends BaseView {
      * @return {boolean} правильность введенных данных
      */
     validateForm() {
-        if (document.querySelector('#mail').value.length>0 && !Validate.email(document.querySelector('#mail').value)) {
+        if (document.querySelector('#mail').value.length > 0 &&
+            !Validate.email(document.querySelector('#mail').value)) {
             this.showError('Неверный email');
             return false;
         }
-        if(!this.user.oauthId && document.querySelector('#mail').value.length===0){
+        if (!this.user.oauthId && document.querySelector('#mail').value.length === 0) {
             this.showError('Введите email');
             return false;
         }

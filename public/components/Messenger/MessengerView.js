@@ -44,7 +44,7 @@ export class MessengerView extends BaseView {
      */
     openDialog(data) {
         if (!data) {
-            document.getElementById('messenger__user-form').innerHTML="";
+            document.getElementById('messenger__user-form').innerHTML = '';
             this.dialogWindow.innerHTML = this.dialog();
             return;
         }
@@ -132,7 +132,7 @@ export class MessengerView extends BaseView {
         const userForm = document.createElement('div');
         userForm.className = 'messenger__user-form';
         const cross = document.createElement('img');
-        cross.className='messenger__cross';
+        cross.className = 'messenger__cross';
         cross.src = '/pics/cross.png';
         userForm.appendChild(cross);
 

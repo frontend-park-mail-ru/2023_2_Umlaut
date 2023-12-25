@@ -36,12 +36,24 @@ module.exports = {
           }
         }
       },
+      {
+        test: /\.(jpe?g|png)$/i,
+        type: "asset",
+      },
     ]
   },
 
   optimization: {
     minimizer: [
       new CssMinimizerPlugin(),
+      new ImageMinimizerPlugin({
+        minimizer: {
+          implementation: ImageMinimizerPlugin.sharpMinify,
+          options: {
+            encodeOptions: {},
+          },
+        },
+      }),
     ],
   },
 

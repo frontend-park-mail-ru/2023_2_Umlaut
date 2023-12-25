@@ -92,7 +92,7 @@ export class MessengerModel {
                         }, this.eventBus));
                     }
                 }, this.eventBus));
-            }else{
+            } else {
                 this.eventBus.emit(GLOBAL_EVENTS.REDIRECT, '/messages');
             }
         }, this.eventBus));
