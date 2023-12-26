@@ -12,17 +12,26 @@
             <span class="premium__get-text">Возможность просматривать тех кто вас лайкнул</span>
         </div>
     </div>
-    <div class="premium__get-now">Получите сейчас бесплатно</div>
-    <div class="premium__conditions">
-        Поделитесь ссылкой с 5 незарегистрированными друзьями, 
-        как только они заполнят свой профиль вы получите премиум подписку
-    </div>
+    {{#if premium}}
+        <div class="premium__get-now">Премиум активен</div>
+    {{else}}
+        <div class="premium__get-now">Получите сейчас бесплатно</div>
+        <div class="premium__conditions">
+            Поделитесь ссылкой с 5 незарегистрированными друзьями, 
+            как только они заполнят свой профиль вы получите премиум подписку
+        </div>
+    {{/if}}
+
     <div class="premium__get-link">
         <span class="premium__link">
             {{share_link}}
         </span>
     </div>
     <div class="premium__conditions">
-        Уже приглашено {{invites_count}} друзей
+        {{#if invites_count}}
+            Уже приглашено {{invites_count}} друзей
+        {{else}}
+            Пока что вы никого не пригласили
+        {{/if}}
     </div>
 </div>

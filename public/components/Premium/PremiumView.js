@@ -15,6 +15,9 @@ export class PremiumView extends BaseView {
         if (!link) {
             this.eventBus.emit(PREMIUM_EVENTS.GET_LINK);
         } else {
+            if (link.invites_count >= 5) {
+                link.premium = true;
+            }
             super.render(link);
         }
     }

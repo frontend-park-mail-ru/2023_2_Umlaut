@@ -111,8 +111,10 @@ export class MessengerModel {
             if (mes.payload.dialog_id === this.dialog_id) {
                 this.eventBus.emit(MESSENGER_EVENTS.NEW_MESSAGE_IN_THIS_DIALOG, mes.payload);
             } else {
+                this.eventBus.emit(MESSENGER_EVENTS.NEW_MESSAGE_IN_OTHER_DIALOG, mes.payload);
+            }
+            if (mes.payload.dialog_id !== this.dialog_id || !window.location.pathname.startsWith('/messages')) {
                 Api.getDialogById(mes.payload.dialog_id).then(handleStatuses((r) =>{
-                    this.eventBus.emit(MESSENGER_EVENTS.NEW_MESSAGE_IN_OTHER_DIALOG, mes.payload);
                     if (r.status === 200) {
                         if (r.payload?.сompanion_image_paths.length > 0) {
                             r.payload.photo = r.payload.сompanion_image_paths[0];

@@ -159,16 +159,6 @@ body {
   width: 100%;
 }
 
-.sidebar{
-  border-right: 1px solid #999;
-  width: min-content;
-  display: none;
-
-  &__visible{
-    display: block;
-  }
-}
-
 .loading {
   align-self: center;
   justify-self: center;

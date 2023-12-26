@@ -24,6 +24,13 @@ export class MessengerView extends BaseView {
         this.my_id = 0;
         this.cantSend = () =>
             this.eventBus.emit(MESSENGER_EVENTS.ERROR, 'Нет интернета, сообщение не может быть отправлено');
+        this.markRead = () => {
+            const windowDialog = this.root.querySelector('.dialog-window__dialog');
+            const unread = this.root.querySelector('.dialog-window__unread');
+            if (unread) {
+                windowDialog.removeChild(unread);
+            }
+        };
     }
 
     /**
@@ -31,11 +38,15 @@ export class MessengerView extends BaseView {
      */
     render() {
         super.render();
+        this.rendered = true;
         this.dialogWindow = document.getElementById('dialog-window');
-        if (window.location.pathname.split('/').slice(-1) !== 'messages') {
+        const dialogId = window.location.pathname.split('/').pop();
+        if (dialogId !== 'messages' && dialogId !== '') {
             this.eventBus.emit(MESSENGER_EVENTS.GET_MESSAGES);
+            document.querySelector('.sidebar').className = 'sidebar';
+        } else {
+            document.querySelector('.sidebar').className = 'sidebar sidebar__visible';
         }
-        document.querySelector('.sidebar').className = 'sidebar';
     }
 
     /**
@@ -59,13 +70,8 @@ export class MessengerView extends BaseView {
         this.openDialogMessages(data);
 
         const inputText = this.dialogWindow.querySelector('#message');
-        inputText.onchange = () => {
-            const windowDialog = this.root.querySelector('.dialog-window__dialog');
-            const unread = this.root.querySelector('.dialog-window__unread');
-            if (unread) {
-                windowDialog.removeChild(unread);
-            }
-        };
+        inputText.addEventListener('input', this.markRead);
+        inputText.addEventListener('focus', this.markRead);
 
         const send = this.dialogWindow.querySelector('#send');
         const sendFunc = ()=>{
@@ -151,6 +157,9 @@ export class MessengerView extends BaseView {
      * @param {Object} mes - объект сообщения, которое нужно отрисовать
      */
     createMessage(mes) {
+        if (!this.rendered) {
+            return;
+        }
         const windowDialog = this.root.querySelector('.dialog-window__dialog');
         if (!windowDialog) {
             return;
@@ -182,6 +191,7 @@ export class MessengerView extends BaseView {
         this.dialogWindow = null;
         this.dialogListView = null;
         this.dialogList = null;
+        this.rendered = false;
     }
 
     /**

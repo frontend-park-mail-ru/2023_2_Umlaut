@@ -216,10 +216,14 @@ export class PopupView {
             setTimeout(() => {
                 this.popup.removeChild(notification);
             }, 500);
-        }, 4000);
-        this.notificationAudio.pause();
-        this.notificationAudio.currentTime = 0;
-        this.notificationAudio.play();
+        }, 500000);
+        try {
+            this.notificationAudio.pause();
+            this.notificationAudio.currentTime = 0;
+            this.notificationAudio.play();
+        } catch {
+            console.log('Sound not allowed');
+        }
     }
 
     /**
