@@ -216,7 +216,7 @@ export class PopupView {
             setTimeout(() => {
                 this.popup.removeChild(notification);
             }, 500);
-        }, 500000);
+        }, 4000);
         try {
             this.notificationAudio.pause();
             this.notificationAudio.currentTime = 0;

@@ -59,9 +59,10 @@ export class MessengerView extends BaseView {
             this.dialogWindow.innerHTML = this.dialog();
             return;
         }
-        const newMes = this.root.querySelector('.dialog-preview__new-message');
+        const dialogPreview = document.getElementById(data.dialog_id);
+        const newMes = dialogPreview?.querySelector('.dialog-preview__new-message');
         if (newMes) {
-            newMes.style.visibility = 'hidden';
+            dialogPreview.removeChild(newMes);
         }
 
         this.dialogWindow.innerHTML = this.dialog({user: data.user});
@@ -201,6 +202,9 @@ export class MessengerView extends BaseView {
     newMessageOtherDialog(msg) {
         const dialog = document.getElementById(msg.dialog_id);
         if (!dialog) {
+            return;
+        }
+        if (dialog.querySelector('.dialog-preview__new-message')) {
             return;
         }
         const newMes = document.createElement('div');

@@ -87,6 +87,7 @@ export class MessengerModel {
                             if (user2.status === 200) {
                                 data.user = user2.payload;
                                 data.my_id = this.my_id;
+                                data.dialog_id = this.dialog_id;
                                 this.eventBus.emit(MESSENGER_EVENTS.MESSAGES_READY, data);
                             }
                         }, this.eventBus));
@@ -108,12 +109,10 @@ export class MessengerModel {
         if (mes.type === 'message') {
             mes.payload.created_at = mes.payload.created_at.slice(mes.payload.created_at.indexOf('T') + 1,
                 nthIndex(mes.payload.created_at, ':', 2));
-            if (mes.payload.dialog_id === this.dialog_id) {
+            if (mes.payload.dialog_id === this.dialog_id && window.location.pathname.startsWith('/messages/')) {
                 this.eventBus.emit(MESSENGER_EVENTS.NEW_MESSAGE_IN_THIS_DIALOG, mes.payload);
             } else {
                 this.eventBus.emit(MESSENGER_EVENTS.NEW_MESSAGE_IN_OTHER_DIALOG, mes.payload);
-            }
-            if (mes.payload.dialog_id !== this.dialog_id || !window.location.pathname.startsWith('/messages')) {
                 Api.getDialogById(mes.payload.dialog_id).then(handleStatuses((r) =>{
                     if (r.status === 200) {
                         if (r.payload?.сompanion_image_paths.length > 0) {
