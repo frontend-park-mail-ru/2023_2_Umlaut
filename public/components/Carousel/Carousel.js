@@ -38,7 +38,7 @@ export class Carousel {
         if (!images || images.length < 1) {
             return;
         }
-
+        this.curIndex = undefined;
         this.slider = this.root.querySelector('.carousel__slider');
         this.btnPrev = this.root.querySelector('.carousel__prev');
         this.btnNext = this.root.querySelector('.carousel__next');
