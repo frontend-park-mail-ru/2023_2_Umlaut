@@ -31,6 +31,10 @@
     border-radius: 50%;
   }
 
+  &__message-photo{
+    background-color: white;
+  }
+
   &__message {
     display: flex;
     flex-direction: row;

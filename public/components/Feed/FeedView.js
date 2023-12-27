@@ -34,7 +34,7 @@ export class FeedView extends BaseView {
             data.params = this.params;
             this.user = data.user;
             if (data.like_counter !== -1) {
-                data.like_counter = 50 - data.like_counter;
+                data.like_counter = 30 - data.like_counter;
             } else {
                 data.like_counter = null;
             }

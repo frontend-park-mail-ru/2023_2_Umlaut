@@ -2,6 +2,11 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat');
 @import '/public/lib/constants';
 
+html {
+  scrollbar-color: #949494 #ffffff00;
+  scrollbar-width: thin;
+}
+
 body {
   font-family: 'Montserrat';
   min-height: 100%;
