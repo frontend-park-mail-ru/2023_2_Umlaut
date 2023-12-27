@@ -39,7 +39,6 @@ export class Carousel {
             return;
         }
 
-        this.curIndex = 0;
         this.slider = this.root.querySelector('.carousel__slider');
         this.btnPrev = this.root.querySelector('.carousel__prev');
         this.btnNext = this.root.querySelector('.carousel__next');
@@ -48,6 +47,7 @@ export class Carousel {
             this.btnPrev.style.visibility = 'hidden';
             this.btnNext.style.visibility = 'hidden';
             this.bullets.style.visibility = 'hidden';
+            this.curIndex = 0;
         } else {
             this.btnNext.addEventListener('click', this.next.bind(this));
             this.btnPrev.addEventListener('click', this.prev.bind(this));

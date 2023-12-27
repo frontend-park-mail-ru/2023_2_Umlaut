@@ -72,7 +72,7 @@ export class SettingsView extends BaseView {
 
         logoutBtn.addEventListener('click', () => this.eventBus.emit(SETTINGS_EVENTS.SHOW_CONFIRM_LOG, log));
         this.deletePhotoBtn.addEventListener('click', () => this.eventBus.emit(SETTINGS_EVENTS.SHOW_CONFIRM_LOG, del));
-        if (data.user.image_paths.length === 0) {
+        if (!data.user.image_paths || data.user.image_paths.length === 0) {
             this.deletePhotoBtn.disabled = true;
         }
     }
