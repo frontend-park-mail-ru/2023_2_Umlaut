@@ -47,28 +47,25 @@ export class HeaderView {
 
         this.sidePlace.querySelector('#showPairs').addEventListener('click', ()=>{
             const pairs = this.sidePlace.querySelector('#pairs');
-            if(pairs.className.includes('sidebar__pairs_visible')){
+            if (pairs.className.includes('sidebar__pairs_visible')) {
                 pairs.classList.remove('sidebar__pairs_visible');
-            }
-            else{
+            } else {
                 pairs.classList.add('sidebar__pairs_visible');
             }
         });
         this.sidePlace.querySelector('#showLiked').addEventListener('click', ()=>{
             const pairs = this.sidePlace.querySelector('#liked');
-            if(pairs.className.includes('sidebar__pairs_visible')){
+            if (pairs.className.includes('sidebar__pairs_visible')) {
                 pairs.classList.remove('sidebar__pairs_visible');
-            }
-            else{
+            } else {
                 pairs.classList.add('sidebar__pairs_visible');
             }
         });
         this.sidePlace.querySelector('#showDialogs').addEventListener('click', ()=>{
             const pairs = this.sidePlace.querySelector('#dialogs');
-            if(pairs.className.includes('sidebar__dialogs_visible')){
+            if (pairs.className.includes('sidebar__dialogs_visible')) {
                 pairs.classList.remove('sidebar__dialogs_visible');
-            }
-            else{
+            } else {
                 pairs.classList.add('sidebar__dialogs_visible');
             }
         });
@@ -97,9 +94,9 @@ export class HeaderView {
      * @param {Object} data - пары
      */
     gotPairs(data) {
-        if(data.length>0){
+        if (data.length > 0) {
             const pairs = this.sidePlace.querySelector('#pairs');
-            pairs.innerHTML="";
+            pairs.innerHTML = '';
             data.forEach((element) => {
                 const pair = document.createElement('img');
                 pair.className = 'sidebar__photo-avatar';
@@ -117,9 +114,9 @@ export class HeaderView {
      * @param {Object} data - лайкнувшие
      */
     gotLiked(data) {
-        if(data.length>0){    
+        if (data.length > 0) {
             const pairs = this.sidePlace.querySelector('#liked');
-            pairs.innerHTML="";
+            pairs.innerHTML = '';
             if (!data.show) {
                 data.likes.forEach((element) => {
                     const pair = document.createElement('img');
@@ -149,7 +146,7 @@ export class HeaderView {
      * @param {Object} data - диалоги
      */
     gotDialogs(data) {
-        if(data.length>0){
+        if (data.length > 0) {
             const dialogs = this.sidePlace.querySelector('.sidebar__dialogs');
             dialogs.innerHTML = '';
             data.forEach((dialog) => {
