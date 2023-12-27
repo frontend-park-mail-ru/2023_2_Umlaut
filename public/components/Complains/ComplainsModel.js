@@ -1,4 +1,4 @@
-import {COMPLAINTS_EVENTS} from '../../lib/constansts.js';
+import {COMPLAINTS_EVENTS, COMPLAIN_TYPES} from '../../lib/constansts.js';
 import {Api, handleStatuses} from '../../lib/api.js';
 
 export class ComplainsModel {
@@ -12,6 +12,12 @@ export class ComplainsModel {
     getComplaintWithUser() {
         Api.getComplaint().then(handleStatuses((complaintR) => {
             if (complaintR.status === 200) {
+                for (const type of COMPLAIN_TYPES) {
+                    if (type.id === complaintR.payload.complaint_type_id) {
+                        complaintR.payload.complaint_type = type.type_name;
+                        break;
+                    }
+                }
                 Api.getUser(complaintR.payload.reported_user_id).then(handleStatuses((userR) => {
                     complaintR.payload.user = userR.payload;
                     this.eventBus.emit(COMPLAINTS_EVENTS.COMPLAINT_READY, complaintR.payload);
