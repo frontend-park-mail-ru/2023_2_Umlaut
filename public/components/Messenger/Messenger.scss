@@ -44,6 +44,7 @@
       border-radius: 0;
       box-shadow: none;
       max-width: 100%;
+      display: none;
     }
 
     &_invisible{
@@ -103,8 +104,8 @@
     width: 20px;
     height: 20px;
     border-radius: 50%;
-    position: relative;
-    left: 100px;
+    margin-right: 20px;
+    margin-left: auto;
   }
 
   &__photo {
