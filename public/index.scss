@@ -2,9 +2,13 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat');
 @import '/public/lib/constants';
 
-html {
-  scrollbar-color: #949494 #ffffff00;
-  scrollbar-width: thin;
+::-webkit-scrollbar {
+  width: 0.3em;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 1em;
+  background-color: darkgrey;
 }
 
 body {
@@ -23,7 +27,7 @@ body {
   --background-color: #eed5dc;
   --dark-blue-color: #303656;
   --dialog-grey: #76798b;
-  --premium-green: #bed8b5ba;
+  --premium-green: #bca0de;
   --header-height: 65px;
   --dialogs-width: 350px;
   --dialog-name-height: 44px;
