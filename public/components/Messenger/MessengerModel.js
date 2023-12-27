@@ -115,7 +115,7 @@ export class MessengerModel {
                 this.eventBus.emit(MESSENGER_EVENTS.NEW_MESSAGE_IN_OTHER_DIALOG, mes.payload);
                 Api.getDialogById(mes.payload.dialog_id).then(handleStatuses((r) =>{
                     if (r.status === 200) {
-                        if (r.payload?.сompanion_image_paths.length > 0) {
+                        if (r.payload.сompanion_image_paths?.length > 0) {
                             r.payload.photo = r.payload.сompanion_image_paths[0];
                         } else {
                             r.payload.photo = DEFAULT_PHOTO;
