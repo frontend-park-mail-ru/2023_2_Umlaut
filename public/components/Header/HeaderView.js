@@ -114,7 +114,7 @@ export class HeaderView {
      * @param {Object} data - лайкнувшие
      */
     gotLiked(data) {
-        if (data.length > 0) {
+        if (data.likes.length > 0) {
             const pairs = this.sidePlace.querySelector('#liked');
             pairs.innerHTML = '';
             if (!data.show) {
