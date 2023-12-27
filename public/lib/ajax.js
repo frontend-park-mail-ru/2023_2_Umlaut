@@ -25,7 +25,7 @@ export class Ajax {
                     if ( contentType && contentType.indexOf('application/json') !== -1 ) {
                         return response.json();
                     } else {
-                        return Promise.resolve({status: 512});
+                        return Promise.resolve({status: 504});
                     }
                 },
                 () => {
@@ -57,7 +57,7 @@ export class Ajax {
                     if ( contentType && contentType.indexOf('application/json') !== -1 ) {
                         return response.json();
                     } else {
-                        return Promise.resolve({status: 512});
+                        return Promise.resolve({status: 504});
                     }
                 },
                 () => {
@@ -91,7 +91,7 @@ export class Ajax {
                     if ( contentType && contentType.indexOf('application/json') !== -1 ) {
                         return response.json();
                     } else {
-                        return Promise.resolve({status: 512});
+                        return Promise.resolve({status: 504});
                     }
                 },
                 () => {
@@ -125,7 +125,7 @@ export class Ajax {
                     if ( contentType && contentType.indexOf('application/json') !== -1 ) {
                         return response.json();
                     } else {
-                        return Promise.resolve({status: 512});
+                        return Promise.resolve({status: 504});
                     }
                 },
                 () => {
@@ -160,7 +160,7 @@ export class Ajax {
                     if ( contentType && contentType.indexOf('application/json') !== -1 ) {
                         return response.json();
                     } else {
-                        return Promise.resolve({status: 512});
+                        return Promise.resolve({status: 504});
                     }
                 },
                 () => {

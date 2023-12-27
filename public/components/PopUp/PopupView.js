@@ -58,7 +58,7 @@ export class PopupView {
             setTimeout(() => {
                 notification.className = 'popup__notify';
             }, 1000);
-        }, 10000);
+        }, 7000);
     }
 
 

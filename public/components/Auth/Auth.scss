@@ -149,6 +149,7 @@
     @media (max-width: 810px) {
       width: 90%;
       position: static;
+      margin: 25px auto;
     }
   }
 
@@ -169,6 +170,10 @@
 
   &__auth-btn{
     width: 270px;
+
+    @media (max-width: 900px) {
+      width: auto;
+    }
   }
 }
 
@@ -191,6 +196,7 @@
     background-image: url("../../../static/pics/lending.jpg");
     @media (max-width: $phone-max-width) {
       background-image: none;
+      margin: 0px;
     }
   }
 }
