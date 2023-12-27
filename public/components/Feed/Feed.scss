@@ -36,19 +36,8 @@
     background-color: rgb(252, 252, 252);
     box-shadow: $shadow;
     aspect-ratio: 1 / 1;
-    @supports not (aspect-ratio: 1 / 1) {
-      &::before {
-        float: left;
-        padding-top: 100%;
-        content: "";
-      }
-  
-      &::after {
-        display: block;
-        content: "";
-        clear: both;
-      }
-    }
+    box-sizing: border-box;
+    padding: 0;
     cursor: pointer;
 
     &:hover {
@@ -57,8 +46,6 @@
     }
 
     &-img {
-      height: 100%;
-      width: 100%;
       position: relative;
       &-like{
         stroke: #ff5182;
