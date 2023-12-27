@@ -43,8 +43,35 @@ export class HeaderView {
         this.eventBus.emit(MESSENGER_EVENTS.GET_PAIRS_AND_DIALOGS);
         this.eventBus.emit(MESSENGER_EVENTS.GET_LIKED);
         menuBtn.style.display = 'block';
-
         menuBtn.onclick = this.showMenu;
+
+        this.sidePlace.querySelector('#showPairs').addEventListener('click', ()=>{
+            const pairs = this.sidePlace.querySelector('#pairs');
+            if(pairs.className.includes('sidebar__pairs_visible')){
+                pairs.classList.remove('sidebar__pairs_visible');
+            }
+            else{
+                pairs.classList.add('sidebar__pairs_visible');
+            }
+        });
+        this.sidePlace.querySelector('#showLiked').addEventListener('click', ()=>{
+            const pairs = this.sidePlace.querySelector('#liked');
+            if(pairs.className.includes('sidebar__pairs_visible')){
+                pairs.classList.remove('sidebar__pairs_visible');
+            }
+            else{
+                pairs.classList.add('sidebar__pairs_visible');
+            }
+        });
+        this.sidePlace.querySelector('#showDialogs').addEventListener('click', ()=>{
+            const pairs = this.sidePlace.querySelector('#dialogs');
+            if(pairs.className.includes('sidebar__dialogs_visible')){
+                pairs.classList.remove('sidebar__dialogs_visible');
+            }
+            else{
+                pairs.classList.add('sidebar__dialogs_visible');
+            }
+        });
     }
 
     /**
@@ -70,16 +97,19 @@ export class HeaderView {
      * @param {Object} data - пары
      */
     gotPairs(data) {
-        const pairs = this.sidePlace.querySelector('#pairs');
-        data.forEach((element) => {
-            const pair = document.createElement('img');
-            pair.className = 'sidebar__photo-avatar';
-            pair.src = element.photo;
-            pairs.appendChild(pair);
-            pair.addEventListener('click', ()=>{
-                this.eventBus.emit(MESSENGER_EVENTS.GET_MESSAGES, `/messages/${element.id}`);
+        if(data.length>0){
+            const pairs = this.sidePlace.querySelector('#pairs');
+            pairs.innerHTML="";
+            data.forEach((element) => {
+                const pair = document.createElement('img');
+                pair.className = 'sidebar__photo-avatar';
+                pair.src = element.photo;
+                pairs.appendChild(pair);
+                pair.addEventListener('click', ()=>{
+                    this.eventBus.emit(MESSENGER_EVENTS.GET_MESSAGES, `/messages/${element.id}`);
+                });
             });
-        });
+        }
     }
 
     /**
@@ -87,27 +117,30 @@ export class HeaderView {
      * @param {Object} data - лайкнувшие
      */
     gotLiked(data) {
-        const pairs = this.sidePlace.querySelector('#liked');
-        if (!data.show) {
-            data.likes.forEach((element) => {
-                const pair = document.createElement('img');
-                pair.className = 'sidebar__photo-avatar sidebar__photo-avatar_blur';
-                pair.src = element.photo;
-                pairs.appendChild(pair);
-                pair.addEventListener('click', ()=>{
-                    this.eventBus.emit(MESSENGER_EVENTS.GET_PREMIUM, '/premium');
+        if(data.length>0){    
+            const pairs = this.sidePlace.querySelector('#liked');
+            pairs.innerHTML="";
+            if (!data.show) {
+                data.likes.forEach((element) => {
+                    const pair = document.createElement('img');
+                    pair.className = 'sidebar__photo-avatar sidebar__photo-avatar_blur';
+                    pair.src = element.photo;
+                    pairs.appendChild(pair);
+                    pair.addEventListener('click', ()=>{
+                        this.eventBus.emit(MESSENGER_EVENTS.GET_PREMIUM, '/premium');
+                    });
                 });
-            });
-        } else {
-            data.likes.forEach((element) => {
-                const pair = document.createElement('img');
-                pair.className = 'sidebar__photo-avatar';
-                pair.src = element.photo;
-                pairs.appendChild(pair);
-                pair.addEventListener('click', ()=>{
-                    this.eventBus.emit(MESSENGER_EVENTS.SHOW_LIKED, element);
+            } else {
+                data.likes.forEach((element) => {
+                    const pair = document.createElement('img');
+                    pair.className = 'sidebar__photo-avatar';
+                    pair.src = element.photo;
+                    pairs.appendChild(pair);
+                    pair.addEventListener('click', ()=>{
+                        this.eventBus.emit(MESSENGER_EVENTS.SHOW_LIKED, element);
+                    });
                 });
-            });
+            }
         }
     }
 
@@ -116,20 +149,22 @@ export class HeaderView {
      * @param {Object} data - диалоги
      */
     gotDialogs(data) {
-        const dialogs = this.sidePlace.querySelector('.sidebar__dialogs');
-        dialogs.innerHTML = '';
-        data.forEach((dialog) => {
-            const dialogPreview = fromHTML(this.dialogPreviewTemplate(dialog));
+        if(data.length>0){
+            const dialogs = this.sidePlace.querySelector('.sidebar__dialogs');
+            dialogs.innerHTML = '';
+            data.forEach((dialog) => {
+                const dialogPreview = fromHTML(this.dialogPreviewTemplate(dialog));
 
-            dialogPreview.addEventListener('click', ()=>{
-                this.eventBus.emit(MESSENGER_EVENTS.GET_MESSAGES, `/messages/${dialog.id}`);
+                dialogPreview.addEventListener('click', ()=>{
+                    this.eventBus.emit(MESSENGER_EVENTS.GET_MESSAGES, `/messages/${dialog.id}`);
+                });
+                dialogs.appendChild(dialogPreview);
+                if (dialog.last_message !== null && !dialog.last_message.is_read) {
+                    const newMes = document.createElement('div');
+                    newMes.className = 'dialog-preview__new-message';
+                    dialogPreview.querySelector('.dialog-preview').appendChild(newMes);
+                }
             });
-            dialogs.appendChild(dialogPreview);
-            if (dialog.last_message !== null && !dialog.last_message.is_read) {
-                const newMes = document.createElement('div');
-                newMes.className = 'dialog-preview__new-message';
-                dialogPreview.querySelector('.dialog-preview').appendChild(newMes);
-            }
-        });
+        }
     }
 }

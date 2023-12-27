@@ -21,15 +21,21 @@
         </a>
     {{/if}}
     <div class="sidebar__part">
-        <span class="sidebar__pairs-header">Вас лайкнули</span>
-        <div id="liked" class="sidebar__pairs"></div>
+        <span class="sidebar__pairs-header" id="showLiked">Вас лайкнули
+            <img class="multiselection__arrow" src="/pics/down-arrow.png">
+        </span>
+        <div id="liked" class="sidebar__pairs">Вас пока никто не лайкнул</div>
     </div>
     <div class="sidebar__part">
-        <span class="sidebar__pairs-header">Взаимные пары</span>
-        <div id="pairs" class="sidebar__pairs"></div>
+        <span class="sidebar__pairs-header" id="showPairs">Взаимные пары
+            <img class="multiselection__arrow" src="/pics/down-arrow.png">
+        </span>
+        <div id="pairs" class="sidebar__pairs">У вас пока нет взаимных пар</div>
     </div>
     <div class="sidebar__part">
-        <span class="sidebar__pairs-header">Диалоги</span>
-        <div class="sidebar__dialogs"></div>
+        <span class="sidebar__pairs-header" id="showDialogs">Диалоги
+            <img class="multiselection__arrow" src="/pics/down-arrow.png">
+        </span>
+        <div id="dialogs" class="sidebar__dialogs">У вас пока нет начатых диалогов</div>
     </div>
 {{/if}}

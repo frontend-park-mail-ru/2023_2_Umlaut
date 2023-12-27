@@ -89,6 +89,7 @@
     display: flex;
     padding: 10px;
     font-size: 22px;
+    width: 250px;
   }
 
   &__buy-premium{
@@ -106,6 +107,7 @@
 
   &__pairs-header{
     padding: 5px 0px;
+    cursor: pointer;
   }
 
   &__pairs{
@@ -113,6 +115,21 @@
     width: 250px;
     white-space: nowrap;
     padding: 3px;
+    display: none;
+    font-size: 14px;
+
+    &_visible{
+      display: block;
+    }
+  }
+
+  &__dialogs{
+    display: none;
+    font-size: 14px;
+
+    &_visible{
+      display: block;
+    }
   }
 
   &__part{
@@ -148,5 +165,6 @@
 
   &__content{
     padding: 10px;
+    font-size: 16px;
   }
 }
