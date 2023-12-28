@@ -106,6 +106,9 @@ export class HeaderView {
                     this.eventBus.emit(MESSENGER_EVENTS.GET_MESSAGES, `/messages/${element.id}`);
                 });
             });
+        }else{
+            const pairs = this.sidePlace.querySelector('#pairs');
+            pairs.innerHTML = 'У вас пока нет взаимных пар';
         }
     }
 
@@ -138,6 +141,9 @@ export class HeaderView {
                     });
                 });
             }
+        }else{
+            const pairs = this.sidePlace.querySelector('#liked');
+            pairs.innerHTML = 'Вас пока никто не лайкнул';
         }
     }
 
