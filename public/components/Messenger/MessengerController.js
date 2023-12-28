@@ -21,8 +21,8 @@ export class MessengerController extends BaseController {
         });
         this.eventBus.on(GLOBAL_EVENTS.NEW_MESSAGE, (mes) => {
             this.globalEventBus.emit(GLOBAL_EVENTS.NEW_MESSAGE, mes);
-            this.globalEventBus.emit(GLOBAL_EVENTS.RENDER_DIALOGS);
         });
+        this.eventBus.on(GLOBAL_EVENTS.RENDER_DIALOGS, () => this.globalEventBus(GLOBAL_EVENTS.RENDER_DIALOGS));
         this.eventBus.on(MESSENGER_EVENTS.ERROR, (data)=>this.globalEventBus.emit(GLOBAL_EVENTS.POPUP, data));
         this.eventBus.on(GLOBAL_EVENTS.REDIRECT, (data)=>
             this.globalEventBus.emit(GLOBAL_EVENTS.REDIRECT, data));

@@ -1,5 +1,5 @@
 import {BaseView} from '../BaseView.js';
-import {MESSENGER_EVENTS} from '../../lib/constansts.js';
+import {GLOBAL_EVENTS, MESSENGER_EVENTS} from '../../lib/constansts.js';
 import {Carousel} from '../Carousel/Carousel.js';
 import './Messenger.scss';
 import {nthIndex} from '../../lib/util.js';
@@ -202,6 +202,7 @@ export class MessengerView extends BaseView {
     newMessageOtherDialog(msg) {
         const dialog = document.getElementById(msg.dialog_id);
         if (!dialog) {
+            this.eventBus.emit(GLOBAL_EVENTS.RENDER_DIALOGS);
             return;
         }
         if (dialog.querySelector('.dialog-preview__new-message')) {
