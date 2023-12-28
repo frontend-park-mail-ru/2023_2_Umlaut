@@ -1,10 +1,10 @@
 import {BaseView} from '../BaseView.js';
 import {Carousel} from '../Carousel/Carousel.js';
-import {COMPLAIN_TYPES, FEED_EVENTS, GLOBAL_EVENTS, SETTINGS_LIST} from '../../lib/constansts.js';
+import {COMMON_EVENTS, FEED_EVENTS, GLOBAL_EVENTS, SETTINGS_LIST} from '../../lib/constansts.js';
 import './Feed.scss';
 
 /**
- * Компонент ленты с кнопками в анкете
+ * Класс отображения ленты
  */
 export class FeedView extends BaseView {
     description;
@@ -15,14 +15,29 @@ export class FeedView extends BaseView {
         super(root, eventBus, require('./Feed.hbs'));
         this.eventBus.on(FEED_EVENTS.NEXT_PERSON_READY, this.update.bind(this));
         this.eventBus.on(FEED_EVENTS.NO_PEOPLE, this.showStub.bind(this));
+        this.eventBus.on(COMMON_EVENTS.ONLINE, ()=> {
+            this.blockButtons(), this.activateBtns();
+        });
+        this.eventBus.on(FEED_EVENTS.READY_LIKED, this.showLikedPerson.bind(this));
         this.update = this.update.bind(this);
         this.params = {tags: []};
+        this.user;
     }
 
+    /**
+     * Метод отображения ленты
+     * @param {object} data - анкета следующего пользователя, которую надо отрендерить
+     */
     render(data) {
         this.root.innerHTML = '';
         if (data) {
             data.params = this.params;
+            this.user = data.user;
+            if (data.like_counter !== -1) {
+                data.like_counter = 30 - data.like_counter;
+            } else {
+                data.like_counter = null;
+            }
         }
         super.render(data);
 
@@ -37,28 +52,37 @@ export class FeedView extends BaseView {
             this.addSearchParams();
 
             const complainBtn = this.root.querySelector('.form-feed__complain');
-            complainBtn.addEventListener('click', () => this.eventBus.emit(GLOBAL_EVENTS.POPUP_CHOOSE,
-                {
-                    text: 'Выберите причину жалобы',
-                    variants: COMPLAIN_TYPES,
-                    func: (complainType) => this.complainCurrent(complainType),
-                },
-            ));
+            complainBtn.addEventListener('click', () => this.eventBus.emit(GLOBAL_EVENTS.POPUP_COMPLAINT,
+                (complain) => this.complainCurrent(complain)),
+            );
 
             const carouselRoot = this.root.querySelector('.form-feed__feed-photo');
             this.carousel = new Carousel(carouselRoot);
-            this.carousel.render(data.image_paths);
+            this.carousel.render(data.user.image_paths);
             this.activateBtns();
         }
+        document.querySelector('.sidebar').className = 'sidebar';
     }
 
-    complainCurrent(complainType) {
+    /**
+     * Метод жалобы на пользователя
+     * @param {object} complain - жалоба
+     */
+    complainCurrent(complain) {
         this.eventBus.emit(FEED_EVENTS.COMPLAIN_PERSON, {
-            request: {'reported_user_id': this.user.id, 'complaint_type': complainType},
+            request: {
+                'reported_user_id': this.user.id,
+                'complaint_type_id': complain.type,
+                'complaint_text': complain.description,
+            },
             params: this.params,
         });
     }
 
+    /**
+     * Закрытие контейнера в случае нажатия вне экрана
+     * @param {Event} e - событие клика
+     */
     clickWithinDiv(e) {
         const container = document.querySelector('.search');
         if (!container.contains(e.target)) {
@@ -66,6 +90,9 @@ export class FeedView extends BaseView {
         }
     }
 
+    /**
+     * Метод закрытия страницы ленты
+     */
     close() {
         super.close();
         this.blockButtons();
@@ -95,15 +122,26 @@ export class FeedView extends BaseView {
         };
         this.dislikeBtn.addEventListener('click', this.dislikeFunc);
         this.likeBtn.addEventListener('click', this.likeFunc);
+        this.dislikeBtn.disabled = false;
+        this.likeBtn.disabled = false;
     }
 
+    /**
+     * Блокирует кнопки, убирает действия по нажатию на кнопки анкеты
+     */
     blockButtons() {
         if (this.dislikeBtn) {
             this.dislikeBtn.removeEventListener('click', this.dislikeFunc);
             this.likeBtn.removeEventListener('click', this.likeFunc);
+            this.dislikeBtn.disabled = true;
+            this.likeBtn.disabled = true;
         }
     }
 
+    /**
+     * Показывает сообщение о том, что пользователи для ленты закончились
+     * @param {object} data - params: фильтры для получения следующего пользователя
+     */
     showStub(data) {
         if (data) {
             data.params = this.params;
@@ -115,6 +153,33 @@ export class FeedView extends BaseView {
         this.addSearchParams();
     }
 
+    /**
+     * Показ анкеты лайкнувшего человека
+     * @param {Object} user - лайкнувший человек
+     */
+    showLikedPerson(user) {
+        this.user = user;
+        super.render({user: user, interests: SETTINGS_LIST.interests});
+        const searchBtn = this.root.querySelector('#search-btn');
+        const searchForm = this.root.querySelector('.search');
+        this.activateBtns();
+
+        const complainBtn = this.root.querySelector('.form-feed__complain');
+        complainBtn.addEventListener('click', () => this.eventBus.emit(GLOBAL_EVENTS.POPUP_COMPLAINT,
+            (complain) => this.complainCurrent(complain)),
+        );
+
+        const carouselRoot = this.root.querySelector('.form-feed__feed-photo');
+        this.carousel = new Carousel(carouselRoot);
+        this.carousel.render(user.image_paths);
+
+        searchBtn.addEventListener('click', () => searchForm.classList.toggle('search_visible'));
+        this.addSearchParams();
+    }
+
+    /**
+     * Добавление параметров поиска (фильтров)
+     */
     addSearchParams() {
         this.selectTags();
         const readySearch = this.root.querySelector('#readySearch');
@@ -142,6 +207,10 @@ export class FeedView extends BaseView {
         this.render(user);
     }
 
+    /**
+     * Закрытие окошка с тегами по клику вне него
+     * @param {Event} e - событие клика
+     */
     clickWithinTags(e) {
         const container = document.querySelector('.multiselection__input');
         const input = document.querySelector('.multiselection__select-multiple');
@@ -150,6 +219,9 @@ export class FeedView extends BaseView {
         }
     }
 
+    /**
+     * Обеспечивает отрисовку выбора тегов
+     */
     selectTags() {
         const input = this.root.querySelector('.multiselection__input');
         input.addEventListener('click', ()=>{

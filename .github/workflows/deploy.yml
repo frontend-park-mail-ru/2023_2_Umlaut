@@ -3,6 +3,7 @@ on:
     branches:
     - main
     - dev
+    - deploy
   workflow_dispatch:
     inputs:
       assemblyType:
@@ -56,6 +57,7 @@ jobs:
         uses: actions/download-artifact@v2.1.1
         with:
           name: build
+          path: build
       - name: Deploy files to server
         uses: appleboy/scp-action@master
         with:
@@ -65,3 +67,4 @@ jobs:
           source: build/*
           target: /home/ubuntu/front/2023_2_Umlaut/dist
           strip_components: 1
+          overwrite: true

@@ -3,12 +3,12 @@
 .form-feed {
   padding: 20px;
   display: flex;
-  margin-top: 3vh;
+  margin-top: 5vh;
   justify-content: center;
 
   @media (max-width: $phone-max-width) {
     padding: 0;
-    margin-top: 6vh;
+    margin-top: 7vh;
     margin-bottom: 6vh;
   }
 
@@ -31,43 +31,33 @@
     cursor: pointer;
     appearance: none;
     background-color: inherit;
-    transition: transform 0.7s ease-in-out;
-    border-radius: 50%;
-    background-color: green;
-    aspect-ratio: 1 / 1;
-    @supports not (aspect-ratio: 1 / 1) {
-      &::before {
-        float: left;
-        padding-top: 100%;
-        content: "";
-      }
-  
-      &::after {
-        display: block;
-        content: "";
-        clear: both;
-      }
-    }
+    transition: all 0.2s ease-in-out;
+    border-radius: 999px;
+    background-color: rgb(252, 252, 252);
+    box-shadow: $shadow;
+    height: 70px;
+    width: 70px;
+    box-sizing: border-box;
+    padding: 6px;
     cursor: pointer;
 
     &:hover {
-      filter: brightness(1.2);
+      filter: brightness(1.1);
+      transform: scale(1.01) translateY(-1px);
     }
 
     &-img {
-      height: 100%;
-      width: 100%;
       position: relative;
-      top: 3px;
-      scale: 1.2;
-    }
-
-    &-like {
-      background-color: rgb(0, 114, 0);
-    }
-
-    &-dislike {
-      background-color: #dd1428;
+      &-like{
+        stroke: #ff5182;
+        scale: 0.9;
+        position: relative;
+        top:2px;
+      }
+      &-dislike{
+        scale: 1.2;
+        stroke: #4a58a2;
+      }
     }
 
     &:active:enabled {
@@ -100,9 +90,9 @@
     box-shadow: 0px 0px 5px 1px rgba(34, 60, 80, 0.2);
     background-color: #ffffff;
     display: grid;
-    max-width: min(90vw, 1000px);
+    width: min(90vw, 900px);
     grid-template-columns: min(max(280px, 31vw), 450px) minmax(0, 1fr);
-    grid-template-rows: min(60vh, 600px);
+    grid-template-rows: min(max(450px, 60vh), 600px);
     overflow: hidden;
     column-gap: 2vw;
     position: relative;
@@ -150,7 +140,14 @@
     display: flex;
     flex-direction: column;
     padding-bottom: 15px;
-    overflow: hidden;
+    overflow: auto;
+    @media (min-width: $phone-max-width) {
+      padding-right: 10px;
+    }
+
+    &__no-overflow{
+      overflow: unset;
+    }
   }
 
   &__about-user {
@@ -158,21 +155,34 @@
     flex-direction: column;
   }
 
-  &__search-btn {
+  &__search {
     user-select: none;
     height: min(6vh, 60px);
-    margin-left: auto;
     cursor: pointer;
     position: absolute;
     right: 1vw;
-    top: 1vw;
+    top: 10px;
     z-index: 5;
     aspect-ratio: 1 / 1;
+    display: flex;
+    align-items: center;
+  }
+
+  &__search-btn {
+    height: min(6vh, 60px);
+  }
+
+  &__search-text{
+    color: var(--dark-blue-color);
+    font-size: 22px;
+    @media (max-width: $phone-max-width) {
+      display: none;
+    }
   }
 
   &__complain {
     position: absolute;
-    font-size: 0.6rem;
+    font-size: 0.8rem;
     font-weight: bold;
     color: var(--dark-blue-color);
     right: 0;
@@ -180,12 +190,29 @@
     padding: 2px;
     padding-right: 20px;
     cursor: pointer;
+    background-color: white;
     &:hover {
       scale: 1.03;
     }
     &-symbol {
       position: relative;
       bottom: 0.5px;
+    }
+  }
+
+  &__left-swipes{
+    position: absolute;
+    font-size: 0.8rem;
+    font-weight: bold;
+    color: var(--dark-blue-color);
+    left: 50%;
+    bottom: 0;
+    padding: 2px;
+    padding-right: 20px;
+    background-color: white;
+
+    @media (max-width: $phone-max-width) {
+      left: 4%;
     }
   }
 }
@@ -202,10 +229,12 @@
   visibility: hidden;
   z-index: 10;
   box-sizing: border-box;
+  max-width: 461px;
 
   @media (max-width: $phone-max-width) {
     right:auto;
     top: 30vh;
+    margin: 0px 3%;
   }
 
   &_visible {
@@ -216,5 +245,23 @@
     display: flex;
     width: min(85vw, 325px);
     gap: 10px;
+  }
+}
+
+.input{
+  &_complain{
+    margin-top: 10px;
+  }
+
+  &__input{
+    &_complain{
+      color: var(--dark-blue-color);
+    }
+  }
+
+  &__label{
+    &_complain{
+      color: var(--dark-blue-color);
+    }
   }
 }

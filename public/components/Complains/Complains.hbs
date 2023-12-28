@@ -8,6 +8,9 @@
 {{#if user}}
 <div class="complaint">
     <div class="complaint__header">На пользователя пожаловались по причине <span class="complaint__header-type">{{complaint_type}}</span></div>
+    {{#if complaint_text}}
+    <div class="complaint__header">Комментарий пожаловавшегося: {{complaint_text}}</div>
+    {{/if}}
     <div class="form-feed__user-part">
         {{> ../Feed/Description user}}
     </div>

@@ -11,12 +11,17 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="translucent-black">
     <meta name="apple-mobile-web-app-title" content="Umlaut">
     <link rel="shortcut icon" sizes="196x196" href="/pics/Umlaut.jpg">
+    <link rel='manifest' href="/manifest.json">
 </head>
 <body>
-    <div id="root" class="root">
-        <div class="header"></div>
-        <div class="main-part"></div>
-        <div class="popup popup_dark"></div>
+    <div class="main">  
+        <img class="main__menu-btn" src="/pics/menu.png">      
+        <div class="sidebar"></div>
+        <div id="root" class="root">
+            <div class="header"></div>
+            <div class="main-part"></div>
+            <div class="popup"></div>
+        </div>
     </div>
     <script type="module" src="/main.js"></script>
 </body>

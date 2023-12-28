@@ -1,17 +1,20 @@
 import {BaseView} from '../BaseView.js';
-import {MESSENGER_EVENTS} from '../../lib/constansts.js';
+import {GLOBAL_EVENTS, MESSENGER_EVENTS} from '../../lib/constansts.js';
+import {Carousel} from '../Carousel/Carousel.js';
 import './Messenger.scss';
+import {nthIndex} from '../../lib/util.js';
 
+/**
+ * Класс отображения мессенджера
+ */
 export class MessengerView extends BaseView {
     constructor(root, eventBus) {
         super(root, eventBus, require('./Messenger.hbs'));
-        this.eventBus.on(MESSENGER_EVENTS.DIALOGS_READY, this.addDialogs.bind(this));
-        this.eventBus.on(MESSENGER_EVENTS.PAIRS_READY, this.addPairs.bind(this));
         this.eventBus.on(MESSENGER_EVENTS.MESSAGES_READY, this.openDialog.bind(this));
         this.eventBus.on(MESSENGER_EVENTS.NEW_MESSAGE_IN_THIS_DIALOG, this.createMessage.bind(this));
-        this.eventBus.on(MESSENGER_EVENTS.SENT, this.createMessage.bind(this));
+        this.eventBus.on(MESSENGER_EVENTS.SEND, this.createMessage.bind(this));
         this.eventBus.on(MESSENGER_EVENTS.NEW_MESSAGE_IN_OTHER_DIALOG, this.newMessageOtherDialog.bind(this));
-        this.dialogPreviewTemplate = require('./DialogPreview.hbs');
+        this.eventBus.on(MESSENGER_EVENTS.MESSAGE_NOT_SENT, this.messageNotSent.bind(this));
         this.dialog = require('./MessengerWindow.hbs');
         this.dialogWindow = null;
         this.dialogListView = null;
@@ -19,104 +22,83 @@ export class MessengerView extends BaseView {
         this.message = require('./Message.hbs');
         this.eventBus.on();
         this.my_id = 0;
-    }
-
-    render(data) {
-        super.render(data);
-        this.forMobile();
-        this.dialogList = [];
-        this.dialogListView = document.getElementById('dialog-list');
-        this.dialogWindow = document.getElementById('dialog-window');
-
-        this.showDialogs = document.getElementById('show_dialogs');
-        this.showPairs = document.getElementById('show_pairs');
-        this.showDialogs.addEventListener('click', () => this.eventBus.emit(MESSENGER_EVENTS.GET_DIALOGS));
-        this.showPairs.addEventListener('click', () => this.eventBus.emit(MESSENGER_EVENTS.GET_PAIRS));
-
-        if (!data) {
-            this.eventBus.emit(MESSENGER_EVENTS.GET_DIALOGS);
-        }
-
-        this.forMobile();
-    }
-
-    addDialogs(data) {
-        if (data) {
-            this.addData(data);
-        } else {
-            this.addEmptyDialogs(require('./EmptyDialogs.hbs'));
-        }
-    }
-
-    addPairs(data) {
-        if (data) {
-            this.addData(data);
-        } else {
-            this.addEmptyDialogs(require('./EmptyPairs.hbs'));
-        }
-    }
-
-    addData(data) {
-        this.dialogList = [];
-        this.dialogListView.innerHTML = '';
-        data.forEach((dialog) => {
-            const dialogPreview = document.createElement('div');
-            dialogPreview.innerHTML = this.dialogPreviewTemplate(dialog);
-
-            if (dialog.last_message !== null && !dialog.last_message.is_read) {
-                const newMes = document.createElement('div');
-                newMes.className = 'dialog-preview__new-message';
-                dialogPreview.querySelector('.dialog-preview').appendChild(newMes);
-            }
-
-            dialogPreview.addEventListener('click', ()=>{
-                this.eventBus.emit(MESSENGER_EVENTS.GET_MESSAGES, {id: dialog.user_dialog_id, name: dialog.companion});
-            });
-            this.dialogListView.appendChild(dialogPreview);
-            this.dialogList.push(dialogPreview);
-        });
-    }
-
-    addEmptyDialogs(empty) {
-        this.dialogListView.innerHTML = '';
-        const dialogPreview = document.createElement('div');
-        dialogPreview.innerHTML = empty();
-        this.dialogListView.appendChild(dialogPreview);
-        this.dialogList.push(dialogPreview);
-    }
-
-    openDialog(data) {
-        const newMes = this.root.querySelector('.dialog-preview__new-message');
-        if (newMes) {
-            newMes.style.visibility = 'hidden';
-        }
-
-        this.dialogWindow.innerHTML = this.dialog({name: data.name});
-        this.my_id = data.my_id;
-        data.dialogs.forEach((mes) => {
-            mes.created_at = mes.created_at.slice(mes.created_at.indexOf('T') + 1,
-                this.nthIndex(mes.created_at, ':', 2));
-            this.createMessage(mes);
-        });
-
-        const inputText = this.dialogWindow.querySelector('#message');
-        inputText.onfocus = () => {
+        this.cantSend = () =>
+            this.eventBus.emit(MESSENGER_EVENTS.ERROR, 'Нет интернета, сообщение не может быть отправлено');
+        this.markRead = () => {
             const windowDialog = this.root.querySelector('.dialog-window__dialog');
             const unread = this.root.querySelector('.dialog-window__unread');
             if (unread) {
                 windowDialog.removeChild(unread);
             }
         };
+    }
+
+    /**
+     * отрисовывает окно диалога при его открытии
+     */
+    render() {
+        super.render();
+        this.rendered = true;
+        this.dialogWindow = document.getElementById('dialog-window');
+        const dialogId = window.location.pathname.split('/').pop();
+        if (dialogId !== 'messages' && dialogId !== '') {
+            this.eventBus.emit(MESSENGER_EVENTS.GET_MESSAGES);
+            document.querySelector('.sidebar').className = 'sidebar';
+        } else {
+            document.querySelector('.sidebar').className = 'sidebar sidebar__visible';
+        }
+    }
+
+    /**
+     * Отрисовывает сообщения в окне диалога
+     * @param {Object} data - список сообщений
+     */
+    openDialog(data) {
+        if (!data) {
+            document.getElementById('messenger__user-form').innerHTML = '';
+            this.dialogWindow.innerHTML = this.dialog();
+            return;
+        }
+        const dialogPreview = document.getElementById(data.dialog_id);
+        const newMes = dialogPreview?.querySelector('.dialog-preview__new-message');
+        if (newMes) {
+            dialogPreview.removeChild(newMes);
+        }
+
+        this.dialogWindow.innerHTML = this.dialog({user: data.user});
+        this.my_id = data.my_id;
+
+        this.openDialogMessages(data);
+
+        const inputText = this.dialogWindow.querySelector('#message');
+        inputText.addEventListener('input', this.markRead);
+        inputText.addEventListener('focus', this.markRead);
 
         const send = this.dialogWindow.querySelector('#send');
-        send.addEventListener('click', ()=>{
+        const sendFunc = ()=>{
             const inputText = this.dialogWindow.querySelector('#message');
             const msg = inputText.value;
             inputText.value = '';
-            if (msg.length > 0) {
+            if (msg.trim().length > 0) {
                 this.eventBus.emit(MESSENGER_EVENTS.SEND_MESSAGE, msg);
             }
+        };
+        send.addEventListener('click', sendFunc);
+        addEventListener('online', ()=>{
+            const send = this.dialogWindow.querySelector('#send');
+            if (send) {
+                send.addEventListener('click', sendFunc);
+                send.removeEventListener('click', this.cantSend);
+            }
         });
+        addEventListener('offline', ()=>{
+            const send = this.dialogWindow.querySelector('#send');
+            if (send) {
+                send.removeEventListener('click', sendFunc);
+                send.addEventListener('click', this.cantSend);
+            }
+        });
+
 
         this.dialogWindow.querySelector('#message')
             .addEventListener('keyup', (event) => {
@@ -130,9 +112,55 @@ export class MessengerView extends BaseView {
         block.scrollTop = block.scrollHeight;
 
         this.eventBus.emit(MESSENGER_EVENTS.MARK_AS_READ, data.dialogs);
+
+        this.renderUserForm(data.user);
+
+        const cross = this.root.querySelector('.messenger__cross');
+        const user = this.root.querySelector('#user-name');
+        cross.addEventListener('click', ()=>
+            this.root.querySelector('.messenger__user-form').classList.toggle('messenger__user-form_invisible'));
+        user.addEventListener('click', ()=>
+            this.root.querySelector('.messenger__user-form').classList.toggle('messenger__user-form_invisible'));
     }
 
+    messageNotSent(data) {
+        this.dialogWindow.querySelector('#message').value = data;
+    }
+
+    openDialogMessages(data) {
+        data.dialogs.forEach((mes) => {
+            mes.created_at = mes.created_at.slice(mes.created_at.indexOf('T') + 1,
+                nthIndex(mes.created_at, ':', 2));
+            this.createMessage(mes);
+        });
+    }
+
+    renderUserForm(user) {
+        const userForm = document.createElement('div');
+        userForm.className = 'messenger__user-form';
+        const cross = document.createElement('img');
+        cross.className = 'messenger__cross';
+        cross.src = '/pics/cross.png';
+        userForm.appendChild(cross);
+
+        userForm.innerHTML += require('../Feed/Description.hbs')(user);
+        const carouselRoot = userForm.querySelector('.form-feed__feed-photo');
+        userForm.querySelector('.form-feed__description').className = 'form-feed__description_no-overflow';
+        const messenger = this.root.querySelector('.messenger');
+        messenger.appendChild(userForm);
+
+        this.carousel = new Carousel(carouselRoot);
+        this.carousel.render(user.image_paths);
+    }
+
+    /**
+     * Создает элемент сообщения
+     * @param {Object} mes - объект сообщения, которое нужно отрисовать
+     */
     createMessage(mes) {
+        if (!this.rendered) {
+            return;
+        }
         const windowDialog = this.root.querySelector('.dialog-window__dialog');
         if (!windowDialog) {
             return;
@@ -151,66 +179,37 @@ export class MessengerView extends BaseView {
             const myMes = mesElem.querySelector('.dialog-window__message');
             myMes.className = 'dialog-window__message dialog-window__message_me';
         }
+        windowDialog.appendChild(mesElem);
         const block = this.root.querySelector('.dialog-window__dialog');
         block.scrollTop = block.scrollHeight;
-        windowDialog.appendChild(mesElem);
     }
 
+    /**
+     * Закрытие страницы сообщений
+     */
     close() {
         super.close();
         this.dialogWindow = null;
         this.dialogListView = null;
         this.dialogList = null;
+        this.rendered = false;
     }
 
-
-    nthIndex(str, pat, n) {
-        const L = str.length; let i = -1;
-        while (n-- && i++ < L) {
-            i = str.indexOf(pat, i);
-            if (i < 0) break;
-        }
-        return i;
-    }
-
-    newMessageOtherDialog() {
-        const dialog = this.root.querySelector('.dialog-preview');
+    /**
+     * Создает элемент нового сообщения
+     * @param {Object} msg - сообщение
+     */
+    newMessageOtherDialog(msg) {
+        const dialog = document.getElementById(msg.dialog_id);
         if (!dialog) {
+            this.eventBus.emit(GLOBAL_EVENTS.RENDER_DIALOGS);
+            return;
+        }
+        if (dialog.querySelector('.dialog-preview__new-message')) {
             return;
         }
         const newMes = document.createElement('div');
         newMes.className = 'dialog-preview__new-message';
         dialog.appendChild(newMes);
-    }
-
-    forMobile() {
-        const dialogs = this.root.querySelector('.messenger__dialogs');
-        dialogs.addEventListener('click', ()=>{
-            const mesSwitch = dialogs.querySelector('.messenger__switch');
-            mesSwitch.style.display = 'block';
-            const names = dialogs.querySelectorAll('.dialog-preview__dialog-name');
-            names.forEach((name) => {
-                name.style.display = 'block';
-            });
-            const dialList = dialogs.querySelector('.messenger__dialog-list');
-            dialList.style.width = 'auto';
-
-            dialogs.style.width = '350px';
-        });
-
-        const dialogWindow = this.root.querySelector('.dialog-window');
-        dialogWindow.addEventListener('click', ()=>{
-            const dialogs = this.root.querySelector('.messenger__dialogs');
-            const mesSwitch = dialogs.querySelector('.messenger__switch');
-            mesSwitch.style.display = 'none';
-            const names = dialogs.querySelectorAll('.dialog-preview__dialog-name');
-            names.forEach((name) => {
-                name.style.display = 'none';
-            });
-            const dialList = dialogs.querySelector('.messenger__dialog-list');
-            dialList.style.width = 'min-content';
-
-            dialogs.style.width = 'min-content';
-        });
     }
 }

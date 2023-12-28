@@ -18,7 +18,7 @@ self.addEventListener('fetch', (event) => {
         if (navigator.onLine) {
             return fetch(event.request)
                 .then((response) => {
-                    if (event.request.method !== 'GET') {
+                    if (event.request.method !== 'GET' || response.status !== 200) {
                         return response;
                     }
 

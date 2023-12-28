@@ -1,0 +1,23 @@
+<div class="popup__text popup__text_big">
+    БУМ!!!
+</div>
+<div class="popup__photos">
+    {{#if сompanion_image_paths}}
+        <img class="popup__photo-img" src={{сompanion_image_paths.[0]}}>
+    {{else}}
+        <img class="popup__photo-img" src='/pics/avatar.png'>
+    {{/if}}
+    {{#if my_photo}}
+        <img class="popup__photo-img" src={{my_photo}}>
+    {{else}}
+        <img class="popup__photo-img" src='/pics/avatar.png'>
+    {{/if}}
+</div>
+<div class="popup__match-text">
+    {{companion}} тоже хочет познакомиться! Теперь вы можете
+</div>
+<div class="popup__match-buttons">
+    <a class="popup__dialog-link link" id="toDialog" href="/messages/{{id}}">начать общаться сейчас</a>
+    <span class="popup__or">или</span>
+    <a class="popup__feed-link link" id="toFeed" href="/feed">пока поискать еще</a>
+</div>

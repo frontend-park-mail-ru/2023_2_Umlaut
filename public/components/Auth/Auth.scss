@@ -4,7 +4,7 @@
   width: max(20%, 300px);
   margin-top: 20px;
   margin-bottom: 40px;
-  background-color: var(--dark-blue-color);
+  background-color: #303656e3;
   border-radius: 4px;
   padding: 20px;
 
@@ -42,6 +42,22 @@
     @media (max-width: $phone-max-width) {
       font-size: 20px;
     }
+  }
+
+  &__social-media{
+    color: white;
+    font-size: calc(0.355vw + 12.67px);
+    background-color: #5a5a75;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    padding: 2px;
+  }
+
+  &__vk-img{
+    width: 20px;
+    margin: 7px;
   }
 }
 
@@ -109,39 +125,117 @@
 
 .naming {
   position: absolute;
-  right: 20px;
   color: #303656;
-  font-size: calc(1.33vw + 5.3px);
+  font-size: calc(1.5vw + 6px);
   text-transform: uppercase;
-  width: min-content;
-  background-color: rgba(255, 255, 255, 0.5);
+  background-color: rgba(255, 255, 255, 0.64);
   backdrop-filter: blur(8px);
   padding: 1%;
-  border-radius: 15px;
+  border-radius: 10px;
+  width: 60%;
+  top: 300px;
+  left: 18%;
+  text-align: center;
 
   @media (max-width: $phone-max-width) {
-    display: none;
+    top: 100px;
   }
-}
 
-.naming_small {
-  font-size: 20px;
+  &_in-bottom{
+    width: 35%;
+    top: 350px;
+    left: 55%;
 
-  @media (max-width: $phone-max-width) {
-    font-size: 14px;
+    @media (max-width: 810px) {
+      width: 90%;
+      position: static;
+      margin: 25px auto;
+    }
+  }
+
+  &_small {
+    font-size: calc(1.2vw + 4px);
+  }
+
+  &__buttons{
+    display: flex;
+    font-size: calc(1.2vw + 4px);
+    gap: 5%;
+    justify-content: center;
+    padding: 10px 0;
+    @media (max-width: $phone-max-width) {
+      font-size: calc(1.2vw + 4px);
+    }
+  }
+
+  &__auth-btn{
+    width: 270px;
+
+    @media (max-width: 900px) {
+      width: auto;
+    }
   }
 }
 
 .background-holder {
-  background-image: url("../../../static/pics/lending.jpg");
+  background-image: url("../../../static/pics/pair.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   background-color: var(--background-color);
   padding: 5%;
+  margin: 1% 5%;
+  min-height: 100vh;
 
   @media (max-width: $phone-max-width) {
-    background-size: contain;
-    background-image: none;
     padding: 0px;
+    height: min-content;
+    min-height: 80vh;
+  }
+
+  &_disappear{
+    background-image: url("../../../static/pics/lending.jpg");
+    @media (max-width: $phone-max-width) {
+      background-image: none;
+      margin: 0px;
+    }
+  }
+}
+
+.different-acquaintance{
+
+  &__name{
+    font-size: calc(1.6vw + 10px);
+    text-align: center;
+    color: var(--dark-blue-color);
+    margin: 2%;
+  }
+
+  &__examples{
+    margin: 2% 5%;
+    display: flex;
+    gap: 4%;
+  }
+
+  &__example{
+    width: 30%;
+  }
+
+  &__example-name{
+    margin: 10px 0;
+    text-align: center;
+    color: var(--dark-blue-color);
+    font-size: calc(1.5vw + 6px);
+  }
+
+  &__example-img{
+    width: 100%;
+    border-radius: 25px;
+  }
+
+  &__text{
+    font-size: calc(1.2vw + 4px);
+    margin: 10px;
+    text-align: center;
+    color: var(--dark-blue-color);
   }
 }

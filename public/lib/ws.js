@@ -20,6 +20,7 @@ export class WebSocketWrapper {
         }
         this.socket.onopen = () => {
             console.log('Socket connected');
+            setTimeout(this.socket.send(''), 30000);
         };
         this.socket.onmessage = (event) => {
             this.messageSubscribers.forEach((handler) => {
@@ -27,11 +28,13 @@ export class WebSocketWrapper {
             });
         };
         this.socket.onclose = (event) => {
-            console.log('Socket closed');
+            console.log('Socket closed', event);
             this.closeSubscribers.forEach((handler) => {
                 handler(event);
             });
-            setTimeout(this.connect.bind(this), 1000);
+            if (event.wasClean === false) {
+                setTimeout(this.connect.bind(this), 1000);
+            }
         };
         this.socket.onerror = (event) => {
             this.errorSubscribers.forEach((handler) => {
@@ -70,9 +73,9 @@ export class WebSocketWrapper {
 
     send(dataObject) {
         try {
-            Promise.resolve(this.socket.send(JSON.stringify(dataObject)));
+            this.socket.send(JSON.stringify(dataObject));
         } catch (e) {
-            console.log('not connected');
+            e;
             throw e;
         }
     }

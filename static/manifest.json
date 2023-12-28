@@ -1,0 +1,20 @@
+{
+	"short_name": "Umlaut",
+	"name": "Ümlaut",
+	"lang": "ru",
+	"description": "Dating site",
+	"start_url": "https://umlaut-bmstu.me",
+	"background_color": "#eed5dc",
+	"theme_color": "#eed5dc",
+	"dir": "ltr",
+	"display": "standalone",
+	"orientation": "any",
+	"icons": [
+		{
+			"src": "logo.png",
+			"type": "image/png",
+			"sizes": "512x512"
+		}
+	],
+	"prefer_related_applications": false
+}

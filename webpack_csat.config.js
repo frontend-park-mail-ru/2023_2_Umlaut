@@ -1,7 +1,8 @@
 const path = require('path');
 const ServiceWorkerWebpackPlugin = require('serviceworker-webpack5-plugin');
 const CopyPlugin = require('copy-webpack-plugin')
-const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const ImageMinimizerPlugin = require("image-minimizer-webpack-plugin");
 
 module.exports = {
   entry: ['./csat/index.js'], 
@@ -35,7 +36,23 @@ module.exports = {
           }
         }
       },
+      {
+        test: /\.(jpe?g|png)$/i,
+        type: "asset",
+      },
     ]
+  },
+
+  optimization: {
+    minimizer: [
+      `...`,
+      new MiniCssExtractPlugin(),
+      new ImageMinimizerPlugin({
+        minimizer: {
+          implementation: ImageMinimizerPlugin.sharpMinify,
+        },
+      }),
+    ],
   },
 
   plugins: [
@@ -49,6 +66,6 @@ module.exports = {
           to: path.resolve(__dirname, 'dist/csat/')
         }
       ]
-    })
+    }),
   ]
 };

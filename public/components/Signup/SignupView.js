@@ -37,8 +37,8 @@ export class SignupView extends BaseView {
             } else this.hideError();
         });
         this.nameInput.addEventListener('change', () => {
-            if (this.nameInput.value === '') {
-                this.showError('Имя не должно быть пусто');
+            if (this.nameInput.value.length < 2) {
+                this.showError('Имя должно содержать не менее 2х символов');
             } else this.hideError();
         });
         this.passwordInput.addEventListener('change', () => {
@@ -63,8 +63,14 @@ export class SignupView extends BaseView {
                 eye.src = '/pics/eye_closed.png';
             }
         });
+
+        const vk = this.root.querySelector('#vk');
+        vk.addEventListener('click', ()=>this.eventBus.emit(AUTH_EVENTS.VK_AUTH));
     }
 
+    /**
+     * Закрытие страницы регистрации
+     */
     close() {
         super.close();
         this.mailInput = null;
@@ -84,8 +90,8 @@ export class SignupView extends BaseView {
             this.mailInput.focus();
             return false;
         }
-        if (this.nameInput.value === '') {
-            this.showError('Имя не должно быть пусто');
+        if (this.nameInput.value.length < 2) {
+            this.showError('Имя должно содержать не менее 2х символов');
             this.nameInput.focus();
             return false;
         }
@@ -99,6 +105,11 @@ export class SignupView extends BaseView {
             this.passwordInput.focus();
             return false;
         }
+        if ( Validate.areSmails(this.passwordInput.value)) {
+            this.showError('Пароль не может содержать смайлики');
+            this.passwordInput.focus();
+            return false;
+        }
         if (this.passwordInput.value !== this.repasswordInput.value) {
             this.showError('Пароли отличаются');
             return false;
@@ -107,6 +118,7 @@ export class SignupView extends BaseView {
     }
 
     /**
+     * Отправка данных с формы регистрации
      * @param {SubmitEvent} event
      */
     onSubmit(event) {
